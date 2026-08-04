@@ -1,0 +1,289 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   SPEAK — DESIGN TOKENS
+   Visual language: pixel-art operating system.
+   Sampled directly from the reference: true black rules, paper white surfaces,
+   mint #B7DBD7 desktop. Hard edges, stepped corners, zero soft shadows.
+   ========================================================================= */
+
+@theme {
+  /* --- Core palette (sampled) ------------------------------------------- */
+  --color-ink: #000000;
+  --color-graphite: #2a3230;
+  --color-slate: #5a6764;
+  --color-mute: #8b9794;
+
+  --color-paper: #ffffff;
+  --color-mint-mist: #ecf6f5;
+  --color-mint-soft: #d8ecea;
+  --color-mint: #b7dbd7;
+  --color-mint-deep: #8fbfb9;
+  --color-mint-shade: #6fa6a0;
+
+  /* Glow accent — kept inside the mint family so it never reads as neon. */
+  --color-glow: #7fe9e0;
+
+  /* System states. The reference is monochrome; these are the minimum
+     additions a design system needs, desaturated to stay in-palette. */
+  --color-alert: #e4736a;
+  --color-affirm: #7fb69a;
+
+  /* --- Typography -------------------------------------------------------- */
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-pixel: var(--font-silkscreen), ui-monospace, monospace;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --text-micro: 0.625rem;
+  --text-micro--line-height: 1rem;
+  --text-micro--letter-spacing: 0.14em;
+
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.1rem;
+  --text-label--letter-spacing: 0.1em;
+
+  /* --- Spacing ----------------------------------------------------------- */
+  /* 4px base unit. Every gap in the system is a multiple: p-2 = 8, p-4 = 16,
+     p-6 = 24, p-8 = 32. Panels use 4/6, page rhythm uses 8/12/16. */
+  --spacing: 4px;
+
+  /* --- Geometry ---------------------------------------------------------- */
+  /* Pixel art has no radii. The only curve in the reference is the meter
+     pill, which gets an explicit exception token. */
+  --radius-none: 0px;
+  --radius-pill: 999px;
+
+  --stroke-hair: 1px;
+  --stroke-rule: 2px;
+  --stroke-frame: 3px;
+  --stroke-heavy: 4px;
+
+  --notch-sm: 3px;
+  --notch-md: 4px;
+  --notch-lg: 6px;
+
+  /* --- Motion ------------------------------------------------------------ */
+  /* Pixel UIs step, they don't glide. Snappy cubic easing + stepped spins. */
+  --ease-pixel: cubic-bezier(0.2, 0.9, 0.25, 1);
+  --ease-snap: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-drift-slow: drift 90s linear infinite;
+  --animate-drift-mid: drift 60s linear infinite;
+  --animate-drift-fast: drift 38s linear infinite;
+  --animate-twinkle: twinkle 3.2s steps(3, end) infinite;
+  --animate-blink: blink 1.1s steps(2, end) infinite;
+  --animate-step-spin: step-spin 0.9s steps(8, end) infinite;
+  --animate-bob: bob 4s ease-in-out infinite;
+  --animate-glow-pulse: glow-pulse 2.8s ease-in-out infinite;
+  --animate-sheen: sheen 2.4s linear infinite;
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes step-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+@keyframes sheen {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 16px 0;
+  }
+}
+
+/* ============================================================================
+   BASE
+   ========================================================================= */
+
+@layer base {
+  * {
+    border-color: var(--color-ink);
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--color-mint);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01" on;
+  }
+
+  /* Pixel art must never be smoothed by the browser. */
+  img,
+  svg {
+    image-rendering: pixelated;
+  }
+
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-mint);
+  }
+
+  /* Focus is a hard offset outline — no soft rings anywhere in this system. */
+  :focus-visible {
+    outline: var(--stroke-frame) solid var(--color-ink);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ============================================================================
+   PRIMITIVES
+   ========================================================================= */
+
+@layer components {
+  /* The single geometric signature of the whole product: a square-stepped
+     corner cut. Every surface in Speak is clipped with this, which is what
+     makes unrelated components read as one system. */
+  .pixel-clip {
+    --notch: var(--notch-md);
+    clip-path: polygon(
+      var(--notch) 0,
+      calc(100% - var(--notch)) 0,
+      calc(100% - var(--notch)) var(--notch),
+      100% var(--notch),
+      100% calc(100% - var(--notch)),
+      calc(100% - var(--notch)) calc(100% - var(--notch)),
+      calc(100% - var(--notch)) 100%,
+      var(--notch) 100%,
+      var(--notch) calc(100% - var(--notch)),
+      0 calc(100% - var(--notch)),
+      0 var(--notch),
+      var(--notch) var(--notch)
+    );
+  }
+
+  /* Horizontal pixel rule — a dotted 2px sequence rather than a hairline. */
+  .pixel-rule {
+    height: var(--stroke-rule);
+    background-image: linear-gradient(
+      90deg,
+      var(--color-ink) 0 4px,
+      transparent 4px 8px
+    );
+    background-size: 8px 100%;
+  }
+
+  /* Faint blueprint grid used by the animated background. */
+  .pixel-grid {
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, var(--color-ink) 7%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--color-ink) 7%, transparent) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* Ordered-dither wash — the retro way to get a gradient without gradients. */
+  .pixel-dither {
+    background-image: radial-gradient(
+      var(--color-ink) 1px,
+      transparent 1px
+    );
+    background-size: 4px 4px;
+    opacity: 0.08;
+  }
+
+  /* Diagonal hatch for meter fills and "busy" surfaces. */
+  .pixel-hatch {
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--color-ink) 0 2px,
+      transparent 2px 6px
+    );
+  }
+
+  /* Scanline veil, very low opacity — texture, not a CRT gimmick. */
+  .pixel-scanlines {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-ink) 12%, transparent) 0 1px,
+      transparent 1px 3px
+    );
+  }
+}
+
+/* ============================================================================
+   UTILITIES
+   ========================================================================= */
+
+@utility text-hud {
+  font-family: var(--font-pixel);
+  font-size: var(--text-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+@utility text-caps {
+  font-size: var(--text-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
