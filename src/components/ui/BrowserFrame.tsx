@@ -170,7 +170,7 @@ export function BrowserFrame({
         <div aria-hidden className="h-0.5 shrink-0 bg-ink" />
 
         {/* ---- Viewport -------------------------------------------------- */}
-        <div className="relative min-h-0 flex-1 bg-paper">{children}</div>
+        <div className="relative min-h-0 flex-1 bg-mint-mist">{children}</div>
 
         {/* ---- Status bar ------------------------------------------------ */}
         {footer !== null && (
