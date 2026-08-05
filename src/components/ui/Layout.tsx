@@ -52,7 +52,7 @@ export function Layout({
       footer={footer}
       wallpaper={!quietBackground}
     >
-      <div className="absolute inset-0 overflow-x-hidden overflow-y-auto">
+      <div className="pixel-scroll absolute inset-0 overflow-x-hidden overflow-y-auto">
         <main
           className={cn(
             "mx-auto w-full max-w-[1280px] px-4 py-6 sm:px-6 sm:py-8",
