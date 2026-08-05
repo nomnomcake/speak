@@ -17,30 +17,30 @@ import { PixelCloud, Sparkle, Sun, type CloudShape } from "./PixelArt";
 type BeltCloud = { shape: CloudShape; x: number; y: number; unit: number };
 
 const FAR: BeltCloud[] = [
-  { shape: "wisp", x: 4, y: 30, unit: 3 },
-  { shape: "classic", x: 17, y: 8, unit: 3 },
-  { shape: "double", x: 31, y: 46, unit: 3 },
-  { shape: "wisp", x: 45, y: 18, unit: 2 },
-  { shape: "puff", x: 58, y: 40, unit: 3 },
-  { shape: "classic", x: 71, y: 4, unit: 3 },
-  { shape: "wisp", x: 85, y: 34, unit: 3 },
-  { shape: "bank", x: 93, y: 14, unit: 2 },
+  { shape: "wisp", x: 4, y: 30, unit: 5 },
+  { shape: "classic", x: 17, y: 8, unit: 4 },
+  { shape: "double", x: 31, y: 46, unit: 5 },
+  { shape: "wisp", x: 45, y: 18, unit: 4 },
+  { shape: "puff", x: 58, y: 40, unit: 5 },
+  { shape: "classic", x: 71, y: 4, unit: 4 },
+  { shape: "wisp", x: 85, y: 34, unit: 5 },
+  { shape: "bank", x: 93, y: 14, unit: 4 },
 ];
 
 const MID: BeltCloud[] = [
-  { shape: "double", x: 7, y: 22, unit: 5 },
-  { shape: "puff", x: 24, y: 54, unit: 4 },
-  { shape: "classic", x: 40, y: 6, unit: 5 },
-  { shape: "wisp", x: 55, y: 40, unit: 4 },
-  { shape: "bank", x: 68, y: 16, unit: 5 },
-  { shape: "double", x: 87, y: 50, unit: 4 },
+  { shape: "double", x: 7, y: 22, unit: 8 },
+  { shape: "puff", x: 24, y: 54, unit: 7 },
+  { shape: "classic", x: 40, y: 6, unit: 8 },
+  { shape: "wisp", x: 55, y: 40, unit: 7 },
+  { shape: "bank", x: 68, y: 16, unit: 7 },
+  { shape: "double", x: 87, y: 50, unit: 7 },
 ];
 
 const NEAR: BeltCloud[] = [
-  { shape: "bank", x: 12, y: 30, unit: 7 },
-  { shape: "double", x: 42, y: 4, unit: 6 },
-  { shape: "puff", x: 63, y: 44, unit: 7 },
-  { shape: "classic", x: 88, y: 20, unit: 6 },
+  { shape: "bank", x: 12, y: 30, unit: 11 },
+  { shape: "double", x: 42, y: 4, unit: 10 },
+  { shape: "puff", x: 63, y: 44, unit: 11 },
+  { shape: "classic", x: 88, y: 20, unit: 10 },
 ];
 
 function CloudBelt({
@@ -109,7 +109,9 @@ export function BackgroundGrid({
     <div
       aria-hidden
       className={cn(
-        "pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-mint",
+        // Absolute, not fixed: this fills its positioned ancestor, which is
+        // the browser frame's viewport rather than the window.
+        "pointer-events-none absolute inset-0 overflow-hidden bg-mint",
         className,
       )}
     >

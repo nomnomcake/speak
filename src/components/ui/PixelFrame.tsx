@@ -82,7 +82,10 @@ export const PixelFrame = React.forwardRef<HTMLDivElement, PixelFrameProps>(
         {/* Black plate → the border. */}
         <div
           className={cn(
-            "pixel-clip relative bg-ink",
+            // h-full so a height set on the root reaches the inner surface.
+            // With an auto-height root this computes to auto and changes
+            // nothing, so it is safe for every non-stretched usage.
+            "pixel-clip relative h-full bg-ink",
             interactive &&
               "transition-transform duration-150 ease-[cubic-bezier(0.2,0.9,0.25,1)] group-hover/frame:-translate-x-px group-hover/frame:-translate-y-px",
           )}

@@ -18,5 +18,10 @@ export {
   CLOUDS,
   type CloudShape,
 } from "./PixelArt";
+export {
+  BrowserFrame,
+  type BrowserFrameProps,
+  type BrowserTab,
+} from "./BrowserFrame";
 export { Layout, type LayoutProps } from "./Layout";
 export { PageTransition, Stagger, StaggerItem } from "./PageTransition";
