@@ -1,15 +1,17 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import { BackgroundGrid } from "./BackgroundGrid";
 import { BrowserFrame, type BrowserTab } from "./BrowserFrame";
 
 /**
  * Layout — the shell every screen mounts into.
  *
- * The whole product lives inside a fake retro browser: chrome on top, a
- * scrolling viewport beneath it, and the cloud field painted inside that
- * viewport rather than behind the page. Because the chrome is fixed and only
- * the viewport scrolls, the toolbar stays put the way a real browser's does.
+ * The whole product lives inside a fake retro browser: chrome on top and a
+ * scrolling viewport beneath it. Because the chrome is fixed and only the
+ * viewport scrolls, the toolbar stays put the way a real browser's does.
+ *
+ * The cloud field is the desktop wallpaper behind the window, not the page
+ * inside it, so the viewport is a plain white document. Clouds still appear
+ * inside individual panels via `Panel sky`.
  *
  * Nav items are inert until routing lands in the next phase — they are
  * rendered as bookmark labels rather than links so nothing dead-ends.
@@ -23,7 +25,7 @@ export type LayoutProps = {
   status?: React.ReactNode;
   /** Status-bar content. Pass `null` to hide it. */
   footer?: React.ReactNode;
-  /** Calmer background for dense screens. */
+  /** Still the wallpaper — drops its clouds and sparkles. */
   quietBackground?: boolean;
   className?: string;
   children: React.ReactNode;
@@ -48,11 +50,8 @@ export function Layout({
       nav={nav}
       status={status}
       footer={footer}
+      wallpaper={!quietBackground}
     >
-      {/* The sky is painted into the viewport, so it stays put while the page
-          scrolls over it — the same effect as a fixed background image. */}
-      <BackgroundGrid clouds={!quietBackground} sparkles={!quietBackground} />
-
       <div className="absolute inset-0 overflow-x-hidden overflow-y-auto">
         <main
           className={cn(

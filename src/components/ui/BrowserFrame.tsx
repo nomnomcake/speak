@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { PixelFrame } from "./PixelFrame";
+import { BackgroundGrid } from "./BackgroundGrid";
 import { Sprig } from "./PixelArt";
 import { ChevronLeft, ChevronRight, RotateCw, Plus, Star } from "lucide-react";
 
@@ -15,6 +16,10 @@ import { ChevronLeft, ChevronRight, RotateCw, Plus, Star } from "lucide-react";
  * There is no separate title bar. Tabs sit in the top row and the window
  * controls sit at its right edge, which is how a modern browser lays out its
  * title bar and saves a row of chrome.
+ *
+ * The drifting clouds and dotted grid are the desktop wallpaper *behind* this
+ * window, not the page inside it — so the viewport reads as a plain white
+ * document the way a real browser's does.
  */
 
 /** The two ○○ marks. Decorative — this window doesn't close. */
@@ -65,6 +70,8 @@ export type BrowserFrameProps = {
   nav?: string[];
   /** Right side of the tab strip, before the window controls. */
   status?: React.ReactNode;
+  /** Animate clouds and sparkles on the desktop wallpaper. */
+  wallpaper?: boolean;
   /** Status-bar content. `null` hides the bar. */
   footer?: React.ReactNode;
   children: React.ReactNode;
@@ -72,6 +79,7 @@ export type BrowserFrameProps = {
 
 export function BrowserFrame({
   url = "speak.exe/design-system",
+  wallpaper = true,
   tabs = [{ label: "Design System", active: true }],
   nav = [],
   status,
@@ -79,11 +87,15 @@ export function BrowserFrame({
   children,
 }: BrowserFrameProps) {
   return (
-    <div className="h-dvh overflow-hidden bg-mint p-3 sm:p-5">
+    <div className="relative h-dvh overflow-hidden bg-mint p-4 sm:p-8 lg:p-12">
+      {/* Desktop wallpaper. Sits behind the window, which is why the frame
+          below is explicitly positioned — otherwise it would paint under it. */}
+      <BackgroundGrid clouds={wallpaper} sparkles={wallpaper} />
+
       <PixelFrame
         notch={6}
         border={3}
-        className="h-full"
+        className="relative h-full"
         innerClassName="flex h-full flex-col"
       >
         {/* ---- Tab strip + window controls ------------------------------ */}
@@ -158,7 +170,7 @@ export function BrowserFrame({
         <div aria-hidden className="h-0.5 shrink-0 bg-ink" />
 
         {/* ---- Viewport -------------------------------------------------- */}
-        <div className="relative min-h-0 flex-1">{children}</div>
+        <div className="relative min-h-0 flex-1 bg-paper">{children}</div>
 
         {/* ---- Status bar ------------------------------------------------ */}
         {footer !== null && (
