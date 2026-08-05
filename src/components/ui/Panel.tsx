@@ -1,16 +1,22 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { PixelFrame } from "./PixelFrame";
+import { PixelSky, type PixelSkyProps } from "./PixelSky";
+import { Sprig } from "./PixelArt";
 import type { Tone } from "@/lib/tokens";
 
 /**
  * Panel — a titled window, the primary content container.
  *
- * Two chrome treatments, both taken from the reference:
- *  - `window`: the title sits in its own framed bar inside the panel, used for
- *    top-level regions (SPEAK.EXE, BRIEF.EXE).
- *  - `inline`: title and controls sit flush at the top with a rule beneath,
- *    used for the smaller nested modules.
+ * Three chrome treatments, all taken from the reference:
+ *  - `window`: the title sits in its own framed bar inside the panel, with a
+ *    sprig in the corner. Used for top-level regions (SPEAK.EXE, BRIEF.EXE).
+ *  - `inline`: title and controls flush at the top with a rule beneath, used
+ *    for the smaller nested modules.
+ *  - `none`: bare surface.
+ *
+ * `sky` fills the interior with a mint pixel sky so white cards float on
+ * clouds — the defining move of the reference layout.
  */
 
 /** The two ○○ marks in every title bar. Decorative only. */
@@ -40,6 +46,10 @@ export type PanelProps = {
   shadow?: number;
   /** Remove the default interior padding for edge-to-edge content. */
   flush?: boolean;
+  /** Fill the body with a pixel sky. `true` uses the default density. */
+  sky?: boolean | PixelSkyProps;
+  /** Show the corner sprig in `window` chrome. */
+  sprig?: boolean;
   footer?: React.ReactNode;
   className?: string;
   bodyClassName?: string;
@@ -54,6 +64,8 @@ export function Panel({
   notch = 6,
   shadow = 0,
   flush = false,
+  sky = false,
+  sprig = true,
   footer,
   className,
   bodyClassName,
@@ -61,6 +73,8 @@ export function Panel({
 }: PanelProps) {
   const inverted = tone === "ink";
   const dotTone = inverted ? "paper" : "ink";
+  const skyProps: PixelSkyProps =
+    typeof sky === "object" ? sky : { density: "normal" };
 
   return (
     <PixelFrame
@@ -71,7 +85,7 @@ export function Panel({
       innerClassName={cn(
         "flex flex-col",
         inverted ? "text-paper" : "text-ink",
-        chrome === "window" && "gap-4 p-4",
+        chrome === "window" && "gap-3 p-3",
       )}
     >
       {title !== undefined && chrome === "window" && (
@@ -81,10 +95,11 @@ export function Panel({
           border={2}
           innerClassName="flex items-center justify-between gap-4 px-3 py-2"
         >
-          <span className="text-caps truncate">{title}</span>
+          <span className="type-caps truncate">{title}</span>
           <span className="flex items-center gap-3">
             {actions}
             <WindowDots tone={dotTone} />
+            {sprig && <Sprig size={15} className="text-ink" />}
           </span>
         </PixelFrame>
       )}
@@ -92,7 +107,7 @@ export function Panel({
       {title !== undefined && chrome === "inline" && (
         <>
           <div className="flex items-center justify-between gap-4 px-4 pt-3 pb-2.5">
-            <span className="text-caps truncate">{title}</span>
+            <span className="type-caps truncate">{title}</span>
             <span className="flex items-center gap-3">
               {actions}
               <WindowDots tone={dotTone} />
@@ -107,12 +122,21 @@ export function Panel({
 
       <div
         className={cn(
-          "flex-1",
-          !flush && (chrome === "window" ? "px-1 pb-1" : "p-4"),
+          "relative flex-1",
+          sky && "pixel-clip overflow-hidden",
+          // Sky windows get a generous inset so a band of clouds frames the
+          // white cards, the way the reference does it.
+          !flush && (sky ? "p-6 sm:p-8" : "p-4"),
           bodyClassName,
         )}
+        style={
+          sky
+            ? ({ ["--notch" as string]: "3px" } as React.CSSProperties)
+            : undefined
+        }
       >
-        {children}
+        {sky && <PixelSky {...skyProps} />}
+        <div className="relative">{children}</div>
       </div>
 
       {footer && (

@@ -30,7 +30,7 @@ export function Badge({
   return (
     <span
       className={cn(
-        "pixel-clip text-hud inline-flex items-center gap-1.5 border-2 border-ink px-2 py-1",
+        "pixel-clip type-hud inline-flex items-center gap-1.5 border-2 border-ink px-2 py-1",
         TONE[tone],
         className,
       )}

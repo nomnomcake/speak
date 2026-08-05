@@ -271,9 +271,22 @@
 
 /* ============================================================================
    UTILITIES
+
+   These are named `type-*`, NOT `text-*`, and that matters.
+
+   `cn()` runs tailwind-merge, which classifies any `text-<something>` as a
+   colour/size utility. A class like `text-hud` therefore conflicts with
+   `text-slate` in the same call, and tailwind-merge silently drops the earlier
+   one — so `cn("text-hud", "text-slate")` would ship the colour and lose the
+   pixel font entirely. It fails only where `cn()` is used, which makes it look
+   like a random component bug rather than a naming problem.
+
+   `type-` is not a prefix tailwind-merge knows, so these always survive the
+   merge and compose cleanly with colour utilities. Do not rename them to
+   `text-*`.
    ========================================================================= */
 
-@utility text-hud {
+@utility type-hud {
   font-family: var(--font-pixel);
   font-size: var(--text-micro);
   letter-spacing: 0.14em;
@@ -281,7 +294,7 @@
   line-height: 1;
 }
 
-@utility text-caps {
+@utility type-caps {
   font-size: var(--text-label);
   letter-spacing: 0.12em;
   text-transform: uppercase;

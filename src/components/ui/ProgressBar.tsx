@@ -128,7 +128,7 @@ export function ProgressBar({
         {label && (
           <span
             className={cn(
-              "text-caps",
+              "type-caps",
               invert ? "text-mint-soft" : "text-graphite",
             )}
           >

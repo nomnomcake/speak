@@ -50,7 +50,7 @@ export function Layout({
           border={3}
           innerClassName="flex items-center gap-4 px-3 py-2 sm:px-4"
         >
-          <span className="text-caps shrink-0">{appName}</span>
+          <span className="type-caps shrink-0">{appName}</span>
 
           <div aria-hidden className="h-5 w-0.5 shrink-0 bg-ink" />
 
@@ -59,7 +59,7 @@ export function Layout({
               <span
                 key={item}
                 className={cn(
-                  "text-hud pixel-clip cursor-default px-2.5 py-1.5 text-slate",
+                  "type-hud pixel-clip cursor-default px-2.5 py-1.5 text-slate",
                   "transition-colors duration-150 hover:bg-ink hover:text-mint",
                 )}
                 style={{ ["--notch" as string]: "2px" }}
@@ -93,10 +93,10 @@ export function Layout({
           >
             {footer ?? (
               <>
-                <span className="text-hud text-slate">
+                <span className="type-hud text-slate">
                   Speak — Speaking Simulator
                 </span>
-                <span className="text-hud text-slate">v0.1.0</span>
+                <span className="type-hud text-slate">v0.1.0</span>
               </>
             )}
           </PixelFrame>

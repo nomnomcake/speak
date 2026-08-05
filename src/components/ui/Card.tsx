@@ -57,7 +57,7 @@ export function Card({
             {eyebrow && (
               <div
                 className={cn(
-                  "text-hud",
+                  "type-hud",
                   inverted ? "text-mint" : "text-slate",
                 )}
               >

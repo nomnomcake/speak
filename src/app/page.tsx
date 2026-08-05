@@ -19,36 +19,51 @@ import { ArrowRight, Mic, RotateCcw, Play } from "lucide-react";
 /**
  * Design system reference.
  *
+ * Laid out the way the reference is: every region is its own .EXE window, and
+ * each window's interior is a pixel sky that white cards float on top of.
+ *
  * Static by design — this phase ships the visual language only. Every value
  * shown here is illustrative; no timers, state, or business logic.
  */
 
+/** A note rendered on white so it stays readable over clouds. */
+function Note({ children }: { children: React.ReactNode }) {
+  return (
+    <PixelFrame notch={3} border={2} innerClassName="px-3 py-2.5">
+      <p className="max-w-3xl text-sm leading-relaxed text-graphite">
+        {children}
+      </p>
+    </PixelFrame>
+  );
+}
+
 function Section({
   index,
-  title,
+  name,
   note,
+  density = "normal",
   children,
 }: {
   index: string;
-  title: string;
+  name: string;
   note?: string;
+  density?: "sparse" | "normal" | "dense";
   children: React.ReactNode;
 }) {
   return (
     <StaggerItem>
-      <section className="space-y-4">
-        <div className="flex items-baseline gap-3">
-          <span className="text-hud text-slate">{index}</span>
-          <h2 className="text-caps text-base">{title}</h2>
-          <div aria-hidden className="pixel-rule mt-1 hidden flex-1 sm:block" />
+      <Panel
+        chrome="window"
+        notch={6}
+        sky={{ density }}
+        title={`${name}.EXE`}
+        actions={<span className="type-hud text-slate">{index}</span>}
+      >
+        <div className="space-y-4">
+          {note && <Note>{note}</Note>}
+          {children}
         </div>
-        {note && (
-          <p className="max-w-2xl text-sm leading-relaxed text-graphite">
-            {note}
-          </p>
-        )}
-        {children}
-      </section>
+      </Panel>
     </StaggerItem>
   );
 }
@@ -74,18 +89,23 @@ export default function DesignSystemPage() {
   return (
     <Layout status={<Badge tone="mint">Design System</Badge>}>
       <PageTransition>
-        <Stagger className="space-y-10">
+        <Stagger className="space-y-8">
           {/* ---- Hero ------------------------------------------------- */}
           <StaggerItem>
             <GlowBorder rings={3} step={5} notch={6}>
               <Panel
                 chrome="window"
-                title="SPEAK.EXE — Design System"
+                title="SPEAK.EXE"
                 notch={6}
-                actions={<span className="text-hud text-slate">v0.1.0</span>}
+                sky={{ density: "dense", sun: true }}
+                actions={<span className="type-hud text-slate">v0.1.0</span>}
               >
-                <div className="grid gap-6 p-4 md:grid-cols-[1.4fr_1fr] md:items-center">
-                  <div className="space-y-4">
+                <div className="grid gap-5 md:grid-cols-3 md:items-start">
+                  <PixelFrame
+                    notch={4}
+                    className="md:col-span-2"
+                    innerClassName="space-y-4 p-5"
+                  >
                     <h1 className="text-4xl leading-[1.05] font-bold sm:text-5xl">
                       Learn it fast.
                       <br />
@@ -108,7 +128,7 @@ export default function DesignSystemPage() {
                         Watch demo
                       </Button>
                     </div>
-                  </div>
+                  </PixelFrame>
 
                   <PixelFrame
                     tone="ink"
@@ -116,7 +136,7 @@ export default function DesignSystemPage() {
                     innerClassName="space-y-3 p-4 text-paper"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-hud text-mint">Live readout</span>
+                      <span className="type-hud text-mint">Live readout</span>
                       <Badge tone="mint" pulse>
                         Rec
                       </Badge>
@@ -130,7 +150,7 @@ export default function DesignSystemPage() {
                       invert
                     />
                     <div className="flex items-baseline justify-between pt-1">
-                      <span className="text-hud text-mint">Words / min</span>
+                      <span className="type-hud text-mint">Words / min</span>
                       <span className="font-mono text-2xl tabular-nums">
                         148
                       </span>
@@ -144,7 +164,8 @@ export default function DesignSystemPage() {
           {/* ---- 01 Palette ------------------------------------------- */}
           <Section
             index="01"
-            title="Palette"
+            name="PALETTE"
+            density="sparse"
             note="Sampled from the reference: true black rules on paper white, over a mint field. Alert and Affirm are the only additions, desaturated far enough that they never break the near-monochrome read."
           >
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
@@ -152,7 +173,7 @@ export default function DesignSystemPage() {
                 <PixelFrame key={s.token} notch={3}>
                   <div className="h-16 w-full" style={{ background: s.hex }} />
                   <div className="space-y-0.5 border-t-2 border-ink px-2.5 py-2">
-                    <div className="text-caps text-[11px]">{s.name}</div>
+                    <div className="type-caps text-[11px]">{s.name}</div>
                     <div className="font-mono text-[10px] text-slate uppercase">
                       {s.hex}
                     </div>
@@ -165,7 +186,7 @@ export default function DesignSystemPage() {
           {/* ---- 02 Typography ---------------------------------------- */}
           <Section
             index="02"
-            title="Typography"
+            name="TYPE"
             note="Three families, strictly separated. Outfit carries everything readable, Silkscreen is reserved for micro-labels, Geist Mono for anything numeric."
           >
             <div className="grid gap-4 lg:grid-cols-3">
@@ -181,8 +202,8 @@ export default function DesignSystemPage() {
               </Card>
               <Card eyebrow="Silkscreen" title="HUD micro-labels">
                 <div className="space-y-3">
-                  <div className="text-hud">Session · Ready · Archive</div>
-                  <div className="text-hud text-slate">
+                  <div className="type-hud">Session · Ready · Archive</div>
+                  <div className="type-hud text-slate">
                     Uppercase · 10px · 0.14em
                   </div>
                   <p className="text-sm">
@@ -203,7 +224,8 @@ export default function DesignSystemPage() {
           {/* ---- 03 Buttons ------------------------------------------- */}
           <Section
             index="03"
-            title="Buttons"
+            name="BUTTONS"
+            density="sparse"
             note="Each key rests on a hard shadow plate and presses into it. Hover lifts one pixel, active drops the full offset. No springs — nothing in this system overshoots."
           >
             <Panel title="Variants" chrome="inline">
@@ -246,7 +268,7 @@ export default function DesignSystemPage() {
           {/* ---- 04 Surfaces ------------------------------------------ */}
           <Section
             index="04"
-            title="Surfaces"
+            name="SURFACES"
             note="Panel, Card and PixelFrame are the same primitive at three levels of chrome. Every one of them shares the stepped corner, which is what holds the system together."
           >
             <div className="grid gap-4 lg:grid-cols-3">
@@ -254,18 +276,19 @@ export default function DesignSystemPage() {
                 chrome="window"
                 title="Window"
                 notch={6}
-                actions={<span className="text-hud text-slate">.EXE</span>}
+                sprig={false}
+                actions={<span className="type-hud text-slate">.EXE</span>}
               >
-                <div className="p-3 text-sm leading-relaxed text-graphite">
+                <p className="text-sm leading-relaxed text-graphite">
                   Framed title bar. Used for top-level regions where the window
                   metaphor should be explicit.
-                </div>
+                </p>
               </Panel>
 
               <Panel
                 chrome="inline"
                 title="Inline"
-                footer={<span className="text-hud text-slate">Footer slot</span>}
+                footer={<span className="type-hud text-slate">Footer slot</span>}
               >
                 <p className="text-sm leading-relaxed text-graphite">
                   Flush title with a rule beneath. The default for nested
@@ -305,7 +328,8 @@ export default function DesignSystemPage() {
           {/* ---- 05 Meters -------------------------------------------- */}
           <Section
             index="05"
-            title="Meters"
+            name="METERS"
+            density="sparse"
             note="The pill is the only rounded shape in the system. In the reference it is the sole curve on the page, which is precisely why it reads as a gauge and not a container."
           >
             <div className="grid gap-4 lg:grid-cols-2">
@@ -343,7 +367,7 @@ export default function DesignSystemPage() {
           {/* ---- 06 Feedback ------------------------------------------ */}
           <Section
             index="06"
-            title="Feedback"
+            name="FEEDBACK"
             note="Loading is quantised to eight steps. Badges carry status, and the pulse square marks anything live."
           >
             <div className="grid gap-4 lg:grid-cols-3">
@@ -373,7 +397,7 @@ export default function DesignSystemPage() {
                   <GlowBorder rings={3} step={4} notch={4}>
                     <PixelFrame
                       notch={4}
-                      innerClassName="px-5 py-3 text-caps text-sm"
+                      innerClassName="px-5 py-3 type-caps text-sm"
                     >
                       Focus target
                     </PixelFrame>
@@ -386,14 +410,15 @@ export default function DesignSystemPage() {
           {/* ---- 07 Spacing ------------------------------------------- */}
           <Section
             index="07"
-            title="Spacing"
+            name="SPACING"
+            density="sparse"
             note="A 4px base unit. Controls use 8/12, panels use 16/24, page rhythm uses 32/48. Nothing lands off the grid — half-pixels are what make pixel art look broken."
           >
-            <Panel chrome="none" flush>
-              <div className="space-y-2 p-4">
+            <PixelFrame notch={4} innerClassName="p-4">
+              <div className="space-y-2">
                 {SPACING.map(([name, value]) => (
                   <div key={name} className="flex items-center gap-4">
-                    <span className="text-hud w-10 shrink-0 text-slate">
+                    <span className="type-hud w-10 shrink-0 text-slate">
                       {name}
                     </span>
                     <span className="w-12 shrink-0 font-mono text-xs tabular-nums">
@@ -406,7 +431,7 @@ export default function DesignSystemPage() {
                   </div>
                 ))}
               </div>
-            </Panel>
+            </PixelFrame>
           </Section>
         </Stagger>
       </PageTransition>
