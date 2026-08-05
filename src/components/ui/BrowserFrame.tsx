@@ -7,10 +7,14 @@ import { ChevronLeft, ChevronRight, RotateCw, Plus, Star } from "lucide-react";
 /**
  * BrowserFrame — the fake browser the entire product lives inside.
  *
- * Four stacked chrome rows (title, tabs, address, bookmarks) above a scrolling
+ * Three stacked chrome rows (tabs, address, bookmarks) above a scrolling
  * viewport, all inside one PixelFrame. The chrome is fixed and the content
  * scrolls within it, which is what sells the illusion: a real browser's
  * toolbar doesn't scroll away.
+ *
+ * There is no separate title bar. Tabs sit in the top row and the window
+ * controls sit at its right edge, which is how a modern browser lays out its
+ * title bar and saves a row of chrome.
  */
 
 /** The two ○○ marks. Decorative — this window doesn't close. */
@@ -55,12 +59,11 @@ export type BrowserTab = {
 };
 
 export type BrowserFrameProps = {
-  appName?: string;
   url?: string;
   tabs?: BrowserTab[];
   /** Bookmarks-bar entries. Inert labels until routing exists. */
   nav?: string[];
-  /** Right side of the title bar. */
+  /** Right side of the tab strip, before the window controls. */
   status?: React.ReactNode;
   /** Status-bar content. `null` hides the bar. */
   footer?: React.ReactNode;
@@ -68,7 +71,6 @@ export type BrowserFrameProps = {
 };
 
 export function BrowserFrame({
-  appName = "SPEAK.EXE",
   url = "speak.exe/design-system",
   tabs = [{ label: "Design System", active: true }],
   nav = [],
@@ -84,18 +86,7 @@ export function BrowserFrame({
         className="h-full"
         innerClassName="flex h-full flex-col"
       >
-        {/* ---- Title bar ------------------------------------------------ */}
-        <div className="flex shrink-0 items-center gap-3 px-3 py-2">
-          <span className="type-caps truncate">{appName}</span>
-          <span className="ml-auto flex shrink-0 items-center gap-3">
-            {status}
-            <WindowDots />
-            <Sprig size={15} className="text-ink" />
-          </span>
-        </div>
-        <div aria-hidden className="h-0.5 shrink-0 bg-ink" />
-
-        {/* ---- Tab strip ------------------------------------------------ */}
+        {/* ---- Tab strip + window controls ------------------------------ */}
         <div className="flex shrink-0 items-end gap-1.5 bg-mint-soft px-3 pt-2">
           {tabs.map((t) => (
             <span
@@ -116,6 +107,12 @@ export function BrowserFrame({
             style={{ ["--notch" as string]: "2px" }}
           >
             <Plus size={12} />
+          </span>
+
+          <span className="ml-auto flex shrink-0 items-center gap-3 pb-2.5">
+            {status}
+            <WindowDots />
+            <Sprig size={15} className="text-ink" />
           </span>
         </div>
         <div aria-hidden className="h-0.5 shrink-0 bg-ink" />

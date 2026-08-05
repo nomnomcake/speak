@@ -2,7 +2,6 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { BackgroundGrid } from "./BackgroundGrid";
 import { BrowserFrame, type BrowserTab } from "./BrowserFrame";
-import { Badge } from "./Badge";
 
 /**
  * Layout — the shell every screen mounts into.
@@ -17,11 +16,10 @@ import { Badge } from "./Badge";
  */
 
 export type LayoutProps = {
-  appName?: string;
   url?: string;
   tabs?: BrowserTab[];
   nav?: string[];
-  /** Right side of the title bar. */
+  /** Right side of the tab strip. Empty by default. */
   status?: React.ReactNode;
   /** Status-bar content. Pass `null` to hide it. */
   footer?: React.ReactNode;
@@ -34,7 +32,6 @@ export type LayoutProps = {
 const DEFAULT_NAV = ["Brief", "Session", "Archive", "Settings"];
 
 export function Layout({
-  appName = "SPEAK.EXE",
   url = "speak.exe/design-system",
   tabs,
   nav = DEFAULT_NAV,
@@ -46,11 +43,10 @@ export function Layout({
 }: LayoutProps) {
   return (
     <BrowserFrame
-      appName={appName}
       url={url}
       tabs={tabs}
       nav={nav}
-      status={status ?? <Badge tone="mint">Ready</Badge>}
+      status={status}
       footer={footer}
     >
       {/* The sky is painted into the viewport, so it stays put while the page

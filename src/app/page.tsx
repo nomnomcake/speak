@@ -87,7 +87,7 @@ const SPACING = Object.entries(space).filter(([k]) => k !== "px");
 
 export default function DesignSystemPage() {
   return (
-    <Layout status={<Badge tone="mint">Design System</Badge>}>
+    <Layout>
       <PageTransition>
         <Stagger className="space-y-8">
           {/* ---- Hero ------------------------------------------------- */}
