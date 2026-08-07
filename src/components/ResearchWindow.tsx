@@ -21,6 +21,11 @@ import {
  * The topic title is shown here, unlike everywhere else in the product: you
  * cannot research what you cannot see. Sealed means "until selected", not
  * "until the readout".
+ *
+ * `topic.suggestedAngles` is deliberately not rendered. Handing the user three
+ * ready-made framings does the synthesis the session is meant to measure; the
+ * angles exist for the scorer, to judge whether the speaker found one of them
+ * on their own or something better. That slot holds the instructions instead.
  */
 
 const RESEARCH_MINUTES = 15;
@@ -92,9 +97,25 @@ export function ResearchWindow({ topic }: { topic: Topic }) {
                 ],
               },
               {
-                title: "Angles on file",
+                title: "What to do",
                 numbered: true,
-                rows: topic.suggestedAngles.map((angle) => ({ label: angle })),
+                rows: [
+                  {
+                    label:
+                      "You have 15 minutes to research this properly. Read past the first result.",
+                  },
+                  {
+                    label:
+                      "Take notes on paper, by hand. Nothing on this screen saves what you write.",
+                  },
+                  {
+                    label: `When the timer runs out, give a ${timings.speakSeconds}-second talk on the topic, from your notes.`,
+                  },
+                  {
+                    label:
+                      "Do not write a script. Notes are prompts, not sentences — reading one aloud is not the exercise.",
+                  },
+                ],
               },
             ]}
           />
