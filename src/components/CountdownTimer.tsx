@@ -1,13 +1,17 @@
 "use client";
 
 import * as React from "react";
-import { Pause, Play, RotateCcw } from "lucide-react";
-import { Badge, PixelFrame, ProgressBar } from "@/components/ui";
+import { Bell, Pause, Play, RotateCcw } from "lucide-react";
+import { PixelFrame, ProgressBar } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import { readJSON, writeJSON } from "@/lib/storage";
 
 /**
- * CountdownTimer — a classic desktop timer widget.
+ * CountdownTimer — a desk timer, drawn as a physical object.
+ *
+ * The digits sit in an inset LCD: glow-on-black with a scanline veil, which is
+ * what makes it read as a device rather than a number on a card. The bell
+ * rattles when it goes off.
  *
  * Persists to localStorage so a reload does not cost the session. It stores the
  * remaining time *and* the wall-clock instant it was last written, so a timer
@@ -80,8 +84,6 @@ export function CountdownTimer({
     return () => clearInterval(id);
   }, [running, loaded]);
 
-  // Persist on every meaningful change, and once more on unload so a close
-  // mid-tick does not lose the last few seconds.
   React.useEffect(() => {
     if (!loaded) return;
     writeJSON(storageKey, {
@@ -95,43 +97,47 @@ export function CountdownTimer({
   const progress = totalMs === 0 ? 0 : 1 - remaining / totalMs;
 
   return (
-    <PixelFrame
-      tone={expired ? "ink" : "paper"}
-      notch={4}
-      className={className}
-      innerClassName={cn("space-y-3 p-4", expired && "text-paper")}
-    >
-      <div className="flex items-center justify-between gap-3">
-        <span
-          className={cn("type-hud", expired ? "text-mint" : "text-slate")}
-        >
-          Research timer
+    <PixelFrame notch={4} className={className} innerClassName="space-y-3 p-4">
+      {/* Device label */}
+      <div className="flex items-center gap-2">
+        <Bell
+          size={13}
+          className={cn(
+            "shrink-0",
+            expired ? "animate-ring text-alert" : "text-mint-shade",
+          )}
+        />
+        <span className="type-caps text-[11px]">Timer</span>
+        <span className="type-hud ml-auto text-mute">
+          {expired ? "Time up" : running ? "Running" : "Paused"}
         </span>
-        {expired ? (
-          <Badge tone="alert">Time up</Badge>
-        ) : running ? (
-          <Badge tone="ink" pulse>
-            Running
-          </Badge>
-        ) : (
-          <Badge tone="mint">Paused</Badge>
-        )}
       </div>
 
+      {/* Inset LCD */}
       <div
-        className={cn(
-          "text-center font-mono text-5xl leading-none tabular-nums",
-          expired && "text-alert",
-        )}
-        // The clock is the one number here that changes constantly; announcing
-        // every tick would flood a screen reader.
-        aria-live="off"
+        className="pixel-clip relative overflow-hidden border-2 border-ink bg-ink px-4 py-3"
+        style={{ ["--notch" as string]: "2px" }}
       >
-        {format(remaining)}
+        <div
+          aria-hidden
+          className="pixel-scanlines pointer-events-none absolute inset-0 opacity-50"
+        />
+        <div
+          // The clock changes every second; announcing each tick would flood a
+          // screen reader.
+          aria-live="off"
+          className={cn(
+            "relative text-center font-mono text-5xl leading-none tabular-nums",
+            expired ? "text-alert" : "text-glow",
+          )}
+        >
+          {format(remaining)}
+        </div>
       </div>
 
-      <ProgressBar value={progress} variant="segmented" segments={15} invert={expired} />
+      <ProgressBar value={progress} variant="segmented" segments={15} />
 
+      {/* Physical keys */}
       <div className="flex items-center gap-2">
         {/* At zero this becomes Start over rather than a disabled Resume. A
             dead control at the exact moment the user needs to act is worse

@@ -1,18 +1,20 @@
 "use client";
 
 import * as React from "react";
-import { Check, PenLine } from "lucide-react";
+import { Check, Pencil } from "lucide-react";
 import { PixelFrame } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import { readJSON, writeJSON } from "@/lib/storage";
 
 /**
- * PaperNotes — a notepad window that deliberately cannot be typed in.
+ * PaperNotes — a spiral notebook that deliberately cannot be typed in.
  *
- * The panel looks like Notepad and is ruled like paper, but it holds
- * instructions rather than a text field. Notes are taken on real paper, by
- * hand, on purpose:
+ * The panel is a physical object rather than a form: punched binding down the
+ * left edge, a margin rule, and ruled lines whose spacing matches the text's
+ * line-height so writing sits on them. It holds instructions telling the user
+ * to write by hand.
  *
+ * Notes are on real paper on purpose:
  *  - Handwriting is slower than reading, which forces compression. A textarea
  *    invites transcription, and a transcript is a script.
  *  - You cannot copy-paste onto a page. Anything written down has been through
@@ -20,11 +22,11 @@ import { readJSON, writeJSON } from "@/lib/storage";
  *  - Paper can be turned face down for the lockout. A browser tab full of
  *    notes cannot be un-read.
  *
- * The only persisted state is whether the user has confirmed they have a pen,
- * so the prompt does not nag on every reload.
+ * The only persisted state is whether the user has confirmed they have a pen.
  */
 
-const RULE_SPACING = 30;
+const RULE = 30;
+const RING_COUNT = 7;
 
 const INSTRUCTIONS: Array<{ n: string; text: string }> = [
   {
@@ -48,6 +50,24 @@ const INSTRUCTIONS: Array<{ n: string; text: string }> = [
   },
 ];
 
+/** Punched holes and wire down the binding edge. */
+function Binding() {
+  return (
+    <div
+      aria-hidden
+      className="absolute inset-y-0 left-0 flex w-10 flex-col items-center justify-evenly border-r-2 border-ink bg-mint-soft"
+    >
+      {Array.from({ length: RING_COUNT }).map((_, i) => (
+        <span key={i} className="relative flex items-center">
+          {/* the wire crossing the hole */}
+          <span className="absolute -left-1 h-1 w-7 bg-ink" />
+          <span className="relative size-3 rounded-full border-2 border-ink bg-paper" />
+        </span>
+      ))}
+    </div>
+  );
+}
+
 export function PaperNotes({
   storageKey,
   className,
@@ -68,14 +88,6 @@ export function PaperNotes({
     return () => clearTimeout(t);
   }, [storageKey]);
 
-  const toggle = () => {
-    setReady((prev) => {
-      const next = !prev;
-      writeJSON(storageKey, next);
-      return next;
-    });
-  };
-
   return (
     <PixelFrame
       notch={4}
@@ -83,53 +95,73 @@ export function PaperNotes({
       innerClassName="flex h-full flex-col"
     >
       {/* Title bar */}
-      <div className="flex shrink-0 items-center justify-between gap-3 px-3 py-2">
-        <span className="type-caps truncate">NOTES — ON PAPER</span>
-        <span className="type-hud text-mute">Not typed</span>
+      <div className="flex shrink-0 items-center gap-2 px-3 py-2">
+        <Pencil size={13} className="shrink-0 text-mint-shade" />
+        <span className="type-caps truncate">NOTEBOOK</span>
+        <span className="ml-auto flex shrink-0 items-center gap-1.5">
+          {[0, 1].map((i) => (
+            <span
+              key={i}
+              className="block size-2.5 rounded-full border-2 border-ink"
+            />
+          ))}
+        </span>
       </div>
       <div aria-hidden className="h-0.5 shrink-0 bg-ink" />
 
-      {/* Ruled paper holding printed instructions */}
-      <div
-        className="flex-1 px-5 py-4"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(to bottom, transparent 0px, transparent 29px, var(--color-mint-soft) 29px, var(--color-mint-soft) 30px)",
-          lineHeight: `${RULE_SPACING}px`,
-        }}
-      >
-        <div className="flex items-center gap-2">
-          <PenLine size={15} className="shrink-0 text-mint-shade" />
+      {/* The page */}
+      <div className="relative flex-1">
+        <Binding />
+
+        {/* Margin rule, just right of the binding */}
+        <div
+          aria-hidden
+          className="absolute inset-y-0 left-[52px] w-0.5 bg-alert/35"
+        />
+
+        <div
+          className="py-3 pr-5 pl-16"
+          style={{
+            backgroundImage: `repeating-linear-gradient(to bottom, transparent 0px, transparent ${RULE - 1}px, var(--color-mint-soft) ${RULE - 1}px, var(--color-mint-soft) ${RULE}px)`,
+            lineHeight: `${RULE}px`,
+          }}
+        >
           <h2 className="type-caps text-sm">Get a pen and paper</h2>
+
+          <ol>
+            {INSTRUCTIONS.map((item) => (
+              <li key={item.n} className="flex gap-3 text-sm text-graphite">
+                <span className="shrink-0 font-mono text-xs text-mint-shade tabular-nums">
+                  {item.n}
+                </span>
+                <span>{item.text}</span>
+              </li>
+            ))}
+          </ol>
+
+          <p className="max-w-prose text-sm text-slate">
+            Nothing is typed here on purpose — handwriting forces you to
+            compress, and you cannot copy-paste onto a page.
+          </p>
         </div>
-
-        <ol className="mt-2 space-y-0">
-          {INSTRUCTIONS.map((item) => (
-            <li key={item.n} className="flex gap-3 text-sm text-graphite">
-              <span className="shrink-0 font-mono text-xs text-mint-shade tabular-nums">
-                {item.n}
-              </span>
-              <span>{item.text}</span>
-            </li>
-          ))}
-        </ol>
-
-        <p className="mt-3 max-w-prose text-sm text-slate">
-          Nothing is typed here on purpose. Handwriting is slower than reading,
-          which forces you to compress — and you cannot copy-paste onto a page.
-        </p>
       </div>
 
       {/* Status bar */}
       <div aria-hidden className="h-0.5 shrink-0 bg-ink" />
       <div className="flex shrink-0 items-center justify-between gap-3 px-3 py-2">
         <span className="type-hud text-slate">
-          {loaded && ready ? "Ready" : "Pen and paper needed"}
+          {loaded && ready ? "Pen in hand" : "Pen and paper needed"}
         </span>
 
         <button
           type="button"
-          onClick={toggle}
+          onClick={() =>
+            setReady((prev) => {
+              const next = !prev;
+              writeJSON(storageKey, next);
+              return next;
+            })
+          }
           aria-pressed={ready}
           className={cn(
             "pixel-clip type-hud flex items-center gap-2 border-2 border-ink px-2 py-1 transition-colors duration-150",

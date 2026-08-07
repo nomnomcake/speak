@@ -81,6 +81,28 @@
   --animate-sheen: sheen 2.4s linear infinite;
   --animate-crt: crt-flicker 1.1s steps(1, end) infinite;
   --animate-scanline: scanline 1.6s linear infinite;
+  --animate-ring: ring 0.7s ease-in-out infinite;
+}
+
+/* A bell shaking. Stops short of a full swing so it reads as a rattle
+   rather than a pendulum. */
+@keyframes ring {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(-14deg);
+  }
+  40% {
+    transform: rotate(11deg);
+  }
+  60% {
+    transform: rotate(-7deg);
+  }
+  80% {
+    transform: rotate(4deg);
+  }
 }
 
 /* CRT flicker — irregular on purpose. A smooth sine reads as a pulsing
