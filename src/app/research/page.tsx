@@ -25,9 +25,8 @@ export default async function ResearchPage({
 
   return (
     <Layout
-      url={`speak.exe/research?topic=${topic.id}`}
       // Research has no tab of its own — it is a page within Play, so that tab
-      // stays active while the address bar shows where you actually are.
+      // stays active here.
       tabs={tabsFor("play")}
     >
       <PageTransition>

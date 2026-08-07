@@ -88,7 +88,7 @@ const SPACING = Object.entries(space).filter(([k]) => k !== "px");
 
 export default function DesignSystemPage() {
   return (
-    <Layout url="speak.exe/design-system" tabs={tabsFor("design-system")}>
+    <Layout tabs={tabsFor("design-system")}>
       <PageTransition>
         <Stagger className="space-y-8">
           {/* ---- Hero ------------------------------------------------- */}

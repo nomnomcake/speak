@@ -2,7 +2,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button, Divider, Panel } from "@/components/ui";
 import { CatalogueCard } from "./CatalogueCard";
 import { CountdownTimer } from "./CountdownTimer";
-import { Printout } from "./Printout";
+import { Dossier } from "./Dossier";
 import { fileNameFor, timingsFor, type Topic } from "@/lib/topics";
 
 /**
@@ -64,14 +64,13 @@ export function ResearchWindow({ topic }: { topic: Topic }) {
         <CatalogueCard topic={topic} fileName={fileNameFor(topic)} />
 
         <div className="grid gap-5 lg:grid-cols-3">
-          {/* Sources and angles share one sheet. Two separately styled boxes
-              side by side read as two systems; one printout with two printed
-              sections reads as output from the same machine. */}
-          <Printout
+          {/* Sources and angles share one sheet so they read as one thing,
+              kept quiet so the card stays the object on this screen. */}
+          <Dossier
             className="lg:col-span-2"
             sections={[
               {
-                title: "Sources · continuous feed",
+                title: "Sources",
                 rows: topic.references.map((ref) => ({
                   label: ref.label,
                   href: ref.url,
@@ -80,6 +79,7 @@ export function ResearchWindow({ topic }: { topic: Topic }) {
               },
               {
                 title: "Angles on file",
+                numbered: true,
                 rows: topic.suggestedAngles.map((angle) => ({ label: angle })),
               },
             ]}

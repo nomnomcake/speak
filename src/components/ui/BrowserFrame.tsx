@@ -67,7 +67,6 @@ export type BrowserTab = {
 };
 
 export type BrowserFrameProps = {
-  url?: string;
   tabs?: BrowserTab[];
   /** Bookmarks-bar entries. Inert labels until routing exists. */
   nav?: string[];
@@ -81,7 +80,6 @@ export type BrowserFrameProps = {
 };
 
 export function BrowserFrame({
-  url = "speak.exe/design-system",
   wallpaper = true,
   tabs = [{ label: "Design System", active: true }],
   nav = [],
@@ -146,41 +144,36 @@ export function BrowserFrame({
         </div>
         <div aria-hidden className="h-0.5 shrink-0 bg-ink" />
 
-        {/* ---- Address bar ---------------------------------------------- */}
-        <div className="flex shrink-0 items-center gap-2 px-3 py-2">
-          <ToolButton label="Back" dim>
-            <ChevronLeft size={14} />
-          </ToolButton>
-          <ToolButton label="Forward" dim>
-            <ChevronRight size={14} />
-          </ToolButton>
-          <ToolButton label="Reload">
-            <RotateCw size={13} />
-          </ToolButton>
-
-          <span
-            className="pixel-clip flex min-w-0 flex-1 items-center gap-2 border-2 border-ink bg-mint-mist px-3 py-1.5"
-            style={{ ["--notch" as string]: "2px" }}
-          >
-            <span className="type-hud shrink-0 text-mute">http://</span>
-            <span className="truncate font-mono text-xs">{url}</span>
-          </span>
-        </div>
-
-        {/* ---- Bookmarks bar -------------------------------------------- */}
+        {/* ---- Toolbar --------------------------------------------------
+            No address bar. The long speak.exe/… URL was the noisiest line in
+            the chrome and told the user nothing the tab did not already say.
+            The navigation keys stay, since they are what makes it a browser. */}
         {nav.length > 0 && (
           <>
-            <div aria-hidden className="h-0.5 shrink-0 bg-ink" />
-            <div className="hidden shrink-0 items-center gap-1 px-3 py-1.5 sm:flex">
-              {nav.map((item) => (
-                <span
-                  key={item}
-                  className="type-hud pixel-clip cursor-default px-2.5 py-1.5 text-slate transition-colors duration-150 hover:bg-ink hover:text-mint"
-                  style={{ ["--notch" as string]: "2px" }}
-                >
-                  {item}
-                </span>
-              ))}
+            <div className="flex shrink-0 items-center gap-2 px-3 py-2">
+              <ToolButton label="Back" dim>
+                <ChevronLeft size={14} />
+              </ToolButton>
+              <ToolButton label="Forward" dim>
+                <ChevronRight size={14} />
+              </ToolButton>
+              <ToolButton label="Reload">
+                <RotateCw size={13} />
+              </ToolButton>
+
+              <span aria-hidden className="mx-1 h-5 w-0.5 bg-ink" />
+
+              <div className="hidden min-w-0 items-center gap-1 sm:flex">
+                {nav.map((item) => (
+                  <span
+                    key={item}
+                    className="type-hud pixel-clip cursor-default px-2.5 py-1.5 text-slate transition-colors duration-150 hover:bg-ink hover:text-mint"
+                    style={{ ["--notch" as string]: "2px" }}
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
             </div>
           </>
         )}

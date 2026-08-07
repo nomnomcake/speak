@@ -54,7 +54,7 @@ export default function PlayPage() {
   ];
 
   return (
-    <Layout url="speak.exe/play" tabs={tabsFor("play")}>
+    <Layout tabs={tabsFor("play")}>
       <PageTransition>
         <CategoryDesktop folders={folders} />
       </PageTransition>

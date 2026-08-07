@@ -49,7 +49,7 @@ function WeekStrip({ days }: { days: boolean[] }) {
 
 export default function HomePage() {
   return (
-    <Layout url="speak.exe" tabs={tabsFor("home")}>
+    <Layout tabs={tabsFor("home")}>
       <PageTransition>
         <Stagger className="space-y-6">
           {/* ---- Hero ------------------------------------------------- */}

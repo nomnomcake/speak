@@ -18,7 +18,6 @@ import { BrowserFrame, type BrowserTab } from "./BrowserFrame";
  */
 
 export type LayoutProps = {
-  url?: string;
   tabs?: BrowserTab[];
   nav?: string[];
   /** Right side of the tab strip. Empty by default. */
@@ -34,7 +33,6 @@ export type LayoutProps = {
 const DEFAULT_NAV = ["Brief", "Session", "Archive", "Settings"];
 
 export function Layout({
-  url = "speak.exe/design-system",
   tabs,
   nav = DEFAULT_NAV,
   status,
@@ -45,7 +43,6 @@ export function Layout({
 }: LayoutProps) {
   return (
     <BrowserFrame
-      url={url}
       tabs={tabs}
       nav={nav}
       status={status}
