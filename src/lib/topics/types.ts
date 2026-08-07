@@ -17,6 +17,7 @@ export const CATEGORIES = [
   "technology",
   "history",
   "psychology",
+  "society",
 ] as const;
 
 export type Category = (typeof CATEGORIES)[number];

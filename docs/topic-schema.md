@@ -17,6 +17,7 @@ type Topic = {
   title: string;                  // never shown before the readout
   category: Category;             // science | economics | philosophy
                                   // | technology | history | psychology
+                                  // | society
   difficulty: Difficulty;         // plain | technical | adversarial
   researchPrompt: string;         // the question the brief must answer
   suggestedAngles: string[];      // >= 2 distinct framings

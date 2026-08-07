@@ -19,6 +19,7 @@ import history from "@/content/topics/history.json";
 import philosophy from "@/content/topics/philosophy.json";
 import psychology from "@/content/topics/psychology.json";
 import science from "@/content/topics/science.json";
+import society from "@/content/topics/society.json";
 import technology from "@/content/topics/technology.json";
 
 import { parseTopicFile, TopicValidationError } from "./validate";
@@ -30,6 +31,7 @@ const FILES: ReadonlyArray<{ source: string; data: unknown }> = [
   { source: "philosophy.json", data: philosophy },
   { source: "psychology.json", data: psychology },
   { source: "science.json", data: science },
+  { source: "society.json", data: society },
   { source: "technology.json", data: technology },
 ];
 
