@@ -77,17 +77,33 @@ export type Topic = {
   references: TopicReference[];
 };
 
+/**
+ * The research window. The same for every topic and difficulty — the work is
+ * to compress whatever you found into the talk, not to be given more time for
+ * a harder subject.
+ */
+export const RESEARCH_SECONDS = 15 * 60;
+
 /** Phase durations in seconds, derived from difficulty. */
 export type Timings = {
-  readSeconds: number;
   lockoutSeconds: number;
   speakSeconds: number;
 };
 
+/**
+ * Every talk is one minute.
+ *
+ * Scaling talk length with difficulty was backwards: a harder idea does not
+ * deserve more airtime, it demands harder compression. A fixed minute also
+ * makes sessions comparable to each other, which scoring will need.
+ *
+ * `readSeconds` is gone. It belonged to the old 60-second brief, which the
+ * 15-minute research window replaced.
+ */
 export const TIMINGS: Record<Difficulty, Timings> = {
-  plain: { readSeconds: 45, lockoutSeconds: 10, speakSeconds: 60 },
-  technical: { readSeconds: 60, lockoutSeconds: 15, speakSeconds: 90 },
-  adversarial: { readSeconds: 90, lockoutSeconds: 20, speakSeconds: 120 },
+  plain: { lockoutSeconds: 10, speakSeconds: 60 },
+  technical: { lockoutSeconds: 15, speakSeconds: 60 },
+  adversarial: { lockoutSeconds: 20, speakSeconds: 60 },
 };
 
 /** Display order, hardest last. */

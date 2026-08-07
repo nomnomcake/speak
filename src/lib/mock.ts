@@ -5,7 +5,7 @@
  * topic is real: it comes from the topic registry in `@/lib/topics`.
  */
 
-import { timingsFor, topicForDate } from "@/lib/topics";
+import { RESEARCH_SECONDS, timingsFor, topicForDate } from "@/lib/topics";
 
 /**
  * The date the daily topic is drawn for.
@@ -32,6 +32,7 @@ export const todaysChallenge = {
   id: topic.id,
   category: topic.category,
   difficulty: topic.difficulty,
+  researchSeconds: RESEARCH_SECONDS,
   ...timings,
 } as const;
 

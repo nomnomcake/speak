@@ -71,8 +71,8 @@ export default function HomePage() {
                     <Logo size="lg" />
 
                     <p className="max-w-md text-base leading-relaxed text-graphite">
-                      You get one unfamiliar idea, a minute to absorb it, and
-                      ninety seconds to explain it from memory.
+                      You get one unfamiliar idea, fifteen minutes to research
+                      it, and one minute to explain it from your notes.
                     </p>
 
                     <div className="flex flex-wrap items-center gap-4">
@@ -125,14 +125,17 @@ export default function HomePage() {
                     <div className="grid grid-cols-3 gap-2 text-center">
                       {(
                         [
-                          ["Read", todaysChallenge.readSeconds],
-                          ["Think", todaysChallenge.lockoutSeconds],
-                          ["Speak", todaysChallenge.speakSeconds],
+                          [
+                            "Research",
+                            `${todaysChallenge.researchSeconds / 60}m`,
+                          ],
+                          ["Think", `${todaysChallenge.lockoutSeconds}s`],
+                          ["Speak", `${todaysChallenge.speakSeconds}s`],
                         ] as const
-                      ).map(([label, secs]) => (
+                      ).map(([label, value]) => (
                         <div key={label}>
                           <div className="font-mono text-xl tabular-nums">
-                            {secs}s
+                            {value}
                           </div>
                           <div className="type-hud text-mint">{label}</div>
                         </div>

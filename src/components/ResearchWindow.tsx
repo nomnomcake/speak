@@ -4,6 +4,7 @@ import { CatalogueCard } from "./CatalogueCard";
 import { CountdownTimer } from "./CountdownTimer";
 import { Dossier } from "./Dossier";
 import {
+  RESEARCH_SECONDS,
   fileNameFor,
   studySearchUrl,
   timingsFor,
@@ -28,7 +29,7 @@ import {
  * on their own or something better. That slot holds the instructions instead.
  */
 
-const RESEARCH_MINUTES = 15;
+const RESEARCH_MINUTES = RESEARCH_SECONDS / 60;
 
 export function ResearchWindow({ topic }: { topic: Topic }) {
   const timings = timingsFor(topic);

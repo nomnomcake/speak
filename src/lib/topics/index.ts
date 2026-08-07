@@ -15,6 +15,7 @@ export {
   DIFFICULTIES,
   REFERENCE_KINDS,
   TIMINGS,
+  RESEARCH_SECONDS,
   DIFFICULTY_RANK,
   type Category,
   type Difficulty,
