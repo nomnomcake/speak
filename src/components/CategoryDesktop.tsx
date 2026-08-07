@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowRight, Lock, X } from "lucide-react";
 import {
   Badge,
@@ -13,6 +13,7 @@ import {
 } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import { duration, ease } from "@/lib/tokens";
+import { TopicRandomizer } from "./TopicRandomizer";
 
 /**
  * CategoryDesktop — folder picking, as a retro desktop.
@@ -30,6 +31,8 @@ import { duration, ease } from "@/lib/tokens";
 
 export type DesktopFile = {
   name: string;
+  /** Carried per file, since the Random folder mixes categories. */
+  category: string;
   difficulty: string;
   speakSeconds: number;
 };
@@ -90,20 +93,24 @@ function FileRow({ file, index }: { file: DesktopFile; index: number }) {
 export function CategoryDesktop({ folders }: { folders: DesktopFolder[] }) {
   const [selectedId, setSelectedId] = React.useState<string | null>(null);
   const [openId, setOpenId] = React.useState<string | null>(null);
+  const [searchId, setSearchId] = React.useState<string | null>(null);
 
   const openFolder = folders.find((f) => f.id === openId) ?? null;
+  const searchFolder = folders.find((f) => f.id === searchId) ?? null;
   const selectedFolder = folders.find((f) => f.id === selectedId) ?? null;
 
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        if (openId) setOpenId(null);
+        // Unwind one layer at a time: search, then folder, then selection.
+        if (searchId) setSearchId(null);
+        else if (openId) setOpenId(null);
         else setSelectedId(null);
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [openId]);
+  }, [openId, searchId]);
 
   /**
    * The status bar only appears when it has something to say. An idle item
@@ -152,21 +159,35 @@ export function CategoryDesktop({ folders }: { folders: DesktopFolder[] }) {
         </div>
       </Panel>
 
-      {/* The opened folder, as its own window. */}
-      <AnimatePresence mode="wait">
-        {openFolder && (
-          <motion.div
-            key={openFolder.id}
-            initial={{ opacity: 0, y: -8, scale: 0.985 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -8, scale: 0.985 }}
-            transition={{
-              duration: duration.base,
-              ease: ease.snap,
-              // Let the flap finish opening before the window appears.
-              delay: 0.14,
-            }}
-          >
+      {/* The opened folder, or the search that replaced it.
+          Mount-only animation, no AnimatePresence. With an exit transition
+          here the outgoing window stayed mounted after its state was gone,
+          leaving a dead panel whose buttons pointed at stale state. Same
+          reason PageTransition avoids exit variants. */}
+      {searchFolder ? (
+        <motion.div
+          key={`search-${searchFolder.id}`}
+          initial={{ opacity: 0, y: -8, scale: 0.985 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: duration.base, ease: ease.snap }}
+        >
+          <TopicRandomizer
+            folder={searchFolder}
+            onClose={() => setSearchId(null)}
+          />
+        </motion.div>
+      ) : openFolder ? (
+        <motion.div
+          key={openFolder.id}
+          initial={{ opacity: 0, y: -8, scale: 0.985 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{
+            duration: duration.base,
+            ease: ease.snap,
+            // Let the flap finish opening before the window appears.
+            delay: 0.14,
+          }}
+        >
             <Panel
               chrome="window"
               notch={6}
@@ -206,15 +227,19 @@ export function CategoryDesktop({ folders }: { folders: DesktopFolder[] }) {
                     </span>
                   </div>
 
-                  <Button iconRight={<ArrowRight size={15} />}>
-                    Start from this folder
+                  <Button
+                    iconRight={<ArrowRight size={15} />}
+                    onClick={() => setSearchId(openFolder.id)}
+                  >
+                    {openFolder.id === "random"
+                      ? "Search all files"
+                      : "Search this folder"}
                   </Button>
                 </div>
               </div>
-            </Panel>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </Panel>
+        </motion.div>
+      ) : null}
     </div>
   );
 }
