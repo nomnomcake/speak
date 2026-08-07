@@ -1,8 +1,8 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { Button, Divider, Panel, PixelFrame } from "@/components/ui";
+import { Button, Divider, Panel } from "@/components/ui";
 import { CatalogueCard } from "./CatalogueCard";
 import { CountdownTimer } from "./CountdownTimer";
-import { DotMatrixList } from "./DotMatrixList";
+import { Printout } from "./Printout";
 import { fileNameFor, timingsFor, type Topic } from "@/lib/topics";
 
 /**
@@ -64,36 +64,26 @@ export function ResearchWindow({ topic }: { topic: Topic }) {
         <CatalogueCard topic={topic} fileName={fileNameFor(topic)} />
 
         <div className="grid gap-5 lg:grid-cols-3">
-          <div className="space-y-5 lg:col-span-2">
-            {/* Sources, as continuous-feed printout */}
-            <section className="space-y-2">
-              <h2 className="type-hud text-slate">
-                Sources · continuous feed
-              </h2>
-              <DotMatrixList items={topic.references} />
-            </section>
-
-            {/* Angles, as a typed memo */}
-            <section className="space-y-2">
-              <h2 className="type-hud text-slate">Angles on file</h2>
-              <PixelFrame
-                notch={3}
-                border={2}
-                innerClassName="divide-y-2 divide-mint-soft"
-              >
-                {topic.suggestedAngles.map((angle, i) => (
-                  <div key={angle} className="flex gap-3 px-4 py-3">
-                    <span className="shrink-0 font-mono text-xs text-mint-shade tabular-nums">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="font-mono text-xs leading-relaxed text-graphite">
-                      {angle}
-                    </span>
-                  </div>
-                ))}
-              </PixelFrame>
-            </section>
-          </div>
+          {/* Sources and angles share one sheet. Two separately styled boxes
+              side by side read as two systems; one printout with two printed
+              sections reads as output from the same machine. */}
+          <Printout
+            className="lg:col-span-2"
+            sections={[
+              {
+                title: "Sources · continuous feed",
+                rows: topic.references.map((ref) => ({
+                  label: ref.label,
+                  href: ref.url,
+                  meta: ref.kind,
+                })),
+              },
+              {
+                title: "Angles on file",
+                rows: topic.suggestedAngles.map((angle) => ({ label: angle })),
+              },
+            ]}
+          />
 
           <CountdownTimer
             storageKey={`research:${topic.id}:timer`}
