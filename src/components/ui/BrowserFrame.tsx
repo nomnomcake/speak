@@ -1,4 +1,5 @@
 import * as React from "react";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { PixelFrame } from "./PixelFrame";
 import { BackgroundGrid } from "./BackgroundGrid";
@@ -61,6 +62,8 @@ function ToolButton({
 export type BrowserTab = {
   label: string;
   active?: boolean;
+  /** Renders the tab as a link. Omit for a tab that isn't navigable yet. */
+  href?: string;
 };
 
 export type BrowserFrameProps = {
@@ -100,19 +103,33 @@ export function BrowserFrame({
       >
         {/* ---- Tab strip + window controls ------------------------------ */}
         <div className="flex shrink-0 items-end gap-1.5 bg-mint-soft px-3 pt-2">
-          {tabs.map((t) => (
-            <span
-              key={t.label}
-              className={cn(
-                "pixel-clip type-hud flex cursor-default items-center gap-2 border-2 border-ink border-b-0 px-3 py-2",
-                t.active ? "bg-paper text-ink" : "bg-mint text-slate",
-              )}
-              style={{ ["--notch" as string]: "3px" }}
-            >
-              <Star size={9} className={t.active ? "text-ink" : "text-mute"} />
-              {t.label}
-            </span>
-          ))}
+          {tabs.map((t) => {
+            const className = cn(
+              "pixel-clip type-hud flex items-center gap-2 border-2 border-ink border-b-0 px-3 py-2 transition-colors duration-150",
+              t.active
+                ? "bg-paper text-ink"
+                : t.href
+                  ? "bg-mint text-slate hover:bg-mint-soft hover:text-ink"
+                  : "cursor-default bg-mint text-slate",
+            );
+            const style = { ["--notch" as string]: "3px" };
+            const inner = (
+              <>
+                <Star size={9} className={t.active ? "text-ink" : "text-mute"} />
+                {t.label}
+              </>
+            );
+
+            return t.href && !t.active ? (
+              <Link key={t.label} href={t.href} className={className} style={style}>
+                {inner}
+              </Link>
+            ) : (
+              <span key={t.label} className={className} style={style}>
+                {inner}
+              </span>
+            );
+          })}
           <span
             aria-hidden
             className="pixel-clip mb-0 flex size-7 cursor-default items-center justify-center border-2 border-ink border-b-0 bg-mint text-slate"
