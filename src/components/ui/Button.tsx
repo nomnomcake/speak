@@ -130,10 +130,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               style={{ transform: `translate(${offset}px, ${offset}px)` }}
             />
 
-            {/* Key body — black plate holding the inset fill. */}
+            {/* Key body — black plate holding the inset fill. The 3px inset is
+                padding, not a margin on the fill: a vertical margin would
+                collapse through this plate and leave the key without top and
+                bottom edges. */}
             <span
               className={cn(
-                "pixel-clip relative block bg-ink transition-transform duration-100 ease-[cubic-bezier(0.2,0.9,0.25,1)]",
+                "pixel-clip relative block bg-ink p-[3px] transition-transform duration-100 ease-[cubic-bezier(0.2,0.9,0.25,1)]",
                 !isOff &&
                   "group-hover:-translate-x-px group-hover:-translate-y-px group-active:translate-x-[var(--press)] group-active:translate-y-[var(--press)]",
               )}
@@ -149,7 +152,6 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                   s.text,
                   s.gap,
                 )}
-                style={{ margin: 3 }}
               >
                 {label}
               </span>

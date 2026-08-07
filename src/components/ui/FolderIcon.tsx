@@ -48,6 +48,10 @@ export function FolderIcon({
 }: FolderIconProps) {
   const height = Math.round((size / UNIT_W) * UNIT_H);
 
+  // Unique per instance so several folders on one desktop cannot share a clip.
+  // React's useId contains colons, which are not safe inside a url(#...) ref.
+  const clipId = `folder-body-${React.useId().replace(/:/g, "")}`;
+
   const handleClick = () => {
     if (disabled) return;
     // Classic desktop behaviour: the first click selects, the next one opens.
@@ -88,6 +92,14 @@ export function FolderIcon({
         whileHover={disabled ? undefined : { y: -3 }}
         transition={{ duration: duration.fast, ease: ease.pixel }}
       >
+        {/* Papers are clipped to the folder body, so no amount of lift can
+            push them outside the silhouette mid-animation. */}
+        <defs>
+          <clipPath id={clipId}>
+            <rect x="1" y="3" width="22" height="15" />
+          </clipPath>
+        </defs>
+
         {/* Back panel + tab */}
         <g>
           <rect x="1" y="1" width="9" height="3" fill="#000000" />
@@ -98,8 +110,9 @@ export function FolderIcon({
 
         {/* Papers — only meaningful once the flap is out of the way */}
         <motion.g
+          clipPath={`url(#${clipId})`}
           initial={false}
-          animate={{ y: open ? -3.5 : 0, opacity: open ? 1 : 0 }}
+          animate={{ y: open ? -3 : 0, opacity: open ? 1 : 0 }}
           transition={{
             duration: duration.base,
             ease: ease.snap,
@@ -137,7 +150,7 @@ export function FolderIcon({
           className={cn(
             "pixel-clip type-caps max-w-full px-2 py-1 text-center text-[11px] leading-tight break-words transition-colors duration-100",
             selected
-              ? "bg-ink text-mint"
+              ? "bg-mint-shade text-ink"
               : "text-ink group-hover:bg-mint-soft group-hover:text-ink",
           )}
           style={{ ["--notch" as string]: "2px" }}

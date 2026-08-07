@@ -79,8 +79,13 @@ export const PixelFrame = React.forwardRef<HTMLDivElement, PixelFrameProps>(
           />
         )}
 
-        {/* Black plate → the border. */}
+        {/* Black plate → the border.
+            The inset is padding here, NOT a margin on the fill below. A
+            vertical margin on the fill collapses straight through this plate,
+            which has no border or padding of its own to contain it, leaving
+            the frame with left and right edges only. */}
         <div
+          style={{ padding: border }}
           className={cn(
             // h-full so a height set on the root reaches the inner surface.
             // With an auto-height root this computes to auto and changes
@@ -91,10 +96,7 @@ export const PixelFrame = React.forwardRef<HTMLDivElement, PixelFrameProps>(
           )}
         >
           {/* Inset fill → the surface. */}
-          <div
-            className={cn("pixel-clip h-full", toneFill[tone], innerClassName)}
-            style={{ margin: border }}
-          >
+          <div className={cn("pixel-clip h-full", toneFill[tone], innerClassName)}>
             {children}
           </div>
         </div>

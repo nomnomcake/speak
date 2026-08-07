@@ -105,20 +105,28 @@ export function CategoryDesktop({ folders }: { folders: DesktopFolder[] }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [openId]);
 
+  /**
+   * The status bar only appears when it has something to say. An idle item
+   * count is noise — the folders are right there and countable.
+   */
   const status = openFolder
     ? `${openFolder.label} — ${openFolder.count} sealed file${openFolder.count === 1 ? "" : "s"}`
     : selectedFolder
       ? `${selectedFolder.label} selected — click again or press Enter to open`
-      : `${folders.length} items`;
+      : null;
 
   return (
     <div className="space-y-5">
+      {/* No title bar: the tab and the address bar already say Play, so a
+          PLAY.EXE header was the third label for the same thing. The status
+          bar at the foot still carries the window's state. */}
       <Panel
         chrome="window"
-        title="PLAY.EXE"
         notch={6}
         sky={{ density: "sparse" }}
-        footer={<span className="type-hud text-slate">{status}</span>}
+        footer={
+          status ? <span className="type-hud text-slate">{status}</span> : undefined
+        }
       >
         {/* Clicking empty desktop deselects, as it would on a real one. */}
         <div
