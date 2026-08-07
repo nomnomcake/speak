@@ -2,106 +2,115 @@
 
 ## The session loop
 
-One session is four phases, roughly three minutes end to end. Short enough that
-failing is cheap and the user will go again.
-
 ```
-SETUP  ──►  BRIEF  ──►  LOCKOUT  ──►  TRANSMIT  ──►  READOUT
-                                                       │
-                                    ┌──────────────────┤
-                                    ▼                  ▼
-                                 retake             next topic
+PICK  ──►  SEARCH  ──►  RESEARCH  ──►  LOCKOUT  ──►  TRANSMIT  ──►  READOUT
+                          15 min         15s          90s
+                                                        │
+                                     ┌──────────────────┤
+                                     ▼                  ▼
+                                  retake             next topic
 ```
 
-### 1. SETUP — untimed
+### 1. PICK — untimed · `/play`
 
-Pick a domain and a difficulty. Or press **Start** and take whatever comes —
-the default path should require no decisions.
+A retro desktop of category folders. One click selects, a second opens.
+Opening a folder starts the search immediately.
 
-- Domain chips: Science · Economics · Philosophy · Technology · History
-- Difficulty: Plain → Technical → Adversarial
-- Shows what's coming: read time, speak time
+### 2. SEARCH — ~6s · `/play`
 
-### 2. BRIEF — 60s (varies by difficulty)
+The machine reads through the folder: folders opening, a scanline, a log of
+filenames, a card cycling and decelerating onto one. Deliberately a *search*
+rather than a spin — see `TopicRandomizer`.
 
-The source text appears. 200–400 words on something the user almost certainly
-doesn't know. A countdown runs.
+Files are sealed until this point: the user sees filenames, categories and
+durations, never titles. **Selection is what unseals a topic**, not the
+readout.
 
-- Text is selectable but **not** copyable to anywhere useful
-- No note-taking field. Notes would become a script, and reading a script is
-  the exact thing this product refuses to measure
-- User can end the phase early — that should feel rewarded, not punished
+### 3. RESEARCH — 15 min · `/research?topic=<id>`
 
-### 3. LOCKOUT — 15s
+A desktop application window: the topic and its research prompt, a notepad, a
+countdown timer widget, suggested angles, and links to sources.
 
-**The source disappears.** A short pause to structure the answer before
-speaking. This phase is what makes the product about synthesis rather than
-recall.
+The user researches the idea themselves. Notes and timer persist to
+localStorage, so closing the tab does not cost the session, and a timer left
+running is charged the time that passed rather than pausing itself.
 
-Visually the most important beat in the loop: the brief window shutting is the
-moment the user realises they're on their own.
+### 4. LOCKOUT — 15s
 
-### 4. TRANSMIT — 90s
+**The notes and sources disappear.** A short pause to structure the answer
+before speaking.
+
+This phase is what keeps the product about synthesis. Fifteen minutes of
+research is allowed precisely *because* the notes are taken away before the
+user speaks — otherwise the session would measure reading aloud, which is not
+the skill. If notes ever survive into TRANSMIT, the product has stopped
+measuring anything.
+
+### 5. TRANSMIT — 90s (varies by difficulty)
 
 The user speaks. Live waveform, running timer, word count.
 
-- No transcript shown while speaking — watching your own words appear destroys
+- No transcript while speaking — watching your own words appear destroys
   fluency
 - No live scoring. Nothing that induces mid-sentence self-correction
-- User can stop early; silence past ~10s auto-stops
+- Stop early is allowed; silence past ~10s auto-stops
 
-### 5. READOUT — untimed
+### 6. READOUT — untimed
 
 Scores, transcript, and one concrete thing to fix.
 
-- Six rubric dimensions as meters (see [topic-schema.md](./topic-schema.md))
+- Rubric dimensions as meters (see [topic-schema.md](./topic-schema.md))
 - Transcript with filler words marked
 - **Exactly one** piece of advice. A list of six weaknesses is a list nobody
   acts on
-- The key points from the source, with hits and misses marked — this is the
-  moment of learning, where the user sees what they dropped
-- Actions: **Retake** (same topic) · **Next** (new topic) · **Archive**
+- Which of the suggested angles they took, or whether they found a better one
+- Actions: **Retake** · **Next** · **Archive**
 
 ## Screens
 
-| Route | Screen | Phase |
+| Route | Screen | State |
 | --- | --- | --- |
-| `/` | Lobby | SETUP |
-| `/session` | Session | BRIEF → LOCKOUT → TRANSMIT |
-| `/session/readout` | Readout | READOUT |
-| `/archive` | Archive | — |
-| `/archive/[id]` | Past session | — |
+| `/` | Landing | Today's topic, streak, totals |
+| `/play` | Desktop | **Built** — folders, search, reveal |
+| `/research` | Research window | **Built** — notes, timer, resources |
+| `/session` | Speak | Not built — lockout → transmit |
+| `/session/readout` | Readout | Not built |
+| `/archive` | Archive | Not built |
 
-The three in-session phases are **one route with three states**, not three
+`/research` accepts `?topic=<id>`. An unknown or missing id falls back to the
+day's topic, so arriving from the tab bar is a valid way in.
+
+The lockout and transmit phases are **one route with two states**, not two
 routes. Navigation between them must be impossible — no back button, no URL
-edit, no refresh escape. The lockout only means something if it can't be undone.
+edit, no refresh escape. A lockout that can be undone is not a lockout.
 
 ## State machine
 
 ```
-idle ──start──► briefing ──timeout/skip──► lockout ──timeout──► transmitting
-                                                                     │
-                                              stop / timeout / silence
-                                                                     ▼
-                                                                  scoring
-                                                                     │
-                                                                     ▼
-  idle ◄──next/retake──────────────────────────────────────────── readout
+idle ──open folder──► searching ──lands──► researching
+                                               │
+                                          ready to speak
+                                               ▼
+                                            lockout ──15s──► transmitting
+                                                                  │
+                                            stop / timeout / silence
+                                                                  ▼
+  idle ◄──next/retake─────────── readout ◄──scored── scoring
 ```
 
 Rules:
 
-- Transitions are **one-way**. There is no path back from `lockout` to
-  `briefing`, in the UI or the state machine
+- Transitions from `lockout` onward are **one-way**. There is no path back to
+  `researching`, in the UI or the state machine
 - `scoring` is a real state with a visible spinner — it may take seconds
 - Leaving mid-session abandons it. Confirm first, then discard; a half-session
   in the archive is noise
 
 ## Feel
 
-- **Countdowns are calm.** Numbers in Geist Mono, meters draining. No red, no
+- **Countdowns are calm.** Geist Mono numerals, meters draining. No red, no
   pulsing, no beeping. Anxiety makes people worse at this.
 - **Phase changes are decisive.** A hard cut, not a fade. The user should never
-  wonder which phase they're in.
+  wonder which phase they are in.
 - **The readout leads with what went right.** The user just did something
   uncomfortable. Open with the best dimension, then the one thing to fix.

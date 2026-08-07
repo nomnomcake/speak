@@ -276,6 +276,7 @@ export function TopicRandomizer({
             </Button>
             <Button
               disabled={searching}
+              href={picked ? `/research?topic=${picked.id}` : undefined}
               iconRight={<ArrowRight size={15} />}
             >
               Begin

@@ -43,6 +43,7 @@ function toFolder(id: string, label: string, topics: readonly Topic[]) {
     label,
     count: topics.length,
     files: topics.map((topic) => ({
+      id: topic.id,
       name: FILE_NAMES.get(topic.id) ?? `${topic.id.toUpperCase()}.TXT`,
       category: topic.category,
       difficulty: topic.difficulty,

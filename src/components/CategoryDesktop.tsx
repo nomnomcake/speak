@@ -21,6 +21,8 @@ import { TopicRandomizer } from "./TopicRandomizer";
  */
 
 export type DesktopFile = {
+  /** Topic id, so the randomiser can hand the pick to the research screen. */
+  id: string;
   name: string;
   /** Carried per file, since the Random folder mixes categories. */
   category: string;
