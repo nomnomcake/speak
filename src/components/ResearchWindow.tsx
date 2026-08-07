@@ -24,11 +24,11 @@ export function ResearchWindow({ topic }: { topic: Topic }) {
   const timings = timingsFor(topic);
 
   return (
+    // No title bar. The card names what this is, and the timer already shows
+    // the 15 minutes the header was repeating.
     <Panel
       chrome="window"
       notch={6}
-      title="RESEARCH.EXE"
-      actions={<span className="type-hud text-slate">{RESEARCH_MINUTES} min</span>}
       footer={
         <>
           <span className="type-hud text-slate">
