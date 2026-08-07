@@ -106,15 +106,18 @@ export function ResearchWindow({ topic }: { topic: Topic }) {
                       "You have 15 minutes to research this properly. Read past the first result.",
                   },
                   {
-                    label:
-                      "Take notes on paper, by hand. Nothing on this screen saves what you write.",
+                    label: "Take notes on paper, by hand.",
                   },
                   {
-                    label: `When the timer runs out, give a ${timings.speakSeconds}-second talk on the topic, from your notes.`,
+                    // "One minute" is written out rather than interpolated
+                    // because TIMINGS now fixes every talk at 60s. If that
+                    // ever varies again, this line has to change with it.
+                    label:
+                      "When time's up, talk about it for one minute using your notes.",
                   },
                   {
                     label:
-                      "Do not write a script. Notes are prompts, not sentences — reading one aloud is not the exercise.",
+                      "Don't write out what you're going to say. You should still be working it out while you talk.",
                   },
                 ],
               },
