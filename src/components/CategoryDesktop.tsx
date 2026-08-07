@@ -35,24 +35,43 @@ export type DesktopFolder = {
   files: DesktopFile[];
 };
 
+/** How long the flap is left open before the search takes the window over. */
+const OPEN_BEAT_MS = 300;
+
 export function CategoryDesktop({ folders }: { folders: DesktopFolder[] }) {
   const [selectedId, setSelectedId] = React.useState<string | null>(null);
   const [openId, setOpenId] = React.useState<string | null>(null);
+  /** Set the moment a folder is opened, cleared once the search takes over. */
+  const [openingId, setOpeningId] = React.useState<string | null>(null);
 
   const openFolder = folders.find((f) => f.id === openId) ?? null;
   const selectedFolder = folders.find((f) => f.id === selectedId) ?? null;
+
+  // The search replaces the desktop rather than appearing under it, so the
+  // folder would otherwise unmount before its flap finished opening. This
+  // holds the desktop for one beat so that animation is actually seen.
+  React.useEffect(() => {
+    if (!openingId) return;
+    const t = setTimeout(() => {
+      setOpenId(openingId);
+      setOpeningId(null);
+    }, OPEN_BEAT_MS);
+    return () => clearTimeout(t);
+  }, [openingId]);
 
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         // Unwind one layer at a time: the search, then the selection.
-        if (openId) setOpenId(null);
-        else setSelectedId(null);
+        if (openId || openingId) {
+          setOpenId(null);
+          setOpeningId(null);
+        } else setSelectedId(null);
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [openId]);
+  }, [openId, openingId]);
 
   /**
    * The status bar only appears when it has something to say. An idle item
@@ -63,6 +82,21 @@ export function CategoryDesktop({ folders }: { folders: DesktopFolder[] }) {
     : selectedFolder
       ? `${selectedFolder.label} selected — click again or press Enter to open`
       : null;
+
+  // The search takes the window over. Rendering it under the desktop pushed it
+  // below the fold, so it had to be scrolled to.
+  if (openFolder) {
+    return (
+      <motion.div
+        key={openFolder.id}
+        initial={{ opacity: 0, y: -8, scale: 0.985 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: duration.base, ease: ease.snap }}
+      >
+        <TopicRandomizer folder={openFolder} onClose={() => setOpenId(null)} />
+      </motion.div>
+    );
+  }
 
   return (
     <div className="space-y-5">
@@ -90,40 +124,16 @@ export function CategoryDesktop({ folders }: { folders: DesktopFolder[] }) {
               label={folder.label}
               meta={`${folder.count} topic${folder.count === 1 ? "" : "s"}`}
               selected={selectedId === folder.id}
-              open={openId === folder.id}
+              open={openingId === folder.id}
               onSelect={() => setSelectedId(folder.id)}
               onOpen={() => {
                 setSelectedId(folder.id);
-                setOpenId(folder.id);
+                setOpeningId(folder.id);
               }}
             />
           ))}
         </div>
       </Panel>
-
-      {/* The search, spawned by opening a folder.
-          Mount-only animation, no AnimatePresence. With an exit transition
-          here the outgoing window never unmounted, leaving a dead panel on
-          screen whose buttons pointed at state that no longer existed. Same
-          reason PageTransition avoids exit variants. */}
-      {openFolder ? (
-        <motion.div
-          key={openFolder.id}
-          initial={{ opacity: 0, y: -8, scale: 0.985 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{
-            duration: duration.base,
-            ease: ease.snap,
-            // Let the flap finish opening before the window appears.
-            delay: 0.14,
-          }}
-        >
-          <TopicRandomizer
-            folder={openFolder}
-            onClose={() => setOpenId(null)}
-          />
-        </motion.div>
-      ) : null}
     </div>
   );
 }
