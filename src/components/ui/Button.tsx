@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
+import Link, { useLinkStatus } from "next/link";
 import { cn } from "@/lib/utils";
 import { Spinner } from "./Spinner";
 
@@ -16,6 +16,11 @@ import { Spinner } from "./Spinner";
  * `ghost` is the one variant with no plates at all. It can't use a transparent
  * fill over the black border plate, because transparent over black is just
  * black — it gets a bare hit area that tints on hover instead.
+ *
+ * With `href`, the key becomes a link and shows a spinner while the navigation
+ * is pending. Without that, a slow transition — an uncompiled route in dev, or
+ * a poor connection in production — looks like a dead button, because nothing
+ * on screen changes between the click and the new page.
  */
 
 type Variant = "primary" | "secondary" | "mint" | "ghost" | "danger";
@@ -51,6 +56,19 @@ export type ButtonProps = {
   href?: string;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
+/**
+ * Reads the enclosing Link's pending state. Must be rendered inside a `Link`,
+ * which is why this exists as a component rather than a hook call in Button.
+ */
+function LinkAwareInner({
+  render,
+}: {
+  render: (busy: boolean) => React.ReactNode;
+}) {
+  const { pending } = useLinkStatus();
+  return <>{render(pending)}</>;
+}
+
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   function Button(
     {
@@ -74,9 +92,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const isOff = disabled || loading;
     const offset = size === "sm" ? 3 : 4;
 
-    const label = (
+    const renderLabel = (busy: boolean) => (
       <>
-        {loading ? (
+        {busy ? (
           <Spinner
             size={size === "lg" ? "md" : "sm"}
             tone="current"
@@ -86,9 +104,65 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           iconLeft
         )}
         {children}
-        {!loading && iconRight}
+        {!busy && iconRight}
       </>
     );
+
+    const renderInner = (busy: boolean) =>
+      isGhost ? (
+        <span
+          className={cn(
+            "pixel-clip flex items-center justify-center whitespace-nowrap",
+            "font-semibold tracking-wide uppercase text-ink",
+            "transition-colors duration-150",
+            !isOff && "group-hover:bg-mint-soft group-active:bg-mint",
+            s.pad,
+            s.text,
+            s.gap,
+          )}
+        >
+          {renderLabel(busy)}
+        </span>
+      ) : (
+        <>
+          {/* Shadow plate. Hidden while pressed so the key looks depressed. */}
+          <span
+            aria-hidden
+            className={cn(
+              "pixel-clip absolute inset-0 bg-ink transition-opacity duration-100",
+              !isOff && "group-active:opacity-0",
+            )}
+            style={{ transform: `translate(${offset}px, ${offset}px)` }}
+          />
+
+          {/* Key body — black plate holding the inset fill. The 3px inset is
+              padding, not a margin on the fill: a vertical margin would
+              collapse through this plate and leave the key without top and
+              bottom edges. */}
+          <span
+            className={cn(
+              "pixel-clip relative block bg-ink p-[3px] transition-transform duration-100 ease-[cubic-bezier(0.2,0.9,0.25,1)]",
+              !isOff &&
+                "group-hover:-translate-x-px group-hover:-translate-y-px group-active:translate-x-[var(--press)] group-active:translate-y-[var(--press)]",
+            )}
+            style={{ ["--press" as string]: `${offset}px` }}
+          >
+            <span
+              className={cn(
+                "pixel-clip flex items-center justify-center whitespace-nowrap",
+                "font-semibold tracking-wide uppercase",
+                v.fill,
+                v.text,
+                s.pad,
+                s.text,
+                s.gap,
+              )}
+            >
+              {renderLabel(busy)}
+            </span>
+          </span>
+        </>
+      );
 
     const rootClass = cn(
       "group relative inline-block select-none",
@@ -102,69 +176,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     );
     const rootStyle = { ["--notch" as string]: "3px" };
 
-    const body = (
-      <>
-        {isGhost ? (
-          <span
-            className={cn(
-              "pixel-clip flex items-center justify-center whitespace-nowrap",
-              "font-semibold tracking-wide uppercase text-ink",
-              "transition-colors duration-150",
-              !isOff && "group-hover:bg-mint-soft group-active:bg-mint",
-              s.pad,
-              s.text,
-              s.gap,
-            )}
-          >
-            {label}
-          </span>
-        ) : (
-          <>
-            {/* Shadow plate. Hidden while pressed so the key looks depressed. */}
-            <span
-              aria-hidden
-              className={cn(
-                "pixel-clip absolute inset-0 bg-ink transition-opacity duration-100",
-                !isOff && "group-active:opacity-0",
-              )}
-              style={{ transform: `translate(${offset}px, ${offset}px)` }}
-            />
-
-            {/* Key body — black plate holding the inset fill. The 3px inset is
-                padding, not a margin on the fill: a vertical margin would
-                collapse through this plate and leave the key without top and
-                bottom edges. */}
-            <span
-              className={cn(
-                "pixel-clip relative block bg-ink p-[3px] transition-transform duration-100 ease-[cubic-bezier(0.2,0.9,0.25,1)]",
-                !isOff &&
-                  "group-hover:-translate-x-px group-hover:-translate-y-px group-active:translate-x-[var(--press)] group-active:translate-y-[var(--press)]",
-              )}
-              style={{ ["--press" as string]: `${offset}px` }}
-            >
-              <span
-                className={cn(
-                  "pixel-clip flex items-center justify-center whitespace-nowrap",
-                  "font-semibold tracking-wide uppercase",
-                  v.fill,
-                  v.text,
-                  s.pad,
-                  s.text,
-                  s.gap,
-                )}
-              >
-                {label}
-              </span>
-            </span>
-          </>
-        )}
-      </>
-    );
-
     if (href && !isOff) {
       return (
         <Link href={href} className={rootClass} style={rootStyle}>
-          {body}
+          <LinkAwareInner render={renderInner} />
         </Link>
       );
     }
@@ -178,7 +193,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         style={rootStyle}
         {...rest}
       >
-        {body}
+        {renderInner(loading)}
       </button>
     );
   },
