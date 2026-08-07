@@ -114,6 +114,21 @@ export function timingsFor(topic: Topic): Timings {
   return TIMINGS[topic.difficulty];
 }
 
+/**
+ * The filename a topic is filed under, e.g. `SOC_002.TXT`.
+ *
+ * Numbered by position within its own category, never within whichever list is
+ * displaying it — otherwise the same topic would be SCI_002 in the Science
+ * folder and SCI_006 in Random. Lives here so the picker and the research
+ * screen cannot disagree about what a file is called.
+ */
+export function fileNameFor(topic: Topic): string {
+  const siblings = TOPICS_BY_CATEGORY.get(topic.category) ?? [];
+  const index = siblings.findIndex((t) => t.id === topic.id);
+  const prefix = topic.category.slice(0, 3).toUpperCase();
+  return `${prefix}_${String(Math.max(0, index) + 1).padStart(3, "0")}.TXT`;
+}
+
 /** Sort helper: easiest first, then by title. */
 export function byDifficultyThenTitle(a: Topic, b: Topic): number {
   return (

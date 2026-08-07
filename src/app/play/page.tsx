@@ -4,7 +4,13 @@ import {
   type DesktopFolder,
 } from "@/components/CategoryDesktop";
 import { tabsFor } from "@/lib/nav";
-import { ALL_TOPICS, CATEGORIES, TIMINGS, topicsInCategory } from "@/lib/topics";
+import {
+  ALL_TOPICS,
+  CATEGORIES,
+  TIMINGS,
+  fileNameFor,
+  topicsInCategory,
+} from "@/lib/topics";
 import type { Topic } from "@/lib/topics";
 
 /**
@@ -18,25 +24,6 @@ import type { Topic } from "@/lib/topics";
  * asking for. See docs/topic-schema.md.
  */
 
-/**
- * Filenames, resolved once for every topic.
- *
- * Numbered by position within the topic's own category, not within whichever
- * folder is displaying it — otherwise the same file would be SCI_002 in the
- * Science folder and SCI_006 in Random.
- */
-const FILE_NAMES: ReadonlyMap<string, string> = new Map(
-  CATEGORIES.flatMap((category) =>
-    topicsInCategory(category).map(
-      (topic, i) =>
-        [
-          topic.id,
-          `${category.slice(0, 3).toUpperCase()}_${String(i + 1).padStart(3, "0")}.TXT`,
-        ] as const,
-    ),
-  ),
-);
-
 function toFolder(id: string, label: string, topics: readonly Topic[]) {
   return {
     id,
@@ -44,7 +31,9 @@ function toFolder(id: string, label: string, topics: readonly Topic[]) {
     count: topics.length,
     files: topics.map((topic) => ({
       id: topic.id,
-      name: FILE_NAMES.get(topic.id) ?? `${topic.id.toUpperCase()}.TXT`,
+      // Shared with the research screen, so a file cannot be called one thing
+      // in the picker and another once opened.
+      name: fileNameFor(topic),
       category: topic.category,
       difficulty: topic.difficulty,
       speakSeconds: TIMINGS[topic.difficulty].speakSeconds,

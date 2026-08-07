@@ -1,20 +1,21 @@
-import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
-import { Badge, Button, Divider, Panel, PixelFrame } from "@/components/ui";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { Button, Divider, Panel, PixelFrame } from "@/components/ui";
+import { CatalogueCard } from "./CatalogueCard";
 import { CountdownTimer } from "./CountdownTimer";
-import { PaperNotes } from "./PaperNotes";
-import { timingsFor, type Topic } from "@/lib/topics";
+import { DotMatrixList } from "./DotMatrixList";
+import { fileNameFor, timingsFor, type Topic } from "@/lib/topics";
 
 /**
  * ResearchWindow — the research phase as a desktop application.
  *
- * Title bar, toolbar, a notepad, a timer widget and a resources sidebar. The
- * topic title is shown here, unlike everywhere else in the product: you cannot
- * research what you cannot see. Sealed means "until selected", not "until the
- * readout".
+ * The screen is a desk rather than a page: the card pulled from the cabinet,
+ * a printout of sources, a memo of angles, and a timer. Each is drawn as the
+ * object it represents, which is what keeps this from being a generic retro
+ * theme laid over a form.
  *
- * Notes are taken on real paper, not typed — see PaperNotes for why. Storage
- * keys are namespaced per topic, so switching topics keeps its own timer
- * rather than inheriting the last one's.
+ * The topic title is shown here, unlike everywhere else in the product: you
+ * cannot research what you cannot see. Sealed means "until selected", not
+ * "until the readout".
  */
 
 const RESEARCH_MINUTES = 15;
@@ -27,11 +28,7 @@ export function ResearchWindow({ topic }: { topic: Topic }) {
       chrome="window"
       notch={6}
       title="RESEARCH.EXE"
-      actions={
-        <span className="type-hud text-slate">
-          {RESEARCH_MINUTES} min
-        </span>
-      }
+      actions={<span className="type-hud text-slate">{RESEARCH_MINUTES} min</span>}
       footer={
         <>
           <span className="type-hud text-slate">
@@ -43,15 +40,17 @@ export function ResearchWindow({ topic }: { topic: Topic }) {
         </>
       }
     >
-      <div className="space-y-4">
+      <div className="space-y-5">
         {/* Toolbar */}
         <div className="flex flex-wrap items-center gap-3">
-          <Button size="sm" variant="secondary" href="/play" iconLeft={<ArrowLeft size={13} />}>
+          <Button
+            size="sm"
+            variant="secondary"
+            href="/play"
+            iconLeft={<ArrowLeft size={13} />}
+          >
             Folders
           </Button>
-          <div aria-hidden className="hidden h-6 w-0.5 bg-ink sm:block" />
-          <Badge tone="mint">{topic.category}</Badge>
-          <Badge tone="paper">{topic.difficulty}</Badge>
           <div className="ml-auto">
             <Button size="sm" iconRight={<ArrowRight size={13} />}>
               Ready to speak
@@ -61,80 +60,46 @@ export function ResearchWindow({ topic }: { topic: Topic }) {
 
         <Divider />
 
-        {/* Topic */}
-        <PixelFrame notch={4} border={2} innerClassName="space-y-2 p-4">
-          <h1 className="text-2xl leading-tight font-bold sm:text-3xl">
-            {topic.title}
-          </h1>
-          <p className="max-w-3xl text-sm leading-relaxed text-graphite">
-            {topic.researchPrompt}
-          </p>
-        </PixelFrame>
+        {/* The card pulled from the drawer */}
+        <CatalogueCard topic={topic} fileName={fileNameFor(topic)} />
 
-        {/* Notes + sidebar */}
-        <div className="grid gap-4 lg:grid-cols-3">
-          <div className="lg:col-span-2">
-            <PaperNotes storageKey={`research:${topic.id}:paper`} />
-          </div>
+        <div className="grid gap-5 lg:grid-cols-3">
+          <div className="space-y-5 lg:col-span-2">
+            {/* Sources, as continuous-feed printout */}
+            <section className="space-y-2">
+              <h2 className="type-hud text-slate">
+                Sources · continuous feed
+              </h2>
+              <DotMatrixList items={topic.references} />
+            </section>
 
-          <div className="space-y-4">
-            <CountdownTimer
-              storageKey={`research:${topic.id}:timer`}
-              totalSeconds={RESEARCH_MINUTES * 60}
-            />
-
-            {/* Angles */}
-            <PixelFrame notch={4} border={2} innerClassName="space-y-3 p-4">
-              <span className="type-hud text-slate">Angles to consider</span>
-              <ol className="space-y-2">
+            {/* Angles, as a typed memo */}
+            <section className="space-y-2">
+              <h2 className="type-hud text-slate">Angles on file</h2>
+              <PixelFrame
+                notch={3}
+                border={2}
+                innerClassName="divide-y-2 divide-mint-soft"
+              >
                 {topic.suggestedAngles.map((angle, i) => (
-                  <li key={angle} className="flex gap-2 text-sm leading-snug">
-                    <span className="font-mono text-xs text-mint-shade tabular-nums">
+                  <div key={angle} className="flex gap-3 px-4 py-3">
+                    <span className="shrink-0 font-mono text-xs text-mint-shade tabular-nums">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="text-graphite">{angle}</span>
-                  </li>
+                    <span className="font-mono text-xs leading-relaxed text-graphite">
+                      {angle}
+                    </span>
+                  </div>
                 ))}
-              </ol>
-            </PixelFrame>
-
-            {/* References */}
-            <PixelFrame notch={4} border={2} innerClassName="space-y-3 p-4">
-              <span className="type-hud text-slate">Resources</span>
-              <ul className="space-y-2">
-                {topic.references.map((ref) => (
-                  <li key={ref.url}>
-                    <a
-                      href={ref.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-start gap-2 text-sm leading-snug"
-                    >
-                      <ExternalLink
-                        size={12}
-                        className="mt-1 shrink-0 text-mint-shade"
-                      />
-                      <span className="underline decoration-mint-deep decoration-2 underline-offset-2 group-hover:bg-mint-soft">
-                        {ref.label}
-                      </span>
-                    </a>
-                    {ref.kind && (
-                      <span className="type-hud ml-5 text-mute">{ref.kind}</span>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </PixelFrame>
-
-            {/* Tags */}
-            <div className="flex flex-wrap gap-2">
-              {topic.tags.map((tag) => (
-                <Badge key={tag} tone="paper">
-                  {tag}
-                </Badge>
-              ))}
-            </div>
+              </PixelFrame>
+            </section>
           </div>
+
+          <CountdownTimer
+            storageKey={`research:${topic.id}:timer`}
+            totalSeconds={RESEARCH_MINUTES * 60}
+            className="lg:sticky lg:top-2 lg:self-start"
+          />
         </div>
       </div>
     </Panel>

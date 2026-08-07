@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Bell, Pause, Play, RotateCcw } from "lucide-react";
 import { PixelFrame, ProgressBar } from "@/components/ui";
+import { FlipClock } from "./FlipClock";
 import { cn } from "@/lib/utils";
 import { readJSON, writeJSON } from "@/lib/storage";
 
@@ -113,27 +114,8 @@ export function CountdownTimer({
         </span>
       </div>
 
-      {/* Inset LCD */}
-      <div
-        className="pixel-clip relative overflow-hidden border-2 border-ink bg-ink px-4 py-3"
-        style={{ ["--notch" as string]: "2px" }}
-      >
-        <div
-          aria-hidden
-          className="pixel-scanlines pointer-events-none absolute inset-0 opacity-50"
-        />
-        <div
-          // The clock changes every second; announcing each tick would flood a
-          // screen reader.
-          aria-live="off"
-          className={cn(
-            "relative text-center font-mono text-5xl leading-none tabular-nums",
-            expired ? "text-alert" : "text-glow",
-          )}
-        >
-          {format(remaining)}
-        </div>
-      </div>
+      {/* Split-flap board */}
+      <FlipClock value={format(remaining)} expired={expired} className="py-1" />
 
       <ProgressBar value={progress} variant="segmented" segments={15} />
 

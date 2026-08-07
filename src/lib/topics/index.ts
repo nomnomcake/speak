@@ -44,6 +44,7 @@ export {
   allTags,
   relatedTopics,
   timingsFor,
+  fileNameFor,
   byDifficultyThenTitle,
   topicForDate,
   type TopicFilter,

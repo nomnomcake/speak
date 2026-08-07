@@ -150,6 +150,46 @@ export function Sprig({
   );
 }
 
+/**
+ * Paperclip — a desk object for the corner of a card.
+ *
+ * Drawn as a flat pixel spiral rather than a wire loop; at this size a
+ * realistic clip turns to mush, and the stepped outline reads better.
+ */
+export function Paperclip({
+  size = 22,
+  fill = "#5a6764",
+  className,
+  style,
+}: {
+  size?: number;
+  fill?: string;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
+  return (
+    <svg
+      viewBox="0 0 10 18"
+      width={size}
+      height={size * 1.8}
+      shapeRendering="crispEdges"
+      className={className}
+      style={style}
+      aria-hidden
+    >
+      {/* outer loop */}
+      <rect x="1" y="1" width="1" height="13" fill={fill} />
+      <rect x="8" y="1" width="1" height="10" fill={fill} />
+      <rect x="2" y="0" width="6" height="1" fill={fill} />
+      <rect x="2" y="14" width="5" height="1" fill={fill} />
+      <rect x="7" y="11" width="1" height="3" fill={fill} />
+      {/* inner return */}
+      <rect x="4" y="3" width="1" height="9" fill={fill} />
+      <rect x="5" y="12" width="2" height="1" fill={fill} />
+    </svg>
+  );
+}
+
 /** Pixel sun — a stepped disc with rays, for the top corner of a sky. */
 export function Sun({
   size = 48,

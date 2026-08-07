@@ -18,9 +18,11 @@ export {
   Sparkle,
   Sprig,
   Sun,
+  Paperclip,
   CLOUDS,
   type CloudShape,
 } from "./PixelArt";
+export { Stamp, type StampProps } from "./Stamp";
 export {
   BrowserFrame,
   type BrowserFrameProps,
