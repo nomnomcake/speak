@@ -1,0 +1,77 @@
+[
+  {
+    "id": "broad-street-pump",
+    "title": "The Broad Street pump and the birth of epidemiology",
+    "category": "history",
+    "difficulty": "plain",
+    "researchPrompt": "Explain how John Snow established that cholera spread through water rather than air, and why the reasoning mattered more than the conclusion.",
+    "suggestedAngles": [
+      "Follow the evidence: the map, the outlier cases, and what they ruled out",
+      "Frame it as the invention of a method rather than the solving of one outbreak",
+      "Use the resistance he met to show how theory change actually happens"
+    ],
+    "tags": ["epidemiology", "evidence", "public-health", "method"],
+    "references": [
+      {
+        "label": "1854 Broad Street cholera outbreak",
+        "url": "https://en.wikipedia.org/wiki/1854_Broad_Street_cholera_outbreak",
+        "kind": "article"
+      },
+      {
+        "label": "John Snow",
+        "url": "https://en.wikipedia.org/wiki/John_Snow",
+        "kind": "article"
+      }
+    ]
+  },
+  {
+    "id": "printing-press-consequences",
+    "title": "What the printing press actually changed",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the second-order consequences of movable type in Europe, beyond the obvious point that books got cheaper.",
+    "suggestedAngles": [
+      "Trace standardisation: fixed spelling, page numbers, and the idea of an edition",
+      "Follow the collapse in the cost of coordinating a dispersed movement",
+      "Argue the counterfactual: which changes needed print and which were already underway"
+    ],
+    "tags": ["technology", "information", "reformation", "standardisation"],
+    "references": [
+      {
+        "label": "Printing press",
+        "url": "https://en.wikipedia.org/wiki/Printing_press",
+        "kind": "article"
+      },
+      {
+        "label": "Printing revolution",
+        "url": "https://en.wikipedia.org/wiki/Printing_Revolution",
+        "kind": "article"
+      }
+    ]
+  },
+  {
+    "id": "fall-of-rome-debate",
+    "title": "Why the fall of Rome is still argued about",
+    "category": "history",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain why historians disagree about the fall of the Western Roman Empire, and what the disagreement reveals about historical explanation itself.",
+    "suggestedAngles": [
+      "Contrast catastrophe with transformation as competing framings of the same evidence",
+      "Show how the question smuggles in an assumption that there was a single event to explain",
+      "Use the multiplicity of proposed causes to argue about overdetermination"
+    ],
+    "tags": ["rome", "historiography", "causation", "decline"],
+    "references": [
+      {
+        "label": "Fall of the Western Roman Empire",
+        "url": "https://en.wikipedia.org/wiki/Fall_of_the_Western_Roman_Empire",
+        "kind": "article"
+      },
+      {
+        "label": "Historiography of the fall of the Western Roman Empire",
+        "url": "https://en.wikipedia.org/wiki/Historiography_of_the_fall_of_the_Western_Roman_Empire",
+        "kind": "article"
+      }
+    ]
+  }
+]

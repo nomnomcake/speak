@@ -139,15 +139,28 @@ export function Panel({
         <div className="relative">{children}</div>
       </div>
 
-      {footer && (
-        <>
-          <div
-            aria-hidden
-            className={cn("h-0.5 w-full", inverted ? "bg-paper" : "bg-ink")}
-          />
-          <div className="px-4 py-2.5">{footer}</div>
-        </>
-      )}
+      {/* In `window` chrome the footer is a framed bar mirroring the title bar.
+          A plain rule would sit inset by the window's own padding and read as
+          a misaligned divider rather than a status bar. */}
+      {footer &&
+        (chrome === "window" ? (
+          <PixelFrame
+            tone={tone}
+            notch={3}
+            border={2}
+            innerClassName="flex items-center justify-between gap-4 px-3 py-1.5"
+          >
+            {footer}
+          </PixelFrame>
+        ) : (
+          <>
+            <div
+              aria-hidden
+              className={cn("h-0.5 w-full", inverted ? "bg-paper" : "bg-ink")}
+            />
+            <div className="px-4 py-2.5">{footer}</div>
+          </>
+        ))}
     </PixelFrame>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Spinner } from "./Spinner";
 
@@ -41,6 +42,13 @@ export type ButtonProps = {
   fullWidth?: boolean;
   iconLeft?: React.ReactNode;
   iconRight?: React.ReactNode;
+  /**
+   * Render as a link instead of a button, with identical visuals.
+   *
+   * A `<button>` nested inside an `<a>` is invalid HTML, so navigation has to
+   * be built in rather than achieved by wrapping. Ignored when disabled.
+   */
+  href?: string;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -53,6 +61,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       iconLeft,
       iconRight,
       disabled,
+      href,
       className,
       children,
       ...rest
@@ -81,24 +90,20 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       </>
     );
 
-    return (
-      <button
-        ref={ref}
-        disabled={isOff}
-        data-loading={loading || undefined}
-        className={cn(
-          "group relative inline-block select-none",
-          "focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-ink",
-          fullWidth && "w-full",
-          // Only a true disable dims the key. A loading button keeps full
-          // contrast so the spinner stays legible.
-          disabled && !loading && "cursor-not-allowed opacity-45",
-          loading && "cursor-wait",
-          className,
-        )}
-        style={{ ["--notch" as string]: "3px" }}
-        {...rest}
-      >
+    const rootClass = cn(
+      "group relative inline-block select-none",
+      "focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-ink",
+      fullWidth && "w-full",
+      // Only a true disable dims the key. A loading button keeps full
+      // contrast so the spinner stays legible.
+      disabled && !loading && "cursor-not-allowed opacity-45",
+      loading && "cursor-wait",
+      className,
+    );
+    const rootStyle = { ["--notch" as string]: "3px" };
+
+    const body = (
+      <>
         {isGhost ? (
           <span
             className={cn(
@@ -151,6 +156,27 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             </span>
           </>
         )}
+      </>
+    );
+
+    if (href && !isOff) {
+      return (
+        <Link href={href} className={rootClass} style={rootStyle}>
+          {body}
+        </Link>
+      );
+    }
+
+    return (
+      <button
+        ref={ref}
+        disabled={isOff}
+        data-loading={loading || undefined}
+        className={rootClass}
+        style={rootStyle}
+        {...rest}
+      >
+        {body}
       </button>
     );
   },

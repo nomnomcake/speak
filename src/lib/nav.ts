@@ -1,10 +1,11 @@
 import type { BrowserTab } from "@/components/ui";
 
 /** Routes that exist. Anything not listed here is not linkable yet. */
-export type RouteKey = "home" | "design-system";
+export type RouteKey = "home" | "play" | "design-system";
 
 const TABS: Record<RouteKey, { label: string; href: string }> = {
   home: { label: "Speak", href: "/" },
+  play: { label: "Play", href: "/play" },
   "design-system": { label: "Design System", href: "/design-system" },
 };
 

@@ -57,13 +57,12 @@ export default function HomePage() {
             <GlowBorder rings={3} step={5} notch={6}>
               <Panel
                 chrome="window"
-                title="SPEAK.EXE"
+                title="Learn it fast. Say it clearly."
                 notch={6}
                 sky={{ density: "dense", sun: true }}
-                actions={<span className="type-hud text-slate">v0.1.0</span>}
               >
                 <div className="grid gap-5 md:grid-cols-3 md:items-stretch">
-                  {/* Logo, tagline, primary action */}
+                  {/* Logo, supporting line, primary action */}
                   <PixelFrame
                     notch={4}
                     className="md:col-span-2"
@@ -71,18 +70,17 @@ export default function HomePage() {
                   >
                     <Logo size="lg" />
 
-                    <div className="space-y-2">
-                      <p className="text-xl leading-snug font-semibold sm:text-2xl">
-                        Learn it fast. Say it clearly.
-                      </p>
-                      <p className="max-w-md text-sm leading-relaxed text-graphite">
-                        You get one unfamiliar idea, a minute to absorb it, and
-                        ninety seconds to explain it from memory.
-                      </p>
-                    </div>
+                    <p className="max-w-md text-base leading-relaxed text-graphite">
+                      You get one unfamiliar idea, a minute to absorb it, and
+                      ninety seconds to explain it from memory.
+                    </p>
 
-                    <div className="flex flex-wrap items-center gap-3">
-                      <Button size="lg" iconRight={<ArrowRight size={16} />}>
+                    <div className="flex flex-wrap items-center gap-4">
+                      <Button
+                        size="lg"
+                        href="/play"
+                        iconRight={<ArrowRight size={16} />}
+                      >
                         Start challenge
                       </Button>
                       <span className="type-hud text-slate">

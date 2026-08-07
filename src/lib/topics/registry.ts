@@ -15,7 +15,9 @@
  */
 
 import economics from "@/content/topics/economics.json";
+import history from "@/content/topics/history.json";
 import philosophy from "@/content/topics/philosophy.json";
+import psychology from "@/content/topics/psychology.json";
 import science from "@/content/topics/science.json";
 import technology from "@/content/topics/technology.json";
 
@@ -24,7 +26,9 @@ import type { Category, Difficulty, Topic } from "./types";
 
 const FILES: ReadonlyArray<{ source: string; data: unknown }> = [
   { source: "economics.json", data: economics },
+  { source: "history.json", data: history },
   { source: "philosophy.json", data: philosophy },
+  { source: "psychology.json", data: psychology },
   { source: "science.json", data: science },
   { source: "technology.json", data: technology },
 ];

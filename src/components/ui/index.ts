@@ -8,6 +8,7 @@ export { Button, type ButtonProps } from "./Button";
 export { ProgressBar, type ProgressBarProps } from "./ProgressBar";
 export { Spinner, type SpinnerProps } from "./Spinner";
 export { Badge, Divider, type BadgeProps } from "./Badge";
+export { FolderIcon, type FolderIconProps } from "./FolderIcon";
 export { Logo, type LogoProps } from "./Logo";
 export { StatTile, type StatTileProps } from "./StatTile";
 export { BackgroundGrid, type BackgroundGridProps } from "./BackgroundGrid";

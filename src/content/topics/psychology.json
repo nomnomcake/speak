@@ -1,0 +1,72 @@
+[
+  {
+    "id": "cognitive-dissonance",
+    "title": "Cognitive dissonance",
+    "category": "psychology",
+    "difficulty": "plain",
+    "researchPrompt": "Explain why people change their beliefs to match their actions rather than the other way round, and what that predicts about persuasion.",
+    "suggestedAngles": [
+      "Treat the discomfort as the mechanism and belief change as the cheapest way to end it",
+      "Use the induced-compliance finding: smaller incentives produce larger attitude change",
+      "Draw the practical inversion: get someone to act first, and the belief follows"
+    ],
+    "tags": ["belief", "motivation", "social-psychology", "persuasion"],
+    "references": [
+      {
+        "label": "Cognitive dissonance",
+        "url": "https://en.wikipedia.org/wiki/Cognitive_dissonance",
+        "kind": "article"
+      }
+    ]
+  },
+  {
+    "id": "availability-heuristic",
+    "title": "The availability heuristic",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain why people judge how likely something is by how easily examples come to mind, and why that shortcut is usually right but fails predictably.",
+    "suggestedAngles": [
+      "Frame it as a sensible default that breaks when recall stops tracking frequency",
+      "Use media coverage to show how the input can be systematically skewed",
+      "Distinguish availability from base-rate neglect rather than blurring them together"
+    ],
+    "tags": ["heuristics", "bias", "judgement", "probability"],
+    "references": [
+      {
+        "label": "Availability heuristic",
+        "url": "https://en.wikipedia.org/wiki/Availability_heuristic",
+        "kind": "article"
+      },
+      {
+        "label": "Heuristics in judgment and decision-making",
+        "url": "https://en.wikipedia.org/wiki/Heuristics_in_judgment_and_decision-making",
+        "kind": "article"
+      }
+    ]
+  },
+  {
+    "id": "memory-reconsolidation",
+    "title": "Why remembering changes the memory",
+    "category": "psychology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain why recalling an event can alter it, and what that implies about eyewitness testimony and about your own confident memories.",
+    "suggestedAngles": [
+      "Treat memory as reconstruction rather than playback",
+      "Use the misinformation effect to show how post-event input gets absorbed",
+      "Confront the uncomfortable corollary: confidence does not track accuracy"
+    ],
+    "tags": ["memory", "reconstruction", "testimony", "cognition"],
+    "references": [
+      {
+        "label": "Memory reconsolidation",
+        "url": "https://en.wikipedia.org/wiki/Memory_consolidation",
+        "kind": "article"
+      },
+      {
+        "label": "Misinformation effect",
+        "url": "https://en.wikipedia.org/wiki/Misinformation_effect",
+        "kind": "article"
+      }
+    ]
+  }
+]
