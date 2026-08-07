@@ -2,16 +2,7 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Lock, X } from "lucide-react";
-import {
-  Badge,
-  Button,
-  Divider,
-  FolderIcon,
-  Panel,
-  PixelFrame,
-} from "@/components/ui";
-import { cn } from "@/lib/utils";
+import { FolderIcon, Panel } from "@/components/ui";
 import { duration, ease } from "@/lib/tokens";
 import { TopicRandomizer } from "./TopicRandomizer";
 
@@ -24,9 +15,9 @@ import { TopicRandomizer } from "./TopicRandomizer";
  * rule outright — a user who clicks once and sees only a highlight should not
  * conclude the thing is broken.
  *
- * Opening does not navigate. It reveals the folder's contents in a window
- * below, which keeps the metaphor intact and avoids a route that has nowhere
- * to go yet.
+ * Opening a folder starts the search immediately. There is no intermediate
+ * listing: the folder flap opens and the machine begins reading its contents,
+ * which is one continuous gesture rather than two.
  */
 
 export type DesktopFile = {
@@ -44,80 +35,31 @@ export type DesktopFolder = {
   files: DesktopFile[];
 };
 
-/** A sealed file inside an opened folder. */
-function FileRow({ file, index }: { file: DesktopFile; index: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: -8 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{
-        duration: duration.fast,
-        ease: ease.snap,
-        delay: 0.04 * index,
-      }}
-      className="flex items-center gap-3 px-3 py-2"
-    >
-      {/* Pixel document glyph */}
-      <svg
-        viewBox="0 0 10 12"
-        width={16}
-        height={19}
-        shapeRendering="crispEdges"
-        aria-hidden
-        className="shrink-0"
-      >
-        <rect x="0" y="0" width="10" height="12" fill="#000000" />
-        <rect x="1" y="1" width="8" height="10" fill="#ffffff" />
-        <rect x="2" y="3" width="6" height="1" fill="#b7dbd7" />
-        <rect x="2" y="5" width="6" height="1" fill="#b7dbd7" />
-        <rect x="2" y="7" width="4" height="1" fill="#b7dbd7" />
-      </svg>
-
-      <span className="min-w-0 flex-1 truncate font-mono text-xs">
-        {file.name}
-      </span>
-
-      <span className="type-hud hidden shrink-0 text-slate sm:block">
-        {file.difficulty}
-      </span>
-
-      <span className="shrink-0 font-mono text-xs text-slate tabular-nums">
-        {file.speakSeconds}s
-      </span>
-
-      <Lock size={11} className="shrink-0 text-mute" aria-label="sealed" />
-    </motion.div>
-  );
-}
-
 export function CategoryDesktop({ folders }: { folders: DesktopFolder[] }) {
   const [selectedId, setSelectedId] = React.useState<string | null>(null);
   const [openId, setOpenId] = React.useState<string | null>(null);
-  const [searchId, setSearchId] = React.useState<string | null>(null);
 
   const openFolder = folders.find((f) => f.id === openId) ?? null;
-  const searchFolder = folders.find((f) => f.id === searchId) ?? null;
   const selectedFolder = folders.find((f) => f.id === selectedId) ?? null;
 
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        // Unwind one layer at a time: search, then folder, then selection.
-        if (searchId) setSearchId(null);
-        else if (openId) setOpenId(null);
+        // Unwind one layer at a time: the search, then the selection.
+        if (openId) setOpenId(null);
         else setSelectedId(null);
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [openId, searchId]);
+  }, [openId]);
 
   /**
    * The status bar only appears when it has something to say. An idle item
    * count is noise — the folders are right there and countable.
    */
   const status = openFolder
-    ? `${openFolder.label} — ${openFolder.count} sealed file${openFolder.count === 1 ? "" : "s"}`
+    ? `${openFolder.label} — ${openFolder.count} file${openFolder.count === 1 ? "" : "s"}`
     : selectedFolder
       ? `${selectedFolder.label} selected — click again or press Enter to open`
       : null;
@@ -159,24 +101,12 @@ export function CategoryDesktop({ folders }: { folders: DesktopFolder[] }) {
         </div>
       </Panel>
 
-      {/* The opened folder, or the search that replaced it.
+      {/* The search, spawned by opening a folder.
           Mount-only animation, no AnimatePresence. With an exit transition
-          here the outgoing window stayed mounted after its state was gone,
-          leaving a dead panel whose buttons pointed at stale state. Same
+          here the outgoing window never unmounted, leaving a dead panel on
+          screen whose buttons pointed at state that no longer existed. Same
           reason PageTransition avoids exit variants. */}
-      {searchFolder ? (
-        <motion.div
-          key={`search-${searchFolder.id}`}
-          initial={{ opacity: 0, y: -8, scale: 0.985 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: duration.base, ease: ease.snap }}
-        >
-          <TopicRandomizer
-            folder={searchFolder}
-            onClose={() => setSearchId(null)}
-          />
-        </motion.div>
-      ) : openFolder ? (
+      {openFolder ? (
         <motion.div
           key={openFolder.id}
           initial={{ opacity: 0, y: -8, scale: 0.985 }}
@@ -188,56 +118,10 @@ export function CategoryDesktop({ folders }: { folders: DesktopFolder[] }) {
             delay: 0.14,
           }}
         >
-            <Panel
-              chrome="window"
-              notch={6}
-              title={`${openFolder.label.toUpperCase()} — ${openFolder.count} FILES`}
-              actions={
-                <button
-                  type="button"
-                  onClick={() => setOpenId(null)}
-                  aria-label="Close folder"
-                  className={cn(
-                    "pixel-clip flex size-6 items-center justify-center border-2 border-ink bg-paper",
-                    "transition-colors duration-150 hover:bg-alert",
-                  )}
-                  style={{ ["--notch" as string]: "2px" }}
-                >
-                  <X size={11} />
-                </button>
-              }
-            >
-              <div className="space-y-4">
-                <PixelFrame notch={3} border={2} innerClassName="divide-y-2 divide-ink">
-                  {openFolder.files.map((file, i) => (
-                    <FileRow key={file.name} file={file} index={i} />
-                  ))}
-                </PixelFrame>
-
-                <Divider />
-
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <div className="flex items-center gap-2">
-                    <Badge tone="mint">
-                      <Lock size={9} />
-                      Titles sealed
-                    </Badge>
-                    <span className="type-hud text-slate">
-                      Revealed at the readout
-                    </span>
-                  </div>
-
-                  <Button
-                    iconRight={<ArrowRight size={15} />}
-                    onClick={() => setSearchId(openFolder.id)}
-                  >
-                    {openFolder.id === "random"
-                      ? "Search all files"
-                      : "Search this folder"}
-                  </Button>
-                </div>
-              </div>
-          </Panel>
+          <TopicRandomizer
+            folder={openFolder}
+            onClose={() => setOpenId(null)}
+          />
         </motion.div>
       ) : null}
     </div>
