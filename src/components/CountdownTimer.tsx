@@ -133,22 +133,43 @@ export function CountdownTimer({
       <ProgressBar value={progress} variant="segmented" segments={15} invert={expired} />
 
       <div className="flex items-center gap-2">
+        {/* At zero this becomes Start over rather than a disabled Resume. A
+            dead control at the exact moment the user needs to act is worse
+            than no control. */}
         <button
           type="button"
-          disabled={expired}
-          onClick={() => setRunning((r) => !r)}
+          onClick={() => {
+            if (expired) {
+              setRemaining(totalMs);
+              setRunning(false);
+              return;
+            }
+            setRunning((r) => !r);
+          }}
           className={cn(
             "pixel-clip type-caps flex flex-1 items-center justify-center gap-2 border-2 border-ink px-3 py-2 text-[11px] transition-colors duration-150",
             expired
-              ? "cursor-not-allowed bg-mute text-ink opacity-50"
+              ? "bg-alert text-ink hover:bg-paper"
               : running
                 ? "bg-ink text-mint hover:bg-graphite"
                 : "bg-mint text-ink hover:bg-mint-deep",
           )}
           style={{ ["--notch" as string]: "2px" }}
         >
-          {running ? <Pause size={12} /> : <Play size={12} />}
-          {running ? "Pause" : remaining === totalMs ? "Start" : "Resume"}
+          {expired ? (
+            <RotateCcw size={12} />
+          ) : running ? (
+            <Pause size={12} />
+          ) : (
+            <Play size={12} />
+          )}
+          {expired
+            ? "Start over"
+            : running
+              ? "Pause"
+              : remaining === totalMs
+                ? "Start"
+                : "Resume"}
         </button>
 
         <button

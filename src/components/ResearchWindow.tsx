@@ -1,7 +1,7 @@
 import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
 import { Badge, Button, Divider, Panel, PixelFrame } from "@/components/ui";
 import { CountdownTimer } from "./CountdownTimer";
-import { NotesPad } from "./NotesPad";
+import { PaperNotes } from "./PaperNotes";
 import { timingsFor, type Topic } from "@/lib/topics";
 
 /**
@@ -12,8 +12,9 @@ import { timingsFor, type Topic } from "@/lib/topics";
  * research what you cannot see. Sealed means "until selected", not "until the
  * readout".
  *
- * Storage keys are namespaced per topic, so switching topics keeps its own
- * notes and timer rather than inheriting the last one's.
+ * Notes are taken on real paper, not typed — see PaperNotes for why. Storage
+ * keys are namespaced per topic, so switching topics keeps its own timer
+ * rather than inheriting the last one's.
  */
 
 const RESEARCH_MINUTES = 15;
@@ -34,7 +35,7 @@ export function ResearchWindow({ topic }: { topic: Topic }) {
       footer={
         <>
           <span className="type-hud text-slate">
-            Notes and timer save automatically
+            Notes go on paper · the timer saves itself
           </span>
           <span className="type-hud text-slate">
             Speaks for {timings.speakSeconds}s
@@ -73,10 +74,7 @@ export function ResearchWindow({ topic }: { topic: Topic }) {
         {/* Notes + sidebar */}
         <div className="grid gap-4 lg:grid-cols-3">
           <div className="lg:col-span-2">
-            <NotesPad
-              storageKey={`research:${topic.id}:notes`}
-              placeholder="What is the mechanism? What would you cut? Where does the explanation break…"
-            />
+            <PaperNotes storageKey={`research:${topic.id}:paper`} />
           </div>
 
           <div className="space-y-4">
