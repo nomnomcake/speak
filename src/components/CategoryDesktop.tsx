@@ -3,7 +3,7 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { FolderIcon, Panel } from "@/components/ui";
-import { duration, ease } from "@/lib/tokens";
+import { ease } from "@/lib/tokens";
 import { TopicRandomizer } from "./TopicRandomizer";
 
 /**
@@ -35,8 +35,11 @@ export type DesktopFolder = {
   files: DesktopFile[];
 };
 
-/** How long the flap is left open before the search takes the window over. */
-const OPEN_BEAT_MS = 300;
+/**
+ * How long the desktop is held after a folder opens: long enough for the flap
+ * to play at full opacity, plus the fade-out that hands over to the search.
+ */
+const OPEN_BEAT_MS = 330;
 
 export function CategoryDesktop({ folders }: { folders: DesktopFolder[] }) {
   const [selectedId, setSelectedId] = React.useState<string | null>(null);
@@ -89,9 +92,12 @@ export function CategoryDesktop({ folders }: { folders: DesktopFolder[] }) {
     return (
       <motion.div
         key={openFolder.id}
-        initial={{ opacity: 0, y: -8, scale: 0.985 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: duration.base, ease: ease.snap }}
+        // Rises in rather than dropping down, so it reads as arriving from
+        // where the desktop went. No scale: rubber-banding a whole window
+        // looks cheap at this size, and the fade carries the transition.
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.36, ease: ease.glide }}
       >
         <TopicRandomizer folder={openFolder} onClose={() => setOpenId(null)} />
       </motion.div>
@@ -99,7 +105,18 @@ export function CategoryDesktop({ folders }: { folders: DesktopFolder[] }) {
   }
 
   return (
-    <div className="space-y-5">
+    // The desktop fades out as it hands over, so the swap is a crossfade
+    // rather than a cut. The delay lets the folder flap play at full opacity
+    // first — fading immediately would hide the animation being triggered.
+    <motion.div
+      className="space-y-5"
+      animate={openingId ? { opacity: 0, y: -6 } : { opacity: 1, y: 0 }}
+      transition={{
+        duration: openingId ? 0.18 : 0.2,
+        ease: ease.glide,
+        delay: openingId ? 0.13 : 0,
+      }}
+    >
       {/* No title bar: the tab and the address bar already say Play, so a
           PLAY.EXE header was the third label for the same thing. The status
           bar at the foot still carries the window's state. */}
@@ -134,6 +151,6 @@ export function CategoryDesktop({ folders }: { folders: DesktopFolder[] }) {
           ))}
         </div>
       </Panel>
-    </div>
+    </motion.div>
   );
 }

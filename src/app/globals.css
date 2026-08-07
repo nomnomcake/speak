@@ -66,6 +66,9 @@
   /* Pixel UIs step, they don't glide. Snappy cubic easing + stepped spins. */
   --ease-pixel: cubic-bezier(0.2, 0.9, 0.25, 1);
   --ease-snap: cubic-bezier(0.16, 1, 0.3, 1);
+  /* For whole windows entering and leaving, where the snappier curves above
+     read as a jump-cut rather than a transition. */
+  --ease-glide: cubic-bezier(0.22, 0.61, 0.36, 1);
 
   --animate-drift-slow: drift 90s linear infinite;
   --animate-drift-mid: drift 60s linear infinite;

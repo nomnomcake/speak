@@ -50,10 +50,17 @@ export const notch = {
   lg: 6,
 } as const;
 
-/** Shared easing curves. Pixel UIs settle fast and never overshoot softly. */
+/**
+ * Shared easing curves. Pixel UIs settle fast and never overshoot softly.
+ *
+ * `glide` is the exception: for whole windows appearing and leaving, where the
+ * snappier curves read as a jump-cut rather than a transition. Controls keep
+ * using `pixel` and `snap`.
+ */
 export const ease = {
   pixel: [0.2, 0.9, 0.25, 1],
   snap: [0.16, 1, 0.3, 1],
+  glide: [0.22, 0.61, 0.36, 1],
 } as const;
 
 export const duration = {
