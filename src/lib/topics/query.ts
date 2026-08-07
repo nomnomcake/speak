@@ -115,6 +115,23 @@ export function timingsFor(topic: Topic): Timings {
 }
 
 /**
+ * A search into the scholarly literature for this topic.
+ *
+ * Generated rather than stored. Hardcoding paper URLs per topic would mean
+ * inventing citations that cannot be verified from here, and a plausible-
+ * looking dead link is worse than no link — it costs the user the minutes the
+ * session is measuring. A search always resolves, always reflects current
+ * literature, and cannot rot.
+ *
+ * Specific papers belong in a topic's `references` with `kind: "paper"`, added
+ * by hand once checked.
+ */
+export function studySearchUrl(topic: Topic): string {
+  const query = [topic.title, ...topic.tags.slice(0, 2)].join(" ");
+  return `https://scholar.google.com/scholar?q=${encodeURIComponent(query)}`;
+}
+
+/**
  * The filename a topic is filed under, e.g. `SOC_002.TXT`.
  *
  * Numbered by position within its own category, never within whichever list is

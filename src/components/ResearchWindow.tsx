@@ -3,7 +3,12 @@ import { Button, Divider, Panel } from "@/components/ui";
 import { CatalogueCard } from "./CatalogueCard";
 import { CountdownTimer } from "./CountdownTimer";
 import { Dossier } from "./Dossier";
-import { fileNameFor, timingsFor, type Topic } from "@/lib/topics";
+import {
+  fileNameFor,
+  studySearchUrl,
+  timingsFor,
+  type Topic,
+} from "@/lib/topics";
 
 /**
  * ResearchWindow — the research phase as a desktop application.
@@ -70,12 +75,21 @@ export function ResearchWindow({ topic }: { topic: Topic }) {
             className="lg:col-span-2"
             sections={[
               {
-                title: "Sources",
-                rows: topic.references.map((ref) => ({
-                  label: ref.label,
-                  href: ref.url,
-                  meta: ref.kind,
-                })),
+                title: "Places to possibly start with",
+                rows: [
+                  ...topic.references.map((ref) => ({
+                    label: ref.label,
+                    href: ref.url,
+                    meta: ref.kind,
+                  })),
+                  // Always last: the encyclopaedic entries orient you, this is
+                  // where you go once they stop being enough.
+                  {
+                    label: "Search the studies on this",
+                    href: studySearchUrl(topic),
+                    meta: "scholar",
+                  },
+                ],
               },
               {
                 title: "Angles on file",

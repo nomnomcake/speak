@@ -45,6 +45,7 @@ export {
   relatedTopics,
   timingsFor,
   fileNameFor,
+  studySearchUrl,
   byDifficultyThenTitle,
   topicForDate,
   type TopicFilter,

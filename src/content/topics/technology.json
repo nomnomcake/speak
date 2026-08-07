@@ -46,6 +46,11 @@
         "label": "Diffie-Hellman key exchange",
         "url": "https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange",
         "kind": "article"
+      },
+      {
+        "label": "Diffie & Hellman (1976) — New Directions in Cryptography",
+        "url": "https://doi.org/10.1109/TIT.1976.1055638",
+        "kind": "paper"
       }
     ]
   },
@@ -71,6 +76,11 @@
         "label": "Consensus (computer science)",
         "url": "https://en.wikipedia.org/wiki/Consensus_(computer_science)",
         "kind": "article"
+      },
+      {
+        "label": "Lamport, Shostak & Pease (1982) — The Byzantine Generals Problem",
+        "url": "https://doi.org/10.1145/357172.357176",
+        "kind": "paper"
       }
     ]
   }

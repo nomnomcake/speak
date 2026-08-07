@@ -41,6 +41,11 @@
         "label": "Heuristics in judgment and decision-making",
         "url": "https://en.wikipedia.org/wiki/Heuristics_in_judgment_and_decision-making",
         "kind": "article"
+      },
+      {
+        "label": "Tversky & Kahneman (1973) — Availability: A Heuristic for Judging Frequency and Probability",
+        "url": "https://doi.org/10.1016/0010-0285(73)90033-9",
+        "kind": "paper"
       }
     ]
   },

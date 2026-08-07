@@ -46,6 +46,11 @@
         "label": "Thomas Schelling",
         "url": "https://en.wikipedia.org/wiki/Thomas_Schelling",
         "kind": "article"
+      },
+      {
+        "label": "Schelling (1971) — Dynamic Models of Segregation",
+        "url": "https://doi.org/10.1080/0022250X.1971.9989794",
+        "kind": "paper"
       }
     ]
   },
@@ -71,6 +76,11 @@
         "label": "Timur Kuran",
         "url": "https://en.wikipedia.org/wiki/Timur_Kuran",
         "kind": "article"
+      },
+      {
+        "label": "Kuran (1991) — Now Out of Never: The Element of Surprise in the East European Revolution",
+        "url": "https://doi.org/10.2307/2010422",
+        "kind": "paper"
       }
     ]
   }
