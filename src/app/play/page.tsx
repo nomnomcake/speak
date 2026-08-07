@@ -18,18 +18,32 @@ import type { Topic } from "@/lib/topics";
  * asking for. See docs/topic-schema.md.
  */
 
-function fileNameFor(topic: Topic, index: number): string {
-  const prefix = topic.category.slice(0, 3).toUpperCase();
-  return `${prefix}_${String(index + 1).padStart(3, "0")}.TXT`;
-}
+/**
+ * Filenames, resolved once for every topic.
+ *
+ * Numbered by position within the topic's own category, not within whichever
+ * folder is displaying it — otherwise the same file would be SCI_002 in the
+ * Science folder and SCI_006 in Random.
+ */
+const FILE_NAMES: ReadonlyMap<string, string> = new Map(
+  CATEGORIES.flatMap((category) =>
+    topicsInCategory(category).map(
+      (topic, i) =>
+        [
+          topic.id,
+          `${category.slice(0, 3).toUpperCase()}_${String(i + 1).padStart(3, "0")}.TXT`,
+        ] as const,
+    ),
+  ),
+);
 
 function toFolder(id: string, label: string, topics: readonly Topic[]) {
   return {
     id,
     label,
     count: topics.length,
-    files: topics.map((topic, i) => ({
-      name: fileNameFor(topic, i),
+    files: topics.map((topic) => ({
+      name: FILE_NAMES.get(topic.id) ?? `${topic.id.toUpperCase()}.TXT`,
       difficulty: topic.difficulty,
       speakSeconds: TIMINGS[topic.difficulty].speakSeconds,
     })),
@@ -45,7 +59,7 @@ export default function PlayPage() {
         topicsInCategory(category),
       ),
     ),
-    toFolder("mixed", "Mixed", ALL_TOPICS),
+    toFolder("random", "Random", ALL_TOPICS),
   ];
 
   return (
