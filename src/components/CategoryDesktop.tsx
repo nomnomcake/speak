@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowRight, Lock, X } from "lucide-react";
 import {
   Badge,
@@ -152,21 +152,24 @@ export function CategoryDesktop({ folders }: { folders: DesktopFolder[] }) {
         </div>
       </Panel>
 
-      {/* The opened folder, as its own window. */}
-      <AnimatePresence mode="wait">
-        {openFolder && (
-          <motion.div
-            key={openFolder.id}
-            initial={{ opacity: 0, y: -8, scale: 0.985 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -8, scale: 0.985 }}
-            transition={{
-              duration: duration.base,
-              ease: ease.snap,
-              // Let the flap finish opening before the window appears.
-              delay: 0.14,
-            }}
-          >
+      {/* The opened folder, as its own window.
+          Mount-only animation, no AnimatePresence. With an exit transition
+          here the outgoing window never unmounted, leaving a dead panel on
+          screen whose buttons pointed at state that no longer existed — the
+          close button did nothing. Same reason PageTransition avoids exit
+          variants. */}
+      {openFolder ? (
+        <motion.div
+          key={openFolder.id}
+          initial={{ opacity: 0, y: -8, scale: 0.985 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{
+            duration: duration.base,
+            ease: ease.snap,
+            // Let the flap finish opening before the window appears.
+            delay: 0.14,
+          }}
+        >
             <Panel
               chrome="window"
               notch={6}
@@ -211,10 +214,9 @@ export function CategoryDesktop({ folders }: { folders: DesktopFolder[] }) {
                   </Button>
                 </div>
               </div>
-            </Panel>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </Panel>
+        </motion.div>
+      ) : null}
     </div>
   );
 }
