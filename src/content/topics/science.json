@@ -1,0 +1,72 @@
+[
+  {
+    "id": "entropy-arrow-of-time",
+    "title": "Entropy and the arrow of time",
+    "category": "science",
+    "difficulty": "adversarial",
+    "researchPrompt": "The laws of physics are almost all time-symmetric, yet time clearly runs one way. Explain how entropy is used to account for that, and what the account still leaves unexplained.",
+    "suggestedAngles": [
+      "Distinguish microstates from macrostates and let the counting argument do the work",
+      "Treat it as a statistics problem rather than a physics one",
+      "Confront the past hypothesis: why the low-entropy start is assumed, not derived"
+    ],
+    "tags": ["thermodynamics", "entropy", "time", "statistical-mechanics"],
+    "references": [
+      {
+        "label": "Entropy (arrow of time)",
+        "url": "https://en.wikipedia.org/wiki/Entropy_(arrow_of_time)",
+        "kind": "article"
+      },
+      {
+        "label": "Second law of thermodynamics",
+        "url": "https://en.wikipedia.org/wiki/Second_law_of_thermodynamics",
+        "kind": "article"
+      }
+    ]
+  },
+  {
+    "id": "crispr-targeting",
+    "title": "How CRISPR finds one sequence in a genome",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain how a CRISPR-Cas9 complex locates a specific 20-base sequence among billions, and why off-target edits happen at all.",
+    "suggestedAngles": [
+      "Follow the guide RNA as the addressing mechanism and Cas9 as the tool",
+      "Explain the PAM requirement as a search filter that makes the problem tractable",
+      "Use the off-target failure mode to show the matching is tolerant, not exact"
+    ],
+    "tags": ["genetics", "crispr", "molecular-biology", "gene-editing"],
+    "references": [
+      {
+        "label": "CRISPR gene editing",
+        "url": "https://en.wikipedia.org/wiki/CRISPR_gene_editing",
+        "kind": "article"
+      },
+      {
+        "label": "Cas9",
+        "url": "https://en.wikipedia.org/wiki/Cas9",
+        "kind": "article"
+      }
+    ]
+  },
+  {
+    "id": "antibiotic-resistance",
+    "title": "Why antibiotic resistance is an evolutionary certainty",
+    "category": "science",
+    "difficulty": "plain",
+    "researchPrompt": "Explain why resistance emerges as a predictable consequence of using antibiotics at all, rather than as a failure of any particular drug.",
+    "suggestedAngles": [
+      "Frame the antibiotic as a selection pressure rather than a weapon",
+      "Use generation time to explain why bacterial evolution is observable in a hospital ward",
+      "Separate the biology from the policy question of stewardship"
+    ],
+    "tags": ["evolution", "microbiology", "selection", "medicine"],
+    "references": [
+      {
+        "label": "Antimicrobial resistance",
+        "url": "https://en.wikipedia.org/wiki/Antimicrobial_resistance",
+        "kind": "article"
+      }
+    ]
+  }
+]

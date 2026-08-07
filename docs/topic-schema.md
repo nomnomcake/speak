@@ -1,61 +1,81 @@
 # Speak — Topic & Scoring Schema
 
-Data shapes for topics, attempts and scores. These are the contract between
-content, the session loop and the scorer. Types live in `src/lib/types.ts` once
-phase 2 begins.
+Data shapes for topics, attempts and scores. The topic half is **implemented**
+in `src/lib/topics/`; the attempt and scoring half is still a specification.
 
 ## Topic
 
-What the user is asked to learn and explain.
+A topic is a **seed, not a lesson**. It does not carry the text the user reads.
+It carries a research prompt, the angles a good explanation could take, and
+references. The brief itself is produced from these at session time.
+
+Implemented in `src/lib/topics/types.ts`.
 
 ```ts
-type Domain =
-  | "science" | "economics" | "philosophy" | "technology" | "history";
-
-type Difficulty = "plain" | "technical" | "adversarial";
-
 type Topic = {
-  id: string;
-  title: string;              // shown only in the readout, never in the brief
-  domain: Domain;
-  difficulty: Difficulty;
-
-  /** 200-400 words. Markdown, rendered read-only. */
-  source: string;
-
-  /**
-   * The load-bearing ideas. Scoring checks how many the user hit.
-   * 3-6 per topic. If you can't name at least three, the topic is too thin.
-   */
-  keyPoints: KeyPoint[];
-
-  /** Terms a good explanation would define rather than assume. */
-  glossary?: { term: string; definition: string }[];
-
-  /** Phase durations in seconds. Omitted values fall back to the difficulty. */
-  readSeconds?: number;
-  speakSeconds?: number;
+  id: string;                     // kebab-case, unique across all files
+  title: string;                  // never shown before the readout
+  category: Category;             // science | economics | philosophy
+                                  // | technology | history | psychology
+  difficulty: Difficulty;         // plain | technical | adversarial
+  researchPrompt: string;         // the question the brief must answer
+  suggestedAngles: string[];      // >= 2 distinct framings
+  tags: string[];                 // lowercase keywords
+  references: TopicReference[];   // >= 1
 };
 
-type KeyPoint = {
-  id: string;
-  /** One sentence, in plain language. */
-  claim: string;
-  /**
-   * Load-bearing points cost more when missed. A topic should have
-   * 1-2 `core` points; the rest are `supporting`.
-   */
-  weight: "core" | "supporting";
+type TopicReference = {
+  label: string;
+  url: string;
+  kind?: "article" | "paper" | "book" | "video" | "dataset";
 };
 ```
 
-### Why `title` is hidden during the brief
+Phase durations are **derived from difficulty**, not stored per topic:
+
+| Difficulty | Read | Think | Speak |
+| --- | --- | --- | --- |
+| `plain` | 45s | 10s | 60s |
+| `technical` | 60s | 15s | 90s |
+| `adversarial` | 90s | 20s | 120s |
+
+### Why `title` is hidden until the readout
 
 A title is a summary. Handing the user "Why Bond Yields Move Inversely to
-Price" gives away the synthesis we are asking them to perform. They see the
-title only in the readout.
+Price" gives away the synthesis we are asking them to perform. The landing
+page's Today's Topic widget deliberately shows category, difficulty and
+timings — never the title.
 
-## Attempt
+### Why references are objects
+
+A bare URL string cannot gain a retrieval date, a paywall flag or an excerpt
+without a migration. `{ label, url, kind }` can.
+
+## Adding topics
+
+To add a topic to an existing category, append to that JSON file in
+`src/content/topics/`. Nothing else changes.
+
+To add a category: add the value to `CATEGORIES` in `types.ts`, create the JSON
+file, and add one line to `FILES` in `registry.ts`.
+
+Every file is validated at module load. A malformed topic **fails the build**
+with the file, index, topic id, field and allowed values — it never reaches the
+UI as an empty panel.
+
+### Authoring rules
+
+1. **Genuinely unfamiliar.** If a typical user already knows it, the session
+   measures recall rather than learning.
+2. **Must contain a mechanism, not just facts.** "X causes Y because Z" is
+   explainable; a list of dates is not.
+3. **At least two distinct angles.** If you can only think of one framing, the
+   topic is too thin to score structure against.
+4. **No current events.** Topics should not expire.
+5. **References must be stable.** Prefer encyclopaedic or archival sources over
+   news articles.
+
+## Attempt — not yet implemented
 
 One run at one topic.
 
@@ -65,10 +85,8 @@ type Attempt = {
   topicId: string;
   startedAt: string;          // ISO 8601, absolute
   completedAt: string | null; // null = abandoned
-
   transcript: string;
   audioMs: number;
-
   metrics: Metrics;           // measured locally, deterministic
   scores: Scores | null;      // model-judged; null until scoring returns
 };
@@ -106,20 +124,16 @@ cannot tell insight from fluent nonsense.
 ```ts
 type Scores = {
   clarity: number;      // would a smart non-expert follow this?
-  accuracy: number;     // is it true to the source? penalise confident errors
-  structure: number;    // is there a shape, or is it a list of facts?
-  coverage: number;     // weighted fraction of keyPoints hit
+  accuracy: number;     // true to the sources? penalise confident errors
+  structure: number;    // a shape, or a list of facts?
+  coverage: number;     // did they take one of the suggestedAngles, or find
+                        // a better one?
   concision: number;    // signal per word; padding costs
-  independence: number; // explained, or recited? near-verbatim source scores low
+  independence: number; // explained, or recited?
 
-  keyPointsHit: string[];    // KeyPoint ids
-  keyPointsMissed: string[];
-
-  /** Exactly one. See user-flow.md — a list of six is a list nobody acts on. */
-  advice: string;
-
-  /** The dimension to open the readout with. */
-  strongest: keyof Omit<Scores, "keyPointsHit" | "keyPointsMissed" | "advice" | "strongest">;
+  anglesTaken: string[];
+  advice: string;       // exactly one. See user-flow.md
+  strongest: string;    // dimension to open the readout with
 };
 ```
 
@@ -127,27 +141,14 @@ type Scores = {
 
 The dimension that makes the product mean something. A user who memorises three
 sentences and recites them should score **worse** than one who paraphrases
-imperfectly but clearly. Verbatim overlap with the source is a penalty, not a
+imperfectly but clearly. Verbatim overlap with the brief is a penalty, not a
 reward.
 
 ### On `accuracy`
 
-A confident false statement is worse than an omission. Someone who says nothing
-about a mechanism scores low on `coverage`; someone who describes it backwards
-should be penalised on `accuracy` too.
-
-## Content authoring rules
-
-1. **Source must be genuinely unfamiliar.** If a typical user already knows it,
-   the session measures recall, not learning.
-2. **Self-contained.** No prerequisites beyond general literacy.
-3. **200–400 words.** Below 200 there is nothing to compress; above 400 the read
-   phase becomes a speed-reading test.
-4. **Must contain a mechanism, not just facts.** "X causes Y because Z" is
-   explainable. A list of dates is not.
-5. **No current events.** Topics should not expire.
-6. **Key points written before the source is finalised.** If you can't state
-   three load-bearing claims, the source needs rewriting.
+A confident false statement is worse than an omission. Saying nothing about a
+mechanism costs `coverage`; describing it backwards should also cost
+`accuracy`.
 
 ## Storage
 

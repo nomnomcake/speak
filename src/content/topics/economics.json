@@ -1,0 +1,72 @@
+[
+  {
+    "id": "bond-price-yield-inversion",
+    "title": "Why bond prices and yields move in opposite directions",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "A bond pays a fixed coupon. Explain why its market price falls when prevailing interest rates rise, and why that relationship is arithmetic rather than sentiment.",
+    "suggestedAngles": [
+      "Start from a single fixed coupon and ask what a buyer would pay once better rates exist elsewhere",
+      "Frame it as competition between an old contract and a new one",
+      "Use duration to explain why long-dated bonds swing harder than short-dated ones"
+    ],
+    "tags": ["bonds", "interest-rates", "fixed-income", "duration"],
+    "references": [
+      {
+        "label": "Bond (finance)",
+        "url": "https://en.wikipedia.org/wiki/Bond_(finance)",
+        "kind": "article"
+      },
+      {
+        "label": "Bond duration",
+        "url": "https://en.wikipedia.org/wiki/Bond_duration",
+        "kind": "article"
+      }
+    ]
+  },
+  {
+    "id": "comparative-advantage",
+    "title": "Comparative advantage",
+    "category": "economics",
+    "difficulty": "plain",
+    "researchPrompt": "Explain why two countries both gain from trade even when one is better at producing everything. Make the counterintuitive part land.",
+    "suggestedAngles": [
+      "Use opportunity cost rather than absolute productivity as the unit of comparison",
+      "Shrink it to two people in one office deciding who does which task",
+      "Address the intuitive objection head-on: being better at everything still leaves gains on the table"
+    ],
+    "tags": ["trade", "opportunity-cost", "ricardo", "specialisation"],
+    "references": [
+      {
+        "label": "Comparative advantage",
+        "url": "https://en.wikipedia.org/wiki/Comparative_advantage",
+        "kind": "article"
+      }
+    ]
+  },
+  {
+    "id": "jevons-paradox",
+    "title": "The Jevons paradox",
+    "category": "economics",
+    "difficulty": "adversarial",
+    "researchPrompt": "Efficiency improvements can increase total consumption of the resource they save. Explain the mechanism, then explain when it does not hold.",
+    "suggestedAngles": [
+      "Trace the causal chain: efficiency lowers effective price, lower price raises demand",
+      "Separate the direct rebound effect from the economy-wide one",
+      "Argue the limiting case: what has to be true for efficiency to genuinely reduce use"
+    ],
+    "tags": ["efficiency", "rebound-effect", "energy", "demand"],
+    "references": [
+      {
+        "label": "Jevons paradox",
+        "url": "https://en.wikipedia.org/wiki/Jevons_paradox",
+        "kind": "article"
+      },
+      {
+        "label": "Rebound effect (conservation)",
+        "url": "https://en.wikipedia.org/wiki/Rebound_effect_(conservation)",
+        "kind": "article"
+      }
+    ]
+  }
+]

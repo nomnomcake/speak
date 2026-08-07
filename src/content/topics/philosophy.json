@@ -1,0 +1,77 @@
+[
+  {
+    "id": "ship-of-theseus",
+    "title": "The Ship of Theseus",
+    "category": "philosophy",
+    "difficulty": "plain",
+    "researchPrompt": "If every plank of a ship is replaced one at a time, is it the same ship? Explain what the puzzle is actually testing, rather than just restating it.",
+    "suggestedAngles": [
+      "Separate identity-as-continuity from identity-as-composition",
+      "Introduce the reassembled-original variant to break the easy answer",
+      "Argue that the puzzle is about our concept of identity, not about ships"
+    ],
+    "tags": ["identity", "metaphysics", "persistence", "thought-experiment"],
+    "references": [
+      {
+        "label": "Ship of Theseus",
+        "url": "https://en.wikipedia.org/wiki/Ship_of_Theseus",
+        "kind": "article"
+      },
+      {
+        "label": "Identity over time",
+        "url": "https://plato.stanford.edu/entries/identity-time/",
+        "kind": "article"
+      }
+    ]
+  },
+  {
+    "id": "hard-problem-of-consciousness",
+    "title": "The hard problem of consciousness",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain what makes the hard problem distinct from the easy problems of consciousness, and why some philosophers deny the distinction exists.",
+    "suggestedAngles": [
+      "Contrast explaining a function with explaining an experience",
+      "Use the inverted-spectrum or zombie argument to make the gap concrete",
+      "Steelman the eliminativist reply: the problem may be an artefact of framing"
+    ],
+    "tags": ["consciousness", "qualia", "mind", "explanation"],
+    "references": [
+      {
+        "label": "Hard problem of consciousness",
+        "url": "https://en.wikipedia.org/wiki/Hard_problem_of_consciousness",
+        "kind": "article"
+      },
+      {
+        "label": "Qualia",
+        "url": "https://plato.stanford.edu/entries/qualia/",
+        "kind": "article"
+      }
+    ]
+  },
+  {
+    "id": "compatibilism",
+    "title": "Compatibilism about free will",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain how free will could be compatible with determinism, without smuggling in a definition that makes the answer trivial.",
+    "suggestedAngles": [
+      "Redefine freedom as acting on your own desires rather than as uncaused action",
+      "Use the coercion contrast: what distinguishes a choice from a push",
+      "Present the strongest incompatibilist objection before answering it"
+    ],
+    "tags": ["free-will", "determinism", "agency", "ethics"],
+    "references": [
+      {
+        "label": "Compatibilism",
+        "url": "https://plato.stanford.edu/entries/compatibilism/",
+        "kind": "article"
+      },
+      {
+        "label": "Free will",
+        "url": "https://plato.stanford.edu/entries/freewill/",
+        "kind": "article"
+      }
+    ]
+  }
+]

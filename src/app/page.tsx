@@ -109,14 +109,14 @@ export default function HomePage() {
 
                     <div className="space-y-3">
                       <div>
-                        <div className="type-hud text-mint">Domain</div>
-                        <div className="text-lg font-semibold">
-                          {todaysChallenge.domain}
+                        <div className="type-hud text-mint">Category</div>
+                        <div className="text-lg font-semibold capitalize">
+                          {todaysChallenge.category}
                         </div>
                       </div>
                       <div>
                         <div className="type-hud text-mint">Difficulty</div>
-                        <div className="text-lg font-semibold">
+                        <div className="text-lg font-semibold capitalize">
                           {todaysChallenge.difficulty}
                         </div>
                       </div>

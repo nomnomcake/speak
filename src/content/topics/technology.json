@@ -1,0 +1,77 @@
+[
+  {
+    "id": "cap-theorem",
+    "title": "The CAP theorem",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain what a distributed system must give up during a network partition, and why the popular pick-two summary is misleading.",
+    "suggestedAngles": [
+      "Start from the partition as the thing you do not get to choose",
+      "Reframe it as a choice between consistency and availability only while partitioned",
+      "Use a concrete two-datacentre example rather than the abstract triangle"
+    ],
+    "tags": ["distributed-systems", "consistency", "availability", "databases"],
+    "references": [
+      {
+        "label": "CAP theorem",
+        "url": "https://en.wikipedia.org/wiki/CAP_theorem",
+        "kind": "article"
+      },
+      {
+        "label": "PACELC theorem",
+        "url": "https://en.wikipedia.org/wiki/PACELC_design_principle",
+        "kind": "article"
+      }
+    ]
+  },
+  {
+    "id": "public-key-cryptography",
+    "title": "How public-key cryptography lets strangers share a secret",
+    "category": "technology",
+    "difficulty": "plain",
+    "researchPrompt": "Explain how two parties who have never met can establish a shared secret over a channel an eavesdropper is fully reading.",
+    "suggestedAngles": [
+      "Use the paint-mixing analogy, then say precisely where the analogy breaks",
+      "Build on one-way functions: easy forwards, hard backwards",
+      "Separate key exchange from encryption from signing"
+    ],
+    "tags": ["cryptography", "security", "key-exchange", "protocols"],
+    "references": [
+      {
+        "label": "Public-key cryptography",
+        "url": "https://en.wikipedia.org/wiki/Public-key_cryptography",
+        "kind": "article"
+      },
+      {
+        "label": "Diffie-Hellman key exchange",
+        "url": "https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange",
+        "kind": "article"
+      }
+    ]
+  },
+  {
+    "id": "byzantine-fault-tolerance",
+    "title": "Byzantine fault tolerance",
+    "category": "technology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain why agreement among distributed nodes gets dramatically harder when a node may lie rather than merely fail, and where the two-thirds threshold comes from.",
+    "suggestedAngles": [
+      "Contrast crash faults with arbitrary faults as failure models",
+      "Derive the 3f+1 bound from the impossibility of distinguishing the liar",
+      "Connect it to a real system: consensus protocols or blockchains"
+    ],
+    "tags": ["distributed-systems", "consensus", "fault-tolerance", "security"],
+    "references": [
+      {
+        "label": "Byzantine fault",
+        "url": "https://en.wikipedia.org/wiki/Byzantine_fault",
+        "kind": "article"
+      },
+      {
+        "label": "Consensus (computer science)",
+        "url": "https://en.wikipedia.org/wiki/Consensus_(computer_science)",
+        "kind": "article"
+      }
+    ]
+  }
+]

@@ -1,25 +1,38 @@
 /**
  * Mock data for phase 2.
  *
- * Everything here is illustrative and hardcoded. No persistence, no clock, no
- * scoring. When the real session loop lands, these shapes should be replaced by
- * the types in `docs/topic-schema.md` — the field names deliberately match, so
- * swapping the source is a one-file change.
+ * Streak and totals are still hardcoded — there is no persistence yet. The
+ * topic is real: it comes from the topic registry in `@/lib/topics`.
  */
+
+import { timingsFor, topicForDate } from "@/lib/topics";
+
+/**
+ * The date the daily topic is drawn for.
+ *
+ * Hardcoded on purpose. `topicForDate` takes an explicit date so the choice is
+ * deterministic; reading the clock here would either freeze at build time (the
+ * landing page is statically prerendered) or differ between server and client
+ * and break hydration. Picking the real date needs a rendering decision —
+ * `force-dynamic`, or selecting on the client after mount — which belongs to
+ * the phase that makes sessions real.
+ */
+export const CURRENT_DATE = "2026-08-06";
+
+const topic = topicForDate(CURRENT_DATE);
+const timings = timingsFor(topic);
 
 /** Today's challenge, as shown on the landing page. */
 export const todaysChallenge = {
   /**
-   * The title is deliberately absent. Per docs/topic-schema.md, a title is a
-   * summary, and handing it over gives away the synthesis we are asking the
-   * user to perform. They see it only in the readout.
+   * `topic.title` is deliberately not surfaced here. A title is a summary, and
+   * handing it over gives away the synthesis we are asking the user to perform.
+   * They see it only in the readout.
    */
-  domain: "Economics",
-  difficulty: "Technical",
-  readSeconds: 60,
-  lockoutSeconds: 15,
-  speakSeconds: 90,
-  wordCount: 340,
+  id: topic.id,
+  category: topic.category,
+  difficulty: topic.difficulty,
+  ...timings,
 } as const;
 
 /** Consecutive days with at least one completed session. */
