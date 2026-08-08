@@ -10,7 +10,10 @@ import type { BrowserTab } from "@/components/ui";
 export type RouteKey = "home" | "play" | "dashboard" | "design-system";
 
 const TABS: Record<RouteKey, { label: string; href: string }> = {
-  home: { label: "Speak", href: "/" },
+  // "Home", not "Speak". The tab strip is navigation, and every other tab is
+  // where you are going rather than what the product is called — the product
+  // name belongs on the page, not in a wayfinding label.
+  home: { label: "Home", href: "/" },
   play: { label: "Play", href: "/play" },
   dashboard: { label: "Dashboard", href: "/dashboard" },
   "design-system": { label: "Design System", href: "/design-system" },
