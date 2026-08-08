@@ -13,8 +13,59 @@ import "server-only";
  * which is the entire reason this indirection exists.
  */
 
-import type { AiFeedback, AnalysisInput } from "./types";
+import type { AiFeedback, AnalysisInput, CoachingNote, GroundedClaim } from "./types";
 import { mockAnalyze } from "./mock-provider";
+import { clampScore, stripUngroundedQuotes } from "./verify";
+
+/**
+ * Ground a model response against the transcript before anyone sees it.
+ *
+ * Runs on every model result, not as a debugging aid. The prompt instructs the
+ * evaluator never to invent quotes; this is what makes that instruction
+ * enforceable rather than aspirational. A quote that is not in the transcript
+ * is removed and counted, and the report tells the user it happened.
+ *
+ * Exported so a provider implementation cannot forget to call it — wire the
+ * parsed JSON through here and the guarantees hold regardless of which model
+ * is behind it.
+ */
+export function groundFeedback(
+  draft: AiFeedback,
+  transcript: string | null,
+): AiFeedback {
+  let stripped = 0;
+
+  const ground = (claim: GroundedClaim | null): GroundedClaim | null => {
+    if (!claim) return null;
+    const r = stripUngroundedQuotes(claim.quote, transcript);
+    if (r.stripped) stripped += 1;
+    return { text: claim.text, quote: r.quote };
+  };
+
+  const notes: CoachingNote[] = draft.coachingNotes.map((n) => {
+    const r = stripUngroundedQuotes(n.quote, transcript);
+    if (r.stripped) stripped += 1;
+    return { ...n, quote: r.quote };
+  });
+
+  const scores = draft.scores
+    ? Object.fromEntries(
+        Object.entries(draft.scores)
+          .map(([k, v]) => [k, clampScore(v)])
+          .filter(([, v]) => v !== null),
+      )
+    : null;
+
+  return {
+    ...draft,
+    overallScore: clampScore(draft.overallScore),
+    scores: scores as AiFeedback["scores"],
+    strongestMoment: ground(draft.strongestMoment),
+    biggestOpportunity: ground(draft.biggestOpportunity),
+    coachingNotes: notes,
+    strippedQuotes: stripped,
+  };
+}
 
 export type ProviderName = "mock" | "anthropic";
 
@@ -53,9 +104,10 @@ export async function analyzePresentation(
        *        messages: [{ role: "user", content: buildUserMessage(input) }],
        *      });
        *
-       * 4. Parse the JSON, validate it against `AiFeedback`, and stamp
-       *    `source: "model"`. Validate rather than cast — a model that returns
-       *    a 0-10 score where the UI expects 0-100 renders a broken report.
+       * 4. Parse the JSON, stamp `source: "model"`, then pass it through
+       *    `groundFeedback(draft, input.transcript?.text ?? null)` — that is
+       *    what strips invented quotes and clamps out-of-range scores. Do not
+       *    skip it; the prompt's grounding rules are only enforceable here.
        * 5. Populate `strongestMoment`, `biggestOpportunity`, `coachingNotes`,
        *    `summary`, `topicCoverage` and `researchSynthesis`, which the mock
        *    deliberately leaves null, and drop the matching `unavailable` entry.

@@ -42,6 +42,19 @@ export const SCORE_LABELS: Record<keyof ScoreSet, string> = {
 };
 
 /**
+ * A claim about the talk, with the evidence for it.
+ *
+ * `quote` is verbatim transcript. It is checked against the actual transcript
+ * server-side and set to null if it cannot be found, so a quote that survives
+ * to the UI is one the speaker demonstrably said. A claim with a null quote is
+ * an interpretation and the report labels it as one.
+ */
+export type GroundedClaim = {
+  text: string;
+  quote: string | null;
+};
+
+/**
  * A coaching note. Three parts, because advice without the observation behind
  * it is the "speak more confidently" genre the brief rules out.
  */
@@ -51,6 +64,7 @@ export type CoachingNote = {
   whatHappened: string;
   whyItMatters: string;
   whatToDoNext: string;
+  quote: string | null;
 };
 
 export type FillerHit = {
@@ -104,9 +118,16 @@ export type AiFeedback = {
   topicCoverage: { score: number; explanation: string } | null;
   researchSynthesis: { score: number; explanation: string } | null;
 
-  strongestMoment: string | null;
-  biggestOpportunity: string | null;
+  strongestMoment: GroundedClaim | null;
+  biggestOpportunity: GroundedClaim | null;
   coachingNotes: CoachingNote[];
+
+  /**
+   * Quotes the model attributed to the speaker that were not in the
+   * transcript, and were removed. Surfaced rather than swallowed: a model
+   * inventing evidence is exactly the failure a user needs to know about.
+   */
+  strippedQuotes: number;
 
   fillerWords: { total: number; breakdown: FillerHit[] } | null;
   transcript: TranscriptDoc | null;

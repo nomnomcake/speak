@@ -76,6 +76,7 @@ export function mockAnalyze(input: AnalysisInput): AiFeedback {
       strongestMoment: null,
       biggestOpportunity: null,
       coachingNotes: [],
+      strippedQuotes: 0,
       fillerWords: null,
       transcript: input.transcript,
       metrics: {
@@ -133,6 +134,7 @@ export function mockAnalyze(input: AnalysisInput): AiFeedback {
     strongestMoment: null,
     biggestOpportunity: null,
     coachingNotes: [],
+    strippedQuotes: 0,
     fillerWords: fillers,
     transcript: input.transcript,
     metrics: {

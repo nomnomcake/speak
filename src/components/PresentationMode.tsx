@@ -36,6 +36,7 @@ function emptyFeedback(
     strongestMoment: null,
     biggestOpportunity: null,
     coachingNotes: [],
+    strippedQuotes: 0,
     fillerWords: null,
     transcript,
     metrics: {

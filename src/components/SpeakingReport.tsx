@@ -42,6 +42,59 @@ function Meter({ label, value }: { label: string; value: number }) {
   );
 }
 
+/**
+ * A verified quotation.
+ *
+ * Only reaches the screen after the server has found it in the transcript, so
+ * anything rendered here is something the speaker demonstrably said. That is
+ * the difference between feedback a person can check and feedback they have to
+ * take on faith.
+ */
+function Quote({ text }: { text: string }) {
+  return (
+    <p className="border-l-2 border-mint-deep pl-3 font-mono text-xs leading-relaxed text-slate">
+      “{text}”
+    </p>
+  );
+}
+
+/**
+ * An observation and its evidence.
+ *
+ * A claim with no quote is labelled an interpretation rather than dressed up
+ * as an observation — the report should never blur which of the two it is
+ * doing.
+ */
+function Claim({
+  title,
+  tone,
+  claim,
+}: {
+  title: string;
+  tone: "affirm" | "alert";
+  claim: { text: string; quote: string | null };
+}) {
+  return (
+    <PixelFrame notch={4} border={2} innerClassName="space-y-2 px-4 py-3">
+      <div className="flex flex-wrap items-center gap-2">
+        <span
+          className={cn(
+            "type-caps",
+            tone === "affirm" ? "text-affirm" : "text-alert",
+          )}
+        >
+          {title}
+        </span>
+        {claim.quote === null && (
+          <Badge tone="mint">Interpretation — not quoted</Badge>
+        )}
+      </div>
+      <p className="text-sm leading-relaxed text-graphite">{claim.text}</p>
+      {claim.quote && <Quote text={claim.quote} />}
+    </PixelFrame>
+  );
+}
+
 /** A section that could not run, named rather than hidden. */
 function ComingSoon({
   title,
@@ -216,12 +269,11 @@ export function SpeakingReport({
       <Panel chrome="window" title="Coach's notes" notch={6} sprig={false}>
         <div className="space-y-3">
           {feedback.strongestMoment ? (
-            <PixelFrame notch={4} border={2} innerClassName="px-4 py-3">
-              <span className="type-caps text-affirm">Strongest moment</span>
-              <p className="mt-1 text-sm leading-relaxed text-graphite">
-                {feedback.strongestMoment}
-              </p>
-            </PixelFrame>
+            <Claim
+              tone="affirm"
+              title="Strongest moment"
+              claim={feedback.strongestMoment}
+            />
           ) : (
             <ComingSoon
               title="Strongest moment"
@@ -230,12 +282,11 @@ export function SpeakingReport({
           )}
 
           {feedback.biggestOpportunity ? (
-            <PixelFrame notch={4} border={2} innerClassName="px-4 py-3">
-              <span className="type-caps text-alert">Biggest opportunity</span>
-              <p className="mt-1 text-sm leading-relaxed text-graphite">
-                {feedback.biggestOpportunity}
-              </p>
-            </PixelFrame>
+            <Claim
+              tone="alert"
+              title="Biggest opportunity"
+              claim={feedback.biggestOpportunity}
+            />
           ) : (
             <ComingSoon
               title="Biggest opportunity"
@@ -255,6 +306,7 @@ export function SpeakingReport({
                 <p className="font-mono text-xs text-slate">{n.whatHappened}</p>
                 <p className="font-mono text-xs text-slate">{n.whyItMatters}</p>
                 <p className="text-sm text-graphite">{n.whatToDoNext}</p>
+                {n.quote && <Quote text={n.quote} />}
               </PixelFrame>
             ))}
 
@@ -319,6 +371,25 @@ export function SpeakingReport({
       </Panel>
 
       {children}
+
+      {/* A model inventing evidence about someone is exactly the failure a
+          user needs told, not quietly absorbed. */}
+      {feedback.strippedQuotes > 0 && (
+        <PixelFrame
+          notch={4}
+          border={2}
+          tone="mist"
+          innerClassName="space-y-1 px-4 py-3"
+        >
+          <span className="type-caps text-alert">Unverified quotes removed</span>
+          <p className="font-mono text-xs leading-relaxed text-slate">
+            {feedback.strippedQuotes} quotation
+            {feedback.strippedQuotes === 1 ? "" : "s"} attributed to you could
+            not be found in the transcript and {feedback.strippedQuotes === 1 ? "was" : "were"}{" "}
+            removed. Treat the remaining wording above as interpretation.
+          </p>
+        </PixelFrame>
+      )}
 
       {feedback.unavailable.length > 0 && (
         <Panel chrome="window" title="Not analysed" notch={6} sprig={false}>
