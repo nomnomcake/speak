@@ -286,6 +286,44 @@
   }
 }
 
+/* Loading cadence — a block lights, then passes it along, left to right.
+
+   `steps(1, end)` is load-bearing. Colour animation interpolates by default,
+   and easing between two swatches invents in-between tints that are not in the
+   palette — which is precisely how a pixel interface stops looking like one.
+   Stepping cuts straight from one swatch to the next. */
+@keyframes load-block {
+  0%,
+  55%,
+  100% {
+    background-color: var(--color-mint-soft);
+  }
+  15%,
+  40% {
+    background-color: var(--color-ink);
+  }
+}
+
+/* Delays live on the parent for the same reason as `stagger-in`: the blocks
+   stay plain markup, and the sequence is described in one place. */
+@utility load-blocks {
+  > * {
+    animation: load-block 1.35s steps(1, end) infinite;
+  }
+  > *:nth-child(2) {
+    animation-delay: 0.11s;
+  }
+  > *:nth-child(3) {
+    animation-delay: 0.22s;
+  }
+  > *:nth-child(4) {
+    animation-delay: 0.33s;
+  }
+  > *:nth-child(5) {
+    animation-delay: 0.44s;
+  }
+}
+
 /* ============================================================================
    BASE
    ========================================================================= */
