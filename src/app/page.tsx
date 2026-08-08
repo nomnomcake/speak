@@ -8,44 +8,24 @@ import {
   PageTransition,
   Panel,
   PixelFrame,
-  ProgressBar,
-  StatTile,
   Stagger,
   StaggerItem,
 } from "@/components/ui";
-import { cn } from "@/lib/utils";
+import { HomeStats } from "@/components/HomeStats";
 import { tabsFor } from "@/lib/nav";
-import { todaysChallenge, streak, totals } from "@/lib/mock";
+import { todaysChallenge } from "@/lib/mock";
 import { ArrowRight, Lock } from "lucide-react";
 
 /**
  * Landing page.
  *
- * Phase 2: real layout, mock data. No timers, no session state, no scoring.
- * "Start challenge" is intentionally inert — /session does not exist yet, and
- * a button that 404s is worse than one that waits.
+ * The day's topic is real, drawn deterministically from the registry. The two
+ * figures are real too and come from stored sessions — see `HomeStats`, which
+ * is a client island because they only exist in the browser.
+ *
+ * Scoring is the part that is still missing, which is why nothing here reports
+ * how well anything went.
  */
-
-/** A row of blocks, one per day. Filled = a session was completed. */
-function WeekStrip({ days }: { days: boolean[] }) {
-  const labels = ["M", "T", "W", "T", "F", "S", "S"];
-  return (
-    <div className="flex items-end gap-1.5">
-      {days.map((done, i) => (
-        <div key={i} className="flex flex-col items-center gap-1">
-          <span
-            aria-label={`${labels[i]}: ${done ? "completed" : "missed"}`}
-            className={cn(
-              "block size-5 border-2 border-ink",
-              done ? "bg-mint-deep" : "bg-paper",
-            )}
-          />
-          <span className="type-hud text-mute">{labels[i]}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 export default function HomePage() {
   return (
@@ -83,8 +63,11 @@ export default function HomePage() {
                       >
                         Start challenge
                       </Button>
+                      {/* 15 minutes of research, then a minute of talking.
+                          The old "~3 min" predated the research phase and
+                          undersold the commitment by a factor of five. */}
                       <span className="type-hud text-slate">
-                        ~3 min · no setup
+                        ~16 min · no setup
                       </span>
                     </div>
                   </PixelFrame>
@@ -153,30 +136,11 @@ export default function HomePage() {
 
           {/* ---- Stats ------------------------------------------------ */}
           <StaggerItem>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <StatTile
-                title="Current streak"
-                value={streak.current}
-                unit="days"
-                footnote={`Personal best ${streak.best} days`}
-                actions={<Badge tone="affirm">Active</Badge>}
-              >
-                <WeekStrip days={streak.week} />
-              </StatTile>
-
-              <StatTile
-                title="Total challenges"
-                value={totals.challenges}
-                unit="completed"
-                footnote={`Since ${totals.since}`}
-              >
-                <ProgressBar
-                  value={totals.averageClarity}
-                  label="Average clarity"
-                  showValue
-                />
-              </StatTile>
-            </div>
+            {/* A client island: these read stored sessions, which only exist
+                in the browser. Kept in one component with the dashboard's
+                derivations so the two screens cannot report different streaks
+                for the same history again. */}
+            <HomeStats />
           </StaggerItem>
         </Stagger>
       </PageTransition>
