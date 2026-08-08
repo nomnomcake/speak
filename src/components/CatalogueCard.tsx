@@ -12,10 +12,10 @@ import {
 import { PixelFrame, Paperclip, Stamp } from "@/components/ui";
 import { Teletype } from "./Teletype";
 import {
+  CLASS_MARK,
   RESEARCH_SECONDS,
   timingsFor,
   type Category,
-  type Difficulty,
   type Topic,
 } from "@/lib/topics";
 
@@ -33,22 +33,6 @@ const CATEGORY_ICON: Record<Category, typeof Brain> = {
   society: Users,
 };
 
-/**
- * The stamp carries a class mark rather than a difficulty word.
- *
- * `DIFFICULTY: ADVERSARIAL` was the card describing how hard it thinks it is,
- * which is the one judgement that belongs to the reader — and "adversarial" is
- * the topic author's private vocabulary leaking onto the object. An archive
- * stamps a filing tier, not an opinion. The tier still climbs with difficulty,
- * so the ordering survives; only the boast is gone.
- *
- * Keyed off the Difficulty union, so a new tier is a compile error here.
- */
-const CLASS_MARK: Record<Difficulty, string> = {
-  plain: "Class I",
-  technical: "Class II",
-  adversarial: "Class III",
-};
 
 /**
  * CatalogueCard — the card pulled from the filing cabinet.

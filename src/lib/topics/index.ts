@@ -17,6 +17,7 @@ export {
   TIMINGS,
   RESEARCH_SECONDS,
   DIFFICULTY_RANK,
+  CLASS_MARK,
   type Category,
   type Difficulty,
   type ReferenceKind,

@@ -13,6 +13,7 @@ import {
 } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import { ease } from "@/lib/tokens";
+import { CLASS_MARK } from "@/lib/topics";
 import type { DesktopFile, DesktopFolder } from "./CategoryDesktop";
 
 /**
@@ -231,7 +232,7 @@ export function TopicRandomizer({
                   )}
                 >
                   {current
-                    ? `${current.category} · ${current.difficulty} · ${current.speakSeconds}s to speak`
+                    ? `${current.category} · ${CLASS_MARK[current.difficulty]} · ${current.speakSeconds}s to speak`
                     : ""}
                 </div>
             </PixelFrame>

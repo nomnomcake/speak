@@ -4,6 +4,7 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { FolderIcon, Panel } from "@/components/ui";
 import { ease } from "@/lib/tokens";
+import type { Category, Difficulty } from "@/lib/topics";
 import { TopicRandomizer } from "./TopicRandomizer";
 
 /**
@@ -25,8 +26,8 @@ export type DesktopFile = {
   id: string;
   name: string;
   /** Carried per file, since the Random folder mixes categories. */
-  category: string;
-  difficulty: string;
+  category: Category;
+  difficulty: Difficulty;
   speakSeconds: number;
 };
 

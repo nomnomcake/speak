@@ -26,6 +26,24 @@ export const DIFFICULTIES = ["plain", "technical", "adversarial"] as const;
 
 export type Difficulty = (typeof DIFFICULTIES)[number];
 
+/**
+ * How difficulty is shown to a user: a filing tier, not a self-assessment.
+ *
+ * `adversarial` is authoring vocabulary. It is the right word when deciding
+ * what a topic demands, and the wrong one printed on the object, where it
+ * becomes the card telling the reader how hard it thinks it is — the one
+ * judgement that is theirs to make. An archive stamps a class mark instead.
+ *
+ * Lives here rather than in a component because two screens show it, and the
+ * failure mode of a second copy is the picker and the research card disagreeing
+ * about the same file.
+ */
+export const CLASS_MARK: Record<Difficulty, string> = {
+  plain: "Class I",
+  technical: "Class II",
+  adversarial: "Class III",
+};
+
 export const REFERENCE_KINDS = [
   "article",
   "paper",
