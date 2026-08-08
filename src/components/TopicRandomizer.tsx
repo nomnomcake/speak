@@ -53,7 +53,6 @@ export function TopicRandomizer({
   const [phase, setPhase] = React.useState<Phase>("scanning");
   const [index, setIndex] = React.useState(0);
   const [progress, setProgress] = React.useState(0);
-  const [log, setLog] = React.useState<string[]>([]);
   const [picked, setPicked] = React.useState<DesktopFile | null>(null);
   const [runId, setRunId] = React.useState(0);
 
@@ -96,7 +95,6 @@ export function TopicRandomizer({
 
       setIndex(next);
       setProgress(tick / total);
-      setLog((prev) => [...prev, `READ ${files[next].name}  OK`].slice(-5));
 
       if (!settling && tick >= SCAN_TICKS) {
         settling = true;
@@ -142,20 +140,18 @@ export function TopicRandomizer({
       }
     >
       <div className="relative space-y-5">
-        {/* CRT veil — only while the machine is working. */}
+        {/* One effect, not four. The CRT flicker sat under a scanline sweep,
+            a hatched bar and a scrolling read-log; together they were noise
+            competing with the thing you are actually watching, which is the
+            card slowing down. The sweep survives because it is the one that
+            says "scanning". */}
         {searching && (
-          <>
-            <div
-              aria-hidden
-              className="pixel-scanlines animate-crt pointer-events-none absolute inset-0 z-10"
-            />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0 z-10 overflow-hidden"
-            >
-              <div className="animate-scanline h-3 w-full bg-glow/40" />
-            </div>
-          </>
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 z-10 overflow-hidden"
+          >
+            <div className="animate-scanline h-3 w-full bg-glow/40" />
+          </div>
         )}
 
         {/* The cabinet being searched */}
@@ -218,37 +214,13 @@ export function TopicRandomizer({
           </motion.div>
         </div>
 
-        {/* Progress + log */}
-        <div className="space-y-3">
-          <ProgressBar
-            value={progress}
-            variant="segmented"
-            segments={24}
-            label={searching ? "Scanning cabinet" : "Search complete"}
-            showValue
-          />
-
-          <PixelFrame
-            notch={3}
-            border={2}
-            tone="mist"
-            innerClassName="h-24 overflow-hidden px-3 py-2"
-          >
-            <div className="flex h-full flex-col justify-end gap-0.5 font-mono text-[11px] text-slate">
-              {log.map((line, i) => (
-                <div key={`${line}-${i}`} className="truncate">
-                  <span className="text-mute">&gt;</span> {line}
-                </div>
-              ))}
-              {phase === "revealed" && (
-                <div className="truncate text-ink">
-                  <span className="text-mute">&gt;</span> MATCH FOUND —{" "}
-                  {picked?.name}
-                </div>
-              )}
-            </div>
-          </PixelFrame>
-        </div>
+        <ProgressBar
+          value={progress}
+          variant="segmented"
+          segments={24}
+          label={searching ? "Scanning cabinet" : "Search complete"}
+          showValue
+        />
 
         <Divider />
 
@@ -268,7 +240,6 @@ export function TopicRandomizer({
                 setPhase("scanning");
                 setPicked(null);
                 setProgress(0);
-                setLog([]);
                 setRunId((n) => n + 1);
               }}
             >
