@@ -48,7 +48,14 @@ export function ResearchWindow({ topic }: { topic: Topic }) {
             Folders
           </Button>
           <div className="ml-auto">
-            <Button size="sm" iconRight={<ArrowRight size={13} />}>
+            {/* One way out of the research phase. Everything past this point is
+                one-directional by design — see the state machine in
+                user-flow.md. */}
+            <Button
+              size="sm"
+              href={`/session?topic=${topic.id}`}
+              iconRight={<ArrowRight size={13} />}
+            >
               Ready to speak
             </Button>
           </div>

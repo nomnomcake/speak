@@ -319,6 +319,23 @@
   }
 }
 
+/* Countdown tick. A snap, not a swoop — the number lands rather than arrives.
+   140ms and a scale of 1.18: enough that the eye registers a new digit was
+   stamped down, short enough that it never reads as a zoom. Anything longer
+   here turns a mode switch into a film title. */
+@keyframes count-step {
+  from {
+    transform: scale(1.18);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@utility animate-count-step {
+  animation: count-step 0.14s var(--ease-pixel) both;
+}
+
 /* Loading cadence — a block lights, then passes it along, left to right.
 
    `steps(1, end)` is load-bearing. Colour animation interpolates by default,
