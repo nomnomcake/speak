@@ -140,7 +140,7 @@ UI as an empty panel.
 5. **`searchTerms` must not answer the question.** Write what you would type to
    *find out*, not what you would type having already understood. If the terms
    read as the title rephrased, the topic ships with its own answer attached.
-5. **References must be stable.** Prefer encyclopaedic or archival sources over
+6. **References must be stable.** Prefer encyclopaedic or archival sources over
    news articles.
 
 ## Attempt — not yet implemented
@@ -154,11 +154,18 @@ type Attempt = {
   startedAt: string;          // ISO 8601, absolute
   completedAt: string | null; // null = abandoned
   transcript: string;
-  audioMs: number;
+  recordedMs: number;         // the take, audio and video together
   metrics: Metrics;           // measured locally, deterministic
   scores: Scores | null;      // model-judged; null until scoring returns
 };
 ```
+
+Was `audioMs`, when capture was microphone-only. The session records **camera
+and microphone**, so one duration covers the take.
+
+Nothing visual is scored, and no field here holds video-derived data — the
+recording exists for the speaker to watch back, not for the rubric. See
+[vision.md](./vision.md#why-there-is-a-camera-as-well-as-a-microphone).
 
 ## Metrics — measured, not judged
 
@@ -223,5 +230,10 @@ mechanism costs `coverage`; describing it backwards should also cost
 Phase 2–4: `localStorage`, keyed `speak:attempts`. No account, no server.
 
 Add a backend only when there is a reason beyond "apps have backends" — sync
-across devices, or shared topic packs. Recording audio to a server raises real
-privacy questions and should not happen by default.
+across devices, or shared topic packs.
+
+Uploading a take raises real privacy questions and must not happen by default.
+That was true when capture was audio only; it is more true now that every
+attempt is **video of someone's face in their home**. If recordings ever leave
+the device it should be an explicit, revocable, per-attempt choice, and the
+default has to remain that they never do.

@@ -40,7 +40,7 @@ type Step = {
 const STEPS: Step[] = [
   { label: "Closing notes", value: 0.16 },
   { label: "Locking sources", value: 0.38 },
-  { label: "Starting camera", value: 0.7, gated: true },
+  { label: "Starting camera and mic", value: 0.7, gated: true },
   { label: "Camera ready", value: 1 },
 ];
 
@@ -141,7 +141,7 @@ export function PresentationMode({ topic }: { topic: Topic }) {
 
   const waiting = Boolean(STEPS[step].gated) && stream === null && denied === null;
   const stepLabel =
-    waiting && slow ? "Waiting for camera permission" : STEPS[step].label;
+    waiting && slow ? "Waiting for permission" : STEPS[step].label;
 
   if (stage === "live" && stream) {
     return <CameraStage stream={stream} topic={topic} onStop={handleStop} />;
@@ -208,18 +208,22 @@ export function PresentationMode({ topic }: { topic: Topic }) {
           {stage === "blocked" && (
             <div className="space-y-3">
               <p className="font-mono text-sm text-graphite">
-                Camera unavailable.
+                Camera and mic unavailable.
               </p>
               <p className="type-hud text-slate">
                 {denied === "NotAllowedError"
                   ? "Permission was declined"
                   : denied === "Timeout"
                     ? "No answer to the permission prompt"
-                    : `${denied ?? "Error"} — no camera found`}
+                    : `${denied ?? "Error"} — no device found`}
               </p>
+              {/* Both or neither is worth saying plainly: the browser asks once
+                  for the pair, and a session with no audio has nothing to
+                  score, so there is no useful video-only fallback to offer. */}
               <p className="font-mono text-xs leading-relaxed text-slate">
-                Allow camera access for this site, then reload. Your research
-                time is already spent, so nothing here is waiting on you.
+                Speak needs both. Allow camera and microphone for this site,
+                then reload. Your research time is already spent, so nothing
+                here is waiting on you.
               </p>
             </div>
           )}

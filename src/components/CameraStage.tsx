@@ -1,8 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { Square } from "lucide-react";
+import { Mic, Square } from "lucide-react";
 import { Badge, Button, PixelFrame } from "@/components/ui";
+import { cn } from "@/lib/utils";
 import { timingsFor, type Topic } from "@/lib/topics";
 
 /**
@@ -21,6 +22,84 @@ function mmss(total: number) {
   const m = Math.floor(Math.max(0, total) / 60);
   const s = Math.max(0, total) % 60;
   return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+}
+
+const LEVEL_BARS = 12;
+
+/**
+ * MicLevel — proof the microphone is live, not a decoration.
+ *
+ * The camera makes its own case: you can see yourself, so you know it works. A
+ * microphone that is recording and a microphone that is muted look identical,
+ * and the one thing worse than a session with no audio is finding that out at
+ * the readout. This is the only part of the screen doing a real job.
+ *
+ * Not a waveform. A waveform invites you to watch it, and TRANSMIT is the one
+ * phase where the user should be looking at the lens rather than the UI.
+ *
+ * Sampled at ~15fps rather than every frame: this is a "yes, it hears you"
+ * indicator, and 60fps of React renders to move twelve blocks is a cost with
+ * nothing to show for it.
+ */
+function MicLevel({ stream }: { stream: MediaStream }) {
+  const [level, setLevel] = React.useState(0);
+
+  React.useEffect(() => {
+    if (stream.getAudioTracks().length === 0) return;
+
+    type WindowWithLegacyAudio = Window & {
+      webkitAudioContext?: typeof AudioContext;
+    };
+    const Ctor =
+      window.AudioContext ?? (window as WindowWithLegacyAudio).webkitAudioContext;
+    if (!Ctor) return;
+
+    const ctx = new Ctor();
+    const source = ctx.createMediaStreamSource(stream);
+    const analyser = ctx.createAnalyser();
+    analyser.fftSize = 512;
+    source.connect(analyser);
+
+    const buf = new Uint8Array(analyser.frequencyBinCount);
+    const id = setInterval(() => {
+      analyser.getByteTimeDomainData(buf);
+      // RMS around the 128 midpoint, then a gentle curve — speech sits low in a
+      // linear reading and would leave the meter looking broken.
+      let sum = 0;
+      for (const v of buf) {
+        const d = (v - 128) / 128;
+        sum += d * d;
+      }
+      const rms = Math.sqrt(sum / buf.length);
+      setLevel(Math.min(1, Math.pow(rms * 3.2, 0.7)));
+    }, 66);
+
+    return () => {
+      clearInterval(id);
+      source.disconnect();
+      void ctx.close();
+    };
+  }, [stream]);
+
+  const lit = Math.round(level * LEVEL_BARS);
+
+  return (
+    <div className="flex items-center gap-2">
+      <Mic size={13} className="shrink-0 text-paper" />
+      <div className="flex gap-0.5" aria-hidden>
+        {Array.from({ length: LEVEL_BARS }).map((_, i) => (
+          <span
+            key={i}
+            className={cn(
+              "block h-3 w-1.5",
+              i < lit ? "bg-mint" : "bg-paper/25",
+            )}
+          />
+        ))}
+      </div>
+      <span className="sr-only">Microphone is live</span>
+    </div>
+  );
 }
 
 export function CameraStage({
@@ -75,10 +154,14 @@ export function CameraStage({
           style={{ aspectRatio: "16 / 9" }}
         />
 
-        <div className="pointer-events-none absolute top-3 left-3">
+        <div className="pointer-events-none absolute top-3 left-3 flex items-center gap-3">
           <Badge tone="alert" pulse>
             Live
           </Badge>
+          {/* The meter sits with the badge, not in the toolbar: "recording" and
+              "hearing you" are one claim, and splitting them lets the user
+              believe the first without checking the second. */}
+          <MicLevel stream={stream} />
         </div>
 
         <div className="pointer-events-none absolute right-3 bottom-3">

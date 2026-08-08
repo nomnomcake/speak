@@ -4,12 +4,16 @@
 
 ```
 PICK  ──►  SEARCH  ──►  RESEARCH  ──►  LOCKOUT  ──►  TRANSMIT  ──►  READOUT
-                          15 min         15s          90s
+                          15 min       10/15/20s        60s
                                                         │
                                      ┌──────────────────┤
                                      ▼                  ▼
                                   retake             next topic
 ```
+
+Research is a flat 15 minutes and every talk is one minute, whatever the
+topic. Only the lockout varies with difficulty — see
+[topic-schema.md](./topic-schema.md).
 
 ### 1. PICK — untimed · `/play`
 
@@ -35,7 +39,7 @@ The user researches the idea themselves. Notes and timer persist to
 localStorage, so closing the tab does not cost the session, and a timer left
 running is charged the time that passed rather than pausing itself.
 
-### 4. LOCKOUT — 15s
+### 4. LOCKOUT — 10/15/20s by difficulty · `/session`
 
 **The notes and sources disappear.** A short pause to structure the answer
 before speaking.
@@ -46,13 +50,40 @@ user speaks — otherwise the session would measure reading aloud, which is not
 the skill. If notes ever survive into TRANSMIT, the product has stopped
 measuring anything.
 
-### 5. TRANSMIT — 90s (varies by difficulty)
+The notes are gone here because the **route** changed, not because a panel
+closed over them. There is nothing on this screen to dismiss.
 
-The user speaks. Live waveform, running timer, word count.
+It is dressed as **presentation mode**: a modal dialog, a segmented bar filling
+through named steps, then a 3·2·1 count-in. Written as software changing mode
+rather than as a cinematic — the dialog never moves or resizes between stages,
+it just keeps changing its mind, which is what an installer does and what a
+title sequence never does. Anxiety makes people worse at this; a dramatic
+transition would be working against the product.
+
+The bar is gated on real work. "Starting camera" waits for `getUserMedia` to
+actually resolve, because a scripted bar that finishes while the permission
+prompt is still open is a lie the user watches being told. If the prompt goes
+unanswered the step says so, and gives up rather than hanging.
+
+### 5. TRANSMIT — 60s · `/session`
+
+The user speaks to camera. Live self-view, microphone level, running timer.
+
+**Both are captured: camera and microphone.** The microphone is what the
+product measures with — transcript and prosody both come from it. The camera is
+never scored; it is there because a lens is closer to a person than a mic is,
+and because the take is worth watching back. See
+[vision.md](./vision.md#why-there-is-a-camera-as-well-as-a-microphone).
+
+The two are requested together in one `getUserMedia` call, so declining either
+declines both. That is deliberate — a session with no audio has nothing to
+score, so proceeding video-only would produce an attempt that cannot be marked.
 
 - No transcript while speaking — watching your own words appear destroys
   fluency
 - No live scoring. Nothing that induces mid-sentence self-correction
+- The self-view is mirrored. An unmirrored one makes people correct their
+  posture the wrong way
 - Stop early is allowed; silence past ~10s auto-stops
 
 ### 6. READOUT — untimed
@@ -73,7 +104,7 @@ Scores, transcript, and one concrete thing to fix.
 | `/` | Landing | Today's topic, streak, totals |
 | `/play` | Desktop | **Built** — folders, search, reveal |
 | `/research` | Research window | **Built** — notes, timer, resources |
-| `/session` | Speak | Not built — lockout → transmit |
+| `/session` | Speak | **Partly built** — presentation mode, then live camera and mic. No capture to disk, no auto-stop |
 | `/session/readout` | Readout | Not built |
 | `/archive` | Archive | Not built |
 
