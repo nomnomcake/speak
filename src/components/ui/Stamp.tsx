@@ -24,6 +24,8 @@ export type StampProps = {
   tone?: StampTone;
   /** Degrees of tilt. Small values only — this is a stamp, not a sticker. */
   rotate?: number;
+  /** Hover text. A stamp is terse by nature; this is where the long form goes. */
+  title?: string;
   className?: string;
   children: React.ReactNode;
 };
@@ -31,11 +33,13 @@ export type StampProps = {
 export function Stamp({
   tone = "alert",
   rotate = -4,
+  title,
   className,
   children,
 }: StampProps) {
   return (
     <span
+      title={title}
       className={cn(
         "type-hud inline-block border-[3px] px-2 py-1 leading-none",
         // Ink never prints perfectly solid.

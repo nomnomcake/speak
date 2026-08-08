@@ -32,13 +32,32 @@ type TopicReference = {
 };
 ```
 
-Phase durations are **derived from difficulty**, not stored per topic:
+Phase durations are **derived from difficulty**, not stored per topic. Only the
+lockout varies — research is a flat 15 minutes and every talk is one minute,
+whatever the topic:
 
-| Difficulty | Read | Think | Speak |
+| Difficulty | Research | Lockout | Speak |
 | --- | --- | --- | --- |
-| `plain` | 45s | 10s | 60s |
-| `technical` | 60s | 15s | 90s |
-| `adversarial` | 90s | 20s | 120s |
+| `plain` | 15m | 10s | 60s |
+| `technical` | 15m | 15s | 60s |
+| `adversarial` | 15m | 20s | 60s |
+
+Scaling talk length with difficulty was backwards: a harder idea does not
+deserve more airtime, it demands harder compression. A fixed minute also makes
+sessions comparable to each other, which scoring will need. `readSeconds` is
+gone with the 60-second brief the 15-minute research window replaced.
+
+### Difficulty is not shown as a difficulty
+
+The UI stamps a **class mark** — `Class I` · `Class II` · `Class III` — not the
+enum value. `DIFFICULTY: ADVERSARIAL` was the card describing how hard it
+thinks it is, which is the one judgement that belongs to the reader, and
+"adversarial" is authoring vocabulary leaking onto the object. An archive
+stamps a filing tier, not an opinion.
+
+The mapping lives in `CLASS_MARK` in `CatalogueCard.tsx` and is keyed off the
+`Difficulty` union, so a new tier is a compile error rather than a blank stamp.
+The enum keeps its names — they are good words for authors, just not for users.
 
 ### Why `title` is hidden until the readout
 

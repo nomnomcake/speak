@@ -15,6 +15,7 @@ import {
   RESEARCH_SECONDS,
   timingsFor,
   type Category,
+  type Difficulty,
   type Topic,
 } from "@/lib/topics";
 
@@ -30,6 +31,23 @@ const CATEGORY_ICON: Record<Category, typeof Brain> = {
   history: Hourglass,
   psychology: Brain,
   society: Users,
+};
+
+/**
+ * The stamp carries a class mark rather than a difficulty word.
+ *
+ * `DIFFICULTY: ADVERSARIAL` was the card describing how hard it thinks it is,
+ * which is the one judgement that belongs to the reader — and "adversarial" is
+ * the topic author's private vocabulary leaking onto the object. An archive
+ * stamps a filing tier, not an opinion. The tier still climbs with difficulty,
+ * so the ordering survives; only the boast is gone.
+ *
+ * Keyed off the Difficulty union, so a new tier is a compile error here.
+ */
+const CLASS_MARK: Record<Difficulty, string> = {
+  plain: "Class I",
+  technical: "Class II",
+  adversarial: "Class III",
 };
 
 /**
@@ -117,10 +135,13 @@ export function CatalogueCard({
             </div>
 
             {/* One stamp only. The longhand stamp said the same thing as
-                instruction 02, and a bare difficulty word stamped on a card
-                does not say what it is measuring. */}
-            <Stamp tone="alert" rotate={-4}>
-              Difficulty: {topic.difficulty}
+                instruction 02. */}
+            <Stamp
+              tone="alert"
+              rotate={-4}
+              title={`${CLASS_MARK[topic.difficulty]} — the archive's filing tier. A higher class is a harder idea, not a longer talk: every session is one minute.`}
+            >
+              {CLASS_MARK[topic.difficulty]}
             </Stamp>
           </div>
         </div>
