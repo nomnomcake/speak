@@ -55,6 +55,8 @@ export default function HomePage() {
                       it, and one minute to explain it from your notes.
                     </p>
 
+                    {/* Kept as a flex row so the button sizes to its content
+                        rather than stretching to the panel. */}
                     <div className="flex flex-wrap items-center gap-4">
                       <Button
                         size="lg"
@@ -63,12 +65,6 @@ export default function HomePage() {
                       >
                         Start challenge
                       </Button>
-                      {/* 15 minutes of research, then a minute of talking.
-                          The old "~3 min" predated the research phase and
-                          undersold the commitment by a factor of five. */}
-                      <span className="type-hud text-slate">
-                        ~16 min · no setup
-                      </span>
                     </div>
                   </PixelFrame>
 
