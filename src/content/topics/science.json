@@ -11,6 +11,7 @@
       "Confront the past hypothesis: why the low-entropy start is assumed, not derived"
     ],
     "tags": ["thermodynamics", "entropy", "time", "statistical-mechanics"],
+    "searchTerms": ["entropy","arrow of time","second law of thermodynamics"],
     "references": [
       {
         "label": "Entropy (arrow of time)",
@@ -36,6 +37,7 @@
       "Use the off-target failure mode to show the matching is tolerant, not exact"
     ],
     "tags": ["genetics", "crispr", "molecular-biology", "gene-editing"],
+    "searchTerms": ["crispr cas9","guide rna","genome editing"],
     "references": [
       {
         "label": "CRISPR gene editing",
@@ -61,6 +63,7 @@
       "Separate the biology from the policy question of stewardship"
     ],
     "tags": ["evolution", "microbiology", "selection", "medicine"],
+    "searchTerms": ["antibiotic resistance","bacterial evolution","selection pressure"],
     "references": [
       {
         "label": "Antimicrobial resistance",

@@ -133,13 +133,25 @@ export function studySearchUrl(topic: Topic): string {
 /**
  * The phrase every research tool searches for.
  *
- * Two tags, not all of them. The tags exist to disambiguate a title that could
- * mean several things, and past the second they stop narrowing and start
- * over-constraining — a five-term query returns the intersection of five
- * vocabularies, which is often nothing.
+ * The first two authored terms, never the title. Most titles here *are* the
+ * question — "Why bond prices and yields move in opposite directions" states
+ * the relationship the user is supposed to arrive at, so searching it hands
+ * over the finding before they have read anything.
+ *
+ * Two rather than all of them: past the second, terms stop narrowing the
+ * subject and start over-constraining it, and a query that is the intersection
+ * of four vocabularies often matches nothing.
  */
 export function researchQuery(topic: Topic): string {
-  return [topic.title, ...topic.tags.slice(0, 2)].join(" ");
+  return topic.searchTerms.slice(0, 2).join(" ");
+}
+
+/**
+ * The single most identifying term — what to look up when a service resolves
+ * one page rather than ranking many, as Wikipedia does.
+ */
+export function primarySearchTerm(topic: Topic): string {
+  return topic.searchTerms[0];
 }
 
 /**

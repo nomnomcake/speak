@@ -11,6 +11,7 @@
       "Argue that the puzzle is about our concept of identity, not about ships"
     ],
     "tags": ["identity", "metaphysics", "persistence", "thought-experiment"],
+    "searchTerms": ["ship of theseus","personal identity","persistence metaphysics"],
     "references": [
       {
         "label": "Ship of Theseus",
@@ -36,6 +37,7 @@
       "Steelman the eliminativist reply: the problem may be an artefact of framing"
     ],
     "tags": ["consciousness", "qualia", "mind", "explanation"],
+    "searchTerms": ["hard problem of consciousness","qualia","philosophy of mind"],
     "references": [
       {
         "label": "Hard problem of consciousness",
@@ -61,6 +63,7 @@
       "Present the strongest incompatibilist objection before answering it"
     ],
     "tags": ["free-will", "determinism", "agency", "ethics"],
+    "searchTerms": ["compatibilism","free will and determinism","moral responsibility"],
     "references": [
       {
         "label": "Compatibilism",

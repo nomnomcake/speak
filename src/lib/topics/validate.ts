@@ -153,6 +153,35 @@ export function parseTopic(raw: unknown, source: string): Topic {
     problems.push(`tags must be lowercase: ${lowercased.join(", ")}`);
   }
 
+  const searchTerms = stringArray(raw.searchTerms, "searchTerms", problems, {
+    min: 2,
+  });
+
+  // The whole point of the field is that it is not the question. A term that
+  // opens with an interrogative is the title pasted across, which puts the
+  // finding into the search box and ends the research the session is measuring.
+  const questions = searchTerms.filter((t) =>
+    /^(why|how|what|when|where|whether|does|do|is|are)\b/i.test(t.trim()),
+  );
+  if (questions.length > 0) {
+    problems.push(
+      `searchTerms must be keywords, not questions: ${questions.join("; ")}`,
+    );
+  }
+
+  // Backstop for a thesis phrased as a statement rather than a question. A
+  // keyword names a thing and stops; past about six words it has started making
+  // a claim. Deliberately *not* a check against the title — where a title is a
+  // term of art ("Comparative advantage", "The CAP theorem") repeating it is
+  // correct, because it identifies the subject without saying what is true of
+  // it. The failure being guarded against is length and grammar, not overlap.
+  const wordy = searchTerms.filter((t) => t.trim().split(/\s+/).length > 6);
+  if (wordy.length > 0) {
+    problems.push(
+      `searchTerms must be keywords, not phrases (max 6 words): ${wordy.join("; ")}`,
+    );
+  }
+
   let references: TopicReference[] = [];
   if (!Array.isArray(raw.references)) {
     problems.push("references must be an array");
@@ -178,6 +207,7 @@ export function parseTopic(raw: unknown, source: string): Topic {
     researchPrompt: raw.researchPrompt as string,
     suggestedAngles,
     tags,
+    searchTerms,
     references,
   };
 }

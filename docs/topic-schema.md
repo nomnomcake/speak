@@ -22,6 +22,7 @@ type Topic = {
   researchPrompt: string;         // the question the brief must answer
   suggestedAngles: string[];      // >= 2 distinct framings
   tags: string[];                 // lowercase keywords
+  searchTerms: string[];          // >= 2. what the toolbox searches for
   references: TopicReference[];   // >= 1
 };
 
@@ -66,6 +67,38 @@ Price" gives away the synthesis we are asking them to perform. The landing
 page's Today's Topic widget deliberately shows category, difficulty and
 timings — never the title.
 
+### Why `searchTerms` is authored, not derived
+
+The research toolbox searches these. It cannot search the title, because most
+titles here **are** the question — "Why bond prices and yields move in opposite
+directions" states the very relationship the user is meant to arrive at, so
+putting it in a search box hands over the finding before they have read
+anything. Same rule as hiding the title: a summary given away is a synthesis
+not performed.
+
+It cannot fall back to `tags` either. Tags are thematic and deliberately broad,
+so they lose the subject:
+
+| Topic | Tags | Searching the tags finds |
+| --- | --- | --- |
+| The Broad Street pump | `epidemiology, evidence, public-health, method` | neither cholera nor John Snow |
+| Antibiotic resistance | `evolution, microbiology, selection, medicine` | evolutionary medicine in general |
+| How a moral panic forms | `media, deviance, collective-behaviour, sociology` | sociology in general |
+
+So they are written per topic, naming the **subject** and stopping. Where a
+title is already a term of art rather than a claim — "Comparative advantage",
+"The CAP theorem" — repeating it is correct: it identifies the thing without
+saying what is true about it.
+
+Two rules are enforced at load, so this cannot rot back:
+
+- no term may open with an interrogative (`why`, `how`, `what`, `is`, …)
+- no term may run past six words — past that it has stopped naming and started
+  claiming
+
+`researchQuery()` takes the first two; `primarySearchTerm()` takes one, for
+Wikipedia, which resolves an article rather than ranking results.
+
 ### Why references are objects
 
 A bare URL string cannot gain a retrieval date, a paywall flag or an excerpt
@@ -92,6 +125,9 @@ UI as an empty panel.
 3. **At least two distinct angles.** If you can only think of one framing, the
    topic is too thin to score structure against.
 4. **No current events.** Topics should not expire.
+5. **`searchTerms` must not answer the question.** Write what you would type to
+   *find out*, not what you would type having already understood. If the terms
+   read as the title rephrased, the topic ships with its own answer attached.
 5. **References must be stable.** Prefer encyclopaedic or archival sources over
    news articles.
 

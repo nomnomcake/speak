@@ -4,7 +4,7 @@ import * as React from "react";
 import { Panel, PixelFrame, ToolGlyph } from "@/components/ui";
 import type { ToolGlyphName } from "@/components/ui";
 import { cn } from "@/lib/utils";
-import { researchQuery, type Topic } from "@/lib/topics";
+import { primarySearchTerm, researchQuery, type Topic } from "@/lib/topics";
 
 /**
  * ResearchToolbox — the utility palette on the research desk.
@@ -35,10 +35,10 @@ const TOOLS: Tool[] = [
     label: "Wikipedia",
     glyph: "book",
     hint: "Orientation — what this is, and what it connects to",
-    // The bare title, unlike the rest. Wikipedia resolves an article name; the
-    // tags that help a search engine narrow only push it off the actual page.
+    // One term, unlike the rest: Wikipedia resolves an article name, and the
+    // second term only pushes it off the page it would have landed on.
     url: (_query, topic) =>
-      `https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(topic.title)}`,
+      `https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(primarySearchTerm(topic))}`,
   },
   {
     label: "Google",

@@ -11,6 +11,7 @@
       "Draw the practical inversion: get someone to act first, and the belief follows"
     ],
     "tags": ["belief", "motivation", "social-psychology", "persuasion"],
+    "searchTerms": ["cognitive dissonance","festinger","attitude change"],
     "references": [
       {
         "label": "Cognitive dissonance",
@@ -31,6 +32,7 @@
       "Distinguish availability from base-rate neglect rather than blurring them together"
     ],
     "tags": ["heuristics", "bias", "judgement", "probability"],
+    "searchTerms": ["availability heuristic","tversky kahneman","judgement under uncertainty"],
     "references": [
       {
         "label": "Availability heuristic",
@@ -61,6 +63,7 @@
       "Confront the uncomfortable corollary: confidence does not track accuracy"
     ],
     "tags": ["memory", "reconstruction", "testimony", "cognition"],
+    "searchTerms": ["memory reconsolidation","eyewitness testimony","false memory"],
     "references": [
       {
         "label": "Memory reconsolidation",

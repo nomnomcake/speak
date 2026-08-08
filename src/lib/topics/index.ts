@@ -49,6 +49,7 @@ export {
   fileNameFor,
   studySearchUrl,
   researchQuery,
+  primarySearchTerm,
   byDifficultyThenTitle,
   topicForDate,
   type TopicFilter,

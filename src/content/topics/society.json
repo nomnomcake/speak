@@ -11,6 +11,7 @@
       "Use the aftermath to show how the response persists after the fear fades"
     ],
     "tags": ["media", "deviance", "collective-behaviour", "sociology"],
+    "searchTerms": ["moral panic","folk devils","media sociology"],
     "references": [
       {
         "label": "Moral panic",
@@ -36,6 +37,7 @@
       "Draw the uncomfortable corollary: fixing the outcome may need more than fixing attitudes"
     ],
     "tags": ["segregation", "emergence", "modelling", "collective-behaviour"],
+    "searchTerms": ["schelling segregation model","residential segregation","agent based model"],
     "references": [
       {
         "label": "Schelling's model of segregation",
@@ -66,6 +68,7 @@
       "Confront the prediction problem: the hidden distribution is unobservable by construction"
     ],
     "tags": ["norms", "revolution", "thresholds", "collective-behaviour"],
+    "searchTerms": ["preference falsification","timur kuran","revolutionary cascade"],
     "references": [
       {
         "label": "Preference falsification",

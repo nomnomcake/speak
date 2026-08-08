@@ -11,6 +11,7 @@
       "Use duration to explain why long-dated bonds swing harder than short-dated ones"
     ],
     "tags": ["bonds", "interest-rates", "fixed-income", "duration"],
+    "searchTerms": ["bond pricing","yield to maturity","fixed income"],
     "references": [
       {
         "label": "Bond (finance)",
@@ -36,6 +37,7 @@
       "Address the intuitive objection head-on: being better at everything still leaves gains on the table"
     ],
     "tags": ["trade", "opportunity-cost", "ricardo", "specialisation"],
+    "searchTerms": ["comparative advantage","opportunity cost","ricardo trade theory"],
     "references": [
       {
         "label": "Comparative advantage",
@@ -56,6 +58,7 @@
       "Argue the limiting case: what has to be true for efficiency to genuinely reduce use"
     ],
     "tags": ["efficiency", "rebound-effect", "energy", "demand"],
+    "searchTerms": ["jevons paradox","rebound effect","energy efficiency"],
     "references": [
       {
         "label": "Jevons paradox",

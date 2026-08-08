@@ -92,6 +92,27 @@ export type Topic = {
   /** Lowercase keywords for filtering and related-topic lookup. */
   tags: string[];
 
+  /**
+   * What the research tools actually search for.
+   *
+   * Authored rather than derived from the title, because most titles here are
+   * the question — "Why bond prices and yields move in opposite directions"
+   * states the very relationship the user is supposed to discover. Typing that
+   * into Google hands over the answer before they have read anything, and the
+   * session stops measuring research.
+   *
+   * These name the *subject* and stop: "bond pricing", "yield to maturity".
+   * Where a title is already a term of art rather than a claim ("The CAP
+   * theorem"), repeating it is correct — it identifies the thing without
+   * saying what is true about it.
+   *
+   * Not derivable from `tags` either. Tags are thematic and deliberately
+   * broad, so they lose the subject: the Broad Street pump is tagged
+   * `epidemiology, evidence, public-health, method`, which finds neither
+   * cholera nor John Snow.
+   */
+  searchTerms: string[];
+
   references: TopicReference[];
 };
 
