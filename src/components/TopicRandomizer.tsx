@@ -1,16 +1,15 @@
 "use client";
 
 import * as React from "react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { ArrowRight, Lock, RotateCcw, X } from "lucide-react";
+import { Lock, X } from "lucide-react";
 import {
   Badge,
-  Button,
   Divider,
   FolderGlyph,
   Panel,
   PixelFrame,
-  ProgressBar,
 } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import { ease } from "@/lib/tokens";
@@ -35,6 +34,17 @@ type Phase = "scanning" | "settling" | "revealed";
 const SCAN_TICKS = 20;
 const FOLDER_COUNT = 5;
 
+/**
+ * How long the landed card is held before the research screen opens.
+ *
+ * The reveal is a beat, not a decision point — there is nothing here to choose,
+ * so a confirm button would just be a step between the user and the thing they
+ * asked for. Long enough to read the filename and register that the search
+ * arrived somewhere; short enough that it never becomes a screen being waited
+ * on. The close control in the title bar remains the way out.
+ */
+const REVEAL_HOLD_MS = 1100;
+
 /** Constant while scanning, then growing quadratically as it settles. */
 function delayFor(tick: number, settleSteps: number): number {
   if (tick < SCAN_TICKS) return 65;
@@ -49,12 +59,12 @@ export function TopicRandomizer({
   folder: DesktopFolder;
   onClose: () => void;
 }) {
+  const router = useRouter();
   const files = folder.files;
   const [phase, setPhase] = React.useState<Phase>("scanning");
   const [index, setIndex] = React.useState(0);
   const [progress, setProgress] = React.useState(0);
   const [picked, setPicked] = React.useState<DesktopFile | null>(null);
-  const [runId, setRunId] = React.useState(0);
 
   React.useEffect(() => {
     const len = files.length;
@@ -113,8 +123,22 @@ export function TopicRandomizer({
 
     timer = setTimeout(step, 240);
     return () => clearTimeout(timer);
-    // runId re-runs the whole sequence for "Search again".
-  }, [files, runId]);
+  }, [files]);
+
+  // The search hands off to the research screen on its own.
+  React.useEffect(() => {
+    if (phase !== "revealed" || !picked) return;
+
+    const href = `/research?topic=${picked.id}`;
+
+    // Warmed during the hold rather than on arrival: /research is a dynamic
+    // route, so without this the handoff lands on the loading fallback and the
+    // deceleration the whole sequence just built pays off in a spinner.
+    router.prefetch(href);
+
+    const go = setTimeout(() => router.push(href), REVEAL_HOLD_MS);
+    return () => clearTimeout(go);
+  }, [phase, picked, router]);
 
   const current = picked ?? files[index] ?? null;
   const searching = phase !== "revealed";
@@ -214,45 +238,14 @@ export function TopicRandomizer({
           </motion.div>
         </div>
 
-        <ProgressBar
-          value={progress}
-          variant="segmented"
-          segments={24}
-          label={searching ? "Scanning cabinet" : "Search complete"}
-          showValue
-        />
-
         <Divider />
 
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <span className="type-hud text-slate">
-            {searching
-              ? `Searching ${folder.label.toLowerCase()} — ${files.length} files`
-              : "Title stays sealed until the readout"}
-          </span>
-
-          <div className="flex items-center gap-3">
-            <Button
-              variant="secondary"
-              iconLeft={<RotateCcw size={15} />}
-              disabled={searching}
-              onClick={() => {
-                setPhase("scanning");
-                setPicked(null);
-                setProgress(0);
-                setRunId((n) => n + 1);
-              }}
-            >
-              Search again
-            </Button>
-            <Button
-              disabled={searching}
-              href={picked ? `/research?topic=${picked.id}` : undefined}
-              iconRight={<ArrowRight size={15} />}
-            >
-              Begin
-            </Button>
-          </div>
+        {/* No confirm button: the screen advances itself. The line just says
+            which of the two things is happening. */}
+        <div className="type-hud text-slate">
+          {searching
+            ? `Searching ${folder.label.toLowerCase()} — ${files.length} files`
+            : "Opening…"}
         </div>
       </div>
     </Panel>
