@@ -8,6 +8,7 @@ import { AnalyzingWindow } from "./AnalyzingWindow";
 import { SpeakingReport } from "./SpeakingReport";
 import { newAttemptId, saveAttempt, updateAttempt } from "@/lib/attempts";
 import { useTranscriber } from "@/lib/useTranscriber";
+import { useOneWay } from "@/lib/useOneWay";
 import type { AiFeedback, TranscriptDoc } from "@/lib/ai/types";
 import type { Topic } from "@/lib/topics";
 
@@ -196,6 +197,22 @@ export function PresentationMode({ topic }: { topic: Topic }) {
   // Runs only while the talk is live. Captured silently — user-flow.md is
   // explicit that watching your own words appear destroys fluency.
   const transcript = useTranscriber(stage === "live");
+
+  /**
+   * One-way from the moment the notes disappear until the report exists.
+   *
+   * Held through `analyzing` as well as the talk: backing out mid-analysis
+   * would lose a take that has already been given, which is the same loss the
+   * lockout exists to prevent. Released at the report, where leaving is the
+   * expected thing to do.
+   */
+  useOneWay(
+    stage === "preparing" ||
+      stage === "ready" ||
+      stage === "countdown" ||
+      stage === "live" ||
+      stage === "analyzing",
+  );
 
   // Stamped when the talk actually starts, not when the route loaded — the
   // preparing dialog and the count-in are not part of the take.

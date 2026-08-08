@@ -20,6 +20,7 @@ import {
   type Category,
 } from "@/lib/topics";
 import type { StoredAttempt } from "@/lib/attempts";
+import { SCORE_KEYS, SCORE_LABELS } from "@/lib/ai/types";
 
 /** Day bucket in the user's own timezone — a session at 11pm is that day. */
 export function dayKey(d: Date): string {
@@ -116,6 +117,106 @@ export function streakFrom(attempts: StoredAttempt[], today: Date): Streak {
   }
 
   return { current, best: Math.max(best, current), week };
+}
+
+/* ---------------------------------------------------------------------------
+   Report scores over time
+   ------------------------------------------------------------------------ */
+
+/** Attempts that actually carry a score. Unscored ones are absent, not zero. */
+export function scoredAttempts(attempts: StoredAttempt[]): StoredAttempt[] {
+  return attempts.filter(
+    (a) => typeof a.aiFeedback?.overallScore === "number",
+  );
+}
+
+export type ScoreAverages = {
+  count: number;
+  overall: number | null;
+  byDimension: { key: string; label: string; value: number }[];
+};
+
+/**
+ * Mean score per dimension across scored sessions.
+ *
+ * Averaged only over sessions where that dimension was actually scored, not
+ * over all sessions — a dimension a model skipped should not drag its own
+ * average down as though it had been rated zero.
+ */
+export function scoreAverages(attempts: StoredAttempt[]): ScoreAverages {
+  const scored = scoredAttempts(attempts);
+  if (scored.length === 0) {
+    return { count: 0, overall: null, byDimension: [] };
+  }
+
+  const overall = Math.round(
+    scored.reduce((sum, a) => sum + (a.aiFeedback?.overallScore ?? 0), 0) /
+      scored.length,
+  );
+
+  // flatMap rather than map+filter: a type predicate cannot widen the literal
+  // key union back to string, and returning [] skips a dimension cleanly.
+  const byDimension: ScoreAverages["byDimension"] = SCORE_KEYS.flatMap((key) => {
+    const values = scored
+      .map((a) => a.aiFeedback?.scores?.[key])
+      .filter((v): v is number => typeof v === "number");
+    if (values.length === 0) return [];
+    return [
+      {
+        key: key as string,
+        label: SCORE_LABELS[key],
+        value: Math.round(values.reduce((s, v) => s + v, 0) / values.length),
+      },
+    ];
+  });
+
+  return { count: scored.length, overall, byDimension };
+}
+
+export type CategoryScore = { category: Category; average: number; count: number };
+
+/** Mean overall score per category, for "where am I strongest". */
+export function categoryScores(attempts: StoredAttempt[]): CategoryScore[] {
+  const buckets = new Map<Category, number[]>();
+  for (const a of scoredAttempts(attempts)) {
+    const topic = getTopic(a.topicId);
+    if (!topic) continue;
+    const list = buckets.get(topic.category) ?? [];
+    list.push(a.aiFeedback?.overallScore ?? 0);
+    buckets.set(topic.category, list);
+  }
+  return [...buckets.entries()]
+    .map(([category, values]) => ({
+      category,
+      average: Math.round(values.reduce((s, v) => s + v, 0) / values.length),
+      count: values.length,
+    }))
+    .sort((a, b) => b.average - a.average);
+}
+
+/**
+ * Change between the earlier and later halves of the scored history.
+ *
+ * Null below four sessions. Two points is a line through noise, and telling
+ * someone they have improved 12% on the strength of one good day is the kind
+ * of number that makes a product untrustworthy the first time it is wrong.
+ */
+export function improvement(
+  attempts: StoredAttempt[],
+): { delta: number; earlier: number; later: number } | null {
+  const scored = scoredAttempts(attempts).sort((a, b) =>
+    a.completedAt.localeCompare(b.completedAt),
+  );
+  if (scored.length < 4) return null;
+
+  const mid = Math.floor(scored.length / 2);
+  const mean = (rows: StoredAttempt[]) =>
+    rows.reduce((s, a) => s + (a.aiFeedback?.overallScore ?? 0), 0) /
+    rows.length;
+
+  const earlier = Math.round(mean(scored.slice(0, mid)));
+  const later = Math.round(mean(scored.slice(mid)));
+  return { delta: later - earlier, earlier, later };
 }
 
 export type Achievement = {

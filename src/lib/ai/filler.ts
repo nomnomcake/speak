@@ -38,6 +38,18 @@ const LIKE_LEGITIMATE_AFTER = new Set([
   "his", "her", "its", "their",
 ]);
 
+/**
+ * Words after which "like" is a discourse marker whatever follows it.
+ *
+ * A comparison needs something being compared, and these leave nothing to
+ * compare — "and like the system stops" is a tic even though "like the" looks
+ * like the start of a comparison. Checked before the determiner rule, because
+ * the determiner rule alone let every "and like the…" through.
+ */
+const LIKE_TIC_BEFORE = new Set([
+  "and", "but", "so", "then", "because", "or", "cause", "well", "okay",
+]);
+
 /** "you know that…", "you know why…" is a clause, not a tic. */
 const YOU_KNOW_LEGITIMATE_AFTER = new Set([
   "that", "what", "why", "how", "when", "where", "who", "whether", "if",
@@ -87,7 +99,10 @@ export function countFillers(
 
     if (cur === "like") {
       if (LIKE_LEGITIMATE_BEFORE.has(prev)) continue;
-      if (LIKE_LEGITIMATE_AFTER.has(next)) continue;
+      // Order matters: a connective or a sentence start beats the determiner
+      // rule, because there is nothing behind it to compare against.
+      const discourse = i === 0 || LIKE_TIC_BEFORE.has(prev);
+      if (!discourse && LIKE_LEGITIMATE_AFTER.has(next)) continue;
       bump("like", true);
       continue;
     }

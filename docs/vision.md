@@ -81,11 +81,14 @@ including this one.**
 | Phase | State | Contents |
 | --- | --- | --- |
 | 1. Design system | **Done** — tagged `v0.1.0-design-system` | Visual language, component library, browser shell. No functionality. |
-| 2. Session shell | Next | The four screens of the loop, wired with mock data. Still no timers or scoring. |
-| 3. Timers and state | | Real countdowns, phase transitions, session state machine. |
-| 4. Capture | Partly built | Camera and microphone, live preview, level meter, transcript. |
-| 5. Scoring | | Rubric evaluation of the transcript. |
-| 6. Archive | | History, trend over time, replay. |
+| 2. Session shell | **Done** | Pick, search, research, session and dashboard screens. |
+| 3. Timers and state | **Done** | Research countdown, presentation mode, phase transitions. |
+| 4. Capture | **Done** | Camera and microphone, live preview, level meter, recording, live transcript. |
+| 5. Scoring | **Partly built** | Rubric, prompt, provider seam and report UI all built. Needs a key in `.env.local` to run against a model; falls back to clearly-labelled sample scores without one. |
+| 6. Archive | **Started** | Dashboard shows streak, collection and score averages. Per-session history and replay not built. |
+
+Sessions persist to `localStorage` (`speak:attempts`). Recordings do not —
+they live in memory for the report and die with the tab, deliberately.
 
 The rule across phases: **make it look finished before making it work.** A
 cohesive shell exposes design problems early, when they are cheap.

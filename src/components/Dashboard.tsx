@@ -24,10 +24,13 @@ import {
 import {
   achievementsFrom,
   categoryProgress,
+  categoryScores,
   clearedCategories,
   collectionProgress,
   completedIds,
   favouriteCategory,
+  improvement,
+  scoreAverages,
   streakFrom,
 } from "@/lib/progress";
 
@@ -127,6 +130,9 @@ export function Dashboard() {
   const cleared = clearedCategories(done);
   const streak = streakFrom(list, when);
   const achievements = achievementsFrom(list, when);
+  const averages = scoreAverages(list);
+  const catScores = categoryScores(list);
+  const trend = improvement(list);
   const earned = achievements.filter((a) => a.earned).length;
 
   const recent = [...list]
@@ -277,6 +283,94 @@ export function Dashboard() {
             </Panel>
           </Desk>
         </div>
+      </StaggerItem>
+
+      <StaggerItem>
+        <Desk>
+          <Panel
+            chrome="window"
+            title="Speaking scores"
+            notch={6}
+            sprig={false}
+            actions={
+              averages.count > 0 ? (
+                <span className="type-hud text-slate">
+                  {averages.count} scored
+                </span>
+              ) : undefined
+            }
+          >
+            {averages.count === 0 ? (
+              <p className="font-mono text-sm leading-relaxed text-slate">
+                No scored sessions yet. Finish a talk and the report&rsquo;s
+                scores are kept here so you can watch them move.
+              </p>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex flex-wrap items-end gap-6">
+                  <div>
+                    <span className="type-hud text-slate">Average score</span>
+                    <div className="font-mono text-4xl leading-none tabular-nums">
+                      {averages.overall}
+                      <span className="type-caps ml-2 text-slate">/ 100</span>
+                    </div>
+                  </div>
+
+                  {trend && (
+                    <div>
+                      <span className="type-hud text-slate">
+                        Recent vs earlier
+                      </span>
+                      <div
+                        className={cn(
+                          "font-mono text-2xl leading-none tabular-nums",
+                          trend.delta > 0 && "text-affirm",
+                          trend.delta < 0 && "text-alert",
+                        )}
+                      >
+                        {trend.delta > 0 ? "+" : ""}
+                        {trend.delta}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  {averages.byDimension.map((d) => (
+                    <div key={d.key} className="flex items-center gap-3">
+                      <span className="type-hud w-28 shrink-0 text-graphite">
+                        {d.label}
+                      </span>
+                      <ProgressBar
+                        value={d.value / 100}
+                        variant="segmented"
+                        segments={10}
+                        size="sm"
+                        className="min-w-0 flex-1"
+                      />
+                      <span className="w-8 shrink-0 text-right font-mono text-xs tabular-nums text-slate">
+                        {d.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                {catScores.length > 1 && (
+                  <div className="flex flex-wrap gap-4 border-t-2 border-ink pt-3">
+                    <span className="type-hud text-slate">
+                      Strongest: {catScores[0].category} (
+                      {catScores[0].average})
+                    </span>
+                    <span className="type-hud text-slate">
+                      Weakest: {catScores[catScores.length - 1].category} (
+                      {catScores[catScores.length - 1].average})
+                    </span>
+                  </div>
+                )}
+              </div>
+            )}
+          </Panel>
+        </Desk>
       </StaggerItem>
 
       <StaggerItem>

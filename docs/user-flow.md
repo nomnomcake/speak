@@ -101,6 +101,16 @@ not quietly become a sixty-five second talk — which would undo the compression
 the product exists to force. The `Live` badge stays lit throughout, because it
 is still recording; only the label changes.
 
+### 5b. ANALYSIS — a few seconds · `/session`
+
+The talk is transcribed live while it happens, silently, via the Web Speech
+API. When it ends the transcript — never the recording — is posted to
+`/api/analyze`, and a small window shows the steps that are actually running.
+
+The loading messages name only work that happens. An earlier draft listed
+"Evaluating your argument", which nothing did; a progress bar lying about its
+own contents is the same failure the search screen already had once.
+
 ### 6. READOUT — untimed
 
 Scores, transcript, and one concrete thing to fix.
@@ -120,7 +130,7 @@ Scores, transcript, and one concrete thing to fix.
 | `/play` | Desktop | **Built** — folders, search, reveal |
 | `/research` | Research window | **Built** — notes, timer, resources |
 | `/session` | Speak | **Partly built** — presentation mode, then live camera and mic. No capture to disk, no auto-stop |
-| `/session/readout` | Readout | Not built |
+| `/session/readout` | Readout | Not a route — the Speaking Report renders in-place at the end of `/session`, since the take only exists in memory and a navigation would lose it |
 | `/dashboard` | Dashboard | **Built on mock data** — streak, collection, categories, recent, achievements |
 | `/archive` | Archive | Not built |
 
@@ -156,6 +166,12 @@ idle ──open folder──► searching ──lands──► researching
 ```
 
 Rules:
+
+Enforcement of the one-way rule lives in `useOneWay`, applied from the
+presentation dialog through analysis. It holds a sentinel history entry so Back
+cannot leave, and prompts on reload or tab close. It does **not** block a typed
+URL — nothing client-side can, and building something that looked like it did
+would be worse than saying so here.
 
 - Transitions from `lockout` onward are **one-way**. There is no path back to
   `researching`, in the UI or the state machine

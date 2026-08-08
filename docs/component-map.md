@@ -159,6 +159,46 @@ variants are unreliable there.
 
 ---
 
+---
+
+## Screen components
+
+These live in `src/components/`, not `src/components/ui/`. They are the product
+rather than the design system: each one is a screen or a piece of a screen, and
+they are all built from the primitives above.
+
+| Component | Screen | Notes |
+| --- | --- | --- |
+| `CategoryDesktop` | `/play` | Folder desktop; opens `TopicRandomizer`. |
+| `TopicRandomizer` | `/play` | The filing-cabinet search. Hands off to `/research` on its own. |
+| `ResearchWindow` | `/research` | Card, instructions, toolbox, timer. |
+| `CatalogueCard` · `Dossier` | `/research` | The pulled file and the typed sheet. |
+| `ResearchToolbox` | `/research` | Collapsible search tools. Uses `window-shade`. |
+| `CountdownTimer` | `/research` | Split-flap clock, persists to localStorage. |
+| `PresentationMode` | `/session` | The stage machine: preparing → countdown → live → analyzing → report. |
+| `CameraStage` | `/session` | Live self-view, mic level, the minute plus its buffer. |
+| `AnalyzingWindow` | `/session` | The pause before the report. |
+| `SpeakingReport` | `/session` | Scores, metrics, filler words, transcript. |
+| `ReviewWindow` | `/session` | The media player for the take. |
+| `Dashboard` | `/dashboard` | Streak, collection, categories, scores, achievements. |
+| `HomeStats` | `/` | Client island reading the same store as the dashboard. |
+| `LoadingScreen` | every route | Route fallback. Server-rendered, no JS. |
+
+### Where the data lives
+
+```
+lib/attempts.ts   localStorage store (v2), read via useSyncExternalStore
+lib/progress.ts   pure derivations — streak, collection, score averages
+lib/ai/           types · rubric · prompt · filler counting · verify · providers
+app/api/analyze   the only server endpoint
+```
+
+`lib/ai/provider.ts` and the provider implementations are `server-only`.
+Importing them from a client component is a build error, which is what keeps
+the API key out of the bundle.
+
+---
+
 ## Adding a component
 
 1. Build it on `PixelFrame` unless there is a reason not to.
