@@ -1,9 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { ArrowLeft } from "lucide-react";
-import { Button, Panel, ProgressBar } from "@/components/ui";
+import { Panel, ProgressBar } from "@/components/ui";
 import { CameraStage } from "./CameraStage";
+import { ReviewEmpty, ReviewWindow } from "./ReviewWindow";
 import type { Topic } from "@/lib/topics";
 
 /**
@@ -20,7 +20,14 @@ import type { Topic } from "@/lib/topics";
  * the steps say so out loud.
  */
 
-type Stage = "preparing" | "ready" | "countdown" | "live" | "blocked" | "done";
+type Stage =
+  | "preparing"
+  | "ready"
+  | "countdown"
+  | "live"
+  | "blocked"
+  | "review"
+  | "discarded";
 
 /**
  * The bar reports real work, which is why "Starting camera" is gated.
@@ -137,7 +144,24 @@ export function PresentationMode({ topic }: { topic: Topic }) {
     }
   }, [stage, count]);
 
-  const handleStop = React.useCallback(() => setStage("done"), []);
+  const [recording, setRecording] = React.useState<Blob | null>(null);
+
+  const handleStop = React.useCallback(
+    (take: Blob | null) => {
+      setRecording(take);
+      setStage("review");
+      // The camera light goes out the moment the talk ends. Leaving it on
+      // through the review screen would be the app watching someone watch
+      // themselves.
+      stream?.getTracks().forEach((t) => t.stop());
+    },
+    [stream],
+  );
+
+  const handleDelete = React.useCallback(() => {
+    setRecording(null);
+    setStage("discarded");
+  }, []);
 
   const waiting = Boolean(STEPS[step].gated) && stream === null && denied === null;
   const stepLabel =
@@ -145,6 +169,22 @@ export function PresentationMode({ topic }: { topic: Topic }) {
 
   if (stage === "live" && stream) {
     return <CameraStage stream={stream} topic={topic} onStop={handleStop} />;
+  }
+
+  if (stage === "review") {
+    return recording ? (
+      <ReviewWindow
+        recording={recording}
+        topic={topic}
+        onDelete={handleDelete}
+      />
+    ) : (
+      <ReviewEmpty reason="That take could not be recorded, so there is nothing to play back." />
+    );
+  }
+
+  if (stage === "discarded") {
+    return <ReviewEmpty reason="Take deleted. It is gone from this device." />;
   }
 
   return (
@@ -228,24 +268,6 @@ export function PresentationMode({ topic }: { topic: Topic }) {
             </div>
           )}
 
-          {stage === "done" && (
-            <div className="space-y-4">
-              <p className="font-mono text-sm text-graphite">
-                Presentation ended.
-              </p>
-              <p className="type-hud text-slate">
-                Scoring is not built yet — see topic-schema.md
-              </p>
-              <Button
-                size="sm"
-                variant="secondary"
-                href="/play"
-                iconLeft={<ArrowLeft size={13} />}
-              >
-                Back to folders
-              </Button>
-            </div>
-          )}
         </div>
       </Panel>
     </div>

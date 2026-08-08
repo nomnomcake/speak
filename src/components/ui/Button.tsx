@@ -54,6 +54,15 @@ export type ButtonProps = {
    * be built in rather than achieved by wrapping. Ignored when disabled.
    */
   href?: string;
+  /**
+   * Save the target rather than navigate to it. Filename, or `true` to let the
+   * server decide.
+   *
+   * Forces a plain `<a>`: `next/link` is a client-side router, and asking it to
+   * route to a `blob:` URL is asking it to navigate somewhere that is not a
+   * page. Downloads are the case where the router must be stepped around.
+   */
+  download?: string | boolean;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 /**
@@ -80,6 +89,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       iconRight,
       disabled,
       href,
+      download,
       className,
       children,
       ...rest
@@ -175,6 +185,21 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       className,
     );
     const rootStyle = { ["--notch" as string]: "3px" };
+
+    if (href && !isOff && download !== undefined) {
+      return (
+        <a
+          href={href}
+          download={download}
+          className={rootClass}
+          style={rootStyle}
+        >
+          {/* No pending state: a download never leaves the page, so there is
+              nothing to wait on and a spinner would never resolve. */}
+          {renderInner(false)}
+        </a>
+      );
+    }
 
     if (href && !isOff) {
       return (

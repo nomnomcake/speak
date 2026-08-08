@@ -116,6 +116,14 @@ function MicLevel({ stream }: { stream: MediaStream }) {
   );
 }
 
+/** Best container this browser will actually give us, in order of preference. */
+const MIME_CANDIDATES = [
+  "video/webm;codecs=vp9,opus",
+  "video/webm;codecs=vp8,opus",
+  "video/webm",
+  "video/mp4",
+];
+
 export function CameraStage({
   stream,
   topic,
@@ -123,11 +131,69 @@ export function CameraStage({
 }: {
   stream: MediaStream;
   topic: Topic;
-  onStop: () => void;
+  /** The take, or null if nothing could be recorded. */
+  onStop: (recording: Blob | null) => void;
 }) {
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const total = timingsFor(topic).speakSeconds;
   const [elapsed, setElapsed] = React.useState(0);
+
+  const recorderRef = React.useRef<MediaRecorder | null>(null);
+  const chunksRef = React.useRef<Blob[]>([]);
+  const finishedRef = React.useRef(false);
+
+  React.useEffect(() => {
+    if (typeof MediaRecorder === "undefined") return;
+
+    const mimeType = MIME_CANDIDATES.find((t) =>
+      MediaRecorder.isTypeSupported?.(t),
+    );
+
+    let rec: MediaRecorder;
+    try {
+      rec = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
+    } catch {
+      return; // No recorder: the session still runs, there is just no take.
+    }
+
+    recorderRef.current = rec;
+    rec.ondataavailable = (e) => {
+      if (e.data.size > 0) chunksRef.current.push(e.data);
+    };
+    // Timesliced so a crash mid-take leaves usable chunks rather than one
+    // buffer that only materialises on stop.
+    rec.start(1000);
+
+    return () => {
+      if (rec.state !== "inactive") rec.stop();
+    };
+  }, [stream]);
+
+  /**
+   * Stop once, and hand the take up only when the recorder says it is done.
+   *
+   * `onstop` is what guarantees the last chunk has been flushed — building the
+   * Blob at the moment `stop()` is called drops the final second, which is
+   * precisely the buffer the talk was given to land its conclusion in.
+   */
+  const finish = React.useCallback(() => {
+    if (finishedRef.current) return;
+    finishedRef.current = true;
+
+    const rec = recorderRef.current;
+    if (!rec || rec.state === "inactive") {
+      onStop(null);
+      return;
+    }
+
+    rec.onstop = () => {
+      const blob = new Blob(chunksRef.current, {
+        type: rec.mimeType || "video/webm",
+      });
+      onStop(blob.size > 0 ? blob : null);
+    };
+    rec.stop();
+  }, [onStop]);
 
   React.useEffect(() => {
     const el = videoRef.current;
@@ -152,8 +218,8 @@ export function CameraStage({
   const bufferLeft = Math.max(0, total + BUFFER_SECONDS - elapsed);
 
   React.useEffect(() => {
-    if (elapsed >= total + BUFFER_SECONDS) onStop();
-  }, [elapsed, total, onStop]);
+    if (elapsed >= total + BUFFER_SECONDS) finish();
+  }, [elapsed, total, finish]);
 
   return (
     <div className="space-y-4">
@@ -205,7 +271,7 @@ export function CameraStage({
         <span className="type-hud text-slate">
           One minute, plus five seconds to land it. Stop early if you are done.
         </span>
-        <Button variant="danger" iconLeft={<Square size={13} />} onClick={onStop}>
+        <Button variant="danger" iconLeft={<Square size={13} />} onClick={finish}>
           Stop
         </Button>
       </div>

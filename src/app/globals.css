@@ -304,7 +304,14 @@
 @utility window-shade {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.26s var(--ease-pixel);
+
+  /* `ease-glide`, not `ease-pixel`. The snappy curve is for controls — on a
+     panel-sized movement it put 59% of the travel into the first 15% of the
+     duration and then crawled through the last 4px, which reads as a snap
+     followed by nothing rather than as an animation. This is the case
+     ui-guidelines.md describes: whole windows, where the snappier curves read
+     as a jump-cut. */
+  transition: grid-template-rows 0.28s var(--ease-glide);
 
   &[data-open="true"] {
     grid-template-rows: 1fr;
