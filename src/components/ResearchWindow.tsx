@@ -81,23 +81,6 @@ export function ResearchWindow({ topic }: { topic: Topic }) {
             className="lg:col-span-2"
             sections={[
               {
-                title: "Places to possibly start with",
-                rows: [
-                  ...topic.references.map((ref) => ({
-                    label: ref.label,
-                    href: ref.url,
-                    meta: ref.kind,
-                  })),
-                  // Always last: the encyclopaedic entries orient you, this is
-                  // where you go once they stop being enough.
-                  {
-                    label: "Search the studies on this",
-                    href: studySearchUrl(topic),
-                    meta: "scholar",
-                  },
-                ],
-              },
-              {
                 title: "What to do",
                 numbered: true,
                 rows: [
@@ -118,6 +101,23 @@ export function ResearchWindow({ topic }: { topic: Topic }) {
                   {
                     label:
                       "Don't write out what you're going to say. You should still be working it out while you talk.",
+                  },
+                ],
+              },
+              {
+                title: "Places to possibly start with",
+                rows: [
+                  ...topic.references.map((ref) => ({
+                    label: ref.label,
+                    href: ref.url,
+                    meta: ref.kind,
+                  })),
+                  // Always last: the encyclopaedic entries orient you, this is
+                  // where you go once they stop being enough.
+                  {
+                    label: "Search the studies on this",
+                    href: studySearchUrl(topic),
+                    meta: "scholar",
                   },
                 ],
               },

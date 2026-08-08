@@ -61,32 +61,19 @@ export function CatalogueCard({
           />
 
           <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
-            <dl className="space-y-1 font-mono text-xs">
+            <dl className="font-mono text-xs">
               <div className="flex gap-2">
                 <dt className="type-hud w-20 text-mute">Filed</dt>
                 <dd className="uppercase">{topic.category}</dd>
               </div>
-              <div className="flex gap-2">
-                <dt className="type-hud w-20 text-mute">Cross-ref</dt>
-                <dd className="uppercase">
-                  {topic.references.length} source
-                  {topic.references.length === 1 ? "" : "s"}
-                </dd>
-              </div>
-              <div className="flex gap-2">
-                <dt className="type-hud w-20 text-mute">Tags</dt>
-                <dd className="uppercase">{topic.tags.join(" · ")}</dd>
-              </div>
             </dl>
 
-            <div className="flex flex-wrap items-center gap-3">
-              <Stamp tone="alert" rotate={-4}>
-                {topic.difficulty}
-              </Stamp>
-              <Stamp tone="ink" rotate={2.5}>
-                Notes — longhand only
-              </Stamp>
-            </div>
+            {/* One stamp only. The longhand stamp said the same thing as
+                instruction 02, and a bare difficulty word stamped on a card
+                does not say what it is measuring. */}
+            <Stamp tone="alert" rotate={-4}>
+              Difficulty: {topic.difficulty}
+            </Stamp>
           </div>
         </div>
       </PixelFrame>
