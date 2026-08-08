@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { PixelFrame } from "./PixelFrame";
 import { BackgroundGrid } from "./BackgroundGrid";
 import { Sprig } from "./PixelArt";
+import { TabMark } from "./TabMark";
 import { ChevronLeft, ChevronRight, RotateCw, Plus, Star } from "lucide-react";
 
 /**
@@ -111,20 +112,23 @@ export function BrowserFrame({
                   : "cursor-default bg-mint text-slate",
             );
             const style = { ["--notch" as string]: "3px" };
-            const inner = (
-              <>
-                <Star size={9} className={t.active ? "text-ink" : "text-mute"} />
-                {t.label}
-              </>
-            );
 
+            // Navigable tabs get TabMark, which turns into a blinking block
+            // while the route loads. Without it a slow transition — an
+            // uncompiled route in dev, a poor connection in production — looks
+            // like a tab that simply does not work.
             return t.href && !t.active ? (
               <Link key={t.label} href={t.href} className={className} style={style}>
-                {inner}
+                <TabMark active={false} />
+                {t.label}
               </Link>
             ) : (
               <span key={t.label} className={className} style={style}>
-                {inner}
+                <Star
+                  size={9}
+                  className={cn("shrink-0", t.active ? "text-ink" : "text-mute")}
+                />
+                {t.label}
               </span>
             );
           })}
