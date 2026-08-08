@@ -19,8 +19,11 @@ export {
   Sprig,
   Sun,
   Paperclip,
+  ToolGlyph,
   CLOUDS,
+  TOOL_GLYPHS,
   type CloudShape,
+  type ToolGlyphName,
 } from "./PixelArt";
 export { Stamp, type StampProps } from "./Stamp";
 export {

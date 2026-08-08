@@ -221,3 +221,197 @@ export function Sun({
     </svg>
   );
 }
+
+/**
+ * Tool glyphs — the icons on the research toolbox buttons.
+ *
+ * Drawn rather than imported. Every one of these services has a real logo, and
+ * every real logo is a wordmark in a brand colour, which would put five foreign
+ * palettes on a screen built from four mint swatches — and would be someone
+ * else's trademark sitting in our UI. These say what the destination *is*
+ * (reference, search, scholarship, medicine, video) rather than who owns it.
+ *
+ * All on a 9x9 grid, padded with empty rows so a row of them sits on one
+ * baseline regardless of how tall the drawing itself is.
+ */
+export const TOOL_GLYPHS = {
+  /**
+   * Open book — a reference work.
+   *
+   * The spine gap runs the full height. An earlier version closed the bottom
+   * row, which at 18px turned the whole glyph into one solid block with a slot
+   * cut in it. Two separated page blocks read as a book; one blob does not.
+   */
+  book: [
+    [],
+    [
+      [2, 2],
+      [5, 2],
+    ],
+    [
+      [1, 3],
+      [5, 3],
+    ],
+    [
+      [0, 4],
+      [5, 4],
+    ],
+    [
+      [0, 4],
+      [5, 4],
+    ],
+    [
+      [0, 4],
+      [5, 4],
+    ],
+    [
+      [1, 3],
+      [5, 3],
+    ],
+    [],
+    [],
+  ],
+  /** Magnifier, handle to the lower right. */
+  magnifier: [
+    [[2, 4]],
+    [
+      [1, 1],
+      [6, 1],
+    ],
+    [
+      [0, 1],
+      [7, 1],
+    ],
+    [
+      [0, 1],
+      [7, 1],
+    ],
+    [
+      [1, 1],
+      [6, 1],
+    ],
+    [[2, 4]],
+    [[5, 2]],
+    [[6, 2]],
+    [[7, 2]],
+  ],
+  /**
+   * Mortarboard — scholarship.
+   *
+   * Flat board wider than the cap beneath it, button on top, tassel down the
+   * right. The tassel is what stops it reading as a lamp: without it, a wide
+   * plate over a narrow box is just a table.
+   */
+  mortarboard: [
+    [],
+    [[3, 3]],
+    [[0, 9]],
+    [[1, 7]],
+    [
+      [2, 5],
+      [8, 1],
+    ],
+    [
+      [2, 5],
+      [8, 1],
+    ],
+    [
+      [2, 5],
+      [7, 2],
+    ],
+    [],
+    [],
+  ],
+  /** Medical cross. The one unambiguous "this is medicine" mark at 9px. */
+  cross: [
+    [],
+    [[3, 3]],
+    [[3, 3]],
+    [[0, 9]],
+    [[0, 9]],
+    [[0, 9]],
+    [[3, 3]],
+    [[3, 3]],
+    [],
+  ],
+  /** Screen with a play triangle knocked out of it. */
+  screen: [
+    [[1, 7]],
+    [[0, 9]],
+    [
+      [0, 3],
+      [5, 4],
+    ],
+    [
+      [0, 3],
+      [6, 3],
+    ],
+    [
+      [0, 3],
+      [7, 2],
+    ],
+    [
+      [0, 3],
+      [6, 3],
+    ],
+    [
+      [0, 3],
+      [5, 4],
+    ],
+    [[0, 9]],
+    [[1, 7]],
+  ],
+} satisfies Record<string, Shape>;
+
+export type ToolGlyphName = keyof typeof TOOL_GLYPHS;
+
+/**
+ * ToolGlyph — one sprite from TOOL_GLYPHS.
+ *
+ * Fill defaults to `currentColor` so a glyph inherits whatever the button is
+ * doing on hover, press and disabled without any of those states needing to
+ * know a glyph is in there.
+ */
+export function ToolGlyph({
+  name,
+  unit = 2,
+  fill = "currentColor",
+  className,
+  style,
+}: {
+  name: ToolGlyphName;
+  /** Size of one pixel block, in px. */
+  unit?: number;
+  fill?: string;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
+  const rows = TOOL_GLYPHS[name];
+  const w = shapeWidth(rows);
+  const h = rows.length;
+
+  return (
+    <svg
+      viewBox={`0 0 ${w} ${h}`}
+      width={w * unit}
+      height={h * unit}
+      shapeRendering="crispEdges"
+      className={className}
+      style={style}
+      aria-hidden
+    >
+      {rows.map((runs, y) =>
+        runs.map(([start, len], i) => (
+          <rect
+            key={`${y}-${i}`}
+            x={start}
+            y={y}
+            width={len}
+            height={1}
+            fill={fill}
+          />
+        )),
+      )}
+    </svg>
+  );
+}

@@ -286,6 +286,39 @@
   }
 }
 
+/* Window shade — the roll-down every desktop utility panel has.
+
+   Uses `grid-template-rows: 0fr -> 1fr` rather than animating height, because
+   height needs a number and the panel's height is whatever its buttons happen
+   to need. The old workaround was a max-height guess, which either clips the
+   content when it grows or spends the tail of the animation expanding through
+   empty space.
+
+   Not framer-motion, for the reason `page-in` is not: this transition is
+   described entirely in CSS, so the reduced-motion block in BASE lands it on
+   the open frame immediately instead of easing.
+
+   The arbitrary-value form of this (`grid-rows-[0fr]`) is exactly the kind of
+   class Tailwind has silently declined to emit in this project before. Written
+   out here, it either works or fails loudly. */
+@utility window-shade {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.26s var(--ease-pixel);
+
+  &[data-open="true"] {
+    grid-template-rows: 1fr;
+  }
+
+  /* `min-height: 0` is load-bearing — a grid item's default `min-height: auto`
+     refuses to shrink below its content, so the row collapses to 0fr while the
+     content sits there at full height, unclipped. */
+  > * {
+    overflow: hidden;
+    min-height: 0;
+  }
+}
+
 /* Loading cadence — a block lights, then passes it along, left to right.
 
    `steps(1, end)` is load-bearing. Colour animation interpolates by default,

@@ -127,8 +127,19 @@ export function timingsFor(topic: Topic): Timings {
  * by hand once checked.
  */
 export function studySearchUrl(topic: Topic): string {
-  const query = [topic.title, ...topic.tags.slice(0, 2)].join(" ");
-  return `https://scholar.google.com/scholar?q=${encodeURIComponent(query)}`;
+  return `https://scholar.google.com/scholar?q=${encodeURIComponent(researchQuery(topic))}`;
+}
+
+/**
+ * The phrase every research tool searches for.
+ *
+ * Two tags, not all of them. The tags exist to disambiguate a title that could
+ * mean several things, and past the second they stop narrowing and start
+ * over-constraining — a five-term query returns the intersection of five
+ * vocabularies, which is often nothing.
+ */
+export function researchQuery(topic: Topic): string {
+  return [topic.title, ...topic.tags.slice(0, 2)].join(" ");
 }
 
 /**

@@ -48,6 +48,7 @@ export {
   timingsFor,
   fileNameFor,
   studySearchUrl,
+  researchQuery,
   byDifficultyThenTitle,
   topicForDate,
   type TopicFilter,

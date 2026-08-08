@@ -3,6 +3,7 @@ import { Button, Divider, Panel } from "@/components/ui";
 import { CatalogueCard } from "./CatalogueCard";
 import { CountdownTimer } from "./CountdownTimer";
 import { Dossier } from "./Dossier";
+import { ResearchToolbox } from "./ResearchToolbox";
 import {
   RESEARCH_SECONDS,
   fileNameFor,
@@ -64,10 +65,10 @@ export function ResearchWindow({ topic }: { topic: Topic }) {
         <CatalogueCard topic={topic} fileName={fileNameFor(topic)} />
 
         <div className="grid gap-5 lg:grid-cols-3">
+          <div className="space-y-5 lg:col-span-2">
           {/* Sources and angles share one sheet so they read as one thing,
               kept quiet so the card stays the object on this screen. */}
           <Dossier
-            className="lg:col-span-2"
             sections={[
               {
                 title: "What to do",
@@ -112,6 +113,12 @@ export function ResearchWindow({ topic }: { topic: Topic }) {
               },
             ]}
           />
+
+            {/* Below the sheet, not above it: the instructions are what to do,
+                the toolbox is how. Rolled up by default so the screen still
+                opens on the card and the brief. */}
+            <ResearchToolbox topic={topic} />
+          </div>
 
           <CountdownTimer
             storageKey={`research:${topic.id}:timer`}
