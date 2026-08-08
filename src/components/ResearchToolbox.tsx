@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { ExternalLink } from "lucide-react";
 import { Panel, PixelFrame, ToolGlyph } from "@/components/ui";
 import type { ToolGlyphName } from "@/components/ui";
 import { cn } from "@/lib/utils";
@@ -97,10 +96,11 @@ function ShadeCaret({ open }: { open: boolean }) {
 export function ResearchToolbox({
   topic,
   className,
-  // Open by default now that this panel carries the topic's own sources. It
-  // replaced the dossier's list of them, and a screen whose only reading list
-  // starts rolled up is a screen that looks like it has no reading list.
-  defaultOpen = true,
+  // Back to rolled up, now that the panel holds only tools again. It was opened
+  // while it also carried the topic's sources, since collapsing away a screen's
+  // only reading list makes it look like there isn't one. Five search buttons
+  // are not a reading list, and the roll-down is the point of the panel.
+  defaultOpen = false,
 }: {
   topic: Topic;
   className?: string;
@@ -168,53 +168,9 @@ export function ResearchToolbox({
             ))}
           </div>
 
-          {/* The topic's own references, which used to be the dossier's
-              "Places to possibly start with". They belong with the tools
-              rather than beside them: this panel is now the single answer to
-              "where do I start", and a curated link and a search button are
-              two answers to that one question, not two different questions.
-
-              Kept below the buttons because they are narrower — these are the
-              handful of sources already checked, the tools are everything
-              else. */}
-          {topic.references.length > 0 && (
-            <>
-              <div aria-hidden className="h-0.5 w-full bg-ink" />
-              <h3 className="type-hud px-3 pt-3 pb-1 text-slate">
-                Already filed
-              </h3>
-              <div className="divide-y divide-mint-soft">
-                {topic.references.map((ref) => (
-                  <a
-                    key={ref.url}
-                    href={ref.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    tabIndex={open ? undefined : -1}
-                    aria-hidden={!open}
-                    className="flex gap-3 px-3 py-2 font-mono text-xs transition-colors duration-150 hover:bg-mint-mist"
-                  >
-                    <span className="w-3 shrink-0 text-mint-shade">—</span>
-                    <span className="min-w-0 flex-1 leading-relaxed text-graphite">
-                      {ref.label}
-                    </span>
-                    <span className="flex shrink-0 items-center gap-2 pt-0.5">
-                      {ref.kind && (
-                        <span className="type-hud hidden text-mute sm:block">
-                          {ref.kind}
-                        </span>
-                      )}
-                      <ExternalLink size={11} className="text-mint-shade" />
-                    </span>
-                  </a>
-                ))}
-              </div>
-            </>
-          )}
-
-          <div className="mt-3 border-t-2 border-ink px-3 py-2">
+          <div className="border-t-2 border-ink px-3 py-2">
             <span className="type-hud text-mute">
-              Everything here opens in a new tab
+              Opens in a new tab · searches this topic
             </span>
           </div>
         </div>

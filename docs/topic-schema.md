@@ -104,6 +104,18 @@ Wikipedia, which resolves an article rather than ranking results.
 A bare URL string cannot gain a retrieval date, a paywall flag or an excerpt
 without a migration. `{ label, url, kind }` can.
 
+**Currently authored but not rendered.** They were the dossier's "Places to
+possibly start with", then briefly an "Already filed" list inside the toolbox;
+both are gone. The field is kept, and still validated at `>= 1`, for two
+reasons: these are hand-checked sources — several papers resolved by DOI — and
+regenerating them means inventing citations, which is the one thing
+`studySearchUrl` existed to avoid. And `scores.accuracy` judges whether a talk
+was *true to the sources*, which needs sources.
+
+If a future change decides the research screen should stay search-only forever,
+delete the field deliberately in its own commit rather than letting it rot as
+data nothing reads.
+
 ## Adding topics
 
 To add a topic to an existing category, append to that JSON file in
