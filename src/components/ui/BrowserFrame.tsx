@@ -186,17 +186,15 @@ export function BrowserFrame({
         {/* ---- Viewport -------------------------------------------------- */}
         <div className="relative min-h-0 flex-1 bg-mint-mist">{children}</div>
 
-        {/* ---- Status bar ------------------------------------------------ */}
-        {footer !== null && (
+        {/* ---- Status bar ------------------------------------------------
+            Only when a screen actually has something to report. The default
+            was a browser's "Done" — an artefact of an era when pages took long
+            enough to load that finishing was news. Here it said nothing. */}
+        {footer && (
           <>
             <div aria-hidden className="h-0.5 shrink-0 bg-ink" />
             <div className="flex shrink-0 items-center justify-between gap-4 px-3 py-1.5">
-              {footer ?? (
-                <>
-                  <span className="type-hud text-slate">Done</span>
-                  <span className="type-hud text-slate">v0.1.0</span>
-                </>
-              )}
+              {footer}
             </div>
           </>
         )}

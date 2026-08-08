@@ -7,7 +7,6 @@ import {
   RESEARCH_SECONDS,
   fileNameFor,
   studySearchUrl,
-  timingsFor,
   type Topic,
 } from "@/lib/topics";
 
@@ -32,24 +31,14 @@ import {
 const RESEARCH_MINUTES = RESEARCH_SECONDS / 60;
 
 export function ResearchWindow({ topic }: { topic: Topic }) {
-  const timings = timingsFor(topic);
-
   return (
     // No title bar. The card names what this is, and the timer already shows
     // the 15 minutes the header was repeating.
     <Panel
       chrome="window"
       notch={6}
-      footer={
-        <>
-          <span className="type-hud text-slate">
-            Notes go on paper · the timer saves itself
-          </span>
-          <span className="type-hud text-slate">
-            Speaks for {timings.speakSeconds}s
-          </span>
-        </>
-      }
+      // No status bar. It restated the instructions in worse words, and the
+      // card's icons already carry the two durations.
     >
       <div className="space-y-5">
         {/* Toolbar */}

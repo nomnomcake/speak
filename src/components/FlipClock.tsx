@@ -28,10 +28,12 @@ function FlipDigit({ char, expired }: { char: string; expired: boolean }) {
         animate={{ rotateX: 0 }}
         transition={{ duration: 0.16, ease: ease.pixel }}
         className={cn(
-          // Light cards with ink digits. Solid black blocks at this size were
-          // the heaviest thing on the screen and pulled the eye off the card.
-          "pixel-clip block border-2 border-ink px-2 py-1 text-center font-mono text-4xl leading-none font-light tabular-nums sm:text-5xl",
-          expired ? "bg-alert/20 text-alert" : "bg-mint-mist text-ink",
+          // Mid-tone cards with ink digits: solid black blocks were the
+          // heaviest thing on screen and pulled the eye off the card, but
+          // mint-mist at light weight went too far the other way and the
+          // digits stopped reading as a display.
+          "pixel-clip block border-2 border-ink px-2 py-1 text-center font-mono text-4xl leading-none tabular-nums sm:text-5xl",
+          expired ? "bg-alert text-ink" : "bg-mint-shade text-ink",
         )}
         style={{
           ["--notch" as string]: "2px",
@@ -41,11 +43,11 @@ function FlipDigit({ char, expired }: { char: string; expired: boolean }) {
         {char}
       </motion.span>
 
-      {/* The hinge. Mint rather than graphite now the card is light — a dark
-          seam on a pale face reads as a crack rather than a fold. */}
+      {/* The hinge. Darker than the card face now that the face is mid-tone,
+          so it reads as a fold rather than a highlight. */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-1/2 h-0.5 -translate-y-px bg-mint-soft"
+        className="pointer-events-none absolute inset-x-0 top-1/2 h-0.5 -translate-y-px bg-graphite/45"
       />
     </span>
   );

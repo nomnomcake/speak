@@ -1,6 +1,36 @@
+import {
+  Brain,
+  Cpu,
+  FlaskConical,
+  Hourglass,
+  Lightbulb,
+  Mic,
+  Timer,
+  TrendingUp,
+  Users,
+} from "lucide-react";
 import { PixelFrame, Paperclip, Stamp } from "@/components/ui";
 import { Teletype } from "./Teletype";
-import type { Topic } from "@/lib/topics";
+import {
+  RESEARCH_SECONDS,
+  timingsFor,
+  type Category,
+  type Topic,
+} from "@/lib/topics";
+
+/**
+ * One glyph per category. Keyed off the CATEGORIES union, so adding a category
+ * is a compile error here rather than a silently missing icon.
+ */
+const CATEGORY_ICON: Record<Category, typeof Brain> = {
+  science: FlaskConical,
+  economics: TrendingUp,
+  philosophy: Lightbulb,
+  technology: Cpu,
+  history: Hourglass,
+  psychology: Brain,
+  society: Users,
+};
 
 /**
  * CatalogueCard — the card pulled from the filing cabinet.
@@ -24,6 +54,8 @@ export function CatalogueCard({
   /** The generated filename this topic was filed under, e.g. SOC_002.TXT. */
   fileName: string;
 }) {
+  const CategoryIcon = CATEGORY_ICON[topic.category];
+
   return (
     <div className="relative">
       {/* Desk objects, sparingly: one clip, hooked over the top edge. */}
@@ -61,12 +93,28 @@ export function CatalogueCard({
           />
 
           <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
-            <dl className="font-mono text-xs">
-              <div className="flex gap-2">
-                <dt className="type-hud w-20 text-mute">Filed</dt>
-                <dd className="uppercase">{topic.category}</dd>
-              </div>
-            </dl>
+            {/* Icons rather than a "Filed: economics" row. The category is
+                worth a glance, not a labelled field, and the two durations are
+                the only other facts that change what you do next. */}
+            <div className="flex items-center gap-5 font-mono text-xs">
+              <span
+                className="flex items-center gap-2"
+                title={`Filed under ${topic.category}`}
+              >
+                <CategoryIcon size={15} className="text-mint-shade" />
+                <span className="sr-only">Filed under {topic.category}</span>
+              </span>
+
+              <span className="flex items-center gap-2" title="Research time">
+                <Timer size={15} className="text-mint-shade" />
+                {RESEARCH_SECONDS / 60}m
+              </span>
+
+              <span className="flex items-center gap-2" title="Talk length">
+                <Mic size={15} className="text-mint-shade" />
+                {timingsFor(topic).speakSeconds}s
+              </span>
+            </div>
 
             {/* One stamp only. The longhand stamp said the same thing as
                 instruction 02, and a bare difficulty word stamped on a card
