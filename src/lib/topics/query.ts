@@ -115,22 +115,6 @@ export function timingsFor(topic: Topic): Timings {
 }
 
 /**
- * A search into the scholarly literature for this topic.
- *
- * Generated rather than stored. Hardcoding paper URLs per topic would mean
- * inventing citations that cannot be verified from here, and a plausible-
- * looking dead link is worse than no link — it costs the user the minutes the
- * session is measuring. A search always resolves, always reflects current
- * literature, and cannot rot.
- *
- * Specific papers belong in a topic's `references` with `kind: "paper"`, added
- * by hand once checked.
- */
-export function studySearchUrl(topic: Topic): string {
-  return `https://scholar.google.com/scholar?q=${encodeURIComponent(researchQuery(topic))}`;
-}
-
-/**
  * The phrase every research tool searches for.
  *
  * The first two authored terms, never the title. Most titles here *are* the

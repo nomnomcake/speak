@@ -4,12 +4,7 @@ import { CatalogueCard } from "./CatalogueCard";
 import { CountdownTimer } from "./CountdownTimer";
 import { Dossier } from "./Dossier";
 import { ResearchToolbox } from "./ResearchToolbox";
-import {
-  RESEARCH_SECONDS,
-  fileNameFor,
-  studySearchUrl,
-  type Topic,
-} from "@/lib/topics";
+import { RESEARCH_SECONDS, fileNameFor, type Topic } from "@/lib/topics";
 
 /**
  * ResearchWindow — the research phase as a desktop application.
@@ -66,57 +61,42 @@ export function ResearchWindow({ topic }: { topic: Topic }) {
 
         <div className="grid gap-5 lg:grid-cols-3">
           <div className="space-y-5 lg:col-span-2">
-          {/* Sources and angles share one sheet so they read as one thing,
-              kept quiet so the card stays the object on this screen. */}
-          <Dossier
-            sections={[
-              {
-                title: "What to do",
-                numbered: true,
-                rows: [
-                  {
-                    label:
-                      "You have 15 minutes to research this properly. Read past the first result.",
-                  },
-                  {
-                    label: "Take notes on paper, by hand.",
-                  },
-                  {
-                    // "One minute" is written out rather than interpolated
-                    // because TIMINGS now fixes every talk at 60s. If that
-                    // ever varies again, this line has to change with it.
-                    label:
-                      "When time's up, talk about it for one minute using your notes.",
-                  },
-                  {
-                    label:
-                      "Don't write out what you're going to say. You should still be working it out while you talk.",
-                  },
-                ],
-              },
-              {
-                title: "Places to possibly start with",
-                rows: [
-                  ...topic.references.map((ref) => ({
-                    label: ref.label,
-                    href: ref.url,
-                    meta: ref.kind,
-                  })),
-                  // Always last: the encyclopaedic entries orient you, this is
-                  // where you go once they stop being enough.
-                  {
-                    label: "Search the studies on this",
-                    href: studySearchUrl(topic),
-                    meta: "scholar",
-                  },
-                ],
-              },
-            ]}
-          />
+            {/* Instructions only. The sources that used to sit under these as
+                "Places to possibly start with" moved into the toolbox, which
+                is now the single answer to "where do I start" rather than the
+                second half of one. Kept quiet either way, so the card stays
+                the object on this screen. */}
+            <Dossier
+              sections={[
+                {
+                  title: "What to do",
+                  numbered: true,
+                  rows: [
+                    {
+                      label:
+                        "You have 15 minutes to research this properly. Read past the first result.",
+                    },
+                    {
+                      label: "Take notes on paper, by hand.",
+                    },
+                    {
+                      // "One minute" is written out rather than interpolated
+                      // because TIMINGS now fixes every talk at 60s. If that
+                      // ever varies again, this line has to change with it.
+                      label:
+                        "When time's up, talk about it for one minute using your notes.",
+                    },
+                    {
+                      label:
+                        "Don't write out what you're going to say. You should still be working it out while you talk.",
+                    },
+                  ],
+                },
+              ]}
+            />
 
             {/* Below the sheet, not above it: the instructions are what to do,
-                the toolbox is how. Rolled up by default so the screen still
-                opens on the card and the brief. */}
+                the toolbox is how. */}
             <ResearchToolbox topic={topic} />
           </div>
 

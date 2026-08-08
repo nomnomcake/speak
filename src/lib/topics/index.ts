@@ -47,7 +47,6 @@ export {
   relatedTopics,
   timingsFor,
   fileNameFor,
-  studySearchUrl,
   researchQuery,
   primarySearchTerm,
   byDifficultyThenTitle,
