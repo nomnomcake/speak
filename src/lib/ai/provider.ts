@@ -15,6 +15,7 @@ import "server-only";
 
 import type { AiFeedback, AnalysisInput, CoachingNote, GroundedClaim } from "./types";
 import { mockAnalyze } from "./mock-provider";
+import { anthropicAnalyze } from "./anthropic-provider";
 import { clampScore, stripUngroundedQuotes } from "./verify";
 
 /**
@@ -87,34 +88,14 @@ export async function analyzePresentation(
     case "mock":
       return mockAnalyze(input);
 
-    case "anthropic":
+    case "anthropic": {
       /**
-       * TO CONNECT A REAL PROVIDER
-       *
-       * 1. `npm install @anthropic-ai/sdk`
-       * 2. Set `SPEAK_AI_PROVIDER=anthropic` and `ANTHROPIC_API_KEY=...` in
-       *    `.env.local` — server-side only, never `NEXT_PUBLIC_`.
-       * 3. Implement here:
-       *
-       *      const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-       *      const res = await client.messages.create({
-       *        model: "claude-sonnet-5",
-       *        max_tokens: 2000,
-       *        system: EVALUATOR_SYSTEM_PROMPT,
-       *        messages: [{ role: "user", content: buildUserMessage(input) }],
-       *      });
-       *
-       * 4. Parse the JSON, stamp `source: "model"`, then pass it through
-       *    `groundFeedback(draft, input.transcript?.text ?? null)` — that is
-       *    what strips invented quotes and clamps out-of-range scores. Do not
-       *    skip it; the prompt's grounding rules are only enforceable here.
-       * 5. Populate `strongestMoment`, `biggestOpportunity`, `coachingNotes`,
-       *    `summary`, `topicCoverage` and `researchSynthesis`, which the mock
-       *    deliberately leaves null, and drop the matching `unavailable` entry.
+       * Grounding runs here rather than inside the provider so it cannot be
+       * skipped by a future one. Whatever the model claims the speaker said is
+       * checked against what they actually said before it can reach a screen.
        */
-      throw new Error(
-        "SPEAK_AI_PROVIDER=anthropic is set but no provider is implemented. " +
-          "See the instructions in src/lib/ai/provider.ts.",
-      );
+      const draft = await anthropicAnalyze(input);
+      return groundFeedback(draft, input.transcript?.text ?? null);
+    }
   }
 }
