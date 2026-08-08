@@ -326,6 +326,37 @@
   }
 }
 
+/* A panel that looks draggable without being draggable.
+
+   Lifts exactly one pixel toward its shadow plate on hover, the same distance
+   the buttons move, so the whole desktop reads as one set of physical objects.
+   Deliberately not real dragging: a layout the user can derange is a layout
+   that is wrong the next time they open it, and there is nothing here worth
+   rearranging. The affordance is the joke, not a promise. */
+@utility desk-panel {
+  transition: transform 0.16s var(--ease-pixel);
+
+  &:hover {
+    transform: translate(-1px, -1px);
+  }
+}
+
+/* Sticker-book behaviour for the badges. Peels up slightly and straightens —
+   an earned sticker sits crooked on the page and squares itself when you look
+   at it. Rotation only on hover, so nothing is animating at rest. */
+@utility sticker {
+  /* The resting tilt comes in through `--tilt`, not an inline `transform`.
+     An inline transform would win against this rule's `:hover`, so the sticker
+     would sit crooked and then refuse to move — the hover would be dead and
+     look like nothing was wired up. */
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.16s var(--ease-pixel);
+
+  &:hover {
+    transform: rotate(0deg) scale(1.05);
+  }
+}
+
 /* Countdown tick. A snap, not a swoop — the number lands rather than arrives.
    140ms and a scale of 1.18: enough that the eye registers a new digit was
    stamped down, short enough that it never reads as a zoom. Anything longer

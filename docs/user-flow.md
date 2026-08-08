@@ -121,10 +121,21 @@ Scores, transcript, and one concrete thing to fix.
 | `/research` | Research window | **Built** — notes, timer, resources |
 | `/session` | Speak | **Partly built** — presentation mode, then live camera and mic. No capture to disk, no auto-stop |
 | `/session/readout` | Readout | Not built |
+| `/dashboard` | Dashboard | **Built on mock data** — streak, collection, categories, recent, achievements |
 | `/archive` | Archive | Not built |
 
 `/research` accepts `?topic=<id>`. An unknown or missing id falls back to the
 day's topic, so arriving from the tab bar is a valid way in.
+
+`/dashboard` is progress; `/archive` will be history. They are separate on
+purpose: the dashboard answers "how am I doing", which is a handful of derived
+figures, and the archive answers "what did I say that time", which is a list of
+takes to replay. Merging them produces a page that is a weak version of both.
+
+Every figure on the dashboard derives from one list of completed topic ids
+(`lib/progress.ts`), so the collection percentage, the per-category bars and the
+favourite category cannot contradict each other. When persistence lands, only
+the source list changes.
 
 The lockout and transmit phases are **one route with two states**, not two
 routes. Navigation between them must be impossible — no back button, no URL

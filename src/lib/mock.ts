@@ -50,3 +50,64 @@ export const totals = {
   since: "12 Jul",
   averageClarity: 0.78,
 } as const;
+
+/**
+ * Topics marked done, as real ids from the registry.
+ *
+ * Ids rather than a count, so every derived figure on the dashboard — category
+ * progress, collection percentage, favourite category — falls out of one list
+ * and cannot contradict itself. A hardcoded "10 completed" alongside a
+ * hardcoded "technology 3/3" is two numbers waiting to disagree.
+ *
+ * A validated id also means a topic renamed in JSON breaks the build here
+ * rather than silently vanishing from the dashboard.
+ */
+export const completedTopicIds: readonly string[] = [
+  "comparative-advantage",
+  "jevons-paradox",
+  "ship-of-theseus",
+  "cognitive-dissonance",
+  "availability-heuristic",
+  "crispr-targeting",
+  "cap-theorem",
+  "byzantine-fault-tolerance",
+  "public-key-cryptography",
+  "moral-panic",
+];
+
+/** Most recent takes, newest first. */
+export const recentSessions: readonly {
+  topicId: string;
+  /** ISO date, absolute — never "3 days ago" in stored data. */
+  at: string;
+  clarity: number;
+}[] = [
+  { topicId: "moral-panic", at: "2026-08-05", clarity: 0.82 },
+  { topicId: "public-key-cryptography", at: "2026-08-04", clarity: 0.74 },
+  { topicId: "availability-heuristic", at: "2026-08-03", clarity: 0.91 },
+  { topicId: "jevons-paradox", at: "2026-08-02", clarity: 0.66 },
+  { topicId: "crispr-targeting", at: "2026-08-01", clarity: 0.79 },
+];
+
+/**
+ * The sticker book.
+ *
+ * Every one of these describes something the product can actually observe from
+ * an Attempt — no "engagement" badges for opening the app. A badge that cannot
+ * be earned by doing the thing well is a badge that teaches the wrong lesson.
+ */
+export const achievements: readonly {
+  id: string;
+  label: string;
+  detail: string;
+  earned: boolean;
+}[] = [
+  { id: "first", label: "First words", detail: "Finish one session", earned: true },
+  { id: "week", label: "Week straight", detail: "Seven days in a row", earned: true },
+  { id: "shelf", label: "Full shelf", detail: "Clear one category", earned: true },
+  { id: "ten", label: "Ten down", detail: "Ten sessions finished", earned: true },
+  { id: "spread", label: "Polymath", detail: "Five categories", earned: true },
+  { id: "deep", label: "Deep cut", detail: "Finish a Class III topic", earned: false },
+  { id: "tight", label: "Under the wire", detail: "Land it before the buffer", earned: false },
+  { id: "all", label: "Archivist", detail: "Every topic in the cabinet", earned: false },
+];

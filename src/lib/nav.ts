@@ -7,11 +7,12 @@ import type { BrowserTab } from "@/components/ui";
  * tab stays active there the way a browser tab does when you navigate within
  * a site.
  */
-export type RouteKey = "home" | "play" | "design-system";
+export type RouteKey = "home" | "play" | "dashboard" | "design-system";
 
 const TABS: Record<RouteKey, { label: string; href: string }> = {
   home: { label: "Speak", href: "/" },
   play: { label: "Play", href: "/play" },
+  dashboard: { label: "Dashboard", href: "/dashboard" },
   "design-system": { label: "Design System", href: "/design-system" },
 };
 
