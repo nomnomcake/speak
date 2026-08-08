@@ -210,6 +210,82 @@
   }
 }
 
+/* Page entrance.
+
+   Deliberately CSS rather than a JS-driven animation, unlike everything else
+   in this system. This is the one animation that gates the *entire page*
+   behind `opacity: 0`, so if it fails to run the product is a blank window —
+   and a JS animation has two ways to fail here:
+
+   1. `requestAnimationFrame` is paused in a background tab, so a page opened
+      in one stays at the start frame. This was observed: every element laid
+      out at the right size and position, all of it invisible.
+   2. It forces a hydration mismatch. The server always renders the start
+      state, but a client with `prefers-reduced-motion` renders the end state,
+      so React finds `opacity: 0` where the HTML said `opacity: 1`.
+
+   CSS has neither problem: it needs no hydration, and the reduced-motion
+   block in BASE lands it on the final frame immediately. */
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility animate-page-in {
+  /* `both` matters — it holds the start frame through the animation's delay
+     and the end frame afterwards, so the page never flashes at full opacity
+     before settling. */
+  animation: page-in 0.32s var(--ease-snap) both;
+}
+
+/* Sequenced reveal, for the same reasons as `page-in` above — these hide real
+   content, so they must not depend on JS having run.
+
+   The delay is driven off nth-child rather than an index passed from React,
+   which keeps `StaggerItem` a plain wrapper and means items composed inside
+   other components still sequence correctly: the selector matches the rendered
+   DOM, not the JSX nesting. Past the tenth child the delay stops growing —
+   beyond about 0.6s a stagger reads as the page being slow rather than as a
+   deliberate reveal. */
+@utility stagger-in {
+  > * {
+    animation: page-in 0.32s var(--ease-snap) both;
+  }
+  > *:nth-child(2) {
+    animation-delay: calc(var(--stagger-step) * 1);
+  }
+  > *:nth-child(3) {
+    animation-delay: calc(var(--stagger-step) * 2);
+  }
+  > *:nth-child(4) {
+    animation-delay: calc(var(--stagger-step) * 3);
+  }
+  > *:nth-child(5) {
+    animation-delay: calc(var(--stagger-step) * 4);
+  }
+  > *:nth-child(6) {
+    animation-delay: calc(var(--stagger-step) * 5);
+  }
+  > *:nth-child(7) {
+    animation-delay: calc(var(--stagger-step) * 6);
+  }
+  > *:nth-child(8) {
+    animation-delay: calc(var(--stagger-step) * 7);
+  }
+  > *:nth-child(9) {
+    animation-delay: calc(var(--stagger-step) * 8);
+  }
+  > *:nth-child(n + 10) {
+    animation-delay: calc(var(--stagger-step) * 9);
+  }
+}
+
 /* ============================================================================
    BASE
    ========================================================================= */

@@ -2,9 +2,7 @@
 
 import * as React from "react";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { duration, ease } from "@/lib/tokens";
 
 /**
  * PageTransition — mount animation keyed to the route.
@@ -12,7 +10,13 @@ import { duration, ease } from "@/lib/tokens";
  * Deliberately a mount-only animation rather than AnimatePresence exit: in the
  * App Router the outgoing tree is already unmounted by the time a new route
  * commits, so exit variants there are unreliable. Keying on pathname gives a
- * clean re-entry on every navigation.
+ * clean re-entry on every navigation — remounting restarts the CSS animation.
+ *
+ * The animation itself is CSS (`animate-page-in` in globals.css), not
+ * framer-motion, which is the exception in this codebase. It hides the whole
+ * page while it runs, so it has to be the one animation that cannot fail to
+ * finish: a JS animation leaves the page blank in a background tab and trips a
+ * hydration mismatch under reduced motion. The keyframe carries the reasoning.
  */
 
 export function PageTransition({
@@ -25,21 +29,21 @@ export function PageTransition({
   const pathname = usePathname();
 
   return (
-    <motion.div
-      key={pathname}
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: duration.page, ease: ease.snap }}
-      className={cn("h-full", className)}
-    >
+    <div key={pathname} className={cn("animate-page-in h-full", className)}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
 /**
  * Stagger — reveals children in sequence. Use for panel grids so a screen
  * assembles itself instead of appearing all at once.
+ *
+ * CSS-driven for the same reason as PageTransition: these wrappers hide real
+ * content, so the reveal must not be something that can fail to run. The
+ * parent owns the whole effect via `stagger-in`, which selects its own
+ * children — so `StaggerItem` is a plain div, and an item rendered from inside
+ * another component still lands in the sequence at its true DOM position.
  */
 export function Stagger({
   children,
@@ -51,14 +55,12 @@ export function Stagger({
   className?: string;
 }) {
   return (
-    <motion.div
-      initial="hidden"
-      animate="shown"
-      variants={{ shown: { transition: { staggerChildren: step } } }}
-      className={className}
+    <div
+      className={cn("stagger-in", className)}
+      style={{ ["--stagger-step" as string]: `${step}s` }}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -69,16 +71,5 @@ export function StaggerItem({
   children: React.ReactNode;
   className?: string;
 }) {
-  return (
-    <motion.div
-      variants={{
-        hidden: { opacity: 0, y: 12 },
-        shown: { opacity: 1, y: 0 },
-      }}
-      transition={{ duration: duration.base, ease: ease.snap }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
+  return <div className={className}>{children}</div>;
 }
