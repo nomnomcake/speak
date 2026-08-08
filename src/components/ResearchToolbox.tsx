@@ -135,44 +135,39 @@ export function ResearchToolbox({
       sprig={false}
       flush
     >
+      {/* The buttons are the direct child of the shade — `window-shade > *`
+          carries the clipping, so there is nothing for a wrapper to do now
+          that the status bar below them is gone. */}
       <div id={bodyId} className="window-shade" data-open={open}>
-        <div>
-          <div className="flex flex-wrap gap-2 p-3">
-            {TOOLS.map((tool) => (
-              <PixelFrame
-                key={tool.label}
-                notch={3}
-                border={2}
-                shadow={2}
-                interactive
-                tone="mist"
-                className="flex-1"
-                innerClassName="h-full"
+        <div className="flex flex-wrap gap-2 p-3">
+          {TOOLS.map((tool) => (
+            <PixelFrame
+              key={tool.label}
+              notch={3}
+              border={2}
+              shadow={2}
+              interactive
+              tone="mist"
+              className="flex-1"
+              innerClassName="h-full"
+            >
+              <a
+                href={tool.url(query, topic)}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={tool.hint}
+                // `tabIndex` follows `open` so a rolled-up toolbox is not five
+                // invisible tab stops. The shade clips them out of sight but
+                // keyboard focus would still walk straight into them.
+                tabIndex={open ? undefined : -1}
+                aria-hidden={!open}
+                className="type-hud flex h-full min-w-20 flex-col items-center justify-center gap-2 px-3 py-3 text-slate transition-colors duration-150 hover:text-ink"
               >
-                <a
-                  href={tool.url(query, topic)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title={tool.hint}
-                  // `tabIndex` follows `open` so a rolled-up toolbox is not five
-                  // invisible tab stops. The shade clips them out of sight but
-                  // keyboard focus would still walk straight into them.
-                  tabIndex={open ? undefined : -1}
-                  aria-hidden={!open}
-                  className="type-hud flex h-full min-w-20 flex-col items-center justify-center gap-2 px-3 py-3 text-slate transition-colors duration-150 hover:text-ink"
-                >
-                  <ToolGlyph name={tool.glyph} unit={2} />
-                  {tool.label}
-                </a>
-              </PixelFrame>
-            ))}
-          </div>
-
-          <div className="border-t-2 border-ink px-3 py-2">
-            <span className="type-hud text-mute">
-              Opens in a new tab · searches this topic
-            </span>
-          </div>
+                <ToolGlyph name={tool.glyph} unit={2} />
+                {tool.label}
+              </a>
+            </PixelFrame>
+          ))}
         </div>
       </div>
     </Panel>
