@@ -113,7 +113,7 @@ export function ReviewWindow({
   return (
     <Panel
       chrome="window"
-      title="Review.exe"
+      title="Review"
       notch={6}
       sprig={false}
       actions={
@@ -266,7 +266,7 @@ export function ReviewWindow({
 /** Shown once the take is gone, or when there was never one to show. */
 export function ReviewEmpty({ reason }: { reason: string }) {
   return (
-    <Panel chrome="window" title="Review.exe" notch={6} sprig={false}>
+    <Panel chrome="window" title="Review" notch={6} sprig={false}>
       <div className="space-y-4 py-6">
         <p className="font-mono text-sm text-graphite">{reason}</p>
         <Button size="sm" href="/play" iconLeft={<Shuffle size={13} />}>

@@ -48,7 +48,16 @@ export type PanelProps = {
   flush?: boolean;
   /** Fill the body with a pixel sky. `true` uses the default density. */
   sky?: boolean | PixelSkyProps;
-  /** Show the corner sprig in `window` chrome. */
+  /**
+   * Show the corner sprig in `window` chrome.
+   *
+   * **One per screen.** It belongs to the window that owns the page — the
+   * desktop, the research window, the session — and is turned off on every
+   * nested or utility window inside it. A plant in all six title bars of the
+   * dashboard stops reading as a flourish and starts reading as a bullet
+   * point, and it was the difference between the screens that made the app
+   * feel assembled from parts.
+   */
   sprig?: boolean;
   footer?: React.ReactNode;
   className?: string;
@@ -99,7 +108,16 @@ export function Panel({
           <span className="flex items-center gap-3">
             {actions}
             <WindowDots tone={dotTone} />
-            {sprig && <Sprig size={15} className="text-ink" />}
+            {/* Follows the tone, like the dots beside it. Hardcoded `text-ink`
+                painted a black plant onto a black title bar, so every inverted
+                window silently lost its sprig — present in the markup, invisible
+                on screen. */}
+            {sprig && (
+              <Sprig
+                size={15}
+                className={inverted ? "text-paper" : "text-ink"}
+              />
+            )}
           </span>
         </PixelFrame>
       )}

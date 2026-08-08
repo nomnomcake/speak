@@ -72,8 +72,12 @@ export const PixelFrame = React.forwardRef<HTMLDivElement, PixelFrameProps>(
             aria-hidden
             className={cn(
               "pixel-clip pointer-events-none absolute inset-0 bg-ink",
+              // `ease-pixel`, not the same curve written out by hand. The
+              // literal worked, but it meant retuning the system's snap curve
+              // would silently miss the two places that matter most — every
+              // hover lift in the app runs through here.
               interactive &&
-                "transition-transform duration-150 ease-[cubic-bezier(0.2,0.9,0.25,1)] group-hover/frame:translate-x-0 group-hover/frame:translate-y-0",
+                "ease-pixel transition-transform duration-150 group-hover/frame:translate-x-0 group-hover/frame:translate-y-0",
             )}
             style={{ transform: `translate(${shadow}px, ${shadow}px)` }}
           />
@@ -92,7 +96,7 @@ export const PixelFrame = React.forwardRef<HTMLDivElement, PixelFrameProps>(
             // nothing, so it is safe for every non-stretched usage.
             "pixel-clip relative h-full bg-ink",
             interactive &&
-              "transition-transform duration-150 ease-[cubic-bezier(0.2,0.9,0.25,1)] group-hover/frame:-translate-x-px group-hover/frame:-translate-y-px",
+              "ease-pixel transition-transform duration-150 group-hover/frame:-translate-x-px group-hover/frame:-translate-y-px",
           )}
         >
           {/* Inset fill → the surface. */}

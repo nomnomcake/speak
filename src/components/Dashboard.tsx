@@ -8,6 +8,8 @@ import {
   Panel,
   PixelFrame,
   ProgressBar,
+  Stagger,
+  StaggerItem,
   Stamp,
   StatTile,
 } from "@/components/ui";
@@ -134,225 +136,246 @@ export function Dashboard() {
   const dash = (v: React.ReactNode) => (ready ? v : "—");
 
   return (
-    <div className="space-y-5">
-      <div className="grid gap-5 md:grid-cols-3">
-        <Desk>
-          <StatTile
-            title="Current streak"
-            value={dash(streak.current)}
-            unit="days"
-            footnote={ready ? `Best ${streak.best}` : "Reading history"}
-          >
-            <div className="flex gap-1">
-              {streak.week.map((hit, i) => (
-                <span
-                  key={i}
-                  className={cn(
-                    "pixel-clip block h-6 flex-1 border-2 border-ink",
-                    ready && hit ? "bg-mint-deep" : "bg-paper",
-                  )}
-                  style={{ ["--notch" as string]: "2px" }}
-                  title={hit ? "Session completed" : "No session"}
-                />
-              ))}
-            </div>
-          </StatTile>
-        </Desk>
+    /**
+     * The desk assembles itself, the way the landing page does.
+     *
+     * The stagger sits on `StaggerItem`, one element above `Desk`, and that
+     * separation is load-bearing: `page-in` ends on `transform: none` with
+     * `fill-mode: both`, and a finished animation outranks a plain declaration
+     * — so putting both on the same element would leave every panel's hover
+     * lift permanently overridden by the entrance it just finished.
+     */
+    <Stagger className="space-y-5">
+      <StaggerItem>
+        <div className="grid gap-5 md:grid-cols-3">
+          <Desk>
+            <StatTile
+              title="Current streak"
+              value={dash(streak.current)}
+              unit="days"
+              footnote={ready ? `Best ${streak.best}` : "Reading history"}
+            >
+              <div className="flex gap-1">
+                {streak.week.map((hit, i) => (
+                  <span
+                    key={i}
+                    className={cn(
+                      "pixel-clip block h-6 flex-1 border-2 border-ink",
+                      ready && hit ? "bg-mint-deep" : "bg-paper",
+                    )}
+                    style={{ ["--notch" as string]: "2px" }}
+                    title={hit ? "Session completed" : "No session"}
+                  />
+                ))}
+              </div>
+            </StatTile>
+          </Desk>
 
-        <Desk>
-          <StatTile
-            title="Completed topics"
-            value={dash(collection.done)}
-            unit={`of ${collection.total}`}
-            footnote={
-              ready
-                ? `${list.length} session${list.length === 1 ? "" : "s"} recorded`
-                : "Reading history"
-            }
-          >
-            <ProgressBar value={ready ? collection.ratio : 0} variant="pill" />
-          </StatTile>
-        </Desk>
+          <Desk>
+            <StatTile
+              title="Completed topics"
+              value={dash(collection.done)}
+              unit={`of ${collection.total}`}
+              footnote={
+                ready
+                  ? `${list.length} session${list.length === 1 ? "" : "s"} recorded`
+                  : "Reading history"
+              }
+            >
+              <ProgressBar
+                value={ready ? collection.ratio : 0}
+                variant="pill"
+              />
+            </StatTile>
+          </Desk>
 
-        <Desk>
-          <StatTile
-            title="Favourite category"
-            value={dash(favourite ? favourite.done : 0)}
-            unit={favourite ? favourite.category : "none yet"}
-            footnote={
-              cleared.length > 0
-                ? `Cleared: ${cleared.join(", ")}`
-                : "No category cleared yet"
-            }
-          >
-            <ProgressBar
-              value={favourite ? favourite.ratio : 0}
-              variant="segmented"
-              segments={favourite ? favourite.total : 3}
-              size="sm"
-            />
-          </StatTile>
-        </Desk>
-      </div>
+          <Desk>
+            <StatTile
+              title="Favourite category"
+              value={dash(favourite ? favourite.done : 0)}
+              unit={favourite ? favourite.category : "none yet"}
+              footnote={
+                cleared.length > 0
+                  ? `Cleared: ${cleared.join(", ")}`
+                  : "No category cleared yet"
+              }
+            >
+              <ProgressBar
+                value={favourite ? favourite.ratio : 0}
+                variant="segmented"
+                segments={favourite ? favourite.total : 3}
+                size="sm"
+              />
+            </StatTile>
+          </Desk>
+        </div>
+      </StaggerItem>
 
-      <div className="grid gap-5 lg:grid-cols-3">
-        <Desk className="lg:col-span-2">
-          <Panel
-            chrome="window"
-            title="Category progress"
-            notch={6}
-            sprig={false}
-            flush
-            actions={
-              <span className="type-hud text-slate">
-                {dash(`${collection.done}/${collection.total}`)}
-              </span>
-            }
-          >
-            <div className="divide-y divide-mint-soft py-1">
-              {categories.map((c) => (
-                <CategoryRow key={c.category} {...c} />
-              ))}
-            </div>
-          </Panel>
-        </Desk>
+      <StaggerItem>
+        <div className="grid gap-5 lg:grid-cols-3">
+          <Desk className="lg:col-span-2">
+            <Panel
+              chrome="window"
+              title="Category progress"
+              notch={6}
+              sprig={false}
+              flush
+              actions={
+                <span className="type-hud text-slate">
+                  {dash(`${collection.done}/${collection.total}`)}
+                </span>
+              }
+            >
+              <div className="divide-y divide-mint-soft py-1">
+                {categories.map((c) => (
+                  <CategoryRow key={c.category} {...c} />
+                ))}
+              </div>
+            </Panel>
+          </Desk>
 
-        <Desk>
-          <Panel
-            chrome="window"
-            title="Recent sessions"
-            notch={6}
-            sprig={false}
-            flush
-          >
-            <div className="divide-y divide-mint-soft py-1">
-              {recent.length === 0 && (
-                <div className="px-4 py-5">
-                  <p className="type-hud text-mute">
-                    {ready ? "Nothing yet" : "Reading history"}
-                  </p>
-                </div>
-              )}
-
-              {recent.map((a) => {
-                const topic = getTopic(a.topicId);
-                return (
-                  <div
-                    key={a.id}
-                    className="flex items-center gap-3 px-4 py-2.5 transition-colors duration-150 hover:bg-mint-mist"
-                    // Safe to show: this session is over, so there is no
-                    // synthesis left to give away.
-                    title={topic?.title}
-                  >
-                    <span className="font-mono text-xs text-graphite">
-                      {topic ? fileNameFor(topic) : a.topicId}
-                    </span>
-                    <span className="type-hud ml-auto text-mute">
-                      {a.completedAt.slice(0, 10)}
-                    </span>
-                    <span className="w-9 text-right font-mono text-xs tabular-nums text-slate">
-                      {secondsLabel(a.recordedMs)}
-                    </span>
+          <Desk>
+            <Panel
+              chrome="window"
+              title="Recent sessions"
+              notch={6}
+              sprig={false}
+              flush
+            >
+              <div className="divide-y divide-mint-soft py-1">
+                {recent.length === 0 && (
+                  <div className="px-4 py-5">
+                    <p className="type-hud text-mute">
+                      {ready ? "Nothing yet" : "Reading history"}
+                    </p>
                   </div>
+                )}
+
+                {recent.map((a) => {
+                  const topic = getTopic(a.topicId);
+                  return (
+                    <div
+                      key={a.id}
+                      className="flex items-center gap-3 px-4 py-2.5 transition-colors duration-150 hover:bg-mint-mist"
+                      // Safe to show: this session is over, so there is no
+                      // synthesis left to give away.
+                      title={topic?.title}
+                    >
+                      <span className="font-mono text-xs text-graphite">
+                        {topic ? fileNameFor(topic) : a.topicId}
+                      </span>
+                      <span className="type-hud ml-auto text-mute">
+                        {a.completedAt.slice(0, 10)}
+                      </span>
+                      <span className="w-9 text-right font-mono text-xs tabular-nums text-slate">
+                        {secondsLabel(a.recordedMs)}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </Panel>
+          </Desk>
+        </div>
+      </StaggerItem>
+
+      <StaggerItem>
+        <Desk>
+          <Panel
+            chrome="window"
+            title="Achievements"
+            notch={6}
+            // The dashboard's one sprig. This is the sky panel and the screen's
+            // signature window; the tiles and lists above it go without.
+            sky={{ density: "sparse" }}
+            actions={
+              <Badge tone="mint">
+                {dash(`${earned}/${achievements.length}`)}
+              </Badge>
+            }
+          >
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {achievements.map((a, i) => {
+                const on = ready && a.earned;
+                return (
+                  <PixelFrame
+                    key={a.id}
+                    notch={4}
+                    border={2}
+                    shadow={on ? 4 : 0}
+                    // Never `ghost`: a transparent fill sits on the black border
+                    // plate and renders solid black, which turned these into
+                    // unreadable slabs once already.
+                    tone={on ? "paper" : "mist"}
+                    className={cn("sticker", !on && "opacity-75")}
+                    style={{
+                      ["--tilt" as string]: `${i % 2 === 0 ? -1.5 : 1.5}deg`,
+                    }}
+                    innerClassName="flex h-full flex-col items-center gap-2 px-3 py-4 text-center"
+                  >
+                    <Stamp tone={on ? "alert" : "mint"} rotate={on ? -4 : 0}>
+                      {on ? "Earned" : "Locked"}
+                    </Stamp>
+                    <span className="type-caps text-graphite">{a.label}</span>
+                    <span className="type-hud text-mute">{a.detail}</span>
+                  </PixelFrame>
                 );
               })}
             </div>
           </Panel>
         </Desk>
-      </div>
-
-      <Desk>
-        <Panel
-          chrome="window"
-          title="Achievements"
-          notch={6}
-          sprig={false}
-          sky={{ density: "sparse" }}
-          actions={
-            <Badge tone="mint">
-              {dash(`${earned}/${achievements.length}`)}
-            </Badge>
-          }
-        >
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {achievements.map((a, i) => {
-              const on = ready && a.earned;
-              return (
-                <PixelFrame
-                  key={a.id}
-                  notch={4}
-                  border={2}
-                  shadow={on ? 4 : 0}
-                  // Never `ghost`: a transparent fill sits on the black border
-                  // plate and renders solid black, which turned these into
-                  // unreadable slabs once already.
-                  tone={on ? "paper" : "mist"}
-                  className={cn("sticker", !on && "opacity-75")}
-                  style={{
-                    ["--tilt" as string]: `${i % 2 === 0 ? -1.5 : 1.5}deg`,
-                  }}
-                  innerClassName="flex h-full flex-col items-center gap-2 px-3 py-4 text-center"
-                >
-                  <Stamp tone={on ? "alert" : "mint"} rotate={on ? -4 : 0}>
-                    {on ? "Earned" : "Locked"}
-                  </Stamp>
-                  <span className="type-caps text-graphite">{a.label}</span>
-                  <span className="type-hud text-mute">{a.detail}</span>
-                </PixelFrame>
-              );
-            })}
-          </div>
-        </Panel>
-      </Desk>
+      </StaggerItem>
 
       {/* Housekeeping, kept last and quiet. */}
-      <div className="flex flex-wrap items-center gap-3">
-        <Button size="sm" href="/play" iconLeft={<Sparkles size={13} />}>
-          Start a session
-        </Button>
+      <StaggerItem>
+        <div className="flex flex-wrap items-center gap-3">
+          <Button size="sm" href="/play" iconLeft={<Sparkles size={13} />}>
+            Start a session
+          </Button>
 
-        {ready && list.length > 0 && (
-          <>
-            {confirmClear ? (
-              <>
+          {ready && list.length > 0 && (
+            <>
+              {confirmClear ? (
+                <>
+                  <Button
+                    size="sm"
+                    variant="danger"
+                    iconLeft={<RotateCcw size={13} />}
+                    // No local state to update: clearAttempts notifies the store
+                    // and useSyncExternalStore re-reads it.
+                    onClick={() => {
+                      clearAttempts();
+                      setConfirmClear(false);
+                    }}
+                  >
+                    Erase {list.length} session
+                    {list.length === 1 ? "" : "s"}
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => setConfirmClear(false)}
+                  >
+                    Cancel
+                  </Button>
+                </>
+              ) : (
                 <Button
                   size="sm"
-                  variant="danger"
+                  variant="secondary"
                   iconLeft={<RotateCcw size={13} />}
-                  // No local state to update: clearAttempts notifies the store
-                  // and useSyncExternalStore re-reads it.
-                  onClick={() => {
-                    clearAttempts();
-                    setConfirmClear(false);
-                  }}
+                  onClick={() => setConfirmClear(true)}
                 >
-                  Erase {list.length} session
-                  {list.length === 1 ? "" : "s"}
+                  Clear history
                 </Button>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={() => setConfirmClear(false)}
-                >
-                  Cancel
-                </Button>
-              </>
-            ) : (
-              <Button
-                size="sm"
-                variant="secondary"
-                iconLeft={<RotateCcw size={13} />}
-                onClick={() => setConfirmClear(true)}
-              >
-                Clear history
-              </Button>
-            )}
-            <span className="type-hud text-mute">
-              Stored in this browser only
-            </span>
-          </>
-        )}
-      </div>
-    </div>
+              )}
+              <span className="type-hud text-mute">
+                Stored in this browser only
+              </span>
+            </>
+          )}
+        </div>
+      </StaggerItem>
+    </Stagger>
   );
 }

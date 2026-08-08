@@ -30,7 +30,9 @@ export default async function SessionPage({
       <PageTransition>
         {/* Ink, because the surface inverting is the loudest way to say the
             application changed mode without playing an animation at anyone. */}
-        <Panel chrome="window" title="Speak" tone="ink" notch={6} sprig={false}>
+        {/* Carries the screen's one sprig — the dialogs and the review window
+            inside it go without. */}
+        <Panel chrome="window" title="Speak" tone="ink" notch={6}>
           <PresentationMode topic={topic} />
         </Panel>
       </PageTransition>
