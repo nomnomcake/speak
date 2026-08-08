@@ -27,6 +27,20 @@ function mmss(total: number) {
 const LEVEL_BARS = 12;
 
 /**
+ * Grace seconds after the minute is up, still recording.
+ *
+ * Cutting at exactly 60 guillotines whoever is mid-sentence, and the last
+ * sentence is usually the one carrying the conclusion — the part of the talk
+ * worth scoring. The clock is the constraint; the hard stop was just how the
+ * constraint happened to be implemented.
+ *
+ * Short on purpose. Long enough to land a sentence, not long enough to be a
+ * sixty-five second talk, which would quietly undo the compression the whole
+ * product is built to force.
+ */
+const BUFFER_SECONDS = 5;
+
+/**
  * MicLevel — proof the microphone is live, not a decoration.
  *
  * The camera makes its own case: you can see yourself, so you know it works. A
@@ -113,7 +127,7 @@ export function CameraStage({
 }) {
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const total = timingsFor(topic).speakSeconds;
-  const [left, setLeft] = React.useState(total);
+  const [elapsed, setElapsed] = React.useState(0);
 
   React.useEffect(() => {
     const el = videoRef.current;
@@ -126,15 +140,20 @@ export function CameraStage({
     // is worse than one that jumps.
     const startedAt = Date.now();
     const id = setInterval(() => {
-      const elapsed = Math.floor((Date.now() - startedAt) / 1000);
-      setLeft(Math.max(0, total - elapsed));
+      setElapsed(Math.floor((Date.now() - startedAt) / 1000));
     }, 250);
     return () => clearInterval(id);
-  }, [total]);
+  }, []);
+
+  // One clock, three readings. Keeping these derived rather than as separate
+  // pieces of state means the buffer cannot drift out of step with the talk.
+  const left = Math.max(0, total - elapsed);
+  const inBuffer = elapsed >= total;
+  const bufferLeft = Math.max(0, total + BUFFER_SECONDS - elapsed);
 
   React.useEffect(() => {
-    if (left === 0) onStop();
-  }, [left, onStop]);
+    if (elapsed >= total + BUFFER_SECONDS) onStop();
+  }, [elapsed, total, onStop]);
 
   return (
     <div className="space-y-4">
@@ -164,16 +183,27 @@ export function CameraStage({
           <MicLevel stream={stream} />
         </div>
 
-        <div className="pointer-events-none absolute right-3 bottom-3">
+        {/* The label changes, the badge does not: it is still recording during
+            the buffer, and a "Live" light that goes out while the camera is
+            running would be the one lie this screen cannot afford. */}
+        <div className="pointer-events-none absolute right-3 bottom-3 flex flex-col items-end gap-1">
+          <span
+            className={cn(
+              "type-hud",
+              inBuffer ? "text-mint" : "text-paper/60",
+            )}
+          >
+            {inBuffer ? "Finish your sentence" : "Remaining"}
+          </span>
           <span className="pixel-clip block border-2 border-paper bg-ink px-3 py-1.5 font-mono text-2xl text-paper tabular-nums">
-            {mmss(left)}
+            {mmss(inBuffer ? bufferLeft : left)}
           </span>
         </div>
       </PixelFrame>
 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <span className="type-hud text-slate">
-          One minute. Stop early if you are done.
+          One minute, plus five seconds to land it. Stop early if you are done.
         </span>
         <Button variant="danger" iconLeft={<Square size={13} />} onClick={onStop}>
           Stop

@@ -86,6 +86,21 @@ score, so proceeding video-only would produce an attempt that cannot be marked.
   posture the wrong way
 - Stop early is allowed; silence past ~10s auto-stops
 
+#### The five-second buffer
+
+The clock runs to 60s, then recording continues for **five more seconds** while
+the readout says *finish your sentence*.
+
+Cutting at exactly 60 guillotines whoever is mid-sentence, and the last
+sentence is usually the one carrying the conclusion — the part of the talk most
+worth scoring. The minute is the constraint; the hard stop was only how that
+constraint happened to be implemented.
+
+Five, and not more. Long enough to land a sentence, short enough that it does
+not quietly become a sixty-five second talk — which would undo the compression
+the product exists to force. The `Live` badge stays lit throughout, because it
+is still recording; only the label changes.
+
 ### 6. READOUT — untimed
 
 Scores, transcript, and one concrete thing to fix.
