@@ -14,8 +14,10 @@
  * phases that produce them do.
  */
 
+import type { AiFeedback } from "@/lib/ai/types";
+
 const KEY = "speak:attempts";
-const VERSION = 1;
+const VERSION = 2;
 
 export type StoredAttempt = {
   id: string;
@@ -25,6 +27,12 @@ export type StoredAttempt = {
   completedAt: string;
   /** Length of the take. 0 when nothing could be recorded. */
   recordedMs: number;
+  /**
+   * The report, once analysis has run. Null means not analysed — never
+   * "scored zero". Kept in its own object so a future self-assessment or a
+   * second opinion can sit beside it rather than merge into it.
+   */
+  aiFeedback: AiFeedback | null;
 };
 
 type Envelope = { version: number; attempts: StoredAttempt[] };
@@ -39,6 +47,21 @@ function isAttempt(v: unknown): v is StoredAttempt {
     typeof a.completedAt === "string" &&
     typeof a.recordedMs === "number"
   );
+}
+
+/**
+ * Bring older files forward instead of discarding them.
+ *
+ * The previous loader dropped anything that was not the current version, which
+ * would have silently erased every session a user had recorded the moment
+ * `aiFeedback` was added. A streak is exactly the kind of thing people are
+ * annoyed to lose, and it costs one line to keep.
+ */
+function migrate(version: number, attempts: unknown[]): StoredAttempt[] {
+  const rows = attempts.filter(isAttempt);
+  if (version >= 2) return rows;
+  // v1 predates analysis: nothing was ever analysed, so null is accurate.
+  return rows.map((a) => ({ ...a, aiFeedback: a.aiFeedback ?? null }));
 }
 
 /**
@@ -57,8 +80,11 @@ export function loadAttempts(): StoredAttempt[] {
     const parsed: unknown = JSON.parse(raw);
     if (typeof parsed !== "object" || parsed === null) return [];
     const env = parsed as Partial<Envelope>;
-    if (env.version !== VERSION || !Array.isArray(env.attempts)) return [];
-    return env.attempts.filter(isAttempt);
+    if (typeof env.version !== "number" || !Array.isArray(env.attempts)) {
+      return [];
+    }
+    if (env.version > VERSION) return []; // written by a newer build
+    return migrate(env.version, env.attempts);
   } catch {
     return [];
   }
@@ -77,6 +103,19 @@ function write(attempts: StoredAttempt[]) {
 
 export function saveAttempt(attempt: StoredAttempt): StoredAttempt[] {
   const next = [...loadAttempts(), attempt];
+  write(next);
+  emit();
+  return next;
+}
+
+/** Attach the report to an attempt that has already been written. */
+export function updateAttempt(
+  id: string,
+  patch: Partial<StoredAttempt>,
+): StoredAttempt[] {
+  const next = loadAttempts().map((a) =>
+    a.id === id ? { ...a, ...patch, id: a.id } : a,
+  );
   write(next);
   emit();
   return next;

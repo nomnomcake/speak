@@ -4,8 +4,49 @@ import * as React from "react";
 import { Panel, ProgressBar } from "@/components/ui";
 import { CameraStage } from "./CameraStage";
 import { ReviewEmpty, ReviewWindow } from "./ReviewWindow";
-import { newAttemptId, saveAttempt } from "@/lib/attempts";
+import { AnalyzingWindow } from "./AnalyzingWindow";
+import { SpeakingReport } from "./SpeakingReport";
+import { newAttemptId, saveAttempt, updateAttempt } from "@/lib/attempts";
+import { useTranscriber } from "@/lib/useTranscriber";
+import type { AiFeedback, TranscriptDoc } from "@/lib/ai/types";
 import type { Topic } from "@/lib/topics";
+
+/**
+ * A report with nothing in it, used when the analysis request fails.
+ *
+ * Deliberately not an error screen. The user has just spoken for a minute;
+ * telling them the network is down and showing them nothing is the worst
+ * possible payoff. They still get their recording, their timings, and a plain
+ * statement of what could not be worked out.
+ */
+function emptyFeedback(
+  speakingMs: number,
+  transcript: TranscriptDoc | null,
+  reasons: string[],
+): AiFeedback {
+  return {
+    version: 1,
+    generatedAt: new Date().toISOString(),
+    source: "mock",
+    overallScore: null,
+    summary: null,
+    scores: null,
+    topicCoverage: null,
+    researchSynthesis: null,
+    strongestMoment: null,
+    biggestOpportunity: null,
+    coachingNotes: [],
+    fillerWords: null,
+    transcript,
+    metrics: {
+      speakingMs,
+      wordsSpoken: null,
+      wordsPerMinute: null,
+      pauseCount: null,
+    },
+    unavailable: reasons,
+  };
+}
 
 /**
  * PresentationMode — the switch from researching to speaking.
@@ -27,7 +68,8 @@ type Stage =
   | "countdown"
   | "live"
   | "blocked"
-  | "review"
+  | "analyzing"
+  | "report"
   | "discarded";
 
 /**
@@ -146,6 +188,13 @@ export function PresentationMode({ topic }: { topic: Topic }) {
   }, [stage, count]);
 
   const [recording, setRecording] = React.useState<Blob | null>(null);
+  const [feedback, setFeedback] = React.useState<AiFeedback | null>(null);
+  const [speakingMs, setSpeakingMs] = React.useState<number | null>(null);
+  const attemptIdRef = React.useRef<string | null>(null);
+
+  // Runs only while the talk is live. Captured silently — user-flow.md is
+  // explicit that watching your own words appear destroys fluency.
+  const transcript = useTranscriber(stage === "live");
 
   // Stamped when the talk actually starts, not when the route loaded — the
   // preparing dialog and the count-in are not part of the take.
@@ -159,7 +208,7 @@ export function PresentationMode({ topic }: { topic: Topic }) {
   const handleStop = React.useCallback(
     (take: Blob | null) => {
       setRecording(take);
-      setStage("review");
+      setStage("analyzing");
       // The camera light goes out the moment the talk ends. Leaving it on
       // through the review screen would be the app watching someone watch
       // themselves.
@@ -176,12 +225,20 @@ export function PresentationMode({ topic }: { topic: Topic }) {
        */
       const startedAt = startedAtRef.current ?? new Date().toISOString();
       const completedAt = new Date().toISOString();
+      const speakingMs = Math.max(
+        0,
+        Date.parse(completedAt) - Date.parse(startedAt),
+      );
+      const id = newAttemptId();
+      attemptIdRef.current = id;
+      setSpeakingMs(speakingMs);
       saveAttempt({
-        id: newAttemptId(),
+        id,
         topicId: topic.id,
         startedAt,
         completedAt,
-        recordedMs: Math.max(0, Date.parse(completedAt) - Date.parse(startedAt)),
+        recordedMs: speakingMs,
+        aiFeedback: null,
       });
     },
     [stream, topic.id],
@@ -192,6 +249,55 @@ export function PresentationMode({ topic }: { topic: Topic }) {
     setStage("discarded");
   }, []);
 
+  /**
+   * Ask the server for a report once the talk is over.
+   *
+   * The transcript goes; the recording does not. Video of someone's face in
+   * their home stays on the device, and an analysis endpoint is not a reason
+   * to change that.
+   *
+   * A failed request still produces a report — an empty one that says why it
+   * is empty. Dropping the user on an error screen after they have just
+   * spoken for a minute is the worst moment in the flow to have nothing.
+   */
+  React.useEffect(() => {
+    if (stage !== "analyzing" || speakingMs === null) return;
+    let cancelled = false;
+
+    void (async () => {
+      let result: AiFeedback;
+      try {
+        const res = await fetch("/api/analyze", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            topicId: topic.id,
+            transcript: transcript.result,
+            speakingMs,
+            recordingComplete: recording !== null,
+          }),
+        });
+        if (!res.ok) throw new Error(`analyze failed: ${res.status}`);
+        result = (await res.json()) as AiFeedback;
+      } catch {
+        result = emptyFeedback(speakingMs, transcript.result, [
+          "The analysis service could not be reached, so nothing was scored.",
+        ]);
+      }
+
+      if (cancelled) return;
+      setFeedback(result);
+      if (attemptIdRef.current) {
+        updateAttempt(attemptIdRef.current, { aiFeedback: result });
+      }
+      setStage("report");
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [stage, speakingMs, topic.id, transcript.result, recording]);
+
   const waiting = Boolean(STEPS[step].gated) && stream === null && denied === null;
   const stepLabel =
     waiting && slow ? "Waiting for permission" : STEPS[step].label;
@@ -200,15 +306,23 @@ export function PresentationMode({ topic }: { topic: Topic }) {
     return <CameraStage stream={stream} topic={topic} onStop={handleStop} />;
   }
 
-  if (stage === "review") {
-    return recording ? (
-      <ReviewWindow
-        recording={recording}
-        topic={topic}
-        onDelete={handleDelete}
-      />
-    ) : (
-      <ReviewEmpty reason="That take could not be recorded, so there is nothing to play back." />
+  if (stage === "analyzing") {
+    return <AnalyzingWindow />;
+  }
+
+  if (stage === "report" && feedback) {
+    return (
+      <SpeakingReport feedback={feedback} onFinish={() => setStage("discarded")}>
+        {recording ? (
+          <ReviewWindow
+            recording={recording}
+            topic={topic}
+            onDelete={handleDelete}
+          />
+        ) : (
+          <ReviewEmpty reason="That take could not be recorded, so there is nothing to play back." />
+        )}
+      </SpeakingReport>
     );
   }
 
