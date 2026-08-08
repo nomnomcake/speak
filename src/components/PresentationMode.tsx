@@ -4,6 +4,7 @@ import * as React from "react";
 import { Panel, ProgressBar } from "@/components/ui";
 import { CameraStage } from "./CameraStage";
 import { ReviewEmpty, ReviewWindow } from "./ReviewWindow";
+import { newAttemptId, saveAttempt } from "@/lib/attempts";
 import type { Topic } from "@/lib/topics";
 
 /**
@@ -146,6 +147,15 @@ export function PresentationMode({ topic }: { topic: Topic }) {
 
   const [recording, setRecording] = React.useState<Blob | null>(null);
 
+  // Stamped when the talk actually starts, not when the route loaded — the
+  // preparing dialog and the count-in are not part of the take.
+  const startedAtRef = React.useRef<string | null>(null);
+  React.useEffect(() => {
+    if (stage === "live" && startedAtRef.current === null) {
+      startedAtRef.current = new Date().toISOString();
+    }
+  }, [stage]);
+
   const handleStop = React.useCallback(
     (take: Blob | null) => {
       setRecording(take);
@@ -154,8 +164,27 @@ export function PresentationMode({ topic }: { topic: Topic }) {
       // through the review screen would be the app watching someone watch
       // themselves.
       stream?.getTracks().forEach((t) => t.stop());
+
+      /**
+       * The session is recorded even when the take is not.
+       *
+       * A failed recorder does not undo the fact that someone stood up and
+       * explained something for a minute, and deleting the video later does
+       * not either — which is why this is written here rather than on the
+       * review screen. Only the fact is stored; the recording never leaves
+       * memory.
+       */
+      const startedAt = startedAtRef.current ?? new Date().toISOString();
+      const completedAt = new Date().toISOString();
+      saveAttempt({
+        id: newAttemptId(),
+        topicId: topic.id,
+        startedAt,
+        completedAt,
+        recordedMs: Math.max(0, Date.parse(completedAt) - Date.parse(startedAt)),
+      });
     },
-    [stream],
+    [stream, topic.id],
   );
 
   const handleDelete = React.useCallback(() => {

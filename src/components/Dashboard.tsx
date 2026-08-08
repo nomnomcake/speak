@@ -1,5 +1,10 @@
+"use client";
+
+import * as React from "react";
+import { RotateCcw, Sparkles } from "lucide-react";
 import {
   Badge,
+  Button,
   Panel,
   PixelFrame,
   ProgressBar,
@@ -8,27 +13,35 @@ import {
 } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import { fileNameFor, getTopic, type Category } from "@/lib/topics";
-import { achievements, recentSessions, streak, totals } from "@/lib/mock";
 import {
+  clearAttempts,
+  getAttemptsServerSnapshot,
+  getAttemptsSnapshot,
+  subscribeAttempts,
+} from "@/lib/attempts";
+import {
+  achievementsFrom,
   categoryProgress,
   clearedCategories,
   collectionProgress,
+  completedIds,
   favouriteCategory,
+  streakFrom,
 } from "@/lib/progress";
 
 /**
- * Dashboard — the control panel.
+ * Dashboard — the control panel, reading real sessions.
  *
- * A desk of small windows rather than one scrolling report: the point of a
- * control panel is that each thing is its own object you could pick up. They
- * lift a pixel on hover to say so, and none of them actually move — see the
+ * A desk of small windows rather than one scrolling report. They lift a pixel
+ * on hover to say they are objects; none of them actually move — see the
  * `desk-panel` utility for why that is deliberate.
  *
- * Every figure here derives from one list of completed topic ids. Nothing on
- * this screen is a number typed in next to another number.
+ * Everything is derived from stored attempts. There are no numbers on this
+ * screen that are not the consequence of a session someone actually did, which
+ * is why the average-clarity and total-attempts figures that used to sit here
+ * are gone: nothing scores a take yet, so those were decoration.
  */
 
-/** Wraps a panel so the whole thing lifts, since Panel owns its own markup. */
 function Desk({
   children,
   className,
@@ -53,9 +66,8 @@ function CategoryRow({
   const cleared = total > 0 && done === total;
 
   return (
-    <div className="group/row flex items-center gap-3 px-4 py-2.5 transition-colors duration-150 hover:bg-mint-mist">
+    <div className="flex items-center gap-3 px-4 py-2.5 transition-colors duration-150 hover:bg-mint-mist">
       <span className="type-hud w-24 shrink-0 text-graphite">{category}</span>
-
       <ProgressBar
         value={ratio}
         variant="segmented"
@@ -63,12 +75,9 @@ function CategoryRow({
         size="sm"
         className="min-w-0 flex-1"
       />
-
       <span className="w-12 shrink-0 text-right font-mono text-xs tabular-nums text-slate">
         {done}/{total}
       </span>
-
-      {/* Only the finished ones get a mark. A tick on every row is wallpaper. */}
       <span className="w-4 shrink-0">
         {cleared && <span className="block text-affirm">★</span>}
       </span>
@@ -76,33 +85,71 @@ function CategoryRow({
   );
 }
 
+function secondsLabel(ms: number) {
+  if (ms <= 0) return "—";
+  return `${Math.round(ms / 1000)}s`;
+}
+
 export function Dashboard() {
-  const categories = categoryProgress();
-  const collection = collectionProgress();
-  const favourite = favouriteCategory();
-  const cleared = clearedCategories();
+  /**
+   * `null` until mounted, and the first client render must match the server's.
+   *
+   * localStorage does not exist during SSR, so reading it inline would render
+   * one tree on the server and a different one on the client — the hydration
+   * mismatch this project has already been bitten by once. The effect runs
+   * after the matching render, and `ready` keeps the figures blank rather than
+   * flashing zeroes that are about to become real numbers.
+   */
+  const list = React.useSyncExternalStore(
+    subscribeAttempts,
+    getAttemptsSnapshot,
+    getAttemptsServerSnapshot,
+  );
+
+  // Same mechanism, used only to know which side of hydration we are on. The
+  // server can never answer "what day is it for the user", so the streak has
+  // to wait for the client rather than guess and be corrected.
+  const ready = React.useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+
+  const [confirmClear, setConfirmClear] = React.useState(false);
+  const when = ready ? new Date() : new Date(0);
+
+  const done = completedIds(list);
+  const categories = categoryProgress(done);
+  const collection = collectionProgress(done);
+  const favourite = favouriteCategory(done);
+  const cleared = clearedCategories(done);
+  const streak = streakFrom(list, when);
+  const achievements = achievementsFrom(list, when);
   const earned = achievements.filter((a) => a.earned).length;
+
+  const recent = [...list]
+    .sort((a, b) => b.completedAt.localeCompare(a.completedAt))
+    .slice(0, 6);
+
+  const dash = (v: React.ReactNode) => (ready ? v : "—");
 
   return (
     <div className="space-y-5">
-      {/* Row one: the three numbers someone opens this screen to see. */}
       <div className="grid gap-5 md:grid-cols-3">
         <Desk>
           <StatTile
             title="Current streak"
-            value={streak.current}
+            value={dash(streak.current)}
             unit="days"
-            footnote={`Best ${streak.best}`}
+            footnote={ready ? `Best ${streak.best}` : "Reading history"}
           >
-            {/* Seven stamps, one per day. A calendar strip beats a number for
-                the same reason a sticker chart does: you can see the gap. */}
             <div className="flex gap-1">
               {streak.week.map((hit, i) => (
                 <span
                   key={i}
                   className={cn(
                     "pixel-clip block h-6 flex-1 border-2 border-ink",
-                    hit ? "bg-mint-deep" : "bg-paper",
+                    ready && hit ? "bg-mint-deep" : "bg-paper",
                   )}
                   style={{ ["--notch" as string]: "2px" }}
                   title={hit ? "Session completed" : "No session"}
@@ -115,18 +162,22 @@ export function Dashboard() {
         <Desk>
           <StatTile
             title="Completed topics"
-            value={collection.done}
+            value={dash(collection.done)}
             unit={`of ${collection.total}`}
-            footnote={`${totals.challenges} attempts since ${totals.since}`}
+            footnote={
+              ready
+                ? `${list.length} session${list.length === 1 ? "" : "s"} recorded`
+                : "Reading history"
+            }
           >
-            <ProgressBar value={collection.ratio} variant="pill" />
+            <ProgressBar value={ready ? collection.ratio : 0} variant="pill" />
           </StatTile>
         </Desk>
 
         <Desk>
           <StatTile
             title="Favourite category"
-            value={favourite ? favourite.done : 0}
+            value={dash(favourite ? favourite.done : 0)}
             unit={favourite ? favourite.category : "none yet"}
             footnote={
               cleared.length > 0
@@ -145,7 +196,6 @@ export function Dashboard() {
       </div>
 
       <div className="grid gap-5 lg:grid-cols-3">
-        {/* Category progress — the widest thing, so it gets two columns. */}
         <Desk className="lg:col-span-2">
           <Panel
             chrome="window"
@@ -155,7 +205,7 @@ export function Dashboard() {
             flush
             actions={
               <span className="type-hud text-slate">
-                {collection.done}/{collection.total}
+                {dash(`${collection.done}/${collection.total}`)}
               </span>
             }
           >
@@ -176,22 +226,32 @@ export function Dashboard() {
             flush
           >
             <div className="divide-y divide-mint-soft py-1">
-              {recentSessions.map((s) => {
-                const topic = getTopic(s.topicId);
+              {recent.length === 0 && (
+                <div className="px-4 py-5">
+                  <p className="type-hud text-mute">
+                    {ready ? "Nothing yet" : "Reading history"}
+                  </p>
+                </div>
+              )}
+
+              {recent.map((a) => {
+                const topic = getTopic(a.topicId);
                 return (
                   <div
-                    key={`${s.topicId}-${s.at}`}
+                    key={a.id}
                     className="flex items-center gap-3 px-4 py-2.5 transition-colors duration-150 hover:bg-mint-mist"
-                    // The title is safe to show here: this session is over, so
-                    // there is no synthesis left to give away.
+                    // Safe to show: this session is over, so there is no
+                    // synthesis left to give away.
                     title={topic?.title}
                   >
                     <span className="font-mono text-xs text-graphite">
-                      {topic ? fileNameFor(topic) : s.topicId}
+                      {topic ? fileNameFor(topic) : a.topicId}
                     </span>
-                    <span className="type-hud ml-auto text-mute">{s.at}</span>
+                    <span className="type-hud ml-auto text-mute">
+                      {a.completedAt.slice(0, 10)}
+                    </span>
                     <span className="w-9 text-right font-mono text-xs tabular-nums text-slate">
-                      {Math.round(s.clarity * 100)}
+                      {secondsLabel(a.recordedMs)}
                     </span>
                   </div>
                 );
@@ -201,7 +261,6 @@ export function Dashboard() {
         </Desk>
       </div>
 
-      {/* The sticker book. */}
       <Desk>
         <Panel
           chrome="window"
@@ -211,42 +270,89 @@ export function Dashboard() {
           sky={{ density: "sparse" }}
           actions={
             <Badge tone="mint">
-              {earned}/{achievements.length}
+              {dash(`${earned}/${achievements.length}`)}
             </Badge>
           }
         >
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {achievements.map((a, i) => (
-              <PixelFrame
-                key={a.id}
-                notch={4}
-                border={2}
-                shadow={a.earned ? 4 : 0}
-                // Locked is `mist`, never `ghost`. A transparent fill sits on
-                // top of the black border plate and renders as solid black —
-                // the trap component-map.md warns about — which turned the
-                // locked stickers into unreadable dark slabs.
-                tone={a.earned ? "paper" : "mist"}
-                // Alternating tilt so the grid reads as things stuck on a page
-                // rather than cells in a table. Straightens on hover.
-                className={cn("sticker", !a.earned && "opacity-75")}
-                style={{ ["--tilt" as string]: `${i % 2 === 0 ? -1.5 : 1.5}deg` }}
-                innerClassName="flex h-full flex-col items-center gap-2 px-3 py-4 text-center"
-              >
-                <Stamp
-                  tone={a.earned ? "alert" : "mint"}
-                  rotate={a.earned ? -4 : 0}
+            {achievements.map((a, i) => {
+              const on = ready && a.earned;
+              return (
+                <PixelFrame
+                  key={a.id}
+                  notch={4}
+                  border={2}
+                  shadow={on ? 4 : 0}
+                  // Never `ghost`: a transparent fill sits on the black border
+                  // plate and renders solid black, which turned these into
+                  // unreadable slabs once already.
+                  tone={on ? "paper" : "mist"}
+                  className={cn("sticker", !on && "opacity-75")}
+                  style={{
+                    ["--tilt" as string]: `${i % 2 === 0 ? -1.5 : 1.5}deg`,
+                  }}
+                  innerClassName="flex h-full flex-col items-center gap-2 px-3 py-4 text-center"
                 >
-                  {a.earned ? "Earned" : "Locked"}
-                </Stamp>
-
-                <span className="type-caps text-graphite">{a.label}</span>
-                <span className="type-hud text-mute">{a.detail}</span>
-              </PixelFrame>
-            ))}
+                  <Stamp tone={on ? "alert" : "mint"} rotate={on ? -4 : 0}>
+                    {on ? "Earned" : "Locked"}
+                  </Stamp>
+                  <span className="type-caps text-graphite">{a.label}</span>
+                  <span className="type-hud text-mute">{a.detail}</span>
+                </PixelFrame>
+              );
+            })}
           </div>
         </Panel>
       </Desk>
+
+      {/* Housekeeping, kept last and quiet. */}
+      <div className="flex flex-wrap items-center gap-3">
+        <Button size="sm" href="/play" iconLeft={<Sparkles size={13} />}>
+          Start a session
+        </Button>
+
+        {ready && list.length > 0 && (
+          <>
+            {confirmClear ? (
+              <>
+                <Button
+                  size="sm"
+                  variant="danger"
+                  iconLeft={<RotateCcw size={13} />}
+                  // No local state to update: clearAttempts notifies the store
+                  // and useSyncExternalStore re-reads it.
+                  onClick={() => {
+                    clearAttempts();
+                    setConfirmClear(false);
+                  }}
+                >
+                  Erase {list.length} session
+                  {list.length === 1 ? "" : "s"}
+                </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => setConfirmClear(false)}
+                >
+                  Cancel
+                </Button>
+              </>
+            ) : (
+              <Button
+                size="sm"
+                variant="secondary"
+                iconLeft={<RotateCcw size={13} />}
+                onClick={() => setConfirmClear(true)}
+              >
+                Clear history
+              </Button>
+            )}
+            <span className="type-hud text-mute">
+              Stored in this browser only
+            </span>
+          </>
+        )}
+      </div>
     </div>
   );
 }
