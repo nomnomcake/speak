@@ -91,7 +91,7 @@ export function HomeStats() {
         value={ready ? streak.current : "—"}
         unit="days"
         footnote={
-          ready ? `Personal best ${streak.best} days` : "Reading history"
+          ready ? `Personal best: ${streak.best} days` : "Reading history"
         }
         // Only claims "active" when it is. A permanent badge is a sticker.
         actions={

@@ -153,7 +153,7 @@ export function Dashboard() {
               title="Current streak"
               value={dash(streak.current)}
               unit="days"
-              footnote={ready ? `Best ${streak.best}` : "Reading history"}
+              footnote={ready ? `Best: ${streak.best}` : "Reading history"}
             >
               <div className="flex gap-1">
                 {streak.week.map((hit, i) => (
