@@ -497,16 +497,17 @@
   },
   {
     "id": "cap-in-practice",
-    "title": "Why CAP is more subtle than pick two",
+    "title": "The tradeoff a system makes when nothing is wrong",
     "category": "technology",
     "difficulty": "adversarial",
-    "researchPrompt": "Explain what CAP actually constrains and why PACELC is a better framing.",
+    "researchPrompt": "A network partition is rare; latency is constant. Explain the choice a replicated system makes between consistency and response time during entirely normal operation, and why a theorem about failures says nothing about it.",
     "suggestedAngles": [
-      "Show that partitions are rare but latency is constant",
-      "Frame PACELC as capturing the everyday tradeoff"
+      "Derive the cost from replication itself: acknowledging a write on more machines means waiting for more machines",
+      "Contrast the failure case with the ordinary case, and argue a system's real character is set by the second",
+      "Use two datacentres and a round-trip time to make the choice a number rather than a preference"
     ],
-    "tags": ["distributed-systems", "cap", "latency", "consistency"],
-    "searchTerms": ["PACELC theorem latency", "CAP theorem misinterpretation"],
+    "tags": ["distributed-systems", "replication", "latency", "consistency"],
+    "searchTerms": ["PACELC theorem", "replication latency consistency", "tunable consistency quorum"],
     "references": []
   },
   {

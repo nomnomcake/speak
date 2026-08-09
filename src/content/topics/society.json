@@ -11,7 +11,12 @@
       "Use the aftermath to show how the response persists after the fear fades"
     ],
     "tags": ["media", "deviance", "collective-behaviour", "sociology"],
-    "searchTerms": ["moral panic", "folk devils", "media sociology"],
+    "searchTerms": [
+      "moral panic",
+      "folk devils",
+      "claims makers deviance",
+      "media sociology"
+    ],
     "references": [
       {
         "label": "Moral panic",
@@ -160,23 +165,6 @@
     "searchTerms": [
       "strength of weak ties Granovetter",
       "bridging ties job information"
-    ],
-    "references": []
-  },
-  {
-    "id": "moral-panic-cycle",
-    "title": "How a panic is manufactured and then fades",
-    "category": "society",
-    "difficulty": "technical",
-    "researchPrompt": "Explain the stages of a moral panic and the role of claims-makers.",
-    "suggestedAngles": [
-      "Walk one historical panic through the stages",
-      "Frame the folk devil as a necessary construction"
-    ],
-    "tags": ["media", "deviance", "panic", "sociology"],
-    "searchTerms": [
-      "moral panic stages folk devils",
-      "claims makers deviance amplification"
     ],
     "references": []
   },

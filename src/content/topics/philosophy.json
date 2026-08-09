@@ -223,23 +223,6 @@
     "references": []
   },
   {
-    "id": "ship-of-theseus-parts",
-    "title": "Whether identity survives gradual replacement",
-    "category": "philosophy",
-    "difficulty": "plain",
-    "researchPrompt": "Explain the puzzle of persistence through change using the classic ship case.",
-    "suggestedAngles": [
-      "Add the second ship built from the discarded parts",
-      "Frame the disagreement as about what identity tracks"
-    ],
-    "tags": ["identity", "persistence", "metaphysics", "puzzle"],
-    "searchTerms": [
-      "Ship of Theseus persistence",
-      "identity through change metaphysics"
-    ],
-    "references": []
-  },
-  {
     "id": "euthyphro-dilemma",
     "title": "Whether goodness depends on divine command",
     "category": "philosophy",
