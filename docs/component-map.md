@@ -188,6 +188,8 @@ they are all built from the primitives above.
 
 ```
 lib/attempts.ts   localStorage store (v2), read via useSyncExternalStore
+lib/recordings.ts IndexedDB store for kept takes — opt-in, capped, pruned
+lib/consent.ts    the one cookie, and what a declined answer forbids
 lib/progress.ts   pure derivations — streak, collection, score averages
 lib/ai/           types · rubric · prompt · filler counting · verify · providers
 app/api/analyze   the only server endpoint

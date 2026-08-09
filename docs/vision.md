@@ -85,10 +85,18 @@ including this one.**
 | 3. Timers and state | **Done** | Research countdown, presentation mode, phase transitions. |
 | 4. Capture | **Done** | Camera and microphone, live preview, level meter, recording, live transcript. |
 | 5. Scoring | **Partly built** | Rubric, prompt, provider seam and report UI all built. Needs a key in `.env.local` to run against a model; falls back to clearly-labelled sample scores without one. |
-| 6. Archive | **Built** | Dashboard shows streak, collection and score averages; `/archive` lists every session and expands to its scores and transcript. Replay of a past take is **not** built and cannot be without a decision — recordings die with the tab deliberately, so replaying an old one means persisting video of someone's face, which [topic-schema.md](./topic-schema.md#storage) says must never be the default. |
+| 6. Archive | **Built** | Dashboard shows streak, collection and score averages; `/archive` lists every session, expands to its scores and transcript, and replays any take that was explicitly kept. |
 
-Sessions persist to `localStorage` (`speak:attempts`). Recordings do not —
-they live in memory for the report and die with the tab, deliberately.
+Sessions persist to `localStorage` (`speak:attempts`). Recordings die with the
+tab **unless the speaker presses Keep on one**, and then they go to IndexedDB
+on the same device.
+
+That default is the load-bearing part, not the storage. Ephemeral-by-default
+is what made it reasonable to point a camera at someone without ceremony, so
+replay could not simply switch it off — it had to move the decision to the
+speaker, at the take, one take at a time. Declining session history keeps
+nothing, deleting a session deletes its video, and the ten most recent kept
+takes are the cap, announced rather than enforced quietly.
 
 The rule across phases: **make it look finished before making it work.** A
 cohesive shell exposes design problems early, when they are cheap.

@@ -4,6 +4,7 @@ import * as React from "react";
 import { Button, Panel } from "@/components/ui";
 import { useConsent, writeConsent } from "@/lib/consent";
 import { clearAttempts } from "@/lib/attempts";
+import { clearTakes } from "@/lib/recordings";
 
 /**
  * The storage notice.
@@ -20,11 +21,19 @@ import { clearAttempts } from "@/lib/attempts";
  *
  *  - one cookie, holding the answer to this question
  *  - session history in local storage, which Decline turns off
- *  - notes and the timer in local storage, which are what let the research
- *    phase survive a closed tab, and are not optional to the feature
+ *  - the research timer, which is what lets that phase survive a closed tab
+ *    and is not optional to the feature
+ *  - a recording, but only one you explicitly chose to keep
  *
- * There is no third button and no preferences panel. With two categories and
- * one of them load-bearing, a settings pane would be theatre.
+ * That last line arrived with replay and had to. Recordings used to die with
+ * the tab, so a notice that never mentioned them was complete; now they can be
+ * kept, and a privacy notice which omits the heaviest thing the product can
+ * store would be the worst omission available to it. It still never leaves the
+ * device, which is the sentence people actually care about.
+ *
+ * There is no third button and no preferences panel. Keeping a take is already
+ * a per-take decision made at the take, which is a better place to ask than a
+ * settings pane nobody opens.
  */
 export function CookieNotice() {
   const consent = useConsent();
@@ -71,7 +80,8 @@ export function CookieNotice() {
 
           <p className="text-sm leading-relaxed text-graphite">
             Session history — which topics you have done, and your scores — is
-            also stored locally, and that part is optional.
+            also stored locally, and that part is optional. Recordings are
+            deleted when you close the tab unless you press Keep on one.
           </p>
 
           {/* The one claim worth making loudly, and the only one users of this
@@ -94,6 +104,7 @@ export function CookieNotice() {
               onClick={() => {
                 writeConsent("denied");
                 clearAttempts();
+                void clearTakes();
               }}
             >
               Don&rsquo;t keep it

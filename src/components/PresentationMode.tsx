@@ -279,6 +279,16 @@ function SessionRun({
   const [speakingMs, setSpeakingMs] = React.useState<number | null>(null);
   const [saveFailed, setSaveFailed] = React.useState(false);
   const attemptIdRef = React.useRef<string | null>(null);
+  /**
+   * The same id, in state, because the report renders with it.
+   *
+   * The ref is what the analyze effect uses — it must read the current value
+   * without re-running — but a ref cannot be read during render, and the Keep
+   * control needs to know whether there is an attempt to attach a recording
+   * to. Two holders of one value is a smell; a ref read at render time is a
+   * bug, which is worse.
+   */
+  const [attemptId, setAttemptId] = React.useState<string | null>(null);
 
   // Runs only while the talk is live. Captured silently — user-flow.md is
   // explicit that watching your own words appear destroys fluency.
@@ -374,6 +384,7 @@ function SessionRun({
       // an unchanged list, so a full report rendered for a session that was
       // never saved — with nothing on screen admitting it.
       attemptIdRef.current = saved ? id : null;
+      setAttemptId(saved ? id : null);
       setSaveFailed(!saved);
     },
     [stream, topic.id],
@@ -529,6 +540,10 @@ function SessionRun({
             recording={recording}
             topic={topic}
             onDelete={handleDelete}
+            // Null when the write failed, and then there is no attempt for a
+            // recording to hang off — so Keep is not offered at all rather
+            // than offered and silently pointing at nothing.
+            attemptId={attemptId}
           />
         ) : (
           <ReviewEmpty reason="No recording to play back — the report above still stands." />

@@ -6,10 +6,13 @@ import {
   Pause,
   Play,
   RotateCcw,
+  Save,
   Shuffle,
   Trash2,
 } from "lucide-react";
 import { Badge, Button, Panel, PixelFrame } from "@/components/ui";
+import { KEEP_LIMIT, keepTake, pruneTakes } from "@/lib/recordings";
+import { loadAttempts } from "@/lib/attempts";
 import { fileNameFor, type Topic } from "@/lib/topics";
 
 /**
@@ -44,16 +47,36 @@ export function ReviewWindow({
   recording,
   topic,
   onDelete,
+  attemptId,
 }: {
   recording: Blob;
   topic: Topic;
   onDelete: () => void;
+  /**
+   * The attempt this take belongs to. Absent when the session could not be
+   * saved, and then there is nothing to attach a recording to — so the Keep
+   * control is not offered rather than offered and quietly broken.
+   */
+  attemptId?: string | null;
 }) {
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const [status, setStatus] = React.useState<Status>("stopped");
   const [time, setTime] = React.useState(0);
   const [duration, setDuration] = React.useState(0);
   const [confirmDelete, setConfirmDelete] = React.useState(false);
+
+  /**
+   * Keeping is opt-in, and stays opt-in.
+   *
+   * Until now a take died with the tab, and that was the thing which made it
+   * safe to record someone's face without ceremony. Replay reverses it, so the
+   * choice has to become explicit rather than disappear: nothing is written
+   * unless this is pressed, and the button says where it goes and what the
+   * limit is instead of implying either.
+   */
+  const [kept, setKept] = React.useState<"no" | "saving" | "yes" | "failed">(
+    "no",
+  );
 
   // Revoked on unmount. An object URL pins the whole recording in memory until
   // it is released, and a session's take is measured in megabytes.
@@ -217,6 +240,27 @@ export function ReviewWindow({
             Download
           </Button>
 
+          {attemptId && kept !== "yes" && (
+            <Button
+              variant="secondary"
+              size="sm"
+              loading={kept === "saving"}
+              iconLeft={<Save size={13} />}
+              onClick={() => {
+                setKept("saving");
+                void keepTake(attemptId, recording).then(async (ok) => {
+                  if (!ok) return setKept("failed");
+                  // Prune immediately so the cap is real at the moment it is
+                  // claimed, rather than at some later visit to the archive.
+                  await pruneTakes(loadAttempts().map((a) => a.id));
+                  setKept("yes");
+                });
+              }}
+            >
+              Keep this take
+            </Button>
+          )}
+
           {confirmDelete ? (
             <>
               <Button
@@ -227,12 +271,16 @@ export function ReviewWindow({
               >
                 Delete for good
               </Button>
+              {/* "Cancel", not "Keep it" — there is now a Keep this take
+                  button a few pixels away that means something else entirely,
+                  and two Keeps on one row is how someone stores a recording
+                  they were trying to abandon. */}
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setConfirmDelete(false)}
               >
-                Keep it
+                Cancel
               </Button>
             </>
           ) : (
@@ -252,6 +300,20 @@ export function ReviewWindow({
             </Button>
           </div>
         </div>
+
+        {/* Says where it went and what the limit is. The cap is announced
+            rather than enforced quietly, because dropping someone's oldest
+            recording without a word is the same silent data loss the attempt
+            store shipped once already. */}
+        {attemptId && (
+          <p className="type-hud leading-relaxed text-slate">
+            {kept === "yes"
+              ? `Kept on this device. The archive replays your last ${KEEP_LIMIT}; older takes are dropped as new ones are kept.`
+              : kept === "failed"
+                ? "Could not be kept. Session history is switched off, or the browser refused the storage."
+                : "Otherwise this take is gone when you close the tab."}
+          </p>
+        )}
 
         {confirmDelete && (
           <p className="type-hud text-alert">

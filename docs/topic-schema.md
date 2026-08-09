@@ -263,6 +263,14 @@ Storage splits in two, and the notice names both rather than hiding one behind
 | The consent answer | cookie | no — it *is* the answer |
 | The research countdown | `localStorage` | no — the 15-minute phase is specified to survive a closed tab |
 | Session history | `localStorage` | **yes** |
+| A kept recording | `IndexedDB` | **yes, and off by default** — one press, per take |
+
+Recordings are the reason that table has a fourth row rather than three. They
+are the heaviest thing the product can hold and the only one that is video of a
+person, so they are opt-in per take rather than covered by the history answer:
+someone who agreed to a list of topics and scores did not thereby agree to a
+library of footage of themselves. `localStorage` could not hold them anyway —
+it stores strings and caps out around 5MB, against several MB for one minute.
 
 `denied` is enforced in `write()` in `lib/attempts.ts` — one function, rather
 than at each call site where the next one added would forget. **A Decline that
@@ -283,3 +291,9 @@ That was true when capture was audio only; it is more true now that every
 attempt is **video of someone's face in their home**. If recordings ever leave
 the device it should be an explicit, revocable, per-attempt choice, and the
 default has to remain that they never do.
+
+**Replay did not change that.** IndexedDB is the same device; nothing is
+uploaded, and no code in this product sends a recording anywhere. What replay
+changed is how long a take survives on the machine it was made on, which is why
+keeping one is a deliberate press rather than a setting — the shape of the
+consent the paragraph above asks for, applied one step earlier.

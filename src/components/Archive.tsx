@@ -1,7 +1,14 @@
 "use client";
 
 import * as React from "react";
-import { ChevronRight, Shuffle, Trash2 } from "lucide-react";
+import { ChevronRight, Play, Shuffle, Trash2 } from "lucide-react";
+import {
+  deleteTake,
+  getTake,
+  listTakes,
+  pruneTakes,
+  subscribeTakes,
+} from "@/lib/recordings";
 import { Badge, Button, Panel, PixelFrame, ProgressBar } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import { fileNameFor, getTopic } from "@/lib/topics";
@@ -41,9 +48,25 @@ function shortDate(iso: string): string {
   return `${d.getDate()} ${months[d.getMonth()]}`;
 }
 
-function Row({ attempt }: { attempt: StoredAttempt }) {
+function Row({
+  attempt,
+  hasTake,
+}: {
+  attempt: StoredAttempt;
+  hasTake: boolean;
+}) {
   const [open, setOpen] = React.useState(false);
   const [confirm, setConfirm] = React.useState(false);
+  const [takeUrl, setTakeUrl] = React.useState<string | null>(null);
+  const [loadingTake, setLoadingTake] = React.useState(false);
+
+  // An object URL pins the whole video in memory until it is released, and
+  // these are megabytes each.
+  React.useEffect(() => {
+    return () => {
+      if (takeUrl) URL.revokeObjectURL(takeUrl);
+    };
+  }, [takeUrl]);
   const topic = getTopic(attempt.topicId);
   const fb = attempt.aiFeedback;
   const score = fb?.overallScore ?? null;
@@ -175,6 +198,38 @@ function Row({ attempt }: { attempt: StoredAttempt }) {
               </p>
             )}
 
+            {/* Replay, for the takes that were explicitly kept. Loaded on
+                demand rather than with the row: ten videos fetched to render a
+                list is a lot of memory for something most rows do not have. */}
+            {hasTake && (
+              <div className="space-y-2">
+                {takeUrl ? (
+                  <video
+                    src={takeUrl}
+                    controls
+                    playsInline
+                    className="w-full border-2 border-ink bg-ink"
+                  />
+                ) : (
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    loading={loadingTake}
+                    iconLeft={<Play size={13} />}
+                    onClick={() => {
+                      setLoadingTake(true);
+                      void getTake(attempt.id).then((blob) => {
+                        setLoadingTake(false);
+                        if (blob) setTakeUrl(URL.createObjectURL(blob));
+                      });
+                    }}
+                  >
+                    Watch this take
+                  </Button>
+                )}
+              </div>
+            )}
+
             <div className="flex items-center gap-2 border-t-2 border-ink pt-3">
               {confirm ? (
                 <>
@@ -182,7 +237,13 @@ function Row({ attempt }: { attempt: StoredAttempt }) {
                     size="sm"
                     variant="danger"
                     iconLeft={<Trash2 size={13} />}
-                    onClick={() => deleteAttempt(attempt.id)}
+                    onClick={() => {
+                      // The video goes with the session. A recording left
+                      // behind by a deleted row is unreachable in the UI and
+                      // still on disk, which is the worst of both.
+                      void deleteTake(attempt.id);
+                      deleteAttempt(attempt.id);
+                    }}
                   >
                     Delete this session
                   </Button>
@@ -228,6 +289,37 @@ export function Archive() {
     b.completedAt.localeCompare(a.completedAt),
   );
 
+  /**
+   * Which sessions have a kept take, so a row can offer replay without each
+   * one asking the database independently.
+   *
+   * Pruning runs on the same pass — this is one of the two moments the set can
+   * have gone stale, the other being immediately after a keep. Orphans get
+   * cleared here: a session deleted from another tab leaves its video behind,
+   * and a recording nobody can reach is still a recording.
+   */
+  const [takeIds, setTakeIds] = React.useState<Set<string>>(new Set());
+  // Extracted so the dependency is a plain string the lint rule can check —
+  // and so the effect keys on which sessions exist rather than on the array
+  // identity, which is a new object on every read.
+  const attemptIds = list.map((a) => a.id).join(",");
+  React.useEffect(() => {
+    let cancelled = false;
+    const refresh = () => {
+      void pruneTakes(attemptIds ? attemptIds.split(",") : [])
+        .then(listTakes)
+        .then((takes) => {
+          if (!cancelled) setTakeIds(new Set(takes.map((t) => t.id)));
+        });
+    };
+    refresh();
+    const unsubscribe = subscribeTakes(refresh);
+    return () => {
+      cancelled = true;
+      unsubscribe();
+    };
+  }, [attemptIds]);
+
   return (
     <Panel
       chrome="window"
@@ -260,7 +352,7 @@ export function Archive() {
       ) : (
         <div>
           {rows.map((a) => (
-            <Row key={a.id} attempt={a} />
+            <Row key={a.id} attempt={a} hasTake={takeIds.has(a.id)} />
           ))}
         </div>
       )}

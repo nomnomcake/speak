@@ -22,6 +22,7 @@ import {
   subscribeAttempts,
 } from "@/lib/attempts";
 import { revokeConsent, useConsent } from "@/lib/consent";
+import { clearTakes } from "@/lib/recordings";
 import {
   achievementsFrom,
   categoryProgress,
@@ -460,6 +461,10 @@ export function Dashboard() {
                     // No local state to update: clearAttempts notifies the store
                     // and useSyncExternalStore re-reads it.
                     onClick={() => {
+                      // Recordings go with the history. Erasing the sessions
+                      // and leaving the video would be the opposite of what
+                      // this button says, and video is the heavier of the two.
+                      void clearTakes();
                       clearAttempts();
                       setConfirmClear(false);
                     }}
@@ -500,7 +505,12 @@ export function Dashboard() {
             <Button
               size="sm"
               variant="ghost"
-              onClick={() => revokeConsent(clearAttempts)}
+              onClick={() =>
+                revokeConsent(() => {
+                  void clearTakes();
+                  clearAttempts();
+                })
+              }
             >
               Stop keeping history
             </Button>
