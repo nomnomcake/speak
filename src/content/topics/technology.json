@@ -11,7 +11,11 @@
       "Use a concrete two-datacentre example rather than the abstract triangle"
     ],
     "tags": ["distributed-systems", "consistency", "availability", "databases"],
-    "searchTerms": ["cap theorem","distributed systems consistency","partition tolerance"],
+    "searchTerms": [
+      "cap theorem",
+      "distributed systems consistency",
+      "partition tolerance"
+    ],
     "references": [
       {
         "label": "CAP theorem",
@@ -37,7 +41,11 @@
       "Separate key exchange from encryption from signing"
     ],
     "tags": ["cryptography", "security", "key-exchange", "protocols"],
-    "searchTerms": ["public key cryptography","diffie hellman key exchange","asymmetric encryption"],
+    "searchTerms": [
+      "public key cryptography",
+      "diffie hellman key exchange",
+      "asymmetric encryption"
+    ],
     "references": [
       {
         "label": "Public-key cryptography",
@@ -68,7 +76,11 @@
       "Connect it to a real system: consensus protocols or blockchains"
     ],
     "tags": ["distributed-systems", "consensus", "fault-tolerance", "security"],
-    "searchTerms": ["byzantine fault tolerance","byzantine generals problem","distributed consensus"],
+    "searchTerms": [
+      "byzantine fault tolerance",
+      "byzantine generals problem",
+      "distributed consensus"
+    ],
     "references": [
       {
         "label": "Byzantine fault",
@@ -86,5 +98,780 @@
         "kind": "paper"
       }
     ]
+  },
+  {
+    "id": "consistent-hashing",
+    "title": "How to add a server without moving all the data",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain consistent hashing and why naive modulo sharding breaks on resize.",
+    "suggestedAngles": [
+      "Show the modulo approach failing first",
+      "Frame the ring as making reassignment local"
+    ],
+    "tags": ["distributed-systems", "hashing", "sharding", "caching"],
+    "searchTerms": ["consistent hashing ring", "hash sharding rebalancing"],
+    "references": []
+  },
+  {
+    "id": "write-ahead-logging",
+    "title": "How a database survives losing power mid-write",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain write-ahead logging and how it makes durability possible.",
+    "suggestedAngles": [
+      "Follow one transaction through log then data",
+      "Frame recovery as replaying rather than repairing"
+    ],
+    "tags": ["databases", "durability", "logging", "recovery"],
+    "searchTerms": [
+      "write-ahead logging durability",
+      "database crash recovery redo log"
+    ],
+    "references": []
+  },
+  {
+    "id": "public-key-infrastructure",
+    "title": "Why your browser trusts a website it has never seen",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain certificate authorities, chains of trust, and what happens when a CA is compromised.",
+    "suggestedAngles": [
+      "Follow a certificate chain from leaf to root",
+      "Frame the CA system as a single point of trust"
+    ],
+    "tags": ["security", "pki", "certificates", "tls"],
+    "searchTerms": [
+      "certificate authority chain of trust",
+      "TLS certificate validation"
+    ],
+    "references": []
+  },
+  {
+    "id": "race-conditions",
+    "title": "Why concurrent code fails only sometimes",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain race conditions and why they are so hard to reproduce.",
+    "suggestedAngles": [
+      "Interleave two threads step by step to show the window",
+      "Frame non-determinism as the debugging obstacle"
+    ],
+    "tags": ["concurrency", "bugs", "threads", "determinism"],
+    "searchTerms": [
+      "race condition concurrency",
+      "thread interleaving non-determinism"
+    ],
+    "references": []
+  },
+  {
+    "id": "cache-invalidation",
+    "title": "Why keeping caches correct is genuinely hard",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain cache invalidation strategies and the tradeoffs between them.",
+    "suggestedAngles": [
+      "Compare time-based expiry with explicit invalidation",
+      "Frame staleness as a deliberate choice"
+    ],
+    "tags": ["caching", "consistency", "performance", "invalidation"],
+    "searchTerms": [
+      "cache invalidation strategies",
+      "cache staleness TTL tradeoff"
+    ],
+    "references": []
+  },
+  {
+    "id": "garbage-collection-pauses",
+    "title": "Why managed languages stutter",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain generational garbage collection and where pause times come from.",
+    "suggestedAngles": [
+      "Use the generational hypothesis as the design premise",
+      "Frame throughput against latency as the tradeoff"
+    ],
+    "tags": ["runtime", "memory", "gc", "latency"],
+    "searchTerms": [
+      "generational garbage collection",
+      "GC pause latency throughput"
+    ],
+    "references": []
+  },
+  {
+    "id": "tcp-congestion-control",
+    "title": "How the internet avoids collapsing under its own traffic",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain congestion control and why senders slow down without being told to.",
+    "suggestedAngles": [
+      "Frame packet loss as the feedback signal",
+      "Use the 1986 congestion collapse as the motivating failure"
+    ],
+    "tags": ["networking", "tcp", "congestion", "protocols"],
+    "searchTerms": ["TCP congestion control AIMD", "congestion collapse 1986"],
+    "references": []
+  },
+  {
+    "id": "dns-resolution",
+    "title": "What happens between typing a name and reaching a server",
+    "category": "technology",
+    "difficulty": "plain",
+    "researchPrompt": "Explain DNS resolution, caching, and why propagation delays exist.",
+    "suggestedAngles": [
+      "Follow one lookup through the hierarchy",
+      "Frame TTL as why changes take time"
+    ],
+    "tags": ["networking", "dns", "caching", "internet"],
+    "searchTerms": [
+      "DNS recursive resolution hierarchy",
+      "DNS TTL propagation"
+    ],
+    "references": []
+  },
+  {
+    "id": "eventual-consistency",
+    "title": "What it means for data to be temporarily wrong",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain eventual consistency and the conflict resolution problem it creates.",
+    "suggestedAngles": [
+      "Use two writes in two regions to create the conflict",
+      "Frame last-write-wins as a choice with costs"
+    ],
+    "tags": ["distributed-systems", "consistency", "replication", "conflicts"],
+    "searchTerms": [
+      "eventual consistency conflict resolution",
+      "last write wins replication"
+    ],
+    "references": []
+  },
+  {
+    "id": "compiler-optimisation-limits",
+    "title": "Why compilers cannot make bad code fast",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain what compiler optimisation can and cannot do, and the role of undefined behaviour.",
+    "suggestedAngles": [
+      "Show an optimisation that depends on a language guarantee",
+      "Frame algorithmic complexity as beyond the compiler's reach"
+    ],
+    "tags": ["compilers", "optimisation", "performance", "undefined-behaviour"],
+    "searchTerms": [
+      "compiler optimization undefined behaviour",
+      "optimizer algorithmic limits"
+    ],
+    "references": []
+  },
+  {
+    "id": "rowhammer",
+    "title": "How reading memory can change it",
+    "category": "technology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the Rowhammer effect and why it turns a physical property into a security hole.",
+    "suggestedAngles": [
+      "Frame DRAM density as the underlying cause",
+      "Trace the path from bit flip to privilege escalation"
+    ],
+    "tags": ["security", "hardware", "dram", "exploits"],
+    "searchTerms": [
+      "Rowhammer DRAM bit flip",
+      "memory disturbance privilege escalation"
+    ],
+    "references": []
+  },
+  {
+    "id": "floating-point-error",
+    "title": "Why 0.1 plus 0.2 is not 0.3",
+    "category": "technology",
+    "difficulty": "plain",
+    "researchPrompt": "Explain binary floating point representation and where rounding error comes from.",
+    "suggestedAngles": [
+      "Show why one tenth has no finite binary form",
+      "Frame decimal types as the answer for money"
+    ],
+    "tags": ["numerics", "floating-point", "precision", "representation"],
+    "searchTerms": [
+      "floating point representation error",
+      "IEEE 754 binary fraction"
+    ],
+    "references": []
+  },
+  {
+    "id": "zero-knowledge-proofs",
+    "title": "How to prove you know something without revealing it",
+    "category": "technology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain zero-knowledge proofs using a concrete protocol.",
+    "suggestedAngles": [
+      "Use the cave or graph-colouring analogy first",
+      "Frame completeness, soundness and zero-knowledge as three separate requirements"
+    ],
+    "tags": ["cryptography", "proofs", "privacy", "protocols"],
+    "searchTerms": [
+      "zero knowledge proof protocol",
+      "completeness soundness zero knowledge"
+    ],
+    "references": []
+  },
+  {
+    "id": "content-addressing",
+    "title": "Why naming data by its hash changes everything",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain content-addressed storage and its consequences for deduplication and verification.",
+    "suggestedAngles": [
+      "Contrast location addressing with content addressing",
+      "Frame immutability as the consequence"
+    ],
+    "tags": ["storage", "hashing", "immutability", "distributed"],
+    "searchTerms": [
+      "content addressed storage hash",
+      "deduplication immutable data"
+    ],
+    "references": []
+  },
+  {
+    "id": "speculative-execution",
+    "title": "Why processors guess, and why that leaked secrets",
+    "category": "technology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain speculative execution and how Spectre turned a performance feature into a vulnerability.",
+    "suggestedAngles": [
+      "Frame branch prediction as necessary for speed",
+      "Show how discarded work still leaves cache traces"
+    ],
+    "tags": ["hardware", "cpu", "security", "speculation"],
+    "searchTerms": [
+      "speculative execution Spectre",
+      "branch prediction cache side channel"
+    ],
+    "references": []
+  },
+  {
+    "id": "idempotency",
+    "title": "Why retrying a request can be dangerous",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain idempotency and how to design operations that tolerate retries.",
+    "suggestedAngles": [
+      "Use a payment charged twice as the failure",
+      "Frame idempotency keys as the practical fix"
+    ],
+    "tags": ["apis", "reliability", "retries", "idempotency"],
+    "searchTerms": [
+      "idempotent operations retry",
+      "idempotency key payment API"
+    ],
+    "references": []
+  },
+  {
+    "id": "merkle-trees",
+    "title": "How to verify one item in a huge dataset",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Merkle trees and how they enable efficient proofs of inclusion.",
+    "suggestedAngles": [
+      "Build a small tree and verify one leaf",
+      "Frame the logarithmic proof size as the point"
+    ],
+    "tags": ["cryptography", "hashing", "verification", "data-structures"],
+    "searchTerms": ["Merkle tree inclusion proof", "hash tree verification"],
+    "references": []
+  },
+  {
+    "id": "backpressure",
+    "title": "What a system should do when it cannot keep up",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain backpressure and why unbounded queues are a failure mode.",
+    "suggestedAngles": [
+      "Show a queue growing until memory runs out",
+      "Frame dropping work as a legitimate strategy"
+    ],
+    "tags": ["systems", "queues", "reliability", "flow-control"],
+    "searchTerms": ["backpressure flow control", "unbounded queue failure"],
+    "references": []
+  },
+  {
+    "id": "homomorphic-encryption",
+    "title": "Computing on data you cannot read",
+    "category": "technology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain homomorphic encryption and why it remains impractical for general use.",
+    "suggestedAngles": [
+      "Show an addition performed on ciphertext",
+      "Be explicit about the performance cost"
+    ],
+    "tags": ["cryptography", "privacy", "computation", "encryption"],
+    "searchTerms": [
+      "homomorphic encryption computation",
+      "fully homomorphic performance overhead"
+    ],
+    "references": []
+  },
+  {
+    "id": "bloom-filters",
+    "title": "How to test membership without storing the set",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Bloom filters and the meaning of a one-sided error.",
+    "suggestedAngles": [
+      "Walk one insertion and one query through the bit array",
+      "Frame false positives as an accepted trade"
+    ],
+    "tags": ["data-structures", "probabilistic", "memory", "filters"],
+    "searchTerms": [
+      "Bloom filter false positive",
+      "probabilistic membership test"
+    ],
+    "references": []
+  },
+  {
+    "id": "leader-election",
+    "title": "How a cluster agrees who is in charge",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain leader election and the split-brain problem.",
+    "suggestedAngles": [
+      "Frame the network partition as the hard case",
+      "Use quorum as the defence"
+    ],
+    "tags": ["distributed-systems", "consensus", "election", "quorum"],
+    "searchTerms": [
+      "leader election split brain",
+      "quorum distributed consensus"
+    ],
+    "references": []
+  },
+  {
+    "id": "jit-compilation",
+    "title": "How code gets faster while it runs",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain just-in-time compilation and why runtime information beats static analysis.",
+    "suggestedAngles": [
+      "Frame the hot loop as the target",
+      "Use deoptimisation to explain the safety net"
+    ],
+    "tags": ["compilers", "runtime", "performance", "jit"],
+    "searchTerms": [
+      "just in time compilation hot path",
+      "deoptimization runtime profiling"
+    ],
+    "references": []
+  },
+  {
+    "id": "rate-limiting-algorithms",
+    "title": "How to say no fairly",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain token bucket and leaky bucket rate limiting and their different behaviours.",
+    "suggestedAngles": [
+      "Contrast burst tolerance between the two",
+      "Frame the choice as about what traffic shape you want"
+    ],
+    "tags": ["apis", "rate-limiting", "traffic", "algorithms"],
+    "searchTerms": [
+      "token bucket leaky bucket",
+      "rate limiting burst tolerance"
+    ],
+    "references": []
+  },
+  {
+    "id": "type-inference",
+    "title": "How a compiler knows a type you never wrote",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Hindley-Milner type inference and its limits.",
+    "suggestedAngles": [
+      "Follow unification through a small example",
+      "Frame annotations as necessary where inference gives up"
+    ],
+    "tags": ["languages", "types", "inference", "compilers"],
+    "searchTerms": [
+      "Hindley Milner type inference",
+      "unification type checking"
+    ],
+    "references": []
+  },
+  {
+    "id": "cap-in-practice",
+    "title": "Why CAP is more subtle than pick two",
+    "category": "technology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain what CAP actually constrains and why PACELC is a better framing.",
+    "suggestedAngles": [
+      "Show that partitions are rare but latency is constant",
+      "Frame PACELC as capturing the everyday tradeoff"
+    ],
+    "tags": ["distributed-systems", "cap", "latency", "consistency"],
+    "searchTerms": ["PACELC theorem latency", "CAP theorem misinterpretation"],
+    "references": []
+  },
+  {
+    "id": "memory-hierarchy",
+    "title": "Why the same code runs at different speeds",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the memory hierarchy and why cache locality dominates performance.",
+    "suggestedAngles": [
+      "Compare row-major and column-major traversal",
+      "Frame the cache line as the unit that matters"
+    ],
+    "tags": ["hardware", "memory", "cache", "performance"],
+    "searchTerms": [
+      "cache locality memory hierarchy",
+      "cache line row major traversal"
+    ],
+    "references": []
+  },
+  {
+    "id": "deterministic-builds",
+    "title": "Why the same source can produce different binaries",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain reproducible builds and why non-determinism creeps in.",
+    "suggestedAngles": [
+      "List the usual culprits: timestamps, paths, ordering",
+      "Frame reproducibility as a supply-chain defence"
+    ],
+    "tags": ["builds", "security", "reproducibility", "supply-chain"],
+    "searchTerms": [
+      "reproducible builds determinism",
+      "build non-determinism timestamps"
+    ],
+    "references": []
+  },
+  {
+    "id": "operational-transform",
+    "title": "How two people edit one document at once",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain operational transformation and CRDTs as rival approaches to collaborative editing.",
+    "suggestedAngles": [
+      "Show two concurrent edits producing divergence",
+      "Contrast the central-server and convergent-type approaches"
+    ],
+    "tags": ["collaboration", "crdt", "concurrency", "editing"],
+    "searchTerms": [
+      "operational transformation collaborative editing",
+      "CRDT convergent replicated data type"
+    ],
+    "references": []
+  },
+  {
+    "id": "side-channel-timing",
+    "title": "How secrets leak through timing",
+    "category": "technology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain timing attacks and why constant-time code matters in cryptography.",
+    "suggestedAngles": [
+      "Show a naive string comparison leaking a password",
+      "Frame constant-time as deliberately wasting work"
+    ],
+    "tags": ["security", "cryptography", "side-channels", "timing"],
+    "searchTerms": [
+      "timing attack constant time comparison",
+      "side channel cryptographic implementation"
+    ],
+    "references": []
+  },
+  {
+    "id": "dependency-hell",
+    "title": "Why package versions conflict",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain diamond dependencies and semantic versioning's limits.",
+    "suggestedAngles": [
+      "Draw the diamond and force the conflict",
+      "Frame semver as a promise that is often broken"
+    ],
+    "tags": ["packaging", "dependencies", "versioning", "tooling"],
+    "searchTerms": [
+      "diamond dependency conflict",
+      "semantic versioning limitations"
+    ],
+    "references": []
+  },
+  {
+    "id": "hardware-clock-drift",
+    "title": "Why distributed systems cannot trust time",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain clock drift and why logical clocks exist.",
+    "suggestedAngles": [
+      "Show two machines disagreeing about ordering",
+      "Frame Lamport timestamps as ordering without time"
+    ],
+    "tags": ["distributed-systems", "clocks", "ordering", "lamport"],
+    "searchTerms": [
+      "clock drift distributed systems",
+      "Lamport logical clocks ordering"
+    ],
+    "references": []
+  },
+  {
+    "id": "query-planning",
+    "title": "How a database decides how to answer",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain query planners, statistics, and why the same query can be fast or slow.",
+    "suggestedAngles": [
+      "Follow a join with and without an index",
+      "Frame stale statistics as a common cause of regression"
+    ],
+    "tags": ["databases", "optimisation", "queries", "planning"],
+    "searchTerms": [
+      "query planner statistics",
+      "join order optimization index"
+    ],
+    "references": []
+  },
+  {
+    "id": "error-correcting-codes",
+    "title": "How data survives a damaged medium",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain error-correcting codes and the difference between detection and correction.",
+    "suggestedAngles": [
+      "Use parity then extend to Hamming distance",
+      "Frame redundancy as purchased reliability"
+    ],
+    "tags": ["information-theory", "coding", "reliability", "hamming"],
+    "searchTerms": [
+      "error correcting codes Hamming distance",
+      "parity error detection correction"
+    ],
+    "references": []
+  },
+  {
+    "id": "virtual-memory",
+    "title": "How a program gets more memory than exists",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain virtual memory, paging and why thrashing destroys performance.",
+    "suggestedAngles": [
+      "Follow one address translation through the page table",
+      "Frame thrashing as the failure mode"
+    ],
+    "tags": ["operating-systems", "memory", "paging", "virtualisation"],
+    "searchTerms": [
+      "virtual memory paging translation",
+      "thrashing page fault"
+    ],
+    "references": []
+  },
+  {
+    "id": "api-versioning",
+    "title": "Why changing an API is harder than writing one",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain backwards compatibility strategies and why breaking changes are expensive.",
+    "suggestedAngles": [
+      "Frame every field as a promise to unknown callers",
+      "Compare versioned endpoints with additive evolution"
+    ],
+    "tags": ["apis", "compatibility", "versioning", "design"],
+    "searchTerms": [
+      "API backwards compatibility",
+      "breaking change versioning strategy"
+    ],
+    "references": []
+  },
+  {
+    "id": "differential-privacy",
+    "title": "How to publish statistics without exposing individuals",
+    "category": "technology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain differential privacy and the privacy budget.",
+    "suggestedAngles": [
+      "Show a query that identifies someone through differencing",
+      "Frame noise as a mathematical guarantee rather than obfuscation"
+    ],
+    "tags": ["privacy", "statistics", "cryptography", "data"],
+    "searchTerms": [
+      "differential privacy epsilon budget",
+      "statistical disclosure differencing attack"
+    ],
+    "references": []
+  },
+  {
+    "id": "hardware-security-modules",
+    "title": "Why some keys never leave a box",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain HSMs and the principle of keeping key material non-extractable.",
+    "suggestedAngles": [
+      "Frame the boundary as the thing being defended",
+      "Use signing rather than key export as the operation"
+    ],
+    "tags": ["security", "hardware", "keys", "cryptography"],
+    "searchTerms": [
+      "hardware security module key extraction",
+      "non-extractable key signing"
+    ],
+    "references": []
+  },
+  {
+    "id": "load-balancing-strategies",
+    "title": "Why round robin is often the wrong choice",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain load balancing strategies and why request cost varies.",
+    "suggestedAngles": [
+      "Show round robin failing with uneven request cost",
+      "Frame least-connections and power-of-two-choices as answers"
+    ],
+    "tags": ["systems", "load-balancing", "scaling", "latency"],
+    "searchTerms": ["load balancing least connections", "power of two choices"],
+    "references": []
+  },
+  {
+    "id": "serialisation-formats",
+    "title": "Why data formats keep being reinvented",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the tradeoffs between text and binary serialisation formats.",
+    "suggestedAngles": [
+      "Compare human readability against parse cost and schema evolution",
+      "Frame schema evolution as the decisive factor"
+    ],
+    "tags": ["serialisation", "formats", "schemas", "interoperability"],
+    "searchTerms": [
+      "binary versus text serialization",
+      "schema evolution protobuf"
+    ],
+    "references": []
+  },
+  {
+    "id": "chaos-engineering",
+    "title": "Why deliberately breaking production is rational",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain chaos engineering and why untested failure paths are the dangerous ones.",
+    "suggestedAngles": [
+      "Frame untested recovery code as certainly broken",
+      "Use blast radius control as the discipline"
+    ],
+    "tags": ["reliability", "testing", "operations", "resilience"],
+    "searchTerms": [
+      "chaos engineering blast radius",
+      "failure injection resilience testing"
+    ],
+    "references": []
+  },
+  {
+    "id": "unicode-normalisation",
+    "title": "Why two identical strings can differ",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Unicode normalisation forms and the security consequences.",
+    "suggestedAngles": [
+      "Show two byte sequences rendering identically",
+      "Frame homograph attacks as the security angle"
+    ],
+    "tags": ["unicode", "text", "security", "encoding"],
+    "searchTerms": [
+      "Unicode normalization NFC NFD",
+      "homograph attack confusable characters"
+    ],
+    "references": []
+  },
+  {
+    "id": "capability-security",
+    "title": "Why permissions should travel with references",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain capability-based security against access control lists.",
+    "suggestedAngles": [
+      "Frame the confused deputy problem as the ACL failure",
+      "Use file descriptors as an everyday capability"
+    ],
+    "tags": ["security", "capabilities", "permissions", "design"],
+    "searchTerms": ["capability based security", "confused deputy problem ACL"],
+    "references": []
+  },
+  {
+    "id": "retry-storms",
+    "title": "How retries can cause the outage they respond to",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain retry amplification and why exponential backoff with jitter exists.",
+    "suggestedAngles": [
+      "Show synchronised retries hammering a recovering service",
+      "Frame jitter as breaking the synchronisation"
+    ],
+    "tags": ["reliability", "retries", "backoff", "outages"],
+    "searchTerms": [
+      "retry storm exponential backoff jitter",
+      "thundering herd recovery"
+    ],
+    "references": []
+  },
+  {
+    "id": "formal-verification",
+    "title": "Why some software is proved rather than tested",
+    "category": "technology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain formal verification, what it guarantees, and what it cannot cover.",
+    "suggestedAngles": [
+      "Frame testing as sampling and proof as exhaustive",
+      "Be explicit that the specification can still be wrong"
+    ],
+    "tags": ["verification", "proofs", "correctness", "methods"],
+    "searchTerms": [
+      "formal verification software proof",
+      "specification correctness limits"
+    ],
+    "references": []
+  },
+  {
+    "id": "data-gravity",
+    "title": "Why data is harder to move than compute",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain data gravity and its consequences for cloud architecture and lock-in.",
+    "suggestedAngles": [
+      "Follow the cost of egress against the cost of compute",
+      "Frame lock-in as a physical rather than contractual effect"
+    ],
+    "tags": ["cloud", "architecture", "data", "lock-in"],
+    "searchTerms": ["data gravity cloud egress", "data locality architecture"],
+    "references": []
+  },
+  {
+    "id": "ssd-write-amplification",
+    "title": "Why solid state drives wear out unevenly",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain write amplification, erase blocks and wear levelling.",
+    "suggestedAngles": [
+      "Frame the erase-block granularity as the root cause",
+      "Use TRIM to explain why the drive needs to be told about deletions"
+    ],
+    "tags": ["storage", "ssd", "hardware", "wear"],
+    "searchTerms": [
+      "SSD write amplification erase block",
+      "wear leveling TRIM"
+    ],
+    "references": []
+  },
+  {
+    "id": "protocol-ossification",
+    "title": "Why the internet is hard to upgrade",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain protocol ossification and why QUIC was built on UDP.",
+    "suggestedAngles": [
+      "Frame middleboxes as enforcing yesterday's assumptions",
+      "Use encryption as the way to preserve evolvability"
+    ],
+    "tags": ["networking", "protocols", "ossification", "quic"],
+    "searchTerms": [
+      "protocol ossification middleboxes",
+      "QUIC UDP encryption evolvability"
+    ],
+    "references": []
   }
 ]

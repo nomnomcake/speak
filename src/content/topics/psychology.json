@@ -11,7 +11,7 @@
       "Draw the practical inversion: get someone to act first, and the belief follows"
     ],
     "tags": ["belief", "motivation", "social-psychology", "persuasion"],
-    "searchTerms": ["cognitive dissonance","festinger","attitude change"],
+    "searchTerms": ["cognitive dissonance", "festinger", "attitude change"],
     "references": [
       {
         "label": "Cognitive dissonance",
@@ -32,7 +32,11 @@
       "Distinguish availability from base-rate neglect rather than blurring them together"
     ],
     "tags": ["heuristics", "bias", "judgement", "probability"],
-    "searchTerms": ["availability heuristic","tversky kahneman","judgement under uncertainty"],
+    "searchTerms": [
+      "availability heuristic",
+      "tversky kahneman",
+      "judgement under uncertainty"
+    ],
     "references": [
       {
         "label": "Availability heuristic",
@@ -63,7 +67,11 @@
       "Confront the uncomfortable corollary: confidence does not track accuracy"
     ],
     "tags": ["memory", "reconstruction", "testimony", "cognition"],
-    "searchTerms": ["memory reconsolidation","eyewitness testimony","false memory"],
+    "searchTerms": [
+      "memory reconsolidation",
+      "eyewitness testimony",
+      "false memory"
+    ],
     "references": [
       {
         "label": "Memory reconsolidation",
@@ -76,5 +84,801 @@
         "kind": "article"
       }
     ]
+  },
+  {
+    "id": "fundamental-attribution-error",
+    "title": "Why we explain others by character and ourselves by circumstance",
+    "category": "psychology",
+    "difficulty": "plain",
+    "researchPrompt": "Explain the actor-observer asymmetry in attribution and its limits.",
+    "suggestedAngles": [
+      "Use the same behaviour explained two ways",
+      "Note that the effect is weaker cross-culturally than once claimed"
+    ],
+    "tags": ["attribution", "bias", "social-psychology", "culture"],
+    "searchTerms": [
+      "fundamental attribution error",
+      "actor observer asymmetry attribution"
+    ],
+    "references": []
+  },
+  {
+    "id": "change-blindness",
+    "title": "Why you miss things in plain sight",
+    "category": "psychology",
+    "difficulty": "plain",
+    "researchPrompt": "Explain change blindness and what it reveals about visual memory.",
+    "suggestedAngles": [
+      "Describe the door study before explaining it",
+      "Frame perception as reconstructive rather than recording"
+    ],
+    "tags": ["perception", "attention", "memory", "vision"],
+    "searchTerms": [
+      "change blindness door study",
+      "visual short term memory reconstruction"
+    ],
+    "references": []
+  },
+  {
+    "id": "replication-crisis",
+    "title": "Why famous psychology findings stopped replicating",
+    "category": "psychology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the replication crisis, its causes, and what changed in response.",
+    "suggestedAngles": [
+      "Frame publication incentives as the root cause",
+      "Use preregistration as the structural response"
+    ],
+    "tags": ["methodology", "replication", "incentives", "reform"],
+    "searchTerms": [
+      "psychology replication crisis",
+      "preregistration publication bias"
+    ],
+    "references": []
+  },
+  {
+    "id": "cognitive-load-theory",
+    "title": "Why explaining more can teach less",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain working memory limits and the difference between intrinsic and extraneous load.",
+    "suggestedAngles": [
+      "Frame working memory as the bottleneck",
+      "Use worked examples as the instructional consequence"
+    ],
+    "tags": ["learning", "memory", "instruction", "cognition"],
+    "searchTerms": [
+      "cognitive load theory working memory",
+      "intrinsic extraneous load instruction"
+    ],
+    "references": []
+  },
+  {
+    "id": "spacing-effect",
+    "title": "Why spreading study out beats cramming",
+    "category": "psychology",
+    "difficulty": "plain",
+    "researchPrompt": "Explain the spacing effect and the desirable-difficulty framing.",
+    "suggestedAngles": [
+      "Contrast massed and spaced practice on the same material",
+      "Frame the fluency illusion as why people prefer cramming"
+    ],
+    "tags": ["learning", "memory", "spacing", "retrieval"],
+    "searchTerms": [
+      "spacing effect distributed practice",
+      "desirable difficulties fluency illusion"
+    ],
+    "references": []
+  },
+  {
+    "id": "semmelweis-reflex",
+    "title": "Why correct findings get rejected",
+    "category": "psychology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain resistance to disconfirming evidence in institutions, using Semmelweis.",
+    "suggestedAngles": [
+      "Tell the case before naming the pattern",
+      "Frame the absence of a mechanism as a legitimate objection at the time"
+    ],
+    "tags": ["evidence", "institutions", "resistance", "medicine"],
+    "searchTerms": [
+      "Semmelweis handwashing rejection",
+      "resistance disconfirming evidence institutions"
+    ],
+    "references": []
+  },
+  {
+    "id": "dual-process-critique",
+    "title": "What is actually established about fast and slow thinking",
+    "category": "psychology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain dual process theory and the criticisms of the two-system framing.",
+    "suggestedAngles": [
+      "State the framework then present the objection that it reifies a metaphor",
+      "Be explicit about which findings survived replication"
+    ],
+    "tags": ["reasoning", "dual-process", "kahneman", "critique"],
+    "searchTerms": [
+      "dual process theory criticism",
+      "System 1 System 2 reification"
+    ],
+    "references": []
+  },
+  {
+    "id": "source-monitoring",
+    "title": "Why you remember the fact but not where it came from",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain source monitoring errors and their role in misinformation.",
+    "suggestedAngles": [
+      "Separate content memory from source memory",
+      "Frame repetition as increasing familiarity without truth"
+    ],
+    "tags": ["memory", "misinformation", "source", "familiarity"],
+    "searchTerms": [
+      "source monitoring error",
+      "illusory truth effect repetition"
+    ],
+    "references": []
+  },
+  {
+    "id": "learned-helplessness-revision",
+    "title": "How the original theory of learned helplessness was wrong",
+    "category": "psychology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the reinterpretation of learned helplessness in light of later neuroscience.",
+    "suggestedAngles": [
+      "Present the original finding and its long influence",
+      "Frame the revision as passivity being the default, not the learned part"
+    ],
+    "tags": ["learning", "helplessness", "revision", "neuroscience"],
+    "searchTerms": [
+      "learned helplessness reinterpretation",
+      "Maier Seligman fifty years"
+    ],
+    "references": []
+  },
+  {
+    "id": "stereotype-threat-status",
+    "title": "What survived of stereotype threat",
+    "category": "psychology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain stereotype threat and the replication evidence that followed.",
+    "suggestedAngles": [
+      "State the original claim and its policy influence",
+      "Report the meta-analytic picture honestly"
+    ],
+    "tags": ["stereotypes", "replication", "performance", "evidence"],
+    "searchTerms": [
+      "stereotype threat replication meta-analysis",
+      "stereotype threat effect size"
+    ],
+    "references": []
+  },
+  {
+    "id": "motivated-reasoning",
+    "title": "Why intelligence does not protect against bias",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain motivated reasoning and why numeracy can increase polarisation.",
+    "suggestedAngles": [
+      "Present the counterintuitive finding first",
+      "Frame reasoning as recruited to defend conclusions"
+    ],
+    "tags": ["reasoning", "motivation", "polarisation", "numeracy"],
+    "searchTerms": [
+      "motivated reasoning numeracy polarization",
+      "identity protective cognition"
+    ],
+    "references": []
+  },
+  {
+    "id": "anchoring-effect",
+    "title": "Why an irrelevant number changes your estimate",
+    "category": "psychology",
+    "difficulty": "plain",
+    "researchPrompt": "Explain anchoring and adjustment and where it appears in negotiation and pricing.",
+    "suggestedAngles": [
+      "Use a random anchor affecting an unrelated judgement",
+      "Frame insufficient adjustment as the mechanism"
+    ],
+    "tags": ["judgement", "anchoring", "heuristics", "negotiation"],
+    "searchTerms": [
+      "anchoring adjustment heuristic",
+      "irrelevant anchor numerical estimate"
+    ],
+    "references": []
+  },
+  {
+    "id": "mere-exposure",
+    "title": "Why familiarity produces liking",
+    "category": "psychology",
+    "difficulty": "plain",
+    "researchPrompt": "Explain the mere exposure effect and its boundary conditions.",
+    "suggestedAngles": [
+      "Frame it as preference without recognition",
+      "Note where overexposure reverses the effect"
+    ],
+    "tags": ["preference", "exposure", "liking", "boundary-conditions"],
+    "searchTerms": [
+      "mere exposure effect Zajonc",
+      "familiarity liking overexposure"
+    ],
+    "references": []
+  },
+  {
+    "id": "flashbulb-memory",
+    "title": "Why vivid memories are not accurate ones",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain flashbulb memories and the dissociation between confidence and accuracy.",
+    "suggestedAngles": [
+      "Use longitudinal studies comparing accounts over years",
+      "Frame confidence as the thing that does not decay"
+    ],
+    "tags": ["memory", "confidence", "accuracy", "emotion"],
+    "searchTerms": [
+      "flashbulb memory accuracy confidence",
+      "longitudinal memory consistency study"
+    ],
+    "references": []
+  },
+  {
+    "id": "hedonic-adaptation",
+    "title": "Why good and bad events matter less than expected",
+    "category": "psychology",
+    "difficulty": "plain",
+    "researchPrompt": "Explain hedonic adaptation and affective forecasting errors.",
+    "suggestedAngles": [
+      "Use lottery winners and accident survivors as the paired case",
+      "Frame focalism as the forecasting error"
+    ],
+    "tags": ["wellbeing", "adaptation", "forecasting", "happiness"],
+    "searchTerms": [
+      "hedonic adaptation affective forecasting",
+      "focalism impact bias"
+    ],
+    "references": []
+  },
+  {
+    "id": "implicit-bias-measurement",
+    "title": "What the implicit association test does and does not show",
+    "category": "psychology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the IAT, its test-retest reliability, and the debate over predictive validity.",
+    "suggestedAngles": [
+      "Explain what the test measures mechanically first",
+      "Report the reliability figures rather than the headlines"
+    ],
+    "tags": ["bias", "measurement", "reliability", "validity"],
+    "searchTerms": [
+      "implicit association test reliability",
+      "IAT predictive validity debate"
+    ],
+    "references": []
+  },
+  {
+    "id": "inattentional-blindness",
+    "title": "Why experts miss what they are not looking for",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain inattentional blindness and its consequences in radiology and driving.",
+    "suggestedAngles": [
+      "Use the gorilla-in-the-CT-scan study",
+      "Frame expertise as narrowing attention"
+    ],
+    "tags": ["attention", "expertise", "perception", "safety"],
+    "searchTerms": [
+      "inattentional blindness radiologists gorilla",
+      "selective attention expert perception"
+    ],
+    "references": []
+  },
+  {
+    "id": "memory-consolidation",
+    "title": "Why sleep changes what you remember",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain systems consolidation and the role of sleep in stabilising memory.",
+    "suggestedAngles": [
+      "Follow a memory from hippocampus to cortex",
+      "Frame replay during sleep as the mechanism"
+    ],
+    "tags": ["memory", "sleep", "consolidation", "hippocampus"],
+    "searchTerms": [
+      "systems consolidation sleep memory",
+      "hippocampal replay cortical transfer"
+    ],
+    "references": []
+  },
+  {
+    "id": "expertise-chunking",
+    "title": "What actually makes an expert fast",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain chunking in expert memory using chess studies.",
+    "suggestedAngles": [
+      "Use the random-position control that breaks the effect",
+      "Frame expertise as pattern storage rather than raw capacity"
+    ],
+    "tags": ["expertise", "memory", "chunking", "chess"],
+    "searchTerms": [
+      "chess expertise chunking Chase Simon",
+      "expert memory random positions"
+    ],
+    "references": []
+  },
+  {
+    "id": "self-determination-theory",
+    "title": "Why rewards can reduce motivation",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the overjustification effect and the conditions under which rewards undermine interest.",
+    "suggestedAngles": [
+      "Use the drawing study with the expected reward",
+      "Frame the distinction between controlling and informational rewards"
+    ],
+    "tags": ["motivation", "rewards", "intrinsic", "self-determination"],
+    "searchTerms": [
+      "overjustification effect intrinsic motivation",
+      "controlling informational reward"
+    ],
+    "references": []
+  },
+  {
+    "id": "false-memory-implantation",
+    "title": "How a memory of something that never happened forms",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain memory implantation research and its implications for testimony.",
+    "suggestedAngles": [
+      "Describe the lost-in-the-mall procedure",
+      "Frame imagination inflation as the mechanism"
+    ],
+    "tags": ["memory", "testimony", "suggestion", "forensics"],
+    "searchTerms": [
+      "false memory implantation lost in mall",
+      "imagination inflation suggestibility"
+    ],
+    "references": []
+  },
+  {
+    "id": "bystander-effect-revision",
+    "title": "What the bystander effect actually shows",
+    "category": "psychology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain diffusion of responsibility, and correct the historical account of the Genovese case.",
+    "suggestedAngles": [
+      "Correct the newspaper account before discussing the research",
+      "Report the field-study finding that intervention is common"
+    ],
+    "tags": ["social-psychology", "helping", "historiography", "evidence"],
+    "searchTerms": [
+      "bystander effect diffusion responsibility",
+      "Kitty Genovese account correction"
+    ],
+    "references": []
+  },
+  {
+    "id": "prospect-theory",
+    "title": "Why a loss hurts more than an equal gain pleases",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain prospect theory's value function and reference dependence.",
+    "suggestedAngles": [
+      "Draw the asymmetric curve around a reference point",
+      "Frame framing effects as a consequence of reference dependence"
+    ],
+    "tags": ["decision-making", "loss-aversion", "framing", "kahneman"],
+    "searchTerms": [
+      "prospect theory value function",
+      "loss aversion reference dependence"
+    ],
+    "references": []
+  },
+  {
+    "id": "cognitive-behavioural-mechanism",
+    "title": "Why changing thoughts changes feelings",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the cognitive model underlying CBT and the evidence about its mechanism.",
+    "suggestedAngles": [
+      "Follow one automatic thought through the model",
+      "Be honest that mechanism evidence lags outcome evidence"
+    ],
+    "tags": ["therapy", "cognition", "cbt", "mechanism"],
+    "searchTerms": [
+      "cognitive behavioural therapy mechanism",
+      "cognitive model automatic thoughts"
+    ],
+    "references": []
+  },
+  {
+    "id": "testing-effect",
+    "title": "Why being tested teaches more than rereading",
+    "category": "psychology",
+    "difficulty": "plain",
+    "researchPrompt": "Explain retrieval practice and why it beats review.",
+    "suggestedAngles": [
+      "Compare rereading with self-testing on the same material",
+      "Frame the difficulty of retrieval as the active ingredient"
+    ],
+    "tags": ["learning", "retrieval", "testing", "memory"],
+    "searchTerms": [
+      "testing effect retrieval practice",
+      "retrieval difficulty learning"
+    ],
+    "references": []
+  },
+  {
+    "id": "moral-licensing",
+    "title": "Why doing good can make people behave worse",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain moral licensing and the replication picture.",
+    "suggestedAngles": [
+      "Present the effect with a concrete study",
+      "Note that effect sizes have shrunk under scrutiny"
+    ],
+    "tags": ["morality", "licensing", "behaviour", "replication"],
+    "searchTerms": [
+      "moral licensing effect",
+      "moral self-licensing replication"
+    ],
+    "references": []
+  },
+  {
+    "id": "priming-controversy",
+    "title": "What happened to social priming",
+    "category": "psychology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the rise and collapse of social priming research.",
+    "suggestedAngles": [
+      "Use the elderly-walking study as the emblem",
+      "Frame it as the case that triggered wider methodological reform"
+    ],
+    "tags": ["priming", "replication", "methodology", "controversy"],
+    "searchTerms": [
+      "social priming replication failure",
+      "elderly walking priming study"
+    ],
+    "references": []
+  },
+  {
+    "id": "attachment-theory-scope",
+    "title": "What attachment styles do and do not predict",
+    "category": "psychology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain attachment theory and the evidence about stability into adulthood.",
+    "suggestedAngles": [
+      "Separate infant classification from adult self-report measures",
+      "Be clear about the modest predictive power"
+    ],
+    "tags": ["development", "attachment", "measurement", "prediction"],
+    "searchTerms": [
+      "attachment theory adult stability",
+      "strange situation adult attachment measures"
+    ],
+    "references": []
+  },
+  {
+    "id": "nudge-effect-sizes",
+    "title": "How much behavioural nudges actually achieve",
+    "category": "psychology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the nudge literature and the publication-bias-corrected effect sizes.",
+    "suggestedAngles": [
+      "Present a headline nudge result and then the corrected estimate",
+      "Frame default effects as the robust survivor"
+    ],
+    "tags": ["behavioural", "policy", "effect-size", "publication-bias"],
+    "searchTerms": [
+      "nudge effect size publication bias",
+      "default effect behavioural policy"
+    ],
+    "references": []
+  },
+  {
+    "id": "multitasking-cost",
+    "title": "Why switching tasks is expensive",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain task-switching costs and why perceived multitasking ability is misleading.",
+    "suggestedAngles": [
+      "Frame the cost as reconfiguration rather than division",
+      "Use self-rated multitaskers performing worse as the twist"
+    ],
+    "tags": ["attention", "multitasking", "switching", "performance"],
+    "searchTerms": [
+      "task switching cost reconfiguration",
+      "media multitasking performance"
+    ],
+    "references": []
+  },
+  {
+    "id": "depressive-realism",
+    "title": "Whether depressed people see reality more accurately",
+    "category": "psychology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain depressive realism and the mixed evidence for it.",
+    "suggestedAngles": [
+      "Present the original judgement-of-control finding",
+      "Report the failure to generalise honestly"
+    ],
+    "tags": ["depression", "judgement", "accuracy", "evidence"],
+    "searchTerms": [
+      "depressive realism judgement of control",
+      "depressive realism replication evidence"
+    ],
+    "references": []
+  },
+  {
+    "id": "emotional-granularity",
+    "title": "Why naming a feeling precisely changes it",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain emotional granularity and constructed emotion.",
+    "suggestedAngles": [
+      "Frame emotion words as categories the brain applies",
+      "Use affect labelling studies as the evidence"
+    ],
+    "tags": ["emotion", "language", "regulation", "construction"],
+    "searchTerms": [
+      "emotional granularity affect labelling",
+      "theory of constructed emotion"
+    ],
+    "references": []
+  },
+  {
+    "id": "sunk-cost-in-animals",
+    "title": "Whether other species commit the sunk cost fallacy",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain sunk cost reasoning and the comparative evidence across species.",
+    "suggestedAngles": [
+      "Define the fallacy precisely before testing it",
+      "Frame cross-species evidence as informative about its origin"
+    ],
+    "tags": ["decision-making", "sunk-cost", "comparative", "animals"],
+    "searchTerms": [
+      "sunk cost fallacy animals",
+      "comparative sunk cost rodents"
+    ],
+    "references": []
+  },
+  {
+    "id": "placebo-open-label",
+    "title": "Why a placebo works when you know it is one",
+    "category": "psychology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain open-label placebo findings and the challenge they pose to deception accounts.",
+    "suggestedAngles": [
+      "State the paradox plainly",
+      "Frame ritual and expectation as candidate mechanisms"
+    ],
+    "tags": ["placebo", "expectation", "medicine", "ritual"],
+    "searchTerms": [
+      "open label placebo trials",
+      "non-deceptive placebo mechanism"
+    ],
+    "references": []
+  },
+  {
+    "id": "group-polarisation",
+    "title": "Why discussion makes groups more extreme",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain group polarisation and the two main mechanisms proposed.",
+    "suggestedAngles": [
+      "Show a group moving further than its members' averages",
+      "Contrast persuasive-arguments and social-comparison accounts"
+    ],
+    "tags": ["groups", "polarisation", "deliberation", "social-psychology"],
+    "searchTerms": [
+      "group polarization discussion",
+      "persuasive arguments social comparison"
+    ],
+    "references": []
+  },
+  {
+    "id": "working-memory-training",
+    "title": "Why brain training does not transfer",
+    "category": "psychology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the far-transfer problem in cognitive training.",
+    "suggestedAngles": [
+      "Distinguish near from far transfer explicitly",
+      "Frame the improvement as task-specific"
+    ],
+    "tags": ["training", "transfer", "cognition", "evidence"],
+    "searchTerms": [
+      "working memory training far transfer",
+      "brain training transfer evidence"
+    ],
+    "references": []
+  },
+  {
+    "id": "ironic-process",
+    "title": "Why trying not to think of something fails",
+    "category": "psychology",
+    "difficulty": "plain",
+    "researchPrompt": "Explain ironic process theory and the monitoring mechanism behind it.",
+    "suggestedAngles": [
+      "Use the white bear instruction",
+      "Frame the monitor as the source of the rebound"
+    ],
+    "tags": ["thought-suppression", "control", "cognition", "wegner"],
+    "searchTerms": [
+      "ironic process theory white bear",
+      "thought suppression rebound monitor"
+    ],
+    "references": []
+  },
+  {
+    "id": "curse-of-knowledge",
+    "title": "Why experts explain badly",
+    "category": "psychology",
+    "difficulty": "plain",
+    "researchPrompt": "Explain the curse of knowledge and its consequences for teaching and writing.",
+    "suggestedAngles": [
+      "Use the tapping study as the demonstration",
+      "Frame it as an inability to simulate not knowing"
+    ],
+    "tags": ["communication", "expertise", "perspective-taking", "teaching"],
+    "searchTerms": [
+      "curse of knowledge tappers listeners",
+      "expert communication perspective taking"
+    ],
+    "references": []
+  },
+  {
+    "id": "confabulation",
+    "title": "Why the brain explains actions it did not choose",
+    "category": "psychology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain confabulation and what split-brain and choice-blindness studies suggest.",
+    "suggestedAngles": [
+      "Use choice blindness as the accessible demonstration",
+      "Frame the interpreter as generating reasons after the fact"
+    ],
+    "tags": ["confabulation", "consciousness", "choice", "interpreter"],
+    "searchTerms": [
+      "choice blindness confabulation",
+      "split brain interpreter module"
+    ],
+    "references": []
+  },
+  {
+    "id": "dose-response-exercise",
+    "title": "How exercise affects mood physiologically",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the proposed mechanisms linking exercise and mood, and the state of the evidence.",
+    "suggestedAngles": [
+      "Separate acute from chronic effects",
+      "Be explicit about the quality of the trial evidence"
+    ],
+    "tags": ["exercise", "mood", "mechanism", "evidence"],
+    "searchTerms": [
+      "exercise mood mechanism BDNF",
+      "exercise depression trial evidence"
+    ],
+    "references": []
+  },
+  {
+    "id": "forgetting-curve",
+    "title": "Why forgetting follows a shape",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Ebbinghaus's forgetting curve and what modern work changed.",
+    "suggestedAngles": [
+      "Describe the original self-experiment",
+      "Frame retrieval as reshaping the curve"
+    ],
+    "tags": ["memory", "forgetting", "ebbinghaus", "retention"],
+    "searchTerms": [
+      "Ebbinghaus forgetting curve",
+      "retention interval spaced retrieval"
+    ],
+    "references": []
+  },
+  {
+    "id": "pain-gate-control",
+    "title": "Why rubbing a knock helps",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain gate control theory and how pain signals are modulated.",
+    "suggestedAngles": [
+      "Follow the competing signals to the dorsal horn",
+      "Frame pain as constructed rather than transmitted"
+    ],
+    "tags": ["pain", "neuroscience", "modulation", "perception"],
+    "searchTerms": ["gate control theory pain", "dorsal horn pain modulation"],
+    "references": []
+  },
+  {
+    "id": "decision-fatigue-status",
+    "title": "Whether decision fatigue is real",
+    "category": "psychology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the ego depletion literature and the replication failures.",
+    "suggestedAngles": [
+      "Present the parole study and its appeal",
+      "Report the large multi-lab replication result"
+    ],
+    "tags": ["self-control", "depletion", "replication", "evidence"],
+    "searchTerms": [
+      "ego depletion replication failure",
+      "decision fatigue parole study critique"
+    ],
+    "references": []
+  },
+  {
+    "id": "language-and-colour",
+    "title": "Whether language changes what you see",
+    "category": "psychology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the evidence on linguistic relativity in colour perception.",
+    "suggestedAngles": [
+      "Use the Russian blues reaction-time study",
+      "Frame it as a modest effect rather than a worldview"
+    ],
+    "tags": ["language", "perception", "relativity", "colour"],
+    "searchTerms": [
+      "linguistic relativity colour perception",
+      "Russian blues discrimination study"
+    ],
+    "references": []
+  },
+  {
+    "id": "habit-formation-time",
+    "title": "How long a habit actually takes to form",
+    "category": "psychology",
+    "difficulty": "plain",
+    "researchPrompt": "Explain habit formation research and correct the twenty-one-day claim.",
+    "suggestedAngles": [
+      "Trace the twenty-one-day figure to its non-scientific origin",
+      "Report the actual distribution of times"
+    ],
+    "tags": ["habits", "behaviour-change", "myths", "evidence"],
+    "searchTerms": [
+      "habit formation time Lally study",
+      "21 day habit myth origin"
+    ],
+    "references": []
+  },
+  {
+    "id": "stress-inoculation",
+    "title": "Why moderate stress can improve performance",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain hormesis in stress research and the inverted-U relationship.",
+    "suggestedAngles": [
+      "Frame the curve before naming it",
+      "Use controllability as the moderating variable"
+    ],
+    "tags": ["stress", "performance", "hormesis", "control"],
+    "searchTerms": [
+      "stress inoculation hormesis",
+      "Yerkes Dodson inverted U controllability"
+    ],
+    "references": []
+  },
+  {
+    "id": "autobiographical-reasoning",
+    "title": "How people build a life story",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain narrative identity and how autobiographical reasoning shapes wellbeing.",
+    "suggestedAngles": [
+      "Frame memory as edited toward coherence",
+      "Use redemption sequences as a studied pattern"
+    ],
+    "tags": ["identity", "narrative", "memory", "wellbeing"],
+    "searchTerms": [
+      "narrative identity autobiographical reasoning",
+      "redemption sequence life story"
+    ],
+    "references": []
   }
 ]

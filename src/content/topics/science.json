@@ -11,7 +11,7 @@
       "Confront the past hypothesis: why the low-entropy start is assumed, not derived"
     ],
     "tags": ["thermodynamics", "entropy", "time", "statistical-mechanics"],
-    "searchTerms": ["entropy","arrow of time","second law of thermodynamics"],
+    "searchTerms": ["entropy", "arrow of time", "second law of thermodynamics"],
     "references": [
       {
         "label": "Entropy (arrow of time)",
@@ -37,7 +37,7 @@
       "Use the off-target failure mode to show the matching is tolerant, not exact"
     ],
     "tags": ["genetics", "crispr", "molecular-biology", "gene-editing"],
-    "searchTerms": ["crispr cas9","guide rna","genome editing"],
+    "searchTerms": ["crispr cas9", "guide rna", "genome editing"],
     "references": [
       {
         "label": "CRISPR gene editing",
@@ -63,7 +63,11 @@
       "Separate the biology from the policy question of stewardship"
     ],
     "tags": ["evolution", "microbiology", "selection", "medicine"],
-    "searchTerms": ["antibiotic resistance","bacterial evolution","selection pressure"],
+    "searchTerms": [
+      "antibiotic resistance",
+      "bacterial evolution",
+      "selection pressure"
+    ],
     "references": [
       {
         "label": "Antimicrobial resistance",
@@ -71,5 +75,774 @@
         "kind": "article"
       }
     ]
+  },
+  {
+    "id": "thermal-tolerance-collapse",
+    "title": "Why a few degrees of warming kills a reef",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain why coral bleaching happens at temperatures only slightly above normal, rather than gradually with heat.",
+    "suggestedAngles": [
+      "Frame it as a symbiosis that breaks rather than an organism that overheats",
+      "Use the narrowness of the thermal window to explain why small averages matter"
+    ],
+    "tags": ["coral", "symbiosis", "thresholds", "marine-biology"],
+    "searchTerms": ["coral bleaching", "zooxanthellae symbiosis"],
+    "references": []
+  },
+  {
+    "id": "prion-misfolding",
+    "title": "How a protein can be contagious",
+    "category": "science",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain how prions propagate disease without any genetic material, and why that was so hard to accept.",
+    "suggestedAngles": [
+      "Start from the central dogma and show what a prion violates",
+      "Frame it as a shape that is catalytic rather than an organism that reproduces"
+    ],
+    "tags": ["prions", "protein-folding", "neurology", "pathogens"],
+    "searchTerms": [
+      "prion protein misfolding",
+      "transmissible spongiform encephalopathy"
+    ],
+    "references": []
+  },
+  {
+    "id": "antibiotic-persisters",
+    "title": "Why some bacteria survive without resistance genes",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain bacterial persistence: how a genetically identical subpopulation survives antibiotics by being dormant rather than resistant.",
+    "suggestedAngles": [
+      "Contrast persistence with resistance as a behaviour versus a mutation",
+      "Use it to explain why finishing a course of antibiotics matters"
+    ],
+    "tags": ["microbiology", "dormancy", "antibiotics", "bet-hedging"],
+    "searchTerms": [
+      "bacterial persister cells",
+      "antibiotic tolerance dormancy"
+    ],
+    "references": []
+  },
+  {
+    "id": "mitochondrial-eve",
+    "title": "What mitochondrial Eve actually means",
+    "category": "science",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain what a most recent common matrilineal ancestor is, and correct the usual misreading that she was the only woman alive.",
+    "suggestedAngles": [
+      "Walk a family tree backwards to show why such an ancestor must exist",
+      "Separate 'most recent common ancestor' from 'first' or 'only'"
+    ],
+    "tags": ["genetics", "ancestry", "population-genetics", "phylogenetics"],
+    "searchTerms": [
+      "mitochondrial most recent common ancestor",
+      "matrilineal descent genetics"
+    ],
+    "references": []
+  },
+  {
+    "id": "enzyme-transition-state",
+    "title": "How enzymes speed reactions without being consumed",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain catalysis through transition-state stabilisation rather than the lock-and-key picture.",
+    "suggestedAngles": [
+      "Frame the enzyme as binding the awkward middle, not the start or end",
+      "Use activation energy as a hill the enzyme lowers"
+    ],
+    "tags": ["biochemistry", "catalysis", "enzymes", "kinetics"],
+    "searchTerms": [
+      "enzyme transition state stabilization",
+      "activation energy catalysis"
+    ],
+    "references": []
+  },
+  {
+    "id": "horizontal-gene-transfer",
+    "title": "Why bacteria do not obey the family tree",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain how genes move sideways between unrelated bacteria and what that does to the idea of a species.",
+    "suggestedAngles": [
+      "Contrast vertical inheritance with plasmid exchange",
+      "Use antibiotic resistance spread as the visible consequence"
+    ],
+    "tags": ["genetics", "bacteria", "evolution", "plasmids"],
+    "searchTerms": [
+      "horizontal gene transfer",
+      "bacterial conjugation plasmids"
+    ],
+    "references": []
+  },
+  {
+    "id": "radiocarbon-calibration",
+    "title": "Why carbon dating needs correcting",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain why raw radiocarbon ages are wrong and how tree rings are used to fix them.",
+    "suggestedAngles": [
+      "Start from the assumption of constant atmospheric carbon-14 and break it",
+      "Frame calibration as translating between two clocks"
+    ],
+    "tags": ["archaeology", "isotopes", "dating", "dendrochronology"],
+    "searchTerms": [
+      "radiocarbon calibration curve",
+      "dendrochronology carbon dating"
+    ],
+    "references": []
+  },
+  {
+    "id": "allometric-scaling",
+    "title": "Why an elephant is not a big mouse",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain why metabolic rate scales with body mass to a fractional power, and what that implies for lifespan and heart rate.",
+    "suggestedAngles": [
+      "Use surface area versus volume as the entry point",
+      "Frame it as why small animals must eat constantly"
+    ],
+    "tags": ["biology", "scaling", "metabolism", "physiology"],
+    "searchTerms": ["allometric scaling metabolic rate", "Kleiber's law"],
+    "references": []
+  },
+  {
+    "id": "convergent-evolution-eye",
+    "title": "Why eyes evolved many separate times",
+    "category": "science",
+    "difficulty": "plain",
+    "researchPrompt": "Explain convergent evolution using the camera eye in vertebrates and cephalopods.",
+    "suggestedAngles": [
+      "Use the inverted vertebrate retina as evidence of separate origins",
+      "Frame convergence as physics constraining biology"
+    ],
+    "tags": ["evolution", "convergence", "vision", "anatomy"],
+    "searchTerms": [
+      "convergent evolution eye",
+      "cephalopod vertebrate eye comparison"
+    ],
+    "references": []
+  },
+  {
+    "id": "epigenetic-inheritance",
+    "title": "What gets inherited that is not DNA",
+    "category": "science",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain epigenetic marks, how they can persist across generations, and where the evidence is contested.",
+    "suggestedAngles": [
+      "Frame it as annotations on a text rather than edits to it",
+      "Separate the solid cellular evidence from the contested transgenerational claims"
+    ],
+    "tags": ["genetics", "epigenetics", "inheritance", "methylation"],
+    "searchTerms": [
+      "epigenetic inheritance methylation",
+      "transgenerational epigenetics"
+    ],
+    "references": []
+  },
+  {
+    "id": "ocean-acidification",
+    "title": "Why carbon dioxide changes seawater chemistry",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the chemistry that turns dissolved carbon dioxide into a problem for shell-building organisms.",
+    "suggestedAngles": [
+      "Follow one molecule from air into carbonate chemistry",
+      "Frame it as a shortage of building material rather than a poison"
+    ],
+    "tags": ["chemistry", "oceans", "carbonate", "climate"],
+    "searchTerms": [
+      "ocean acidification carbonate",
+      "dissolved CO2 seawater chemistry"
+    ],
+    "references": []
+  },
+  {
+    "id": "immune-tolerance",
+    "title": "Why your immune system does not attack you",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain central and peripheral tolerance, and what autoimmunity reveals about them.",
+    "suggestedAngles": [
+      "Frame it as a training process with a deliberate cull",
+      "Use autoimmune disease as the failure that exposes the mechanism"
+    ],
+    "tags": ["immunology", "tolerance", "autoimmunity", "thymus"],
+    "searchTerms": [
+      "central immune tolerance thymus",
+      "peripheral tolerance autoimmunity"
+    ],
+    "references": []
+  },
+  {
+    "id": "plate-tectonics-evidence",
+    "title": "How we knew continents moved before we knew why",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the evidence for continental drift and why it was rejected until a mechanism appeared.",
+    "suggestedAngles": [
+      "Follow the magnetic striping on the seafloor as the decisive evidence",
+      "Frame it as a case where correlation waited decades for causation"
+    ],
+    "tags": ["geology", "tectonics", "paleomagnetism", "scientific-method"],
+    "searchTerms": [
+      "seafloor spreading magnetic striping",
+      "continental drift evidence"
+    ],
+    "references": []
+  },
+  {
+    "id": "photosynthesis-limits",
+    "title": "Why photosynthesis is so inefficient",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain why plants convert only a small percentage of sunlight into chemical energy.",
+    "suggestedAngles": [
+      "Follow the losses step by step from photon to sugar",
+      "Use rubisco's confusion between oxygen and carbon dioxide as the bottleneck"
+    ],
+    "tags": ["biology", "photosynthesis", "efficiency", "rubisco"],
+    "searchTerms": [
+      "photosynthetic efficiency limits",
+      "rubisco oxygenation photorespiration"
+    ],
+    "references": []
+  },
+  {
+    "id": "viral-latency",
+    "title": "How a virus hides for decades",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain viral latency using herpesviruses, and why a dormant virus is so hard to eliminate.",
+    "suggestedAngles": [
+      "Contrast lytic and latent cycles as two strategies",
+      "Frame reactivation as a response to host stress"
+    ],
+    "tags": ["virology", "latency", "herpesvirus", "immunology"],
+    "searchTerms": [
+      "viral latency herpesvirus",
+      "lysogenic cycle reactivation"
+    ],
+    "references": []
+  },
+  {
+    "id": "gut-microbiome-causation",
+    "title": "Why gut microbiome claims outrun the evidence",
+    "category": "science",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain what is actually established about gut bacteria and behaviour, and where correlation is being oversold.",
+    "suggestedAngles": [
+      "Separate germ-free mouse findings from human claims",
+      "Frame the causal direction problem explicitly"
+    ],
+    "tags": ["microbiome", "causation", "evidence", "neuroscience"],
+    "searchTerms": [
+      "gut microbiome causality evidence",
+      "germ free mice behaviour"
+    ],
+    "references": []
+  },
+  {
+    "id": "superconductivity-cooper",
+    "title": "Why some materials lose all resistance",
+    "category": "science",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain Cooper pairing and why superconductivity requires such low temperatures.",
+    "suggestedAngles": [
+      "Frame electron pairing as a lattice-mediated attraction",
+      "Use the energy gap to explain why resistance vanishes rather than shrinks"
+    ],
+    "tags": ["physics", "superconductivity", "condensed-matter", "quantum"],
+    "searchTerms": ["Cooper pair superconductivity", "BCS theory energy gap"],
+    "references": []
+  },
+  {
+    "id": "crispr-off-target",
+    "title": "Why gene editing is not yet precise",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain off-target effects in CRISPR editing and why they are hard to rule out.",
+    "suggestedAngles": [
+      "Frame the guide RNA as a search string that tolerates mismatches",
+      "Use the difficulty of proving a negative as the core problem"
+    ],
+    "tags": ["genetics", "crispr", "safety", "gene-editing"],
+    "searchTerms": ["CRISPR off-target effects", "guide RNA specificity"],
+    "references": []
+  },
+  {
+    "id": "hydrogen-bonding-water",
+    "title": "Why water behaves unlike similar molecules",
+    "category": "science",
+    "difficulty": "plain",
+    "researchPrompt": "Explain how hydrogen bonding gives water its unusual boiling point, surface tension and solid density.",
+    "suggestedAngles": [
+      "Compare water to hydrogen sulfide to isolate the effect",
+      "Use ice floating as the anomaly to explain"
+    ],
+    "tags": ["chemistry", "water", "hydrogen-bonding", "anomalies"],
+    "searchTerms": ["hydrogen bonding water properties", "ice density anomaly"],
+    "references": []
+  },
+  {
+    "id": "antibody-diversity",
+    "title": "How the body makes antibodies for molecules it has never met",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain V(D)J recombination and how a finite genome generates near-infinite antibody variety.",
+    "suggestedAngles": [
+      "Frame it as combinatorial assembly rather than a stored library",
+      "Use the numbers to show why a gene-per-antibody model fails"
+    ],
+    "tags": ["immunology", "genetics", "recombination", "antibodies"],
+    "searchTerms": [
+      "V(D)J recombination antibody diversity",
+      "somatic recombination immunoglobulin"
+    ],
+    "references": []
+  },
+  {
+    "id": "carbon-sink-saturation",
+    "title": "Why forests stop absorbing carbon",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain why carbon sinks saturate and what that means for offset schemes.",
+    "suggestedAngles": [
+      "Follow a forest from young growth to mature equilibrium",
+      "Frame permanence as the unresolved problem for offsets"
+    ],
+    "tags": ["climate", "carbon", "forests", "offsets"],
+    "searchTerms": [
+      "forest carbon sink saturation",
+      "carbon offset permanence"
+    ],
+    "references": []
+  },
+  {
+    "id": "taste-receptor-evolution",
+    "title": "Why cats cannot taste sweetness",
+    "category": "science",
+    "difficulty": "plain",
+    "researchPrompt": "Explain how a broken taste receptor gene in cats reveals the relationship between diet and sensory biology.",
+    "suggestedAngles": [
+      "Frame the pseudogene as evidence of relaxed selection",
+      "Use it to explain why sensory worlds differ between species"
+    ],
+    "tags": ["evolution", "genetics", "sensory-biology", "pseudogenes"],
+    "searchTerms": ["cat sweet taste receptor pseudogene", "Tas1r2 gene loss"],
+    "references": []
+  },
+  {
+    "id": "antimatter-asymmetry",
+    "title": "Why there is any matter at all",
+    "category": "science",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain baryon asymmetry: why the Big Bang should have produced equal matter and antimatter, and did not.",
+    "suggestedAngles": [
+      "State the symmetry first so the violation is startling",
+      "Frame the Sakharov conditions as the shape of an answer nobody has completed"
+    ],
+    "tags": ["physics", "cosmology", "antimatter", "symmetry"],
+    "searchTerms": [
+      "baryon asymmetry problem",
+      "Sakharov conditions CP violation"
+    ],
+    "references": []
+  },
+  {
+    "id": "kin-selection",
+    "title": "Why an animal would die for its relatives",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Hamilton's rule and how altruism can be selected for.",
+    "suggestedAngles": [
+      "Use the arithmetic of shared genes directly",
+      "Frame the gene rather than the organism as the unit of accounting"
+    ],
+    "tags": ["evolution", "altruism", "kin-selection", "behaviour"],
+    "searchTerms": [
+      "Hamilton's rule kin selection",
+      "inclusive fitness altruism"
+    ],
+    "references": []
+  },
+  {
+    "id": "quantum-tunneling-sun",
+    "title": "Why the sun should not be burning",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain how quantum tunnelling allows fusion at temperatures classical physics says are too low.",
+    "suggestedAngles": [
+      "Start with the Coulomb barrier and show the classical shortfall",
+      "Frame tunnelling as probability leaking through a wall"
+    ],
+    "tags": ["physics", "quantum", "fusion", "astrophysics"],
+    "searchTerms": [
+      "quantum tunneling stellar fusion",
+      "Coulomb barrier tunneling"
+    ],
+    "references": []
+  },
+  {
+    "id": "seed-dormancy",
+    "title": "How a seed knows when to germinate",
+    "category": "science",
+    "difficulty": "plain",
+    "researchPrompt": "Explain the mechanisms by which seeds detect that conditions are right, and why dormancy is an adaptation.",
+    "suggestedAngles": [
+      "Frame dormancy as a bet against a false spring",
+      "Use stratification as evidence of an internal counter"
+    ],
+    "tags": ["botany", "dormancy", "germination", "adaptation"],
+    "searchTerms": ["seed dormancy stratification", "germination cues"],
+    "references": []
+  },
+  {
+    "id": "allopatric-speciation",
+    "title": "How one species becomes two",
+    "category": "science",
+    "difficulty": "plain",
+    "researchPrompt": "Explain speciation through geographic isolation and what counts as evidence that it has happened.",
+    "suggestedAngles": [
+      "Use ring species as a case that blurs the boundary",
+      "Frame the species concept itself as the difficulty"
+    ],
+    "tags": ["evolution", "speciation", "biogeography", "taxonomy"],
+    "searchTerms": [
+      "allopatric speciation ring species",
+      "biological species concept"
+    ],
+    "references": []
+  },
+  {
+    "id": "chirality-life",
+    "title": "Why life uses only one mirror image",
+    "category": "science",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain biological homochirality and why the origin of the preference is unresolved.",
+    "suggestedAngles": [
+      "Use hands as the intuition and then break it with chemistry",
+      "Frame it as an accident that got locked in"
+    ],
+    "tags": ["chemistry", "chirality", "origins-of-life", "biochemistry"],
+    "searchTerms": ["biological homochirality", "amino acid chirality origin"],
+    "references": []
+  },
+  {
+    "id": "heat-death-entropy",
+    "title": "What the heat death of the universe actually claims",
+    "category": "science",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the thermodynamic argument for heat death and the assumptions it rests on.",
+    "suggestedAngles": [
+      "Distinguish energy running out from energy becoming unusable",
+      "Frame the assumptions about an expanding universe as the weak point"
+    ],
+    "tags": ["physics", "thermodynamics", "cosmology", "entropy"],
+    "searchTerms": [
+      "heat death of the universe",
+      "thermodynamic equilibrium cosmology"
+    ],
+    "references": []
+  },
+  {
+    "id": "placebo-mechanism",
+    "title": "How a placebo can produce measurable effects",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the physiological pathways through which expectation changes outcomes, and where placebo effects do not occur.",
+    "suggestedAngles": [
+      "Separate reported improvement from measurable physiological change",
+      "Use conditions where placebos demonstrably fail as the boundary"
+    ],
+    "tags": ["medicine", "placebo", "expectation", "neuroscience"],
+    "searchTerms": [
+      "placebo analgesia mechanism",
+      "expectation endogenous opioids"
+    ],
+    "references": []
+  },
+  {
+    "id": "nitrogen-fixation",
+    "title": "Why nitrogen is scarce when air is mostly nitrogen",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain why the triple bond in atmospheric nitrogen makes it biologically unavailable, and how fixation solves it.",
+    "suggestedAngles": [
+      "Lead with the paradox of scarcity in abundance",
+      "Use the energy cost of the Haber process as the scale"
+    ],
+    "tags": ["chemistry", "nitrogen", "agriculture", "microbiology"],
+    "searchTerms": [
+      "nitrogen fixation triple bond",
+      "Haber Bosch process energy"
+    ],
+    "references": []
+  },
+  {
+    "id": "circadian-entrainment",
+    "title": "How a body clock stays on time",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the molecular feedback loop that generates circadian rhythm and how light resets it.",
+    "suggestedAngles": [
+      "Frame it as an oscillator that runs slightly wrong on purpose",
+      "Use jet lag as the visible failure of entrainment"
+    ],
+    "tags": ["biology", "circadian", "chronobiology", "sleep"],
+    "searchTerms": [
+      "circadian molecular feedback loop",
+      "light entrainment suprachiasmatic"
+    ],
+    "references": []
+  },
+  {
+    "id": "antibody-dependent-enhancement",
+    "title": "When immunity makes infection worse",
+    "category": "science",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain antibody-dependent enhancement using dengue, and why it complicates vaccine design.",
+    "suggestedAngles": [
+      "Frame the antibody as a key handed to the virus",
+      "Use the second-infection pattern in dengue as the evidence"
+    ],
+    "tags": ["immunology", "dengue", "vaccines", "virology"],
+    "searchTerms": [
+      "antibody dependent enhancement dengue",
+      "vaccine ADE risk"
+    ],
+    "references": []
+  },
+  {
+    "id": "magnetoreception",
+    "title": "How birds might see magnetic fields",
+    "category": "science",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the cryptochrome hypothesis for magnetoreception and why the evidence remains incomplete.",
+    "suggestedAngles": [
+      "Frame it as a quantum effect proposed inside a living eye",
+      "Separate behavioural evidence from mechanistic evidence"
+    ],
+    "tags": ["biology", "navigation", "quantum-biology", "birds"],
+    "searchTerms": [
+      "cryptochrome magnetoreception",
+      "radical pair mechanism birds"
+    ],
+    "references": []
+  },
+  {
+    "id": "soil-carbon-turnover",
+    "title": "Why soil holds more carbon than the atmosphere",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain how carbon is stored and released in soil, and why tilling matters.",
+    "suggestedAngles": [
+      "Follow carbon from root exudate to stable aggregate",
+      "Frame tillage as breaking open a store"
+    ],
+    "tags": ["soil", "carbon", "agriculture", "climate"],
+    "searchTerms": ["soil organic carbon turnover", "tillage carbon release"],
+    "references": []
+  },
+  {
+    "id": "telomere-limit",
+    "title": "Why cells stop dividing",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the Hayflick limit and the role of telomeres, and why cancer cells escape it.",
+    "suggestedAngles": [
+      "Frame telomeres as a countdown built into replication",
+      "Use telomerase reactivation in cancer as the escape"
+    ],
+    "tags": ["biology", "ageing", "telomeres", "cancer"],
+    "searchTerms": [
+      "Hayflick limit telomeres",
+      "telomerase cancer immortalization"
+    ],
+    "references": []
+  },
+  {
+    "id": "lightning-initiation",
+    "title": "Why we still cannot fully explain lightning",
+    "category": "science",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the problem: measured electric fields in clouds are too weak to start a spark.",
+    "suggestedAngles": [
+      "State the field strength gap as the central puzzle",
+      "Frame runaway breakdown as a candidate rather than an answer"
+    ],
+    "tags": ["physics", "atmosphere", "lightning", "open-problems"],
+    "searchTerms": [
+      "lightning initiation problem",
+      "runaway electron breakdown"
+    ],
+    "references": []
+  },
+  {
+    "id": "symbiotic-organelles",
+    "title": "Why your cells contain former bacteria",
+    "category": "science",
+    "difficulty": "plain",
+    "researchPrompt": "Explain endosymbiotic theory and the evidence that mitochondria were once free-living.",
+    "suggestedAngles": [
+      "Lead with the separate genome as the smoking gun",
+      "Frame it as a merger rather than an evolution"
+    ],
+    "tags": ["biology", "endosymbiosis", "mitochondria", "evolution"],
+    "searchTerms": [
+      "endosymbiotic theory mitochondria",
+      "mitochondrial DNA evidence"
+    ],
+    "references": []
+  },
+  {
+    "id": "drug-resistance-fitness-cost",
+    "title": "Why resistance sometimes disappears on its own",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain fitness costs of resistance mutations and why stopping antibiotic use can reverse resistance.",
+    "suggestedAngles": [
+      "Frame resistance as a trade rather than an upgrade",
+      "Use compensatory mutations to explain why reversal often fails"
+    ],
+    "tags": ["evolution", "antibiotics", "fitness", "microbiology"],
+    "searchTerms": [
+      "resistance mutation fitness cost",
+      "compensatory mutations bacteria"
+    ],
+    "references": []
+  },
+  {
+    "id": "neutrino-oscillation",
+    "title": "How a particle changes identity in flight",
+    "category": "science",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain neutrino oscillation and why it proved neutrinos have mass.",
+    "suggestedAngles": [
+      "Start from the solar neutrino deficit as the anomaly",
+      "Frame flavour as something that mixes rather than something fixed"
+    ],
+    "tags": ["physics", "neutrinos", "particle-physics", "mass"],
+    "searchTerms": [
+      "neutrino oscillation solar deficit",
+      "neutrino flavour mixing mass"
+    ],
+    "references": []
+  },
+  {
+    "id": "biofilm-formation",
+    "title": "Why bacteria build cities",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain biofilm formation, quorum sensing, and why biofilms resist antibiotics.",
+    "suggestedAngles": [
+      "Frame quorum sensing as bacteria counting themselves",
+      "Use medical device infection as the consequence"
+    ],
+    "tags": ["microbiology", "biofilm", "quorum-sensing", "infection"],
+    "searchTerms": ["biofilm quorum sensing", "biofilm antibiotic resistance"],
+    "references": []
+  },
+  {
+    "id": "igneous-differentiation",
+    "title": "Why one magma makes many rocks",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain fractional crystallisation and how a single melt produces different rock types.",
+    "suggestedAngles": [
+      "Frame it as sorting by freezing point",
+      "Use Bowen's reaction series as the ordering principle"
+    ],
+    "tags": ["geology", "petrology", "magma", "crystallisation"],
+    "searchTerms": [
+      "fractional crystallization magma",
+      "Bowen reaction series"
+    ],
+    "references": []
+  },
+  {
+    "id": "sleep-glymphatic",
+    "title": "What sleep does for the brain physically",
+    "category": "science",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the glymphatic clearance hypothesis and how strong the evidence currently is.",
+    "suggestedAngles": [
+      "Frame sleep as a plumbing operation rather than only a mental one",
+      "Be explicit about which findings are mouse-only"
+    ],
+    "tags": ["neuroscience", "sleep", "glymphatic", "evidence"],
+    "searchTerms": [
+      "glymphatic system sleep clearance",
+      "brain interstitial fluid sleep"
+    ],
+    "references": []
+  },
+  {
+    "id": "chemical-clock-reactions",
+    "title": "How a reaction can keep time",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain oscillating chemical reactions and why they seemed to violate thermodynamics.",
+    "suggestedAngles": [
+      "Use the Belousov-Zhabotinsky colour change as the hook",
+      "Frame oscillation as a system far from equilibrium"
+    ],
+    "tags": ["chemistry", "oscillation", "thermodynamics", "non-equilibrium"],
+    "searchTerms": [
+      "Belousov Zhabotinsky reaction",
+      "chemical oscillator non-equilibrium"
+    ],
+    "references": []
+  },
+  {
+    "id": "island-dwarfism",
+    "title": "Why animals shrink on islands",
+    "category": "science",
+    "difficulty": "plain",
+    "researchPrompt": "Explain insular dwarfism and gigantism, and what drives the size change in each direction.",
+    "suggestedAngles": [
+      "Frame island size as changing the predator and food equations",
+      "Use dwarf elephants and giant rodents as paired cases"
+    ],
+    "tags": ["evolution", "islands", "body-size", "ecology"],
+    "searchTerms": [
+      "insular dwarfism island rule",
+      "island gigantism evolution"
+    ],
+    "references": []
+  },
+  {
+    "id": "protein-folding-problem",
+    "title": "Why predicting a protein's shape was so hard",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Levinthal's paradox and why folding prediction resisted solution for decades.",
+    "suggestedAngles": [
+      "Use the combinatorial number to show brute force is impossible",
+      "Frame folding as funnelled rather than searched"
+    ],
+    "tags": ["biochemistry", "protein-folding", "computation", "structure"],
+    "searchTerms": [
+      "Levinthal paradox protein folding",
+      "folding funnel energy landscape"
+    ],
+    "references": []
+  },
+  {
+    "id": "dark-matter-evidence",
+    "title": "What actually makes physicists believe in dark matter",
+    "category": "science",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the independent lines of evidence for dark matter and the strongest objection.",
+    "suggestedAngles": [
+      "Walk through galaxy rotation curves and lensing separately",
+      "Present modified gravity as the alternative and say where it struggles"
+    ],
+    "tags": ["physics", "cosmology", "dark-matter", "evidence"],
+    "searchTerms": [
+      "galaxy rotation curves dark matter",
+      "gravitational lensing bullet cluster"
+    ],
+    "references": []
   }
 ]

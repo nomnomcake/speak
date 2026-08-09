@@ -182,13 +182,21 @@ export function parseTopic(raw: unknown, source: string): Topic {
     );
   }
 
+  /**
+   * References are optional now, and empty is a normal state.
+   *
+   * They were required back when the dossier listed them as the way in. The
+   * toolbox replaced that: it builds searches from `searchTerms`, which always
+   * resolve and cannot rot. A hand-checked reference is still better and the
+   * field stays for topics that have one — but requiring one per topic meant
+   * either checking several hundred URLs or inventing them, and an invented
+   * citation is worse than none. It sends someone to a dead page during the
+   * fifteen minutes the session is measuring.
+   */
   let references: TopicReference[] = [];
-  if (!Array.isArray(raw.references)) {
-    problems.push("references must be an array");
-  } else {
-    if (raw.references.length < 1) {
-      problems.push("references must have at least 1 item");
-    }
+  if (raw.references !== undefined && !Array.isArray(raw.references)) {
+    problems.push("references must be an array when present");
+  } else if (Array.isArray(raw.references)) {
     references = raw.references
       .map((r, i) => parseReference(r, `references[${i}]`, problems))
       .filter((r): r is TopicReference => r !== undefined);

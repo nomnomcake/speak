@@ -11,7 +11,7 @@
       "Use duration to explain why long-dated bonds swing harder than short-dated ones"
     ],
     "tags": ["bonds", "interest-rates", "fixed-income", "duration"],
-    "searchTerms": ["bond pricing","yield to maturity","fixed income"],
+    "searchTerms": ["bond pricing", "yield to maturity", "fixed income"],
     "references": [
       {
         "label": "Bond (finance)",
@@ -37,7 +37,11 @@
       "Address the intuitive objection head-on: being better at everything still leaves gains on the table"
     ],
     "tags": ["trade", "opportunity-cost", "ricardo", "specialisation"],
-    "searchTerms": ["comparative advantage","opportunity cost","ricardo trade theory"],
+    "searchTerms": [
+      "comparative advantage",
+      "opportunity cost",
+      "ricardo trade theory"
+    ],
     "references": [
       {
         "label": "Comparative advantage",
@@ -58,7 +62,7 @@
       "Argue the limiting case: what has to be true for efficiency to genuinely reduce use"
     ],
     "tags": ["efficiency", "rebound-effect", "energy", "demand"],
-    "searchTerms": ["jevons paradox","rebound effect","energy efficiency"],
+    "searchTerms": ["jevons paradox", "rebound effect", "energy efficiency"],
     "references": [
       {
         "label": "Jevons paradox",
@@ -71,5 +75,789 @@
         "kind": "article"
       }
     ]
+  },
+  {
+    "id": "principal-agent",
+    "title": "Why agents act against the people paying them",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the principal-agent problem and why it survives well-designed contracts.",
+    "suggestedAngles": [
+      "Use a fund manager paid on volume rather than returns",
+      "Frame it as misaligned information rather than dishonesty"
+    ],
+    "tags": ["incentives", "contracts", "agency", "governance"],
+    "searchTerms": [
+      "principal agent problem",
+      "agency costs incentive alignment"
+    ],
+    "references": []
+  },
+  {
+    "id": "adverse-selection",
+    "title": "Why good products can be driven out of a market",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Akerlof's market for lemons and how information asymmetry collapses a market.",
+    "suggestedAngles": [
+      "Follow the used car market down its spiral step by step",
+      "Frame warranties and certification as answers to the problem"
+    ],
+    "tags": ["information", "markets", "insurance", "asymmetry"],
+    "searchTerms": [
+      "market for lemons Akerlof",
+      "adverse selection asymmetric information"
+    ],
+    "references": []
+  },
+  {
+    "id": "giffen-goods",
+    "title": "When a price rise increases demand",
+    "category": "economics",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain Giffen behaviour and why the textbook examples are contested.",
+    "suggestedAngles": [
+      "Separate the income effect from the substitution effect explicitly",
+      "Be honest that clean empirical examples are rare"
+    ],
+    "tags": ["demand", "microeconomics", "income-effects", "evidence"],
+    "searchTerms": [
+      "Giffen good income effect",
+      "substitution effect inferior goods"
+    ],
+    "references": []
+  },
+  {
+    "id": "natural-monopoly",
+    "title": "When competition makes things worse",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain natural monopoly and why some industries cost less with one supplier.",
+    "suggestedAngles": [
+      "Use fixed infrastructure cost as the driver",
+      "Frame regulation as the substitute for competition"
+    ],
+    "tags": ["monopoly", "regulation", "infrastructure", "costs"],
+    "searchTerms": [
+      "natural monopoly declining average cost",
+      "utility regulation"
+    ],
+    "references": []
+  },
+  {
+    "id": "seigniorage",
+    "title": "How printing money is a form of taxation",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain seigniorage and the inflation tax, and who actually pays it.",
+    "suggestedAngles": [
+      "Follow the transfer from money holders to the issuer",
+      "Frame inflation as a tax nobody legislates"
+    ],
+    "tags": ["money", "inflation", "fiscal-policy", "taxation"],
+    "searchTerms": ["seigniorage inflation tax", "monetary financing deficit"],
+    "references": []
+  },
+  {
+    "id": "velocity-of-money",
+    "title": "Why printing money does not always cause inflation",
+    "category": "economics",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the quantity theory and why the relationship broke down after 2008.",
+    "suggestedAngles": [
+      "State MV=PQ and then attack each assumption",
+      "Use post-crisis reserves as the counterexample"
+    ],
+    "tags": ["money", "inflation", "monetary-policy", "velocity"],
+    "searchTerms": [
+      "quantity theory of money velocity",
+      "excess reserves inflation"
+    ],
+    "references": []
+  },
+  {
+    "id": "baumol-cost-disease",
+    "title": "Why haircuts and orchestras keep getting more expensive",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Baumol's cost disease and why sectors without productivity growth still see rising wages.",
+    "suggestedAngles": [
+      "Use a string quartet needing the same labour as in 1800",
+      "Frame it as wages set by the whole economy, not the sector"
+    ],
+    "tags": ["productivity", "wages", "services", "cost-disease"],
+    "searchTerms": [
+      "Baumol cost disease",
+      "productivity stagnant service sector"
+    ],
+    "references": []
+  },
+  {
+    "id": "ricardian-equivalence",
+    "title": "Whether government borrowing is really deferred tax",
+    "category": "economics",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain Ricardian equivalence and the assumptions that make it fail in practice.",
+    "suggestedAngles": [
+      "State the theory cleanly, then attack the perfect-foresight assumption",
+      "Use liquidity constraints as the practical breaking point"
+    ],
+    "tags": ["fiscal-policy", "debt", "expectations", "saving"],
+    "searchTerms": ["Ricardian equivalence", "government debt private saving"],
+    "references": []
+  },
+  {
+    "id": "hyperinflation-dynamics",
+    "title": "Why hyperinflation accelerates rather than stabilising",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the feedback loop between expectations, velocity and money issuance.",
+    "suggestedAngles": [
+      "Frame it as a race between printing and spending",
+      "Use the shortening of contract periods as the visible symptom"
+    ],
+    "tags": ["inflation", "expectations", "monetary-policy", "crisis"],
+    "searchTerms": [
+      "hyperinflation dynamics expectations",
+      "money velocity acceleration"
+    ],
+    "references": []
+  },
+  {
+    "id": "network-effects-lockin",
+    "title": "Why the better product often loses",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain network effects and path dependence in technology markets.",
+    "suggestedAngles": [
+      "Use keyboard layouts and video formats as contested cases",
+      "Separate genuine lock-in from post-hoc storytelling"
+    ],
+    "tags": ["networks", "lock-in", "standards", "competition"],
+    "searchTerms": [
+      "network effects lock-in",
+      "path dependence technology standards"
+    ],
+    "references": []
+  },
+  {
+    "id": "tragedy-of-commons",
+    "title": "Why shared resources get destroyed",
+    "category": "economics",
+    "difficulty": "plain",
+    "researchPrompt": "Explain the commons problem and the conditions under which communities avoid it.",
+    "suggestedAngles": [
+      "Set up the individual incentive against the collective outcome",
+      "Use Ostrom's counterexamples to complicate the standard story"
+    ],
+    "tags": ["commons", "externalities", "governance", "collective-action"],
+    "searchTerms": ["tragedy of the commons", "Ostrom common pool resources"],
+    "references": []
+  },
+  {
+    "id": "winner-curse",
+    "title": "Why the winning bidder overpays",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the winner's curse in common-value auctions.",
+    "suggestedAngles": [
+      "Frame the winner as the person who most overestimated",
+      "Use oil lease bidding as the original case"
+    ],
+    "tags": ["auctions", "bidding", "valuation", "information"],
+    "searchTerms": ["winner's curse common value auction", "oil lease bidding"],
+    "references": []
+  },
+  {
+    "id": "sticky-wages",
+    "title": "Why wages fall so rarely",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain downward nominal wage rigidity and why it turns demand shocks into unemployment.",
+    "suggestedAngles": [
+      "Contrast a pay cut with a layoff from the employer's side",
+      "Frame inflation as the way real wages fall without anyone deciding"
+    ],
+    "tags": ["labour", "wages", "rigidity", "unemployment"],
+    "searchTerms": [
+      "downward nominal wage rigidity",
+      "sticky wages unemployment"
+    ],
+    "references": []
+  },
+  {
+    "id": "dutch-disease",
+    "title": "Why finding oil can hurt an economy",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Dutch disease: how a resource boom damages other export sectors.",
+    "suggestedAngles": [
+      "Follow the exchange rate as the transmission mechanism",
+      "Frame it as a problem of relative prices, not of wealth"
+    ],
+    "tags": ["resources", "exchange-rates", "trade", "development"],
+    "searchTerms": [
+      "Dutch disease resource boom",
+      "exchange rate appreciation exports"
+    ],
+    "references": []
+  },
+  {
+    "id": "liquidity-trap",
+    "title": "Why cutting rates sometimes does nothing",
+    "category": "economics",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the liquidity trap and the disagreement about whether it binds in practice.",
+    "suggestedAngles": [
+      "Frame the zero lower bound as the constraint",
+      "Present the fiscal-policy and unconventional-policy responses as rival answers"
+    ],
+    "tags": ["monetary-policy", "interest-rates", "recession", "keynesian"],
+    "searchTerms": [
+      "liquidity trap zero lower bound",
+      "monetary policy ineffectiveness"
+    ],
+    "references": []
+  },
+  {
+    "id": "moral-hazard-insurance",
+    "title": "Why insurance changes behaviour",
+    "category": "economics",
+    "difficulty": "plain",
+    "researchPrompt": "Explain moral hazard and how deductibles and co-payments respond to it.",
+    "suggestedAngles": [
+      "Use a driver with full cover as the intuition",
+      "Separate moral hazard from fraud"
+    ],
+    "tags": ["insurance", "incentives", "risk", "contracts"],
+    "searchTerms": [
+      "moral hazard insurance",
+      "deductible co-payment incentives"
+    ],
+    "references": []
+  },
+  {
+    "id": "price-discrimination",
+    "title": "Why the same seat costs different amounts",
+    "category": "economics",
+    "difficulty": "plain",
+    "researchPrompt": "Explain the three degrees of price discrimination and what makes them possible.",
+    "suggestedAngles": [
+      "Frame it as sorting customers by willingness to pay",
+      "Use fences like advance booking as the sorting device"
+    ],
+    "tags": ["pricing", "monopoly", "segmentation", "airlines"],
+    "searchTerms": [
+      "price discrimination degrees",
+      "willingness to pay segmentation"
+    ],
+    "references": []
+  },
+  {
+    "id": "labour-monopsony",
+    "title": "When one employer sets the wage",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain monopsony in labour markets and why it can make minimum wages raise employment.",
+    "suggestedAngles": [
+      "Invert the usual monopoly picture onto the buying side",
+      "Use company towns and nurse labour markets as evidence"
+    ],
+    "tags": ["labour", "monopsony", "wages", "minimum-wage"],
+    "searchTerms": [
+      "labour market monopsony",
+      "minimum wage employment monopsony"
+    ],
+    "references": []
+  },
+  {
+    "id": "creative-destruction",
+    "title": "Why growth requires failure",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Schumpeter's creative destruction and the political difficulty it creates.",
+    "suggestedAngles": [
+      "Frame incumbent firms as obstacles to the growth they once created",
+      "Use the concentration of losses against diffuse gains"
+    ],
+    "tags": ["growth", "innovation", "schumpeter", "disruption"],
+    "searchTerms": [
+      "creative destruction Schumpeter",
+      "innovation incumbent displacement"
+    ],
+    "references": []
+  },
+  {
+    "id": "debt-deflation",
+    "title": "Why falling prices can deepen a depression",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Fisher's debt-deflation and why deflation is more dangerous than mild inflation.",
+    "suggestedAngles": [
+      "Follow a fixed debt against a falling income",
+      "Frame liquidation as self-defeating in aggregate"
+    ],
+    "tags": ["deflation", "debt", "depression", "fisher"],
+    "searchTerms": [
+      "Fisher debt deflation theory",
+      "deflation real debt burden"
+    ],
+    "references": []
+  },
+  {
+    "id": "remittance-economics",
+    "title": "What remittances do to a receiving economy",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the effects of migrant remittances on exchange rates, labour supply and development.",
+    "suggestedAngles": [
+      "Trace one payment from sender to local price effects",
+      "Present the dependency critique honestly"
+    ],
+    "tags": ["migration", "development", "remittances", "exchange-rates"],
+    "searchTerms": [
+      "migrant remittances development",
+      "remittance exchange rate effects"
+    ],
+    "references": []
+  },
+  {
+    "id": "carbon-pricing-design",
+    "title": "Why a carbon tax and cap-and-trade differ",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the price-versus-quantity choice under uncertainty.",
+    "suggestedAngles": [
+      "Frame it as choosing which variable to fix and which to let float",
+      "Use Weitzman's slope argument as the deciding factor"
+    ],
+    "tags": ["climate", "taxation", "markets", "policy-design"],
+    "searchTerms": [
+      "carbon tax versus cap and trade",
+      "Weitzman prices versus quantities"
+    ],
+    "references": []
+  },
+  {
+    "id": "informal-economy",
+    "title": "Why so much economic activity is unrecorded",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the informal sector, why it persists, and what formalisation costs.",
+    "suggestedAngles": [
+      "Frame informality as a rational response to registration costs",
+      "Use de Soto's property argument and its critics"
+    ],
+    "tags": ["development", "informality", "property-rights", "taxation"],
+    "searchTerms": [
+      "informal economy formalization",
+      "de Soto property rights"
+    ],
+    "references": []
+  },
+  {
+    "id": "deposit-insurance",
+    "title": "Why bank runs are a coordination problem",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the Diamond-Dybvig model and why deposit insurance stops runs.",
+    "suggestedAngles": [
+      "Frame the run as rational for each individual and disastrous collectively",
+      "Use maturity transformation as the underlying fragility"
+    ],
+    "tags": ["banking", "runs", "coordination", "insurance"],
+    "searchTerms": [
+      "Diamond Dybvig bank run model",
+      "deposit insurance maturity transformation"
+    ],
+    "references": []
+  },
+  {
+    "id": "cobweb-cycles",
+    "title": "Why farm prices swing so violently",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the cobweb model and why production lags create oscillation.",
+    "suggestedAngles": [
+      "Follow a hog farmer deciding on last year's price",
+      "Frame the lag itself as the cause of the cycle"
+    ],
+    "tags": ["agriculture", "cycles", "expectations", "supply"],
+    "searchTerms": [
+      "cobweb model agricultural prices",
+      "production lag price oscillation"
+    ],
+    "references": []
+  },
+  {
+    "id": "real-versus-nominal",
+    "title": "Why comparing prices across decades misleads",
+    "category": "economics",
+    "difficulty": "plain",
+    "researchPrompt": "Explain the difference between real and nominal values and how deflators work.",
+    "suggestedAngles": [
+      "Use a famous historical salary compared badly",
+      "Frame the price index as an imperfect translator"
+    ],
+    "tags": ["inflation", "measurement", "indices", "comparison"],
+    "searchTerms": [
+      "real versus nominal values",
+      "consumer price index deflator"
+    ],
+    "references": []
+  },
+  {
+    "id": "public-goods-underprovision",
+    "title": "Why markets underprovide lighthouses",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain non-excludability and non-rivalry, and Coase's challenge to the lighthouse example.",
+    "suggestedAngles": [
+      "Define the two properties and test cases against them",
+      "Use Coase's historical objection to complicate the textbook case"
+    ],
+    "tags": ["public-goods", "externalities", "free-riding", "coase"],
+    "searchTerms": [
+      "public goods non-excludable",
+      "Coase lighthouse economics"
+    ],
+    "references": []
+  },
+  {
+    "id": "job-search-matching",
+    "title": "Why unemployment exists even with vacancies",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain search and matching frictions in labour markets.",
+    "suggestedAngles": [
+      "Frame it as a market where finding is costly, not clearing impossible",
+      "Use the Beveridge curve as the visible relationship"
+    ],
+    "tags": ["labour", "search", "unemployment", "matching"],
+    "searchTerms": [
+      "search and matching unemployment",
+      "Beveridge curve vacancies"
+    ],
+    "references": []
+  },
+  {
+    "id": "sovereign-default",
+    "title": "Why countries repay debts they could refuse",
+    "category": "economics",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the enforcement problem in sovereign debt and what actually compels repayment.",
+    "suggestedAngles": [
+      "Start from the absence of a bailiff and ask why anyone lends",
+      "Frame reputation and market access as the real enforcement"
+    ],
+    "tags": ["sovereign-debt", "default", "enforcement", "reputation"],
+    "searchTerms": [
+      "sovereign debt enforcement problem",
+      "sovereign default reputation market access"
+    ],
+    "references": []
+  },
+  {
+    "id": "marginal-cost-pricing",
+    "title": "Why software is priced nothing like steel",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain how near-zero marginal cost changes pricing strategy.",
+    "suggestedAngles": [
+      "Contrast a factory with a download",
+      "Frame subscription and bundling as responses"
+    ],
+    "tags": ["pricing", "digital", "marginal-cost", "bundling"],
+    "searchTerms": [
+      "zero marginal cost pricing",
+      "digital goods bundling strategy"
+    ],
+    "references": []
+  },
+  {
+    "id": "gresham-law",
+    "title": "Why bad money drives out good",
+    "category": "economics",
+    "difficulty": "plain",
+    "researchPrompt": "Explain Gresham's law and the conditions required for it to hold.",
+    "suggestedAngles": [
+      "Use debased coinage as the original case",
+      "Note that the law reverses when prices can float"
+    ],
+    "tags": ["money", "currency", "coinage", "monetary-history"],
+    "searchTerms": ["Gresham's law bad money", "coin debasement legal tender"],
+    "references": []
+  },
+  {
+    "id": "diminishing-returns",
+    "title": "Why doubling inputs does not double output",
+    "category": "economics",
+    "difficulty": "plain",
+    "researchPrompt": "Explain diminishing marginal returns and the difference from returns to scale.",
+    "suggestedAngles": [
+      "Use adding workers to a fixed field",
+      "Separate the short run from the long run explicitly"
+    ],
+    "tags": ["production", "returns", "microeconomics", "scale"],
+    "searchTerms": [
+      "diminishing marginal returns",
+      "returns to scale distinction"
+    ],
+    "references": []
+  },
+  {
+    "id": "externality-pricing",
+    "title": "Why pollution is an economic problem, not only a moral one",
+    "category": "economics",
+    "difficulty": "plain",
+    "researchPrompt": "Explain externalities and how prices fail to carry their full cost.",
+    "suggestedAngles": [
+      "Frame the unpriced cost as missing information",
+      "Use Pigouvian taxes and Coasean bargaining as rival fixes"
+    ],
+    "tags": ["externalities", "pollution", "pricing", "policy"],
+    "searchTerms": [
+      "negative externality Pigouvian tax",
+      "Coase theorem bargaining"
+    ],
+    "references": []
+  },
+  {
+    "id": "hedonic-adjustment",
+    "title": "How statisticians handle products that improve",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain hedonic quality adjustment in price indices and why it is contested.",
+    "suggestedAngles": [
+      "Use a computer that costs the same but does more",
+      "Frame the adjustment as a judgement embedded in a statistic"
+    ],
+    "tags": ["measurement", "inflation", "indices", "quality"],
+    "searchTerms": [
+      "hedonic quality adjustment CPI",
+      "price index quality change"
+    ],
+    "references": []
+  },
+  {
+    "id": "two-sided-markets",
+    "title": "Why one side of a platform pays nothing",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain two-sided market pricing and why subsidising one side can be optimal.",
+    "suggestedAngles": [
+      "Use a nightclub or a card network as the intuition",
+      "Frame the cross-side externality as the reason"
+    ],
+    "tags": ["platforms", "pricing", "networks", "markets"],
+    "searchTerms": [
+      "two-sided market pricing",
+      "cross-side network externality"
+    ],
+    "references": []
+  },
+  {
+    "id": "capital-controls",
+    "title": "Why some countries restrict money leaving",
+    "category": "economics",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the trilemma and the case for and against capital controls.",
+    "suggestedAngles": [
+      "State the impossible trinity and force a choice",
+      "Present the orthodox objection fairly"
+    ],
+    "tags": ["capital-flows", "trilemma", "exchange-rates", "policy"],
+    "searchTerms": [
+      "impossible trinity capital controls",
+      "capital account liberalization debate"
+    ],
+    "references": []
+  },
+  {
+    "id": "unit-of-account",
+    "title": "Why money needs three separate jobs",
+    "category": "economics",
+    "difficulty": "plain",
+    "researchPrompt": "Explain money as medium of exchange, store of value and unit of account, and how the roles can separate.",
+    "suggestedAngles": [
+      "Use a hyperinflating currency losing one role at a time",
+      "Frame dollarisation as the roles splitting between currencies"
+    ],
+    "tags": ["money", "functions", "currency", "inflation"],
+    "searchTerms": [
+      "functions of money unit of account",
+      "currency substitution dollarization"
+    ],
+    "references": []
+  },
+  {
+    "id": "wage-compression",
+    "title": "Why firms pay similar people differently",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain wage compression, internal labour markets and fairness constraints inside firms.",
+    "suggestedAngles": [
+      "Frame internal fairness as a cost of paying market rates",
+      "Use pay secrecy as evidence the constraint is real"
+    ],
+    "tags": ["labour", "wages", "firms", "fairness"],
+    "searchTerms": [
+      "wage compression internal labour market",
+      "pay equity firm wage setting"
+    ],
+    "references": []
+  },
+  {
+    "id": "speculative-bubbles",
+    "title": "Whether bubbles can be identified before they burst",
+    "category": "economics",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the definition problem in bubbles and the disagreement between Shiller and Fama.",
+    "suggestedAngles": [
+      "Set the two positions against each other directly",
+      "Frame the identification problem as the crux"
+    ],
+    "tags": ["bubbles", "finance", "efficiency", "disagreement"],
+    "searchTerms": [
+      "speculative bubble identification",
+      "Shiller Fama efficient markets debate"
+    ],
+    "references": []
+  },
+  {
+    "id": "cost-benefit-discounting",
+    "title": "Why the discount rate decides climate policy",
+    "category": "economics",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain discounting in long-horizon cost-benefit analysis and the Stern-Nordhaus disagreement.",
+    "suggestedAngles": [
+      "Show how a small rate change dominates the conclusion",
+      "Frame it as an ethical choice disguised as a parameter"
+    ],
+    "tags": ["discounting", "climate", "policy", "ethics"],
+    "searchTerms": [
+      "social discount rate climate",
+      "Stern Nordhaus discounting debate"
+    ],
+    "references": []
+  },
+  {
+    "id": "labour-share-decline",
+    "title": "Why less of output goes to wages",
+    "category": "economics",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the falling labour share and the competing explanations for it.",
+    "suggestedAngles": [
+      "Present automation, market power and measurement as rival accounts",
+      "Be explicit that the cause is unsettled"
+    ],
+    "tags": ["labour", "inequality", "capital", "measurement"],
+    "searchTerms": [
+      "declining labour share of income",
+      "capital share automation market power"
+    ],
+    "references": []
+  },
+  {
+    "id": "comparative-statics",
+    "title": "What economists mean by holding everything else equal",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain ceteris paribus reasoning and where it misleads.",
+    "suggestedAngles": [
+      "Use a minimum wage analysis done two ways",
+      "Frame general equilibrium as what partial analysis omits"
+    ],
+    "tags": ["methodology", "equilibrium", "reasoning", "models"],
+    "searchTerms": [
+      "ceteris paribus partial equilibrium",
+      "general equilibrium comparative statics"
+    ],
+    "references": []
+  },
+  {
+    "id": "insurance-risk-pooling",
+    "title": "Why insurance works at all",
+    "category": "economics",
+    "difficulty": "plain",
+    "researchPrompt": "Explain risk pooling and the law of large numbers underlying insurance.",
+    "suggestedAngles": [
+      "Frame it as converting an uncertain loss into a certain fee",
+      "Use correlated risk as the case where pooling fails"
+    ],
+    "tags": ["insurance", "risk", "probability", "pooling"],
+    "searchTerms": [
+      "risk pooling law of large numbers",
+      "correlated risk insurance failure"
+    ],
+    "references": []
+  },
+  {
+    "id": "import-substitution",
+    "title": "Why protecting infant industries usually failed",
+    "category": "economics",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the infant industry argument and why import substitution produced disappointing results.",
+    "suggestedAngles": [
+      "State the theoretical case before the empirical record",
+      "Frame the exit problem as the flaw"
+    ],
+    "tags": ["trade", "development", "protectionism", "industrial-policy"],
+    "searchTerms": [
+      "infant industry argument",
+      "import substitution industrialization outcomes"
+    ],
+    "references": []
+  },
+  {
+    "id": "shadow-pricing",
+    "title": "How you value something with no market price",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain shadow prices and revealed preference methods for valuing non-market goods.",
+    "suggestedAngles": [
+      "Use travel cost or hedonic housing methods concretely",
+      "Be honest about what contingent valuation cannot settle"
+    ],
+    "tags": ["valuation", "cost-benefit", "non-market", "methodology"],
+    "searchTerms": [
+      "shadow price non-market valuation",
+      "revealed preference travel cost"
+    ],
+    "references": []
+  },
+  {
+    "id": "money-multiplier-myth",
+    "title": "Why the textbook money multiplier is wrong",
+    "category": "economics",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain how bank lending actually creates deposits and why the reserve-multiplier story misleads.",
+    "suggestedAngles": [
+      "Reverse the textbook order of loans and deposits",
+      "Use central bank statements as the authority"
+    ],
+    "tags": ["banking", "money-creation", "reserves", "monetary-policy"],
+    "searchTerms": [
+      "endogenous money creation banks",
+      "money multiplier criticism"
+    ],
+    "references": []
+  },
+  {
+    "id": "optimal-currency-area",
+    "title": "What a currency union requires to work",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain optimal currency area theory and apply it to the euro.",
+    "suggestedAngles": [
+      "List Mundell's criteria and test the eurozone against them",
+      "Frame labour mobility and fiscal transfer as the missing pieces"
+    ],
+    "tags": ["currency", "integration", "euro", "mundell"],
+    "searchTerms": [
+      "optimum currency area Mundell",
+      "eurozone fiscal transfer labour mobility"
+    ],
+    "references": []
   }
 ]

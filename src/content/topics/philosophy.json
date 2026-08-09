@@ -11,7 +11,11 @@
       "Argue that the puzzle is about our concept of identity, not about ships"
     ],
     "tags": ["identity", "metaphysics", "persistence", "thought-experiment"],
-    "searchTerms": ["ship of theseus","personal identity","persistence metaphysics"],
+    "searchTerms": [
+      "ship of theseus",
+      "personal identity",
+      "persistence metaphysics"
+    ],
     "references": [
       {
         "label": "Ship of Theseus",
@@ -37,7 +41,11 @@
       "Steelman the eliminativist reply: the problem may be an artefact of framing"
     ],
     "tags": ["consciousness", "qualia", "mind", "explanation"],
-    "searchTerms": ["hard problem of consciousness","qualia","philosophy of mind"],
+    "searchTerms": [
+      "hard problem of consciousness",
+      "qualia",
+      "philosophy of mind"
+    ],
     "references": [
       {
         "label": "Hard problem of consciousness",
@@ -63,7 +71,11 @@
       "Present the strongest incompatibilist objection before answering it"
     ],
     "tags": ["free-will", "determinism", "agency", "ethics"],
-    "searchTerms": ["compatibilism","free will and determinism","moral responsibility"],
+    "searchTerms": [
+      "compatibilism",
+      "free will and determinism",
+      "moral responsibility"
+    ],
     "references": [
       {
         "label": "Compatibilism",
@@ -76,5 +88,806 @@
         "kind": "article"
       }
     ]
+  },
+  {
+    "id": "gettier-problem",
+    "title": "Why justified true belief is not knowledge",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Gettier cases and what they broke in the classical definition of knowledge.",
+    "suggestedAngles": [
+      "Build one Gettier case slowly so the luck is visible",
+      "Frame the responses as attempts to add a fourth condition"
+    ],
+    "tags": ["epistemology", "knowledge", "justification", "gettier"],
+    "searchTerms": [
+      "Gettier problem justified true belief",
+      "fourth condition knowledge analysis"
+    ],
+    "references": []
+  },
+  {
+    "id": "sorites-paradox",
+    "title": "When exactly does a heap stop being a heap",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the sorites paradox and what vagueness reveals about language.",
+    "suggestedAngles": [
+      "Run the induction one grain at a time",
+      "Frame supervaluationism and epistemicism as rival escapes"
+    ],
+    "tags": ["logic", "vagueness", "language", "paradox"],
+    "searchTerms": [
+      "sorites paradox vagueness",
+      "supervaluationism epistemicism"
+    ],
+    "references": []
+  },
+  {
+    "id": "is-ought-gap",
+    "title": "Why facts do not settle values",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain Hume's is-ought problem and the strongest attempts to bridge it.",
+    "suggestedAngles": [
+      "Show a valid-looking argument that smuggles in a premise",
+      "Present naturalism as the serious challenge"
+    ],
+    "tags": ["ethics", "hume", "metaethics", "naturalism"],
+    "searchTerms": ["Hume is ought problem", "naturalistic fallacy metaethics"],
+    "references": []
+  },
+  {
+    "id": "trolley-problem-limits",
+    "title": "What the trolley problem was actually for",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the original purpose of trolley cases and why their use in AI ethics is criticised.",
+    "suggestedAngles": [
+      "Recover Foot's original question about double effect",
+      "Argue that the cases were never meant as decision procedures"
+    ],
+    "tags": ["ethics", "thought-experiments", "double-effect", "criticism"],
+    "searchTerms": [
+      "trolley problem doctrine of double effect",
+      "Foot Thomson trolley cases"
+    ],
+    "references": []
+  },
+  {
+    "id": "chinese-room",
+    "title": "Whether following rules can constitute understanding",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain Searle's Chinese Room and the systems reply.",
+    "suggestedAngles": [
+      "Set up the room concretely before drawing the conclusion",
+      "Give the systems reply its strongest form"
+    ],
+    "tags": ["mind", "understanding", "searle", "ai"],
+    "searchTerms": [
+      "Chinese room argument Searle",
+      "systems reply understanding"
+    ],
+    "references": []
+  },
+  {
+    "id": "personal-identity-teleporter",
+    "title": "Whether a perfect copy of you is you",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain psychological continuity theories using teleportation cases.",
+    "suggestedAngles": [
+      "Use the branching case to break simple continuity",
+      "Frame Parfit's conclusion that identity may not matter"
+    ],
+    "tags": ["identity", "parfit", "continuity", "thought-experiments"],
+    "searchTerms": [
+      "personal identity psychological continuity",
+      "Parfit teletransportation"
+    ],
+    "references": []
+  },
+  {
+    "id": "problem-of-induction",
+    "title": "Why we cannot justify expecting the future to resemble the past",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain Hume's problem of induction and why the obvious replies are circular.",
+    "suggestedAngles": [
+      "Show that appealing to past success begs the question",
+      "Present Popper's falsificationism as a dissolution rather than a solution"
+    ],
+    "tags": ["epistemology", "induction", "hume", "popper"],
+    "searchTerms": [
+      "Hume problem of induction",
+      "Popper falsificationism induction"
+    ],
+    "references": []
+  },
+  {
+    "id": "moral-luck",
+    "title": "Why we blame people for what they did not control",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain moral luck and the tension it creates with the control principle.",
+    "suggestedAngles": [
+      "Compare two identical drunk drivers with different outcomes",
+      "Frame the tension as one we cannot consistently resolve"
+    ],
+    "tags": ["ethics", "responsibility", "luck", "nagel"],
+    "searchTerms": [
+      "moral luck control principle",
+      "Nagel Williams moral luck"
+    ],
+    "references": []
+  },
+  {
+    "id": "ship-of-theseus-parts",
+    "title": "Whether identity survives gradual replacement",
+    "category": "philosophy",
+    "difficulty": "plain",
+    "researchPrompt": "Explain the puzzle of persistence through change using the classic ship case.",
+    "suggestedAngles": [
+      "Add the second ship built from the discarded parts",
+      "Frame the disagreement as about what identity tracks"
+    ],
+    "tags": ["identity", "persistence", "metaphysics", "puzzle"],
+    "searchTerms": [
+      "Ship of Theseus persistence",
+      "identity through change metaphysics"
+    ],
+    "references": []
+  },
+  {
+    "id": "euthyphro-dilemma",
+    "title": "Whether goodness depends on divine command",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the Euthyphro dilemma and how divine command theorists respond.",
+    "suggestedAngles": [
+      "State both horns and show the cost of each",
+      "Present the third-option response fairly"
+    ],
+    "tags": ["ethics", "religion", "metaethics", "plato"],
+    "searchTerms": [
+      "Euthyphro dilemma divine command",
+      "divine command theory response"
+    ],
+    "references": []
+  },
+  {
+    "id": "experience-machine",
+    "title": "Whether pleasure is all we want",
+    "category": "philosophy",
+    "difficulty": "plain",
+    "researchPrompt": "Explain Nozick's experience machine and what it is supposed to show about hedonism.",
+    "suggestedAngles": [
+      "Ask the question before explaining what refusing implies",
+      "Consider whether status quo bias explains the refusal"
+    ],
+    "tags": ["ethics", "hedonism", "nozick", "wellbeing"],
+    "searchTerms": [
+      "Nozick experience machine",
+      "hedonism wellbeing objection"
+    ],
+    "references": []
+  },
+  {
+    "id": "free-will-libertarian",
+    "title": "Whether indeterminism could rescue free will",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the libertarian position on free will and the luck objection against it.",
+    "suggestedAngles": [
+      "Show why randomness does not obviously give control",
+      "Frame agent causation as the attempted escape"
+    ],
+    "tags": ["free-will", "determinism", "agency", "luck"],
+    "searchTerms": [
+      "libertarian free will luck objection",
+      "agent causation indeterminism"
+    ],
+    "references": []
+  },
+  {
+    "id": "knowledge-argument",
+    "title": "What Mary learns when she sees red",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain Jackson's knowledge argument and the ability-hypothesis reply.",
+    "suggestedAngles": [
+      "Set up Mary's complete physical knowledge first",
+      "Present the reply that she gains a skill rather than a fact"
+    ],
+    "tags": ["mind", "qualia", "physicalism", "jackson"],
+    "searchTerms": [
+      "Mary's room knowledge argument",
+      "ability hypothesis qualia"
+    ],
+    "references": []
+  },
+  {
+    "id": "rule-following-paradox",
+    "title": "How we know what a rule requires next",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain Kripke's reading of Wittgenstein on rule-following.",
+    "suggestedAngles": [
+      "Use the plus-versus-quus case concretely",
+      "Frame the sceptical solution as communal rather than individual"
+    ],
+    "tags": ["language", "wittgenstein", "kripke", "meaning"],
+    "searchTerms": [
+      "Kripkenstein rule following",
+      "quus sceptical paradox meaning"
+    ],
+    "references": []
+  },
+  {
+    "id": "ontological-argument",
+    "title": "Whether existence can be defined into being",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Anselm's argument and Kant's objection that existence is not a predicate.",
+    "suggestedAngles": [
+      "Present the argument in its strongest form before objecting",
+      "Use Gaunilo's island as the parody"
+    ],
+    "tags": ["religion", "logic", "anselm", "kant"],
+    "searchTerms": [
+      "ontological argument Anselm",
+      "existence is not a predicate Kant"
+    ],
+    "references": []
+  },
+  {
+    "id": "ethics-of-belief",
+    "title": "Whether believing without evidence is wrong",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Clifford's evidentialism against James's will to believe.",
+    "suggestedAngles": [
+      "Use Clifford's shipowner case as the setup",
+      "Give James's pragmatic reply its due"
+    ],
+    "tags": ["epistemology", "ethics", "evidentialism", "james"],
+    "searchTerms": [
+      "Clifford ethics of belief",
+      "William James will to believe"
+    ],
+    "references": []
+  },
+  {
+    "id": "repugnant-conclusion",
+    "title": "Why total utilitarianism ends somewhere absurd",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain Parfit's repugnant conclusion and why population ethics resists a fix.",
+    "suggestedAngles": [
+      "Build the population comparison step by step",
+      "Present the impossibility results honestly"
+    ],
+    "tags": ["ethics", "population", "utilitarianism", "parfit"],
+    "searchTerms": [
+      "repugnant conclusion population ethics",
+      "Parfit total utilitarianism"
+    ],
+    "references": []
+  },
+  {
+    "id": "private-language",
+    "title": "Whether a language only you could understand is possible",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain Wittgenstein's private language argument.",
+    "suggestedAngles": [
+      "Use the beetle in a box to make the point vivid",
+      "Frame it as an attack on a picture of meaning"
+    ],
+    "tags": ["language", "wittgenstein", "meaning", "privacy"],
+    "searchTerms": [
+      "private language argument",
+      "beetle in a box Wittgenstein"
+    ],
+    "references": []
+  },
+  {
+    "id": "theseus-of-value",
+    "title": "Whether authenticity adds value to an artwork",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain why a perfect forgery seems worth less, and what that reveals about aesthetic value.",
+    "suggestedAngles": [
+      "Compare an indistinguishable copy with the original",
+      "Frame value as partly historical rather than perceptual"
+    ],
+    "tags": ["aesthetics", "authenticity", "forgery", "value"],
+    "searchTerms": [
+      "aesthetic value forgery authenticity",
+      "artwork provenance value"
+    ],
+    "references": []
+  },
+  {
+    "id": "deontology-versus-consequences",
+    "title": "Whether consequences are all that matter morally",
+    "category": "philosophy",
+    "difficulty": "plain",
+    "researchPrompt": "Explain the core disagreement between deontology and consequentialism.",
+    "suggestedAngles": [
+      "Use a case where the two verdicts split",
+      "Frame constraints as the thing consequentialism cannot accommodate"
+    ],
+    "tags": ["ethics", "deontology", "consequentialism", "constraints"],
+    "searchTerms": [
+      "deontology versus consequentialism",
+      "moral constraints agent relative"
+    ],
+    "references": []
+  },
+  {
+    "id": "problem-of-evil",
+    "title": "Whether suffering is compatible with a good god",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the logical and evidential problems of evil, and the free will defence.",
+    "suggestedAngles": [
+      "Separate the logical version from the evidential version",
+      "Present Plantinga's defence and note what it does not achieve"
+    ],
+    "tags": ["religion", "evil", "theodicy", "plantinga"],
+    "searchTerms": [
+      "logical problem of evil",
+      "free will defence Plantinga evidential"
+    ],
+    "references": []
+  },
+  {
+    "id": "simulation-argument",
+    "title": "What Bostrom's simulation argument actually claims",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the trilemma structure and correct the common misreading that it asserts we are simulated.",
+    "suggestedAngles": [
+      "Lay out the three disjuncts before drawing any conclusion",
+      "Attack the substrate-independence assumption"
+    ],
+    "tags": ["metaphysics", "simulation", "bostrom", "probability"],
+    "searchTerms": [
+      "Bostrom simulation argument trilemma",
+      "substrate independence simulation"
+    ],
+    "references": []
+  },
+  {
+    "id": "virtue-ethics-revival",
+    "title": "Why ethics returned to character",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Anscombe's critique of modern moral philosophy and the revival of virtue ethics.",
+    "suggestedAngles": [
+      "Frame her objection to law without a lawgiver",
+      "Present the situationist challenge to character traits"
+    ],
+    "tags": ["ethics", "virtue", "anscombe", "character"],
+    "searchTerms": [
+      "Anscombe modern moral philosophy",
+      "virtue ethics situationism critique"
+    ],
+    "references": []
+  },
+  {
+    "id": "semantic-externalism",
+    "title": "Whether meaning is in the head",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Putnam's Twin Earth and the conclusion that content depends on environment.",
+    "suggestedAngles": [
+      "Build Twin Earth carefully before drawing the moral",
+      "Frame the consequence for the privacy of thought"
+    ],
+    "tags": ["language", "mind", "putnam", "externalism"],
+    "searchTerms": [
+      "Twin Earth semantic externalism",
+      "meaning ain't in the head Putnam"
+    ],
+    "references": []
+  },
+  {
+    "id": "newcomb-problem",
+    "title": "Whether to take one box or two",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain Newcomb's problem and the split between evidential and causal decision theory.",
+    "suggestedAngles": [
+      "State the case cleanly then give each theory's verdict",
+      "Frame it as a genuine conflict between two rational principles"
+    ],
+    "tags": ["decision-theory", "rationality", "causation", "paradox"],
+    "searchTerms": [
+      "Newcomb's problem decision theory",
+      "evidential versus causal decision theory"
+    ],
+    "references": []
+  },
+  {
+    "id": "philosophical-zombies",
+    "title": "Whether a being identical to you could lack experience",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the zombie argument against physicalism and the conceivability objection.",
+    "suggestedAngles": [
+      "Define the zombie precisely so the argument has force",
+      "Attack the move from conceivable to possible"
+    ],
+    "tags": ["mind", "consciousness", "physicalism", "chalmers"],
+    "searchTerms": [
+      "philosophical zombie argument",
+      "conceivability possibility Chalmers"
+    ],
+    "references": []
+  },
+  {
+    "id": "categorical-imperative",
+    "title": "How Kant derives morality from consistency alone",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the universalisability test and the objection that it permits too much.",
+    "suggestedAngles": [
+      "Work one maxim through the test",
+      "Present the false-positive objection concretely"
+    ],
+    "tags": ["ethics", "kant", "duty", "universalisability"],
+    "searchTerms": [
+      "categorical imperative universalizability",
+      "Kant maxim contradiction in conception"
+    ],
+    "references": []
+  },
+  {
+    "id": "absurdism-response",
+    "title": "What Camus proposes instead of despair",
+    "category": "philosophy",
+    "difficulty": "plain",
+    "researchPrompt": "Explain the absurd as a relation between human demand and an indifferent world, and Camus's response.",
+    "suggestedAngles": [
+      "Define the absurd as a relation rather than a property",
+      "Contrast his answer with philosophical suicide"
+    ],
+    "tags": ["existentialism", "camus", "meaning", "absurd"],
+    "searchTerms": [
+      "Camus the absurd Sisyphus",
+      "philosophical suicide absurdism"
+    ],
+    "references": []
+  },
+  {
+    "id": "burden-of-proof",
+    "title": "Why who bears the burden of proof matters",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain burden of proof in argumentation and how it is manipulated.",
+    "suggestedAngles": [
+      "Show the same debate flipping on who must prove",
+      "Frame default positions as the real contested ground"
+    ],
+    "tags": ["argumentation", "rhetoric", "epistemology", "logic"],
+    "searchTerms": [
+      "burden of proof argumentation",
+      "default position dialectical obligation"
+    ],
+    "references": []
+  },
+  {
+    "id": "special-obligations",
+    "title": "Why you owe more to your own child",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain agent-relative obligations and the impartialist challenge.",
+    "suggestedAngles": [
+      "Set the intuition against Singer's impartial argument",
+      "Frame the disagreement as about the scope of morality"
+    ],
+    "tags": ["ethics", "partiality", "obligations", "singer"],
+    "searchTerms": [
+      "special obligations partiality",
+      "impartialist challenge Singer"
+    ],
+    "references": []
+  },
+  {
+    "id": "theory-ladenness",
+    "title": "Whether observation can be neutral",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain theory-ladenness of observation and its consequences for scientific objectivity.",
+    "suggestedAngles": [
+      "Use an ambiguous figure to make perception's role vivid",
+      "Frame Kuhn's stronger claim and its critics"
+    ],
+    "tags": ["philosophy-of-science", "observation", "kuhn", "objectivity"],
+    "searchTerms": [
+      "theory ladenness of observation",
+      "Kuhn incommensurability observation"
+    ],
+    "references": []
+  },
+  {
+    "id": "demarcation-problem",
+    "title": "What separates science from pseudoscience",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the demarcation problem and why falsifiability alone fails.",
+    "suggestedAngles": [
+      "Test falsifiability against real scientific practice",
+      "Present Lakatos's research programmes as a repair"
+    ],
+    "tags": ["philosophy-of-science", "falsifiability", "popper", "lakatos"],
+    "searchTerms": [
+      "demarcation problem falsifiability",
+      "Lakatos research programmes"
+    ],
+    "references": []
+  },
+  {
+    "id": "moral-relativism-limits",
+    "title": "Whether disagreement implies relativism",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the argument from disagreement and why it does not straightforwardly establish relativism.",
+    "suggestedAngles": [
+      "Show that disagreement occurs in factual domains too",
+      "Separate descriptive from metaethical relativism"
+    ],
+    "tags": ["metaethics", "relativism", "disagreement", "objectivity"],
+    "searchTerms": [
+      "argument from disagreement metaethics",
+      "descriptive versus metaethical relativism"
+    ],
+    "references": []
+  },
+  {
+    "id": "identity-of-indiscernibles",
+    "title": "Whether two things can be exactly alike",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Leibniz's principle and Black's two-spheres counterexample.",
+    "suggestedAngles": [
+      "State the principle in both directions",
+      "Use the symmetric universe to test it"
+    ],
+    "tags": ["metaphysics", "leibniz", "identity", "symmetry"],
+    "searchTerms": [
+      "identity of indiscernibles Leibniz",
+      "Black two spheres counterexample"
+    ],
+    "references": []
+  },
+  {
+    "id": "hard-determinism",
+    "title": "What follows if no one could have done otherwise",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain hard determinism and its implications for punishment and desert.",
+    "suggestedAngles": [
+      "Separate the metaphysical claim from the practical one",
+      "Frame consequentialist punishment as the surviving option"
+    ],
+    "tags": ["free-will", "determinism", "punishment", "desert"],
+    "searchTerms": [
+      "hard determinism moral responsibility",
+      "punishment without desert"
+    ],
+    "references": []
+  },
+  {
+    "id": "aesthetic-judgement",
+    "title": "Whether taste can be correct",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Hume's standard of taste and Kant's subjective universality.",
+    "suggestedAngles": [
+      "Set up the paradox of taste being both personal and arguable",
+      "Compare the two attempted resolutions"
+    ],
+    "tags": ["aesthetics", "taste", "hume", "kant"],
+    "searchTerms": [
+      "Hume standard of taste",
+      "Kant subjective universality aesthetics"
+    ],
+    "references": []
+  },
+  {
+    "id": "ethics-of-creation",
+    "title": "Whether bringing someone into existence can wrong them",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the non-identity problem and antinatalist arguments.",
+    "suggestedAngles": [
+      "Set up non-identity so the puzzle bites",
+      "Give Benatar's asymmetry its strongest statement"
+    ],
+    "tags": ["ethics", "non-identity", "antinatalism", "population"],
+    "searchTerms": [
+      "non-identity problem Parfit",
+      "Benatar asymmetry antinatalism"
+    ],
+    "references": []
+  },
+  {
+    "id": "scientific-realism",
+    "title": "Whether unobservable entities really exist",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the no-miracles argument and the pessimistic meta-induction against it.",
+    "suggestedAngles": [
+      "Present both arguments as directly opposed",
+      "Frame structural realism as the compromise"
+    ],
+    "tags": ["philosophy-of-science", "realism", "instrumentalism", "truth"],
+    "searchTerms": [
+      "no miracles argument scientific realism",
+      "pessimistic meta-induction"
+    ],
+    "references": []
+  },
+  {
+    "id": "speech-act-theory",
+    "title": "How saying something can be doing something",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Austin's performatives and the locution-illocution-perlocution distinction.",
+    "suggestedAngles": [
+      "Use promising and naming as clear performatives",
+      "Frame uptake as the condition for success"
+    ],
+    "tags": ["language", "austin", "pragmatics", "performatives"],
+    "searchTerms": [
+      "Austin speech act theory",
+      "illocutionary perlocutionary force"
+    ],
+    "references": []
+  },
+  {
+    "id": "epistemic-injustice",
+    "title": "How someone can be wronged as a knower",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain testimonial and hermeneutical injustice.",
+    "suggestedAngles": [
+      "Distinguish the two kinds with a concrete case each",
+      "Frame credibility deficit as a harm in itself"
+    ],
+    "tags": ["epistemology", "injustice", "fricker", "testimony"],
+    "searchTerms": [
+      "testimonial injustice Fricker",
+      "hermeneutical injustice credibility"
+    ],
+    "references": []
+  },
+  {
+    "id": "thought-experiment-validity",
+    "title": "Whether armchair cases can teach anything",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the role of thought experiments in philosophy and the experimental-philosophy challenge.",
+    "suggestedAngles": [
+      "Use a famous case and then report how intuitions vary",
+      "Frame the challenge as empirical rather than logical"
+    ],
+    "tags": [
+      "methodology",
+      "intuitions",
+      "experimental-philosophy",
+      "thought-experiments"
+    ],
+    "searchTerms": [
+      "experimental philosophy intuition variation",
+      "thought experiment methodology"
+    ],
+    "references": []
+  },
+  {
+    "id": "swampman",
+    "title": "Whether history is required for meaning",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain Davidson's Swampman and what it suggests about content and causal history.",
+    "suggestedAngles": [
+      "Build the case so the intuition is sharp before analysing it",
+      "Frame it as a test of whether meaning needs a past"
+    ],
+    "tags": ["mind", "content", "davidson", "thought-experiments"],
+    "searchTerms": [
+      "Davidson Swampman thought experiment",
+      "causal history mental content"
+    ],
+    "references": []
+  },
+  {
+    "id": "luck-egalitarianism",
+    "title": "Whether inequality is acceptable if chosen",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain luck egalitarianism and the harshness objection.",
+    "suggestedAngles": [
+      "Separate brute luck from option luck",
+      "Press the case of someone who gambled and lost"
+    ],
+    "tags": ["political-philosophy", "equality", "luck", "justice"],
+    "searchTerms": [
+      "luck egalitarianism brute option luck",
+      "harshness objection equality"
+    ],
+    "references": []
+  },
+  {
+    "id": "original-position",
+    "title": "Why Rawls asks you to forget who you are",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the veil of ignorance and what it is supposed to guarantee.",
+    "suggestedAngles": [
+      "Walk through choosing rules without knowing your place",
+      "Present the maximin objection"
+    ],
+    "tags": ["political-philosophy", "rawls", "justice", "fairness"],
+    "searchTerms": [
+      "Rawls original position veil of ignorance",
+      "maximin objection justice as fairness"
+    ],
+    "references": []
+  },
+  {
+    "id": "paradox-of-tolerance",
+    "title": "Whether tolerance must tolerate intolerance",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain Popper's paradox of tolerance and the objections to using it.",
+    "suggestedAngles": [
+      "State Popper's actual formulation, which is narrower than the meme",
+      "Frame the abuse risk as the strongest objection"
+    ],
+    "tags": ["political-philosophy", "tolerance", "popper", "liberalism"],
+    "searchTerms": [
+      "Popper paradox of tolerance",
+      "tolerance intolerance liberal democracy"
+    ],
+    "references": []
+  },
+  {
+    "id": "meaning-holism",
+    "title": "Whether a single sentence can be tested alone",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the Duhem-Quine thesis and confirmation holism.",
+    "suggestedAngles": [
+      "Show an experiment failing without identifying the culprit",
+      "Frame auxiliary hypotheses as the escape hatch"
+    ],
+    "tags": ["philosophy-of-science", "quine", "holism", "confirmation"],
+    "searchTerms": [
+      "Duhem Quine thesis",
+      "confirmation holism auxiliary hypotheses"
+    ],
+    "references": []
+  },
+  {
+    "id": "metaphor-cognition",
+    "title": "Whether metaphor is decoration or thought",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain conceptual metaphor theory and the claim that abstract thought is metaphorically structured.",
+    "suggestedAngles": [
+      "Collect everyday metaphors for one abstract domain",
+      "Present the critique that the evidence is over-read"
+    ],
+    "tags": ["language", "metaphor", "cognition", "lakoff"],
+    "searchTerms": [
+      "conceptual metaphor theory Lakoff",
+      "metaphor abstract reasoning critique"
+    ],
+    "references": []
   }
 ]

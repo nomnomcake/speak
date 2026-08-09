@@ -11,7 +11,7 @@
       "Use the aftermath to show how the response persists after the fear fades"
     ],
     "tags": ["media", "deviance", "collective-behaviour", "sociology"],
-    "searchTerms": ["moral panic","folk devils","media sociology"],
+    "searchTerms": ["moral panic", "folk devils", "media sociology"],
     "references": [
       {
         "label": "Moral panic",
@@ -37,7 +37,11 @@
       "Draw the uncomfortable corollary: fixing the outcome may need more than fixing attitudes"
     ],
     "tags": ["segregation", "emergence", "modelling", "collective-behaviour"],
-    "searchTerms": ["schelling segregation model","residential segregation","agent based model"],
+    "searchTerms": [
+      "schelling segregation model",
+      "residential segregation",
+      "agent based model"
+    ],
     "references": [
       {
         "label": "Schelling's model of segregation",
@@ -68,7 +72,11 @@
       "Confront the prediction problem: the hidden distribution is unobservable by construction"
     ],
     "tags": ["norms", "revolution", "thresholds", "collective-behaviour"],
-    "searchTerms": ["preference falsification","timur kuran","revolutionary cascade"],
+    "searchTerms": [
+      "preference falsification",
+      "timur kuran",
+      "revolutionary cascade"
+    ],
     "references": [
       {
         "label": "Preference falsification",
@@ -86,5 +94,801 @@
         "kind": "paper"
       }
     ]
+  },
+  {
+    "id": "goodharts-law",
+    "title": "Why a measure stops working once you target it",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Goodhart's law and why metric-driven systems degrade.",
+    "suggestedAngles": [
+      "Use a hospital waiting-time target being gamed",
+      "Frame the proxy diverging from the goal as inevitable"
+    ],
+    "tags": ["metrics", "incentives", "governance", "gaming"],
+    "searchTerms": [
+      "Goodhart's law measure target",
+      "proxy metric gaming institutions"
+    ],
+    "references": []
+  },
+  {
+    "id": "broken-windows-evidence",
+    "title": "What actually happened to broken windows policing",
+    "category": "society",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the theory, the evidence, and the confounds in the New York case.",
+    "suggestedAngles": [
+      "State the theory before the evidence",
+      "Frame the simultaneous national crime decline as the confound"
+    ],
+    "tags": ["policing", "crime", "evidence", "causation"],
+    "searchTerms": [
+      "broken windows policing evidence",
+      "1990s crime decline confounds"
+    ],
+    "references": []
+  },
+  {
+    "id": "homophily",
+    "title": "Why networks sort themselves",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain homophily and its consequences for information exposure.",
+    "suggestedAngles": [
+      "Distinguish choice homophily from induced homophily",
+      "Frame structural sorting as prior to algorithmic sorting"
+    ],
+    "tags": ["networks", "sorting", "segregation", "information"],
+    "searchTerms": [
+      "homophily social networks",
+      "choice induced homophily sorting"
+    ],
+    "references": []
+  },
+  {
+    "id": "weak-ties",
+    "title": "Why acquaintances find you jobs",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Granovetter's strength of weak ties and the bridging mechanism.",
+    "suggestedAngles": [
+      "Frame close ties as sharing your information",
+      "Use bridging positions as the source of novelty"
+    ],
+    "tags": ["networks", "employment", "information", "granovetter"],
+    "searchTerms": [
+      "strength of weak ties Granovetter",
+      "bridging ties job information"
+    ],
+    "references": []
+  },
+  {
+    "id": "moral-panic-cycle",
+    "title": "How a panic is manufactured and then fades",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the stages of a moral panic and the role of claims-makers.",
+    "suggestedAngles": [
+      "Walk one historical panic through the stages",
+      "Frame the folk devil as a necessary construction"
+    ],
+    "tags": ["media", "deviance", "panic", "sociology"],
+    "searchTerms": [
+      "moral panic stages folk devils",
+      "claims makers deviance amplification"
+    ],
+    "references": []
+  },
+  {
+    "id": "street-level-bureaucracy",
+    "title": "Why policy changes when it meets a caseworker",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Lipsky's street-level bureaucracy and discretion as de facto policy.",
+    "suggestedAngles": [
+      "Follow a rule from statute to counter",
+      "Frame rationing under scarcity as the real decision"
+    ],
+    "tags": ["bureaucracy", "policy", "discretion", "implementation"],
+    "searchTerms": [
+      "street level bureaucracy Lipsky",
+      "administrative discretion policy implementation"
+    ],
+    "references": []
+  },
+  {
+    "id": "survivorship-in-culture",
+    "title": "Why the past looks better than it was",
+    "category": "society",
+    "difficulty": "plain",
+    "researchPrompt": "Explain survivorship bias in cultural judgement.",
+    "suggestedAngles": [
+      "Use surviving architecture and music as the case",
+      "Frame the filter as time rather than quality"
+    ],
+    "tags": ["bias", "culture", "selection", "history"],
+    "searchTerms": [
+      "survivorship bias culture",
+      "selection effect surviving artefacts"
+    ],
+    "references": []
+  },
+  {
+    "id": "credential-inflation",
+    "title": "Why jobs keep requiring more qualifications",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain credential inflation and the signalling account of education.",
+    "suggestedAngles": [
+      "Frame the degree as a signal rather than training",
+      "Use the arms-race dynamic between applicants"
+    ],
+    "tags": ["education", "signalling", "labour", "credentials"],
+    "searchTerms": [
+      "credential inflation signalling",
+      "education screening arms race"
+    ],
+    "references": []
+  },
+  {
+    "id": "nimby-dynamics",
+    "title": "Why locally rational opposition produces national shortages",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain concentrated costs and diffuse benefits in planning decisions.",
+    "suggestedAngles": [
+      "Frame the participation asymmetry at hearings",
+      "Use housing supply as the aggregate consequence"
+    ],
+    "tags": ["planning", "housing", "collective-action", "politics"],
+    "searchTerms": [
+      "NIMBY concentrated costs diffuse benefits",
+      "housing supply planning opposition"
+    ],
+    "references": []
+  },
+  {
+    "id": "ritual-and-cohesion",
+    "title": "Why groups perform costly rituals",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain costly signalling theory applied to religious and group ritual.",
+    "suggestedAngles": [
+      "Frame cost as filtering out free riders",
+      "Use the correlation between demand and longevity in communes"
+    ],
+    "tags": ["ritual", "religion", "signalling", "cohesion"],
+    "searchTerms": [
+      "costly signalling religious ritual",
+      "commune longevity demanding rituals"
+    ],
+    "references": []
+  },
+  {
+    "id": "administrative-burden",
+    "title": "How paperwork functions as policy",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain administrative burden and how compliance costs ration benefits.",
+    "suggestedAngles": [
+      "Separate learning, compliance and psychological costs",
+      "Frame burden as a policy choice rather than an accident"
+    ],
+    "tags": ["policy", "welfare", "bureaucracy", "access"],
+    "searchTerms": [
+      "administrative burden welfare take-up",
+      "compliance costs benefit access"
+    ],
+    "references": []
+  },
+  {
+    "id": "status-competition",
+    "title": "Why relative position matters more than absolute",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain positional goods and the consequences for wellbeing and consumption.",
+    "suggestedAngles": [
+      "Use the choice between absolute and relative income",
+      "Frame the arms race as socially wasteful"
+    ],
+    "tags": ["status", "consumption", "wellbeing", "positional"],
+    "searchTerms": [
+      "positional goods relative income",
+      "status competition consumption arms race"
+    ],
+    "references": []
+  },
+  {
+    "id": "institutional-isomorphism",
+    "title": "Why organisations come to resemble each other",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain DiMaggio and Powell's three mechanisms of isomorphism.",
+    "suggestedAngles": [
+      "Name the three pressures and give one case each",
+      "Frame legitimacy rather than efficiency as the driver"
+    ],
+    "tags": ["organisations", "institutions", "legitimacy", "isomorphism"],
+    "searchTerms": [
+      "institutional isomorphism DiMaggio Powell",
+      "coercive mimetic normative pressure"
+    ],
+    "references": []
+  },
+  {
+    "id": "fertility-transition",
+    "title": "Why richer societies have fewer children",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the demographic transition and the leading explanations for fertility decline.",
+    "suggestedAngles": [
+      "Follow mortality falling before fertility",
+      "Frame the cost of child quality as the economic account"
+    ],
+    "tags": ["demography", "fertility", "development", "transition"],
+    "searchTerms": [
+      "demographic transition fertility decline",
+      "quantity quality tradeoff children"
+    ],
+    "references": []
+  },
+  {
+    "id": "social-capital-decline",
+    "title": "Whether community life actually declined",
+    "category": "society",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain Putnam's bowling alone thesis and the criticisms of it.",
+    "suggestedAngles": [
+      "Present the associational membership data",
+      "Frame the measurement objection: forms changed, not amount"
+    ],
+    "tags": ["community", "social-capital", "putnam", "measurement"],
+    "searchTerms": [
+      "Putnam bowling alone social capital",
+      "associational membership measurement critique"
+    ],
+    "references": []
+  },
+  {
+    "id": "legibility-and-states",
+    "title": "Why states simplify what they govern",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Scott's concept of legibility and its consequences.",
+    "suggestedAngles": [
+      "Use surnames and cadastral maps as the examples",
+      "Frame simplification as a precondition for administration"
+    ],
+    "tags": ["state", "legibility", "scott", "administration"],
+    "searchTerms": [
+      "Seeing Like a State legibility",
+      "cadastral survey surname standardization"
+    ],
+    "references": []
+  },
+  {
+    "id": "gentrification-mechanisms",
+    "title": "What actually displaces residents",
+    "category": "society",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the competing accounts of gentrification and what displacement studies find.",
+    "suggestedAngles": [
+      "Separate rent-gap from consumption-side explanations",
+      "Report the mixed displacement evidence honestly"
+    ],
+    "tags": ["urban", "housing", "displacement", "evidence"],
+    "searchTerms": [
+      "rent gap theory gentrification",
+      "displacement evidence longitudinal studies"
+    ],
+    "references": []
+  },
+  {
+    "id": "collective-memory",
+    "title": "How societies decide what to remember",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain collective memory, commemoration and the politics of monuments.",
+    "suggestedAngles": [
+      "Frame memory as maintained rather than stored",
+      "Use monument disputes as memory contested in public"
+    ],
+    "tags": ["memory", "commemoration", "politics", "monuments"],
+    "searchTerms": [
+      "collective memory commemoration",
+      "monument controversy politics of memory"
+    ],
+    "references": []
+  },
+  {
+    "id": "informal-norms-enforcement",
+    "title": "How rules work without police",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain decentralised norm enforcement and the second-order free rider problem.",
+    "suggestedAngles": [
+      "Frame punishment as itself costly",
+      "Use reputation systems as the resolution"
+    ],
+    "tags": ["norms", "enforcement", "cooperation", "reputation"],
+    "searchTerms": [
+      "second order free rider problem",
+      "decentralized norm enforcement reputation"
+    ],
+    "references": []
+  },
+  {
+    "id": "assimilation-models",
+    "title": "What integration actually means empirically",
+    "category": "society",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain segmented assimilation and the disagreement over measuring integration.",
+    "suggestedAngles": [
+      "Contrast straight-line with segmented models",
+      "Frame the choice of outcome measure as the crux"
+    ],
+    "tags": ["migration", "integration", "assimilation", "measurement"],
+    "searchTerms": [
+      "segmented assimilation theory",
+      "integration outcome measurement migration"
+    ],
+    "references": []
+  },
+  {
+    "id": "prison-recidivism",
+    "title": "Why incarceration can increase reoffending",
+    "category": "society",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the mechanisms by which prison may raise recidivism, and the identification problem.",
+    "suggestedAngles": [
+      "Frame criminogenic effects against incapacitation",
+      "Be explicit about the difficulty of causal identification"
+    ],
+    "tags": ["criminology", "prison", "recidivism", "causation"],
+    "searchTerms": [
+      "prison criminogenic effect recidivism",
+      "incarceration causal identification judges"
+    ],
+    "references": []
+  },
+  {
+    "id": "fertility-and-pensions",
+    "title": "Why pension systems depend on demography",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain pay-as-you-go pension arithmetic and the dependency ratio.",
+    "suggestedAngles": [
+      "Follow the transfer from workers to retirees",
+      "Frame the ratio as the binding constraint"
+    ],
+    "tags": ["pensions", "demography", "fiscal", "ageing"],
+    "searchTerms": ["pay as you go pensions", "dependency ratio ageing"],
+    "references": []
+  },
+  {
+    "id": "urban-scaling-laws",
+    "title": "Why bigger cities are more than proportionally productive",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain superlinear scaling of innovation with city size and the infrastructure counterpart.",
+    "suggestedAngles": [
+      "Present the two exponents together",
+      "Frame interaction density as the proposed mechanism"
+    ],
+    "tags": ["cities", "scaling", "innovation", "infrastructure"],
+    "searchTerms": [
+      "urban scaling laws superlinear",
+      "city size innovation infrastructure exponent"
+    ],
+    "references": []
+  },
+  {
+    "id": "kinship-and-institutions",
+    "title": "How marriage rules shape societies",
+    "category": "society",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the argument linking cousin-marriage prohibition to institutional development, and its critics.",
+    "suggestedAngles": [
+      "State the hypothesis and its evidence base",
+      "Present the critique of the causal chain"
+    ],
+    "tags": ["kinship", "institutions", "culture", "development"],
+    "searchTerms": [
+      "cousin marriage prohibition institutions",
+      "kinship intensity WEIRD hypothesis"
+    ],
+    "references": []
+  },
+  {
+    "id": "information-cascades",
+    "title": "Why crowds can be confidently wrong",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain informational cascades and why they are fragile.",
+    "suggestedAngles": [
+      "Build a cascade with sequential decisions",
+      "Frame the fragility as evidence of thin foundations"
+    ],
+    "tags": ["crowds", "information", "cascades", "herding"],
+    "searchTerms": [
+      "information cascade herding",
+      "sequential decision cascade fragility"
+    ],
+    "references": []
+  },
+  {
+    "id": "welfare-conditionality",
+    "title": "What conditions on benefits actually achieve",
+    "category": "society",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain conditionality in welfare and the evidence on sanctions.",
+    "suggestedAngles": [
+      "Frame the intended incentive effect",
+      "Report the evidence on exits to non-employment"
+    ],
+    "tags": ["welfare", "policy", "sanctions", "evidence"],
+    "searchTerms": [
+      "welfare conditionality sanctions evidence",
+      "benefit sanctions employment outcomes"
+    ],
+    "references": []
+  },
+  {
+    "id": "language-death",
+    "title": "Why languages disappear",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the mechanisms of language shift and what is lost.",
+    "suggestedAngles": [
+      "Frame it as intergenerational transmission failing",
+      "Use domain loss as the leading indicator"
+    ],
+    "tags": ["language", "shift", "culture", "loss"],
+    "searchTerms": [
+      "language shift intergenerational transmission",
+      "domain loss language death"
+    ],
+    "references": []
+  },
+  {
+    "id": "professional-closure",
+    "title": "How professions restrict entry",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain occupational licensing and social closure.",
+    "suggestedAngles": [
+      "Frame licensing as quality assurance and rent extraction at once",
+      "Use wage premia across state lines as evidence"
+    ],
+    "tags": ["professions", "licensing", "closure", "labour"],
+    "searchTerms": [
+      "occupational licensing social closure",
+      "licensing wage premium evidence"
+    ],
+    "references": []
+  },
+  {
+    "id": "public-opinion-measurement",
+    "title": "Why polls measure something other than opinion",
+    "category": "society",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain question-wording effects, non-attitudes and response instability.",
+    "suggestedAngles": [
+      "Show one issue polling differently under two wordings",
+      "Frame non-attitudes as a measurement artefact"
+    ],
+    "tags": ["polling", "measurement", "opinion", "methodology"],
+    "searchTerms": [
+      "question wording effects polling",
+      "non-attitudes response instability"
+    ],
+    "references": []
+  },
+  {
+    "id": "diffusion-of-innovation",
+    "title": "Why good ideas spread slowly",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain diffusion curves and the role of adopter categories and social proof.",
+    "suggestedAngles": [
+      "Use hybrid corn adoption as the founding study",
+      "Frame observability and trialability as decisive attributes"
+    ],
+    "tags": ["innovation", "diffusion", "adoption", "networks"],
+    "searchTerms": [
+      "diffusion of innovations Rogers",
+      "hybrid corn adoption curve"
+    ],
+    "references": []
+  },
+  {
+    "id": "care-work-invisibility",
+    "title": "Why unpaid work is missing from economic statistics",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the exclusion of household production from national accounts.",
+    "suggestedAngles": [
+      "Frame the production boundary as a definitional choice",
+      "Use time-use surveys as the alternative measurement"
+    ],
+    "tags": ["labour", "measurement", "care", "statistics"],
+    "searchTerms": [
+      "household production national accounts boundary",
+      "time use survey unpaid work"
+    ],
+    "references": []
+  },
+  {
+    "id": "residential-sorting",
+    "title": "How small preferences produce large segregation",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain how mild individual preferences aggregate into strong sorting.",
+    "suggestedAngles": [
+      "Run a simple grid mentally to show the tipping",
+      "Frame the aggregate outcome as unintended"
+    ],
+    "tags": ["segregation", "emergence", "housing", "preferences"],
+    "searchTerms": [
+      "residential segregation tipping",
+      "mild preference aggregate sorting"
+    ],
+    "references": []
+  },
+  {
+    "id": "ritual-purity-rules",
+    "title": "What food and purity rules accomplish socially",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain structural accounts of dietary and purity codes.",
+    "suggestedAngles": [
+      "Frame classification anomalies as the trigger",
+      "Use boundary maintenance as the social function"
+    ],
+    "tags": ["religion", "anthropology", "purity", "classification"],
+    "searchTerms": [
+      "Mary Douglas purity and danger",
+      "dietary law classification anomaly"
+    ],
+    "references": []
+  },
+  {
+    "id": "voter-turnout-paradox",
+    "title": "Why voting is irrational and people do it anyway",
+    "category": "society",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the paradox of voting and the leading resolutions.",
+    "suggestedAngles": [
+      "Compute the expected value of a single vote",
+      "Frame expressive and duty-based accounts as the responses"
+    ],
+    "tags": ["voting", "rationality", "participation", "paradox"],
+    "searchTerms": [
+      "paradox of voting rational choice",
+      "expressive voting civic duty"
+    ],
+    "references": []
+  },
+  {
+    "id": "gift-economies",
+    "title": "Why gifts create obligations",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Mauss on the gift and reciprocity as a social binding mechanism.",
+    "suggestedAngles": [
+      "Frame the gift as creating debt rather than clearing it",
+      "Contrast with market exchange which settles accounts"
+    ],
+    "tags": ["anthropology", "reciprocity", "exchange", "mauss"],
+    "searchTerms": [
+      "Mauss the gift reciprocity",
+      "gift exchange obligation debt"
+    ],
+    "references": []
+  },
+  {
+    "id": "standardised-time",
+    "title": "Why the railways invented the clock we use",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the adoption of standard time zones and what forced it.",
+    "suggestedAngles": [
+      "Frame local solar time as the prior default",
+      "Use timetable collisions as the driver"
+    ],
+    "tags": ["time", "standardisation", "railways", "infrastructure"],
+    "searchTerms": [
+      "standard time zones railways",
+      "local mean time standardization"
+    ],
+    "references": []
+  },
+  {
+    "id": "intergenerational-mobility",
+    "title": "How much your parents determine your income",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain elasticity measures of mobility and the geographic variation within countries.",
+    "suggestedAngles": [
+      "Explain what an elasticity of 0.5 means concretely",
+      "Frame place-based variation as the surprising finding"
+    ],
+    "tags": ["mobility", "inequality", "measurement", "geography"],
+    "searchTerms": [
+      "intergenerational income elasticity",
+      "geographic variation mobility Chetty"
+    ],
+    "references": []
+  },
+  {
+    "id": "professional-jargon",
+    "title": "What specialist language does besides communicate",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain jargon as boundary maintenance as well as precision.",
+    "suggestedAngles": [
+      "Give one term that genuinely compresses meaning",
+      "Give one that mainly signals membership"
+    ],
+    "tags": ["language", "professions", "boundaries", "communication"],
+    "searchTerms": [
+      "jargon boundary maintenance profession",
+      "technical vocabulary gatekeeping"
+    ],
+    "references": []
+  },
+  {
+    "id": "disaster-behaviour",
+    "title": "Why people do not panic in disasters",
+    "category": "society",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain disaster research findings on prosocial behaviour and the persistence of the panic myth.",
+    "suggestedAngles": [
+      "State the myth then the field evidence",
+      "Frame elite panic as the documented pattern"
+    ],
+    "tags": ["disasters", "behaviour", "myths", "evidence"],
+    "searchTerms": [
+      "disaster panic myth research",
+      "prosocial behaviour emergencies elite panic"
+    ],
+    "references": []
+  },
+  {
+    "id": "compulsory-schooling",
+    "title": "What mass schooling was designed to produce",
+    "category": "society",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the historical arguments behind compulsory schooling and the competing accounts of its purpose.",
+    "suggestedAngles": [
+      "Present nation-building and industrial-discipline accounts",
+      "Frame the human-capital account as the third reading"
+    ],
+    "tags": ["education", "state", "history", "purpose"],
+    "searchTerms": [
+      "compulsory schooling nation building",
+      "mass education industrial discipline debate"
+    ],
+    "references": []
+  },
+  {
+    "id": "identity-and-census",
+    "title": "How counting people creates categories",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain how census classification shapes the identities it claims to measure.",
+    "suggestedAngles": [
+      "Use a category that changed between censuses",
+      "Frame measurement as constitutive rather than neutral"
+    ],
+    "tags": ["census", "classification", "identity", "measurement"],
+    "searchTerms": [
+      "census classification identity construction",
+      "ethnic category measurement change"
+    ],
+    "references": []
+  },
+  {
+    "id": "organ-donation-defaults",
+    "title": "Why opt-out systems have more donors",
+    "category": "society",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain default effects in organ donation and what family consent complicates.",
+    "suggestedAngles": [
+      "Present the striking cross-country figures",
+      "Frame the gap between registration and actual donation"
+    ],
+    "tags": ["policy", "defaults", "organ-donation", "behaviour"],
+    "searchTerms": [
+      "organ donation opt out defaults",
+      "presumed consent donation rates"
+    ],
+    "references": []
+  },
+  {
+    "id": "urban-anonymity",
+    "title": "What cities do to social control",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain how urban density changes the mechanisms of social control.",
+    "suggestedAngles": [
+      "Contrast reputation-based control with formal enforcement",
+      "Frame anonymity as both freedom and vulnerability"
+    ],
+    "tags": ["urban", "social-control", "anonymity", "norms"],
+    "searchTerms": [
+      "urban anonymity social control",
+      "reputation formal enforcement density"
+    ],
+    "references": []
+  },
+  {
+    "id": "technology-and-deskilling",
+    "title": "Whether automation raises or lowers skill demands",
+    "category": "society",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the deskilling and upskilling literatures and why both find support.",
+    "suggestedAngles": [
+      "Present Braverman's deskilling thesis",
+      "Frame task-level analysis as reconciling the two"
+    ],
+    "tags": ["labour", "automation", "skills", "technology"],
+    "searchTerms": [
+      "deskilling Braverman labour process",
+      "task based automation skill demand"
+    ],
+    "references": []
+  },
+  {
+    "id": "reciprocal-altruism",
+    "title": "Why strangers cooperate at all",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain reciprocal altruism and the conditions that sustain cooperation.",
+    "suggestedAngles": [
+      "Frame repeated interaction as the enabling condition",
+      "Use reputation as the extension to one-shot cases"
+    ],
+    "tags": ["cooperation", "reciprocity", "evolution", "norms"],
+    "searchTerms": [
+      "reciprocal altruism repeated interaction",
+      "indirect reciprocity reputation cooperation"
+    ],
+    "references": []
+  },
+  {
+    "id": "planning-fallacy-projects",
+    "title": "Why large projects are always late",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the planning fallacy and reference class forecasting.",
+    "suggestedAngles": [
+      "Use the inside versus outside view distinction",
+      "Frame reference class forecasting as the correction"
+    ],
+    "tags": ["projects", "forecasting", "bias", "planning"],
+    "searchTerms": [
+      "planning fallacy reference class forecasting",
+      "inside outside view megaprojects"
+    ],
+    "references": []
+  },
+  {
+    "id": "norm-cascades",
+    "title": "How an accepted practice becomes unacceptable quickly",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain norm cascades and preference falsification in rapid social change.",
+    "suggestedAngles": [
+      "Frame private doubt accumulating invisibly",
+      "Use the tipping point as the visible moment"
+    ],
+    "tags": ["norms", "change", "cascades", "preference-falsification"],
+    "searchTerms": [
+      "norm cascade rapid social change",
+      "preference falsification tipping point"
+    ],
+    "references": []
   }
 ]

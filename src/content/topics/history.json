@@ -11,7 +11,11 @@
       "Use the resistance he met to show how theory change actually happens"
     ],
     "tags": ["epidemiology", "evidence", "public-health", "method"],
-    "searchTerms": ["broad street pump","john snow cholera","history of epidemiology"],
+    "searchTerms": [
+      "broad street pump",
+      "john snow cholera",
+      "history of epidemiology"
+    ],
     "references": [
       {
         "label": "1854 Broad Street cholera outbreak",
@@ -37,7 +41,11 @@
       "Argue the counterfactual: which changes needed print and which were already underway"
     ],
     "tags": ["technology", "information", "reformation", "standardisation"],
-    "searchTerms": ["printing press","print revolution","early modern europe"],
+    "searchTerms": [
+      "printing press",
+      "print revolution",
+      "early modern europe"
+    ],
     "references": [
       {
         "label": "Printing press",
@@ -63,7 +71,11 @@
       "Use the multiplicity of proposed causes to argue about overdetermination"
     ],
     "tags": ["rome", "historiography", "causation", "decline"],
-    "searchTerms": ["fall of the roman empire","historiography of rome","decline of rome"],
+    "searchTerms": [
+      "fall of the roman empire",
+      "historiography of rome",
+      "decline of rome"
+    ],
     "references": [
       {
         "label": "Fall of the Western Roman Empire",
@@ -76,5 +88,801 @@
         "kind": "article"
       }
     ]
+  },
+  {
+    "id": "columbian-exchange",
+    "title": "How two food systems rewrote each other",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the Columbian Exchange and its demographic consequences on both sides.",
+    "suggestedAngles": [
+      "Follow one crop each way and its population effect",
+      "Frame disease as the larger and less intentional exchange"
+    ],
+    "tags": ["colonialism", "agriculture", "disease", "demography"],
+    "searchTerms": [
+      "Columbian Exchange crops disease",
+      "New World Old World food transfer"
+    ],
+    "references": []
+  },
+  {
+    "id": "bronze-age-collapse",
+    "title": "Why several civilisations failed at once",
+    "category": "history",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the Late Bronze Age collapse and why no single cause explains it.",
+    "suggestedAngles": [
+      "Lay out the candidate causes and their evidence separately",
+      "Frame systems interdependence as the multiplier"
+    ],
+    "tags": ["antiquity", "collapse", "trade", "mediterranean"],
+    "searchTerms": ["Late Bronze Age collapse", "Sea Peoples systems collapse"],
+    "references": []
+  },
+  {
+    "id": "enclosure-movement",
+    "title": "How common land became private",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain enclosure in England and its effect on labour supply and agriculture.",
+    "suggestedAngles": [
+      "Follow one village from open field to enclosed farm",
+      "Frame it as creating a workforce as much as improving yields"
+    ],
+    "tags": ["agriculture", "property", "industrialisation", "england"],
+    "searchTerms": [
+      "English enclosure movement",
+      "open field system agricultural revolution"
+    ],
+    "references": []
+  },
+  {
+    "id": "haitian-revolution",
+    "title": "The revolution that frightened every empire",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the Haitian Revolution and why it was treated differently from other independence movements.",
+    "suggestedAngles": [
+      "Frame it as the only successful large-scale slave revolt",
+      "Use the indemnity France demanded as the long consequence"
+    ],
+    "tags": ["revolution", "slavery", "caribbean", "independence"],
+    "searchTerms": [
+      "Haitian Revolution 1791",
+      "Haiti independence indemnity France"
+    ],
+    "references": []
+  },
+  {
+    "id": "silk-road-transmission",
+    "title": "What actually travelled the Silk Road",
+    "category": "history",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain what moved along Eurasian trade routes, and correct the image of continuous caravans.",
+    "suggestedAngles": [
+      "Frame it as relay trade rather than end-to-end journeys",
+      "Use technologies and diseases as the significant cargo"
+    ],
+    "tags": ["trade", "eurasia", "exchange", "networks"],
+    "searchTerms": [
+      "Silk Road relay trade",
+      "Eurasian exchange networks technology"
+    ],
+    "references": []
+  },
+  {
+    "id": "printing-press-reformation",
+    "title": "Why the Reformation needed a machine",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain how printing changed the economics of religious dissent.",
+    "suggestedAngles": [
+      "Compare the cost of copying before and after",
+      "Frame vernacular printing as the decisive variable"
+    ],
+    "tags": ["printing", "reformation", "communication", "europe"],
+    "searchTerms": [
+      "printing press Reformation pamphlets",
+      "vernacular printing religious dissent"
+    ],
+    "references": []
+  },
+  {
+    "id": "opium-wars-causes",
+    "title": "How a trade deficit became a war",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the economic logic behind the Opium Wars.",
+    "suggestedAngles": [
+      "Follow silver flows before and after opium",
+      "Frame it as balancing a deficit by force"
+    ],
+    "tags": ["trade", "empire", "china", "britain"],
+    "searchTerms": [
+      "Opium Wars silver trade deficit",
+      "Canton system opium trade"
+    ],
+    "references": []
+  },
+  {
+    "id": "black-death-consequences",
+    "title": "How a plague raised wages",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the labour market effects of the Black Death and the legal response to them.",
+    "suggestedAngles": [
+      "Follow the labour-to-land ratio changing",
+      "Use wage-freezing statutes as evidence of the effect"
+    ],
+    "tags": ["plague", "labour", "medieval", "economics"],
+    "searchTerms": [
+      "Black Death labour shortage wages",
+      "Statute of Labourers 1351"
+    ],
+    "references": []
+  },
+  {
+    "id": "mongol-administration",
+    "title": "Why the Mongol empire was more than conquest",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Mongol administrative practices and their effect on Eurasian exchange.",
+    "suggestedAngles": [
+      "Frame religious tolerance as policy rather than sentiment",
+      "Use the postal relay system as infrastructure"
+    ],
+    "tags": ["empire", "administration", "eurasia", "mongols"],
+    "searchTerms": [
+      "Mongol empire administration yam",
+      "Pax Mongolica exchange"
+    ],
+    "references": []
+  },
+  {
+    "id": "cahokia",
+    "title": "The city in North America that was abandoned",
+    "category": "history",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain what is known about Cahokia's rise and decline, and how much remains uncertain.",
+    "suggestedAngles": [
+      "Establish the scale before discussing the collapse",
+      "Be explicit about the limits of the archaeological record"
+    ],
+    "tags": ["archaeology", "north-america", "urbanism", "mississippian"],
+    "searchTerms": [
+      "Cahokia Mississippian urban centre",
+      "Cahokia decline archaeology"
+    ],
+    "references": []
+  },
+  {
+    "id": "gunpowder-fortification",
+    "title": "How a weapon redesigned European cities",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain how cannon made medieval walls obsolete and produced the star fort.",
+    "suggestedAngles": [
+      "Frame the geometry problem cannon created",
+      "Use the trace italienne as the engineering answer"
+    ],
+    "tags": ["military", "architecture", "technology", "europe"],
+    "searchTerms": [
+      "trace italienne star fort",
+      "cannon medieval fortification obsolete"
+    ],
+    "references": []
+  },
+  {
+    "id": "indus-valley-script",
+    "title": "A civilisation we cannot read",
+    "category": "history",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain what is known about the Indus Valley civilisation and why its script resists decipherment.",
+    "suggestedAngles": [
+      "Frame the absence of a bilingual text as the core obstacle",
+      "Present the debate over whether it encodes language at all"
+    ],
+    "tags": ["archaeology", "script", "south-asia", "decipherment"],
+    "searchTerms": [
+      "Indus script undeciphered",
+      "Harappan civilisation writing debate"
+    ],
+    "references": []
+  },
+  {
+    "id": "triangular-trade-myth",
+    "title": "Why the triangle diagram misleads",
+    "category": "history",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the actual patterns of Atlantic trade and where the simplified triangle fails.",
+    "suggestedAngles": [
+      "Present the standard diagram then complicate it with real routes",
+      "Frame simplification as pedagogically useful and historically wrong"
+    ],
+    "tags": ["atlantic", "trade", "slavery", "historiography"],
+    "searchTerms": [
+      "Atlantic trade routes historiography",
+      "triangular trade model criticism"
+    ],
+    "references": []
+  },
+  {
+    "id": "byzantine-survival",
+    "title": "Why the eastern empire outlasted the western by a millennium",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the structural differences that let Byzantium survive.",
+    "suggestedAngles": [
+      "Compare tax bases and frontier lengths directly",
+      "Use Constantinople's geography as a force multiplier"
+    ],
+    "tags": ["byzantium", "empire", "rome", "survival"],
+    "searchTerms": [
+      "Byzantine empire survival east west",
+      "Constantinople fortifications tax base"
+    ],
+    "references": []
+  },
+  {
+    "id": "potato-population",
+    "title": "How one crop changed European population",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the demographic effect of potato adoption and the vulnerability it created.",
+    "suggestedAngles": [
+      "Compare calories per acre against grain",
+      "Use the Irish famine as the monoculture consequence"
+    ],
+    "tags": ["agriculture", "demography", "famine", "europe"],
+    "searchTerms": [
+      "potato adoption European population",
+      "Irish famine monoculture blight"
+    ],
+    "references": []
+  },
+  {
+    "id": "standing-armies",
+    "title": "Why permanent armies changed the state",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain how maintaining standing armies drove tax collection and bureaucracy.",
+    "suggestedAngles": [
+      "Follow the money from army to tax office",
+      "Frame the fiscal-military state as the consequence"
+    ],
+    "tags": ["military", "state-formation", "taxation", "europe"],
+    "searchTerms": [
+      "fiscal military state standing army",
+      "military revolution taxation bureaucracy"
+    ],
+    "references": []
+  },
+  {
+    "id": "library-alexandria-myth",
+    "title": "What actually happened to the Library of Alexandria",
+    "category": "history",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the evidence about the library's decline and correct the single-fire narrative.",
+    "suggestedAngles": [
+      "Present the several candidate destructions and their evidence",
+      "Frame gradual institutional decline as the likelier story"
+    ],
+    "tags": ["antiquity", "libraries", "historiography", "myth"],
+    "searchTerms": [
+      "Library of Alexandria destruction evidence",
+      "Alexandria library decline historiography"
+    ],
+    "references": []
+  },
+  {
+    "id": "longitude-problem",
+    "title": "Why finding your position at sea took centuries",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the longitude problem and why a clock solved it.",
+    "suggestedAngles": [
+      "Frame longitude as a time problem rather than a space one",
+      "Contrast the lunar distance method with the marine chronometer"
+    ],
+    "tags": ["navigation", "measurement", "maritime", "instruments"],
+    "searchTerms": [
+      "longitude problem marine chronometer",
+      "lunar distance method navigation"
+    ],
+    "references": []
+  },
+  {
+    "id": "ottoman-millet",
+    "title": "How an empire governed many religions",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the millet system and its consequences for communal identity.",
+    "suggestedAngles": [
+      "Frame it as delegated legal autonomy",
+      "Use the transition to nationalism as the stress test"
+    ],
+    "tags": ["empire", "governance", "religion", "ottoman"],
+    "searchTerms": [
+      "Ottoman millet system",
+      "confessional autonomy empire governance"
+    ],
+    "references": []
+  },
+  {
+    "id": "great-divergence",
+    "title": "Why Europe industrialised first",
+    "category": "history",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the Great Divergence debate and the main competing explanations.",
+    "suggestedAngles": [
+      "Set Pomeranz against institutional accounts",
+      "Frame coal and colonies as the contested variables"
+    ],
+    "tags": ["industrialisation", "comparative", "divergence", "debate"],
+    "searchTerms": [
+      "Great Divergence Pomeranz",
+      "coal colonies institutional explanation"
+    ],
+    "references": []
+  },
+  {
+    "id": "roman-concrete",
+    "title": "Why Roman harbours are still standing",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the chemistry of Roman marine concrete and why it strengthens in seawater.",
+    "suggestedAngles": [
+      "Frame modern concrete's failure mode first",
+      "Use the volcanic ash reaction as the difference"
+    ],
+    "tags": ["engineering", "materials", "rome", "concrete"],
+    "searchTerms": [
+      "Roman marine concrete pozzolana",
+      "seawater concrete crystal growth"
+    ],
+    "references": []
+  },
+  {
+    "id": "treaty-westphalia-myth",
+    "title": "Whether Westphalia invented sovereignty",
+    "category": "history",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain what the Peace of Westphalia actually settled and why the sovereignty story is overstated.",
+    "suggestedAngles": [
+      "Read what the treaties contain against what they are credited with",
+      "Frame the myth as a later construction"
+    ],
+    "tags": ["diplomacy", "sovereignty", "historiography", "europe"],
+    "searchTerms": [
+      "Peace of Westphalia sovereignty myth",
+      "Westphalian system historiography"
+    ],
+    "references": []
+  },
+  {
+    "id": "chinese-examination-system",
+    "title": "How an empire recruited by exam",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the imperial examination system and its effects on social mobility.",
+    "suggestedAngles": [
+      "Frame it as a meritocratic instrument with real limits",
+      "Use the cost of preparation as the filter"
+    ],
+    "tags": ["china", "bureaucracy", "education", "meritocracy"],
+    "searchTerms": [
+      "imperial examination system China",
+      "keju civil service mobility"
+    ],
+    "references": []
+  },
+  {
+    "id": "neolithic-health-decline",
+    "title": "Why farming made people shorter",
+    "category": "history",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the skeletal evidence that early agriculture worsened health, and what still made it spread.",
+    "suggestedAngles": [
+      "Present the health evidence before the puzzle",
+      "Frame calories per acre against nutrition per person"
+    ],
+    "tags": ["agriculture", "neolithic", "health", "archaeology"],
+    "searchTerms": [
+      "Neolithic agricultural transition health",
+      "skeletal evidence stature decline farming"
+    ],
+    "references": []
+  },
+  {
+    "id": "venetian-arsenal",
+    "title": "Assembly line shipbuilding in 1500",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the Venetian Arsenal's production system and why it predates industrial assembly by centuries.",
+    "suggestedAngles": [
+      "Describe the moving hull through fitting stations",
+      "Frame standardised parts as the enabling idea"
+    ],
+    "tags": ["venice", "manufacturing", "standardisation", "maritime"],
+    "searchTerms": [
+      "Venetian Arsenal shipbuilding",
+      "standardized parts assembly Venice"
+    ],
+    "references": []
+  },
+  {
+    "id": "decolonisation-borders",
+    "title": "Why colonial borders survived independence",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain uti possidetis and why new states kept boundaries they resented.",
+    "suggestedAngles": [
+      "Frame the alternative as a worse coordination problem",
+      "Use African Union practice as the institutional choice"
+    ],
+    "tags": ["decolonisation", "borders", "sovereignty", "africa"],
+    "searchTerms": [
+      "uti possidetis colonial borders",
+      "African Union boundary principle"
+    ],
+    "references": []
+  },
+  {
+    "id": "salt-taxation",
+    "title": "Why states taxed salt for millennia",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain why salt was such an effective tax base and what that reveals about state capacity.",
+    "suggestedAngles": [
+      "Frame inelastic demand plus chokepoint production",
+      "Use salt monopolies and revolts as consequences"
+    ],
+    "tags": ["taxation", "state-capacity", "commodities", "revolt"],
+    "searchTerms": [
+      "salt tax monopoly history",
+      "gabelle salt revolt taxation"
+    ],
+    "references": []
+  },
+  {
+    "id": "printing-in-east-asia",
+    "title": "Why movable type spread differently in Asia",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain why movable type existed in East Asia earlier but diffused differently.",
+    "suggestedAngles": [
+      "Frame character-set size as the economic variable",
+      "Compare woodblock efficiency for the same texts"
+    ],
+    "tags": ["printing", "east-asia", "technology", "diffusion"],
+    "searchTerms": [
+      "movable type East Asia woodblock",
+      "Korean metal type Jikji"
+    ],
+    "references": []
+  },
+  {
+    "id": "irish-famine-policy",
+    "title": "How policy turned a blight into a famine",
+    "category": "history",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the role of exports, relief policy and ideology in the Irish famine.",
+    "suggestedAngles": [
+      "Establish that food left the country during starvation",
+      "Frame laissez-faire doctrine as a policy choice"
+    ],
+    "tags": ["famine", "ireland", "policy", "ideology"],
+    "searchTerms": [
+      "Irish famine relief policy exports",
+      "laissez faire famine ideology"
+    ],
+    "references": []
+  },
+  {
+    "id": "slave-ship-insurance",
+    "title": "How maritime insurance shaped the slave trade",
+    "category": "history",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the role of insurance and legal cases like the Zong in the Atlantic slave trade.",
+    "suggestedAngles": [
+      "Frame people classified as cargo in legal documents",
+      "Use the Zong case as the point where the logic became visible"
+    ],
+    "tags": ["slavery", "insurance", "law", "atlantic"],
+    "searchTerms": [
+      "Zong massacre insurance case",
+      "Atlantic slave trade maritime insurance"
+    ],
+    "references": []
+  },
+  {
+    "id": "nomad-sedentary-relations",
+    "title": "Why steppe and settled societies needed each other",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the economic interdependence between nomadic and agricultural societies.",
+    "suggestedAngles": [
+      "Frame raids and trade as alternate modes of one relationship",
+      "Use tribute systems as the negotiated middle"
+    ],
+    "tags": ["nomads", "trade", "steppe", "interdependence"],
+    "searchTerms": [
+      "nomad sedentary interaction steppe",
+      "tribute trade raiding relationship"
+    ],
+    "references": []
+  },
+  {
+    "id": "guild-regulation",
+    "title": "What guilds actually did to quality and prices",
+    "category": "history",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the debate over whether guilds protected standards or restricted competition.",
+    "suggestedAngles": [
+      "Present both the quality-assurance and cartel readings",
+      "Frame apprenticeship as the contested institution"
+    ],
+    "tags": ["guilds", "medieval", "regulation", "debate"],
+    "searchTerms": [
+      "guild quality regulation debate",
+      "apprenticeship restriction competition"
+    ],
+    "references": []
+  },
+  {
+    "id": "nile-flood-administration",
+    "title": "How a river built a bureaucracy",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain how predicting and taxing the Nile flood shaped Egyptian administration.",
+    "suggestedAngles": [
+      "Follow the nilometer reading to the tax assessment",
+      "Frame measurement as the origin of the state apparatus"
+    ],
+    "tags": ["egypt", "administration", "agriculture", "measurement"],
+    "searchTerms": [
+      "nilometer flood taxation Egypt",
+      "Nile inundation administration"
+    ],
+    "references": []
+  },
+  {
+    "id": "spanish-silver-inflation",
+    "title": "How American silver caused European inflation",
+    "category": "history",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the price revolution and the debate over how much silver explains it.",
+    "suggestedAngles": [
+      "Present the quantity-theory account first",
+      "Introduce population growth as the rival explanation"
+    ],
+    "tags": ["silver", "inflation", "empire", "early-modern"],
+    "searchTerms": [
+      "price revolution Spanish silver",
+      "sixteenth century inflation causes"
+    ],
+    "references": []
+  },
+  {
+    "id": "samurai-demilitarisation",
+    "title": "How a warrior class was turned into bureaucrats",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the Tokugawa transformation of the samurai and the sword hunt.",
+    "suggestedAngles": [
+      "Frame disarmament of the peasantry as the first step",
+      "Use stipends replacing land as the mechanism"
+    ],
+    "tags": ["japan", "tokugawa", "class", "state-formation"],
+    "searchTerms": [
+      "Tokugawa samurai bureaucratization",
+      "sword hunt Hideyoshi class separation"
+    ],
+    "references": []
+  },
+  {
+    "id": "carthage-salt-myth",
+    "title": "Why the salting of Carthage probably never happened",
+    "category": "history",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the origin of the salting story and how such myths enter textbooks.",
+    "suggestedAngles": [
+      "Trace the claim back through sources to its absence",
+      "Frame it as a lesson in citation chains"
+    ],
+    "tags": ["rome", "carthage", "historiography", "myth"],
+    "searchTerms": [
+      "salting of Carthage myth origin",
+      "historiographical citation chain error"
+    ],
+    "references": []
+  },
+  {
+    "id": "medieval-climate-anomaly",
+    "title": "How climate shaped medieval settlement",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the Medieval Climate Anomaly and its regional rather than global character.",
+    "suggestedAngles": [
+      "Use Norse Greenland settlement and abandonment",
+      "Be explicit that the anomaly was not globally synchronous"
+    ],
+    "tags": ["climate", "medieval", "settlement", "norse"],
+    "searchTerms": [
+      "Medieval Climate Anomaly regional",
+      "Norse Greenland settlement abandonment"
+    ],
+    "references": []
+  },
+  {
+    "id": "conscription-nationalism",
+    "title": "How mass armies made nations",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the relationship between conscription, literacy campaigns and national identity.",
+    "suggestedAngles": [
+      "Follow the levée en masse to standardised language",
+      "Frame the army as a nationalising institution"
+    ],
+    "tags": ["nationalism", "military", "identity", "france"],
+    "searchTerms": [
+      "levee en masse conscription nationalism",
+      "army national identity formation"
+    ],
+    "references": []
+  },
+  {
+    "id": "hanseatic-league",
+    "title": "A trading empire with no state",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain how the Hanseatic League exercised power without sovereignty.",
+    "suggestedAngles": [
+      "Frame the boycott as its principal weapon",
+      "Use its decline against territorial states as the ending"
+    ],
+    "tags": ["trade", "baltic", "institutions", "medieval"],
+    "searchTerms": [
+      "Hanseatic League trading network",
+      "Hansa boycott commercial power"
+    ],
+    "references": []
+  },
+  {
+    "id": "quinine-and-empire",
+    "title": "How a drug enabled colonisation",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the role of quinine in European penetration of tropical regions.",
+    "suggestedAngles": [
+      "Frame malaria as the prior limiting factor",
+      "Use cinchona cultivation as an imperial project itself"
+    ],
+    "tags": ["medicine", "empire", "malaria", "botany"],
+    "searchTerms": [
+      "quinine cinchona colonial expansion",
+      "malaria tropical empire medicine"
+    ],
+    "references": []
+  },
+  {
+    "id": "written-law-codes",
+    "title": "Why early states wrote their laws down",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain what publishing a law code accomplished, using Hammurabi and the Twelve Tables.",
+    "suggestedAngles": [
+      "Frame publication as a constraint on officials",
+      "Use the stele's public placement as the argument"
+    ],
+    "tags": ["law", "antiquity", "state", "codes"],
+    "searchTerms": [
+      "Code of Hammurabi publication",
+      "Twelve Tables written law function"
+    ],
+    "references": []
+  },
+  {
+    "id": "age-of-sail-scurvy",
+    "title": "Why the cure for scurvy was found and then lost",
+    "category": "history",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain how scurvy's cure was discovered, forgotten and rediscovered.",
+    "suggestedAngles": [
+      "Follow Lind's trial and its slow adoption",
+      "Frame the loss of knowledge as an institutional failure"
+    ],
+    "tags": ["medicine", "maritime", "nutrition", "knowledge"],
+    "searchTerms": [
+      "James Lind scurvy trial",
+      "scurvy cure forgotten rediscovery"
+    ],
+    "references": []
+  },
+  {
+    "id": "cartographic-silence",
+    "title": "What old maps leave out on purpose",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain how maps encode political claims through omission and naming.",
+    "suggestedAngles": [
+      "Use a disputed border rendered differently by two states",
+      "Frame blank space as an assertion rather than ignorance"
+    ],
+    "tags": ["cartography", "power", "representation", "borders"],
+    "searchTerms": [
+      "cartographic silence map power",
+      "map naming political claim"
+    ],
+    "references": []
+  },
+  {
+    "id": "paper-money-china",
+    "title": "Why paper money appeared in China first",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the emergence of paper currency under the Song and its inflationary end.",
+    "suggestedAngles": [
+      "Frame it as a solution to the weight of copper coin",
+      "Use over-issuance as the recurring failure"
+    ],
+    "tags": ["money", "china", "song", "currency"],
+    "searchTerms": [
+      "Song dynasty paper money jiaozi",
+      "paper currency inflation China"
+    ],
+    "references": []
+  },
+  {
+    "id": "archaeology-of-diet",
+    "title": "What teeth reveal about the past",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain how dental calculus and isotopes reconstruct ancient diets.",
+    "suggestedAngles": [
+      "Frame plaque as an accidental archive",
+      "Use isotope ratios to distinguish marine from terrestrial diets"
+    ],
+    "tags": ["archaeology", "diet", "isotopes", "methods"],
+    "searchTerms": [
+      "dental calculus archaeology diet",
+      "stable isotope analysis paleodiet"
+    ],
+    "references": []
+  },
+  {
+    "id": "berlin-conference",
+    "title": "How borders were drawn without maps",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the Berlin Conference and the principle of effective occupation.",
+    "suggestedAngles": [
+      "Frame the absence of African representation as structural",
+      "Use effective occupation as the rule that drove inland conquest"
+    ],
+    "tags": ["colonialism", "africa", "borders", "diplomacy"],
+    "searchTerms": [
+      "Berlin Conference effective occupation",
+      "Scramble for Africa partition"
+    ],
+    "references": []
+  },
+  {
+    "id": "banking-medici",
+    "title": "How a family bank managed political risk",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Medici banking structure and the use of branches as legally separate partnerships.",
+    "suggestedAngles": [
+      "Frame the partnership structure as liability containment",
+      "Use the papal account as the political dependency"
+    ],
+    "tags": ["banking", "florence", "risk", "renaissance"],
+    "searchTerms": [
+      "Medici bank branch partnership",
+      "Renaissance banking papal accounts"
+    ],
+    "references": []
   }
 ]
