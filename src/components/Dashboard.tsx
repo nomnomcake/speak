@@ -30,6 +30,7 @@ import {
   completedIds,
   favouriteCategory,
   improvement,
+  nextMilestone,
   scoreAverages,
   streakFrom,
 } from "@/lib/progress";
@@ -133,6 +134,7 @@ export function Dashboard() {
   const averages = scoreAverages(list);
   const catScores = categoryScores(list);
   const trend = improvement(list);
+  const milestone = nextMilestone(collection.done, collection.total);
   const earned = achievements.filter((a) => a.earned).length;
 
   const recent = [...list]
@@ -184,12 +186,15 @@ export function Dashboard() {
               unit={`of ${collection.total}`}
               footnote={
                 ready
-                  ? `${list.length} session${list.length === 1 ? "" : "s"} recorded`
+                  ? `${milestone.remaining} to reach ${milestone.target}`
                   : "Reading history"
               }
             >
+              {/* Against the next milestone, not the full 350. One percent of a
+                  large cabinet reads as "you have done nothing", which is both
+                  discouraging and untrue. */}
               <ProgressBar
-                value={ready ? collection.ratio : 0}
+                value={ready ? milestone.ratio : 0}
                 variant="pill"
               />
             </StatTile>

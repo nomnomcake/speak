@@ -880,5 +880,175 @@
       "redemption sequence life story"
     ],
     "references": []
+  },
+  {
+    "id": "tetris-effect",
+    "title": "Why an activity invades your dreams",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the Tetris effect and what it suggests about memory consolidation.",
+    "suggestedAngles": [
+      "Use the amnesiac patients who reported the imagery without the memory",
+      "Frame it as procedural consolidation surfacing"
+    ],
+    "tags": ["memory", "consolidation", "imagery", "sleep"],
+    "searchTerms": [
+      "Tetris effect hypnagogic imagery",
+      "procedural memory consolidation amnesia"
+    ],
+    "references": []
+  },
+  {
+    "id": "semantic-satiation",
+    "title": "Why a word stops meaning anything when repeated",
+    "category": "psychology",
+    "difficulty": "plain",
+    "researchPrompt": "Explain semantic satiation and the neural adaptation account of it.",
+    "suggestedAngles": [
+      "Have the listener try it mentally with one word",
+      "Frame it as reactive inhibition rather than forgetting"
+    ],
+    "tags": ["language", "perception", "adaptation", "semantics"],
+    "searchTerms": [
+      "semantic satiation repetition",
+      "reactive inhibition word meaning"
+    ],
+    "references": []
+  },
+  {
+    "id": "capgras-delusion",
+    "title": "Why someone can believe a relative is an impostor",
+    "category": "psychology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the Capgras delusion and the two-factor account of delusion formation.",
+    "suggestedAngles": [
+      "Separate the recognition pathway from the affective one",
+      "Frame the second factor as the failure to reject the belief"
+    ],
+    "tags": ["neuropsychology", "delusion", "recognition", "affect"],
+    "searchTerms": [
+      "Capgras delusion two factor",
+      "affective recognition pathway disconnection"
+    ],
+    "references": []
+  },
+  {
+    "id": "aphantasia",
+    "title": "What it means to have no mind's eye",
+    "category": "psychology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain aphantasia, how it is measured, and what it reveals about assumptions in cognitive science.",
+    "suggestedAngles": [
+      "Frame the discovery as people realising a metaphor was literal for others",
+      "Use the binocular rivalry test as objective evidence"
+    ],
+    "tags": ["imagery", "individual-differences", "measurement", "cognition"],
+    "searchTerms": [
+      "aphantasia binocular rivalry measure",
+      "mental imagery individual differences"
+    ],
+    "references": []
+  },
+  {
+    "id": "misattribution-arousal",
+    "title": "Why fear can be mistaken for attraction",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain misattribution of arousal and the bridge study, including its criticisms.",
+    "suggestedAngles": [
+      "Describe the study before interpreting it",
+      "Be honest about the replication and confound debates"
+    ],
+    "tags": ["emotion", "attribution", "arousal", "replication"],
+    "searchTerms": [
+      "misattribution of arousal bridge study",
+      "excitation transfer criticism"
+    ],
+    "references": []
+  },
+  {
+    "id": "blindsight",
+    "title": "Seeing without knowing you see",
+    "category": "psychology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain blindsight and what it implies about the relationship between vision and awareness.",
+    "suggestedAngles": [
+      "Describe the forced-choice paradigm that reveals it",
+      "Frame the second visual pathway as the proposed route"
+    ],
+    "tags": ["vision", "consciousness", "neuropsychology", "awareness"],
+    "searchTerms": [
+      "blindsight forced choice V1",
+      "superior colliculus visual pathway"
+    ],
+    "references": []
+  },
+  {
+    "id": "prospective-memory",
+    "title": "Why you forget to do things you fully intend",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain prospective memory and why it fails differently from retrospective memory.",
+    "suggestedAngles": [
+      "Separate remembering what from remembering when",
+      "Frame implementation intentions as the practical fix"
+    ],
+    "tags": ["memory", "intention", "planning", "cues"],
+    "searchTerms": [
+      "prospective memory failure",
+      "implementation intentions cue"
+    ],
+    "references": []
+  },
+  {
+    "id": "overview-effect",
+    "title": "Why seeing Earth from orbit changes people",
+    "category": "psychology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the reported overview effect and the difficulty of studying it rigorously.",
+    "suggestedAngles": [
+      "Report the consistency of the accounts",
+      "Be explicit about the sampling and self-report problems"
+    ],
+    "tags": ["perception", "awe", "self-report", "space"],
+    "searchTerms": [
+      "overview effect astronauts",
+      "awe self transcendence measurement"
+    ],
+    "references": []
+  },
+  {
+    "id": "chunking-phone-numbers",
+    "title": "Why memory limits are about units not items",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain chunking and why the famous seven-plus-or-minus-two is about chunks rather than digits.",
+    "suggestedAngles": [
+      "Demonstrate with a string regrouped into meaningful units",
+      "Correct the common misreading of Miller's paper"
+    ],
+    "tags": ["memory", "chunking", "capacity", "miller"],
+    "searchTerms": [
+      "Miller magical number chunks",
+      "working memory capacity chunking"
+    ],
+    "references": []
+  },
+  {
+    "id": "nocebo-effect",
+    "title": "How warning someone can cause the symptom",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain nocebo effects and the ethical bind they create for informed consent.",
+    "suggestedAngles": [
+      "Use side-effect reporting in trial control groups",
+      "Frame the consent dilemma explicitly"
+    ],
+    "tags": ["placebo", "expectation", "ethics", "medicine"],
+    "searchTerms": [
+      "nocebo effect informed consent",
+      "side effect expectation control group"
+    ],
+    "references": []
   }
 ]

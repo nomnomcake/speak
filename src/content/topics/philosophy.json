@@ -889,5 +889,175 @@
       "metaphor abstract reasoning critique"
     ],
     "references": []
+  },
+  {
+    "id": "mary-the-second-time",
+    "title": "Whether a second look teaches anything new",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the debate over what Mary learns on release and the acquaintance response.",
+    "suggestedAngles": [
+      "Restate the case then focus on the second exposure",
+      "Frame the acquaintance account as neither fact nor skill"
+    ],
+    "tags": ["mind", "qualia", "knowledge", "acquaintance"],
+    "searchTerms": [
+      "knowledge argument acquaintance response",
+      "Mary release second exposure"
+    ],
+    "references": []
+  },
+  {
+    "id": "preface-paradox",
+    "title": "How you can rationally believe a contradiction",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the preface paradox and the pressure it puts on closure of belief.",
+    "suggestedAngles": [
+      "Use the author's apology as the setup",
+      "Frame the tension between individual and collective belief"
+    ],
+    "tags": ["epistemology", "rationality", "belief", "paradox"],
+    "searchTerms": [
+      "preface paradox belief closure",
+      "rational inconsistency aggregation"
+    ],
+    "references": []
+  },
+  {
+    "id": "problem-of-the-criterion",
+    "title": "How you would know a good method of knowing",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the problem of the criterion and the methodist-particularist split.",
+    "suggestedAngles": [
+      "Show the circularity before naming it",
+      "Frame both escapes as begging different questions"
+    ],
+    "tags": ["epistemology", "circularity", "method", "chisholm"],
+    "searchTerms": [
+      "problem of the criterion Chisholm",
+      "methodism particularism circularity"
+    ],
+    "references": []
+  },
+  {
+    "id": "buridans-ass",
+    "title": "Whether reason can choose between equals",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain Buridan's ass and what it suggests about rational choice under exact ties.",
+    "suggestedAngles": [
+      "Set up the perfect symmetry deliberately",
+      "Frame picking rather than choosing as the resolution"
+    ],
+    "tags": ["decision", "rationality", "choice", "paradox"],
+    "searchTerms": [
+      "Buridan's ass rational choice",
+      "picking versus choosing ties"
+    ],
+    "references": []
+  },
+  {
+    "id": "grue-paradox",
+    "title": "Why evidence does not tell you which rule to project",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain Goodman's new riddle of induction.",
+    "suggestedAngles": [
+      "Define grue precisely so the symmetry bites",
+      "Frame entrenchment as Goodman's own answer"
+    ],
+    "tags": ["induction", "projection", "goodman", "confirmation"],
+    "searchTerms": [
+      "Goodman grue paradox",
+      "new riddle of induction entrenchment"
+    ],
+    "references": []
+  },
+  {
+    "id": "nihilism-versus-error-theory",
+    "title": "The difference between no morality and false morality",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain moral error theory and how it differs from nihilism and relativism.",
+    "suggestedAngles": [
+      "Separate the semantic claim from the ontological one",
+      "Use Mackie's queerness argument as the support"
+    ],
+    "tags": ["metaethics", "error-theory", "mackie", "nihilism"],
+    "searchTerms": [
+      "Mackie error theory queerness",
+      "moral error theory versus nihilism"
+    ],
+    "references": []
+  },
+  {
+    "id": "closure-of-knowledge",
+    "title": "Whether knowing implies knowing the consequences",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain epistemic closure and how denying it answers scepticism.",
+    "suggestedAngles": [
+      "Set up the sceptical argument that depends on closure",
+      "Frame Dretske's denial and its cost"
+    ],
+    "tags": ["epistemology", "closure", "scepticism", "dretske"],
+    "searchTerms": [
+      "epistemic closure principle scepticism",
+      "Dretske denying closure"
+    ],
+    "references": []
+  },
+  {
+    "id": "vagueness-of-persons",
+    "title": "When exactly someone stops existing",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain how vagueness applies to personal persistence and death.",
+    "suggestedAngles": [
+      "Apply sorites reasoning to gradual loss",
+      "Frame the practical stakes in medical decisions"
+    ],
+    "tags": ["identity", "vagueness", "death", "ethics"],
+    "searchTerms": [
+      "vagueness personal identity death",
+      "sorites persistence persons"
+    ],
+    "references": []
+  },
+  {
+    "id": "absent-qualia",
+    "title": "Whether function alone could fix experience",
+    "category": "philosophy",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain absent qualia arguments against functionalism and the dancing qualia reply.",
+    "suggestedAngles": [
+      "State functionalism precisely before attacking it",
+      "Frame Chalmers's fading qualia argument as the defence"
+    ],
+    "tags": ["mind", "functionalism", "qualia", "chalmers"],
+    "searchTerms": [
+      "absent qualia functionalism",
+      "dancing fading qualia argument"
+    ],
+    "references": []
+  },
+  {
+    "id": "moral-testimony",
+    "title": "Whether you can take someone's word about right and wrong",
+    "category": "philosophy",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the puzzle of moral testimony and why deference feels different in ethics.",
+    "suggestedAngles": [
+      "Contrast deferring about a fact with deferring about a value",
+      "Frame understanding rather than belief as what is missing"
+    ],
+    "tags": ["ethics", "testimony", "deference", "understanding"],
+    "searchTerms": [
+      "moral testimony pessimism",
+      "moral deference understanding"
+    ],
+    "references": []
   }
 ]

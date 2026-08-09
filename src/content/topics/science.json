@@ -844,5 +844,180 @@
       "gravitational lensing bullet cluster"
     ],
     "references": []
+  },
+  {
+    "id": "dolphin-hemisphere-sleep",
+    "title": "How an animal sleeps with half its brain",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain unihemispheric slow-wave sleep and what problem it solves for cetaceans and some birds.",
+    "suggestedAngles": [
+      "Follow one hemisphere through a sleep cycle while the other works",
+      "Use the surfacing-to-breathe constraint as the reason it exists"
+    ],
+    "tags": ["sleep", "cetaceans", "neuroscience", "adaptation"],
+    "searchTerms": [
+      "unihemispheric slow wave sleep",
+      "cetacean sleep breathing constraint"
+    ],
+    "references": []
+  },
+  {
+    "id": "quorum-sensing-inhibition",
+    "title": "Why we might disarm bacteria instead of killing them",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain anti-virulence strategies and why they may face weaker resistance pressure than antibiotics.",
+    "suggestedAngles": [
+      "Contrast killing with disarming as selection pressures",
+      "Use quorum quenching as the concrete intervention"
+    ],
+    "tags": ["microbiology", "virulence", "resistance", "strategy"],
+    "searchTerms": [
+      "anti-virulence therapy quorum quenching",
+      "selection pressure resistance evolution"
+    ],
+    "references": []
+  },
+  {
+    "id": "fairy-circles",
+    "title": "Why bare circles form in desert grassland",
+    "category": "science",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the competing termite and self-organisation explanations for Namibian fairy circles.",
+    "suggestedAngles": [
+      "Present both hypotheses with their strongest evidence",
+      "Frame Turing patterns as the mathematical account"
+    ],
+    "tags": ["ecology", "self-organisation", "patterns", "namibia"],
+    "searchTerms": [
+      "Namibian fairy circles hypotheses",
+      "Turing pattern vegetation self-organisation"
+    ],
+    "references": []
+  },
+  {
+    "id": "antarctic-blood-falls",
+    "title": "Why a glacier bleeds red",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the iron-rich brine and the isolated microbial ecosystem beneath Taylor Glacier.",
+    "suggestedAngles": [
+      "Follow the brine from ancient seawater to the surface",
+      "Frame the trapped ecosystem as metabolising without sunlight"
+    ],
+    "tags": ["glaciology", "microbiology", "antarctica", "extremophiles"],
+    "searchTerms": [
+      "Blood Falls Taylor Glacier brine",
+      "subglacial iron microbial ecosystem"
+    ],
+    "references": []
+  },
+  {
+    "id": "cuttlefish-colour-blind",
+    "title": "How a colourblind animal matches colour",
+    "category": "science",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the puzzle of cephalopod camouflage without colour vision, and the chromatic aberration hypothesis.",
+    "suggestedAngles": [
+      "State the paradox before offering the mechanism",
+      "Frame the pupil shape as the proposed workaround"
+    ],
+    "tags": ["cephalopods", "vision", "camouflage", "optics"],
+    "searchTerms": [
+      "cephalopod colour blind camouflage",
+      "chromatic aberration pupil hypothesis"
+    ],
+    "references": []
+  },
+  {
+    "id": "oklo-natural-reactor",
+    "title": "The nuclear reactor that ran itself two billion years ago",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the Oklo natural fission reactors and the conditions that allowed them.",
+    "suggestedAngles": [
+      "Frame the higher natural uranium-235 fraction in deep time",
+      "Use water as the moderator that switched it on and off"
+    ],
+    "tags": ["geology", "nuclear", "gabon", "isotopes"],
+    "searchTerms": [
+      "Oklo natural nuclear reactor",
+      "natural fission uranium 235 deep time"
+    ],
+    "references": []
+  },
+  {
+    "id": "horizontal-transfer-photosynthesis",
+    "title": "The animal that steals the ability to photosynthesise",
+    "category": "science",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain kleptoplasty in sea slugs and the unresolved question of how the plastids keep working.",
+    "suggestedAngles": [
+      "Frame the theft of organelles rather than of energy",
+      "Be explicit that the maintenance mechanism is contested"
+    ],
+    "tags": ["symbiosis", "plastids", "sea-slugs", "evolution"],
+    "searchTerms": [
+      "kleptoplasty sea slug plastid",
+      "Elysia chlorotica photosynthesis"
+    ],
+    "references": []
+  },
+  {
+    "id": "carbon-monoxide-signalling",
+    "title": "A poison the body makes on purpose",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain endogenous carbon monoxide as a signalling molecule and why dose determines everything.",
+    "suggestedAngles": [
+      "Frame the same molecule as signal and poison",
+      "Use heme breakdown as the production route"
+    ],
+    "tags": ["physiology", "signalling", "toxicology", "heme"],
+    "searchTerms": [
+      "endogenous carbon monoxide signalling",
+      "heme oxygenase gasotransmitter"
+    ],
+    "references": []
+  },
+  {
+    "id": "deep-sea-gigantism",
+    "title": "Why cold deep water grows giants",
+    "category": "science",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain deep-sea gigantism and the competing oxygen and temperature explanations.",
+    "suggestedAngles": [
+      "Use the giant isopod as the concrete case",
+      "Present the competing explanations rather than choosing prematurely"
+    ],
+    "tags": ["marine-biology", "body-size", "deep-sea", "physiology"],
+    "searchTerms": [
+      "deep sea gigantism oxygen hypothesis",
+      "giant isopod cold temperature size"
+    ],
+    "references": []
+  },
+  {
+    "id": "bacterial-electric-cables",
+    "title": "Bacteria that conduct electricity across centimetres",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain cable bacteria and how they separate oxidation from reduction across distance.",
+    "suggestedAngles": [
+      "Follow electrons along the filament from sediment to oxygen",
+      "Frame it as splitting a reaction in space"
+    ],
+    "tags": [
+      "microbiology",
+      "electron-transport",
+      "sediment",
+      "cable-bacteria"
+    ],
+    "searchTerms": [
+      "cable bacteria electron transport",
+      "sediment long distance electron conduction"
+    ],
+    "references": []
   }
 ]

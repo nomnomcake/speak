@@ -859,5 +859,172 @@
       "eurozone fiscal transfer labour mobility"
     ],
     "references": []
+  },
+  {
+    "id": "cantillon-effect",
+    "title": "Why it matters who gets new money first",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the Cantillon effect and the distributional consequences of monetary expansion.",
+    "suggestedAngles": [
+      "Follow new money through the first three sets of hands",
+      "Frame relative price changes as the mechanism"
+    ],
+    "tags": ["money", "distribution", "inflation", "cantillon"],
+    "searchTerms": [
+      "Cantillon effect money injection",
+      "distributional monetary expansion"
+    ],
+    "references": []
+  },
+  {
+    "id": "lighthouse-of-the-mind",
+    "title": "Why some public goods get privately funded anyway",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain club goods and the mechanisms that let excludable public goods be privately supplied.",
+    "suggestedAngles": [
+      "Frame excludability as a technology rather than a property",
+      "Use toll roads and satellite broadcast as cases"
+    ],
+    "tags": ["public-goods", "excludability", "clubs", "provision"],
+    "searchTerms": [
+      "club goods excludability technology",
+      "private provision public goods"
+    ],
+    "references": []
+  },
+  {
+    "id": "diamond-water-paradox",
+    "title": "Why essential things are cheap",
+    "category": "economics",
+    "difficulty": "plain",
+    "researchPrompt": "Explain the diamond-water paradox and how marginal analysis dissolved it.",
+    "suggestedAngles": [
+      "Pose the paradox before resolving it",
+      "Frame the shift from total to marginal value"
+    ],
+    "tags": ["value", "marginalism", "prices", "history-of-thought"],
+    "searchTerms": [
+      "diamond water paradox marginal utility",
+      "marginal revolution value theory"
+    ],
+    "references": []
+  },
+  {
+    "id": "ratchet-effect",
+    "title": "Why government spending rarely falls back",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the ratchet effect in public expenditure after crises.",
+    "suggestedAngles": [
+      "Follow one emergency programme past the emergency",
+      "Frame constituencies forming around temporary measures"
+    ],
+    "tags": ["public-finance", "spending", "crisis", "institutions"],
+    "searchTerms": [
+      "ratchet effect government spending",
+      "crisis expenditure persistence"
+    ],
+    "references": []
+  },
+  {
+    "id": "repugnant-markets",
+    "title": "Why some exchanges are banned outright",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain repugnance as a constraint on market design.",
+    "suggestedAngles": [
+      "Use organ markets as the canonical case",
+      "Frame kidney exchange chains as the workaround"
+    ],
+    "tags": ["market-design", "ethics", "repugnance", "roth"],
+    "searchTerms": ["repugnant markets Roth", "kidney exchange market design"],
+    "references": []
+  },
+  {
+    "id": "intangible-investment",
+    "title": "Why modern investment is invisible in the accounts",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the measurement problem created by intangible capital.",
+    "suggestedAngles": [
+      "Contrast a factory with a codebase on a balance sheet",
+      "Frame the productivity puzzle as partly a measurement puzzle"
+    ],
+    "tags": ["measurement", "intangibles", "productivity", "accounting"],
+    "searchTerms": [
+      "intangible capital measurement",
+      "productivity puzzle intangibles"
+    ],
+    "references": []
+  },
+  {
+    "id": "hidden-order-of-standards",
+    "title": "Why standards bodies decide more than parliaments",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain how technical standards become de facto regulation.",
+    "suggestedAngles": [
+      "Follow one standard from committee to legal requirement",
+      "Frame participation asymmetry as the governance problem"
+    ],
+    "tags": ["standards", "governance", "regulation", "technology"],
+    "searchTerms": [
+      "technical standards de facto regulation",
+      "standards body governance participation"
+    ],
+    "references": []
+  },
+  {
+    "id": "superstar-economics",
+    "title": "Why small talent gaps produce huge income gaps",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain superstar effects and why technology amplifies them.",
+    "suggestedAngles": [
+      "Frame reproduction cost falling to zero",
+      "Use the shift from local to global audiences"
+    ],
+    "tags": ["inequality", "superstars", "technology", "labour"],
+    "searchTerms": [
+      "superstar economics Rosen",
+      "winner take all markets technology"
+    ],
+    "references": []
+  },
+  {
+    "id": "procurement-adverse-selection",
+    "title": "Why the lowest bid is often the worst deal",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the winner's curse and adverse selection in public procurement.",
+    "suggestedAngles": [
+      "Frame the lowest bidder as the most optimistic estimator",
+      "Use renegotiation rates as the observable consequence"
+    ],
+    "tags": ["procurement", "auctions", "contracts", "government"],
+    "searchTerms": [
+      "procurement lowest bid renegotiation",
+      "winner's curse public contracting"
+    ],
+    "references": []
+  },
+  {
+    "id": "time-inconsistency-policy",
+    "title": "Why a government cannot simply promise",
+    "category": "economics",
+    "difficulty": "technical",
+    "researchPrompt": "Explain time inconsistency in policy and why independent central banks exist.",
+    "suggestedAngles": [
+      "Show the promise being rational to break later",
+      "Frame delegation as a commitment device"
+    ],
+    "tags": ["policy", "commitment", "central-banks", "credibility"],
+    "searchTerms": [
+      "time inconsistency Kydland Prescott",
+      "central bank independence commitment"
+    ],
+    "references": []
   }
 ]

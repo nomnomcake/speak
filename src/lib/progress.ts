@@ -257,6 +257,23 @@ export function achievementsFrom(
     return a.recordedMs <= timingsFor(topic).speakSeconds * 1000;
   });
 
+  /** Most topics done in any single category, for the shelf badges. */
+  const deepestCategory = Math.max(
+    0,
+    ...categoryProgress(done).map((c) => c.done),
+  );
+
+  /**
+   * Calibrated for a 350-topic cabinet.
+   *
+   * The thresholds used to assume 21 topics: "clear one category" was three
+   * sessions and "every topic in the cabinet" was a weekend. At 350 those same
+   * badges became a months-long grind and an unreachable one, so the ladder was
+   * rebuilt with rungs that arrive at a sane rate — something early, something
+   * at a month, something to still be chasing at a hundred.
+   *
+   * Nothing here rewards opening the app. Each still reads real stored data.
+   */
   return [
     {
       id: "first",
@@ -265,28 +282,52 @@ export function achievementsFrom(
       earned: attempts.length >= 1,
     },
     {
-      id: "week",
-      label: "Week straight",
-      detail: "Seven days in a row",
-      earned: streak.best >= 7,
-    },
-    {
-      id: "shelf",
-      label: "Full shelf",
-      detail: "Clear one category",
-      earned: cleared.length >= 1,
-    },
-    {
       id: "ten",
       label: "Ten down",
       detail: "Ten topics finished",
       earned: collection.done >= 10,
     },
     {
+      id: "fifty",
+      label: "Half century",
+      detail: "Fifty topics finished",
+      earned: collection.done >= 50,
+    },
+    {
+      id: "archivist",
+      label: "Archivist",
+      detail: "A hundred and fifty topics",
+      earned: collection.done >= 150,
+    },
+    {
+      id: "week",
+      label: "Week straight",
+      detail: "Seven days in a row",
+      earned: streak.best >= 7,
+    },
+    {
+      id: "month",
+      label: "Month straight",
+      detail: "Thirty days in a row",
+      earned: streak.best >= 30,
+    },
+    {
       id: "spread",
       label: "Polymath",
-      detail: "Five categories",
-      earned: categoriesTouched.size >= 5,
+      detail: "All seven categories",
+      earned: categoriesTouched.size >= 7,
+    },
+    {
+      id: "shelf",
+      label: "Deep shelf",
+      detail: "Ten in one category",
+      earned: deepestCategory >= 10,
+    },
+    {
+      id: "cleared",
+      label: "Full shelf",
+      detail: "Clear a whole category",
+      earned: cleared.length >= 1,
     },
     {
       id: "deep",
@@ -300,11 +341,27 @@ export function achievementsFrom(
       detail: "Land it before the buffer",
       earned: tight,
     },
-    {
-      id: "all",
-      label: "Archivist",
-      detail: "Every topic in the cabinet",
-      earned: collection.total > 0 && collection.done === collection.total,
-    },
   ];
+}
+
+/**
+ * The next round number worth aiming at.
+ *
+ * A collection bar reading 1% of 350 tells someone their effort is
+ * insignificant, which is both discouraging and false — ten sessions is a real
+ * achievement. Progress is shown against the next milestone instead, so the bar
+ * moves visibly while the total stays honest.
+ */
+export function nextMilestone(doneCount: number, total: number) {
+  const rungs = [1, 10, 25, 50, 100, 150, 250, total].filter(
+    (n, i, a) => n <= total && a.indexOf(n) === i,
+  );
+  const target = rungs.find((n) => n > doneCount) ?? total;
+  const previous = [...rungs].reverse().find((n) => n <= doneCount) ?? 0;
+  const span = Math.max(1, target - previous);
+  return {
+    target,
+    remaining: Math.max(0, target - doneCount),
+    ratio: Math.min(1, Math.max(0, (doneCount - previous) / span)),
+  };
 }

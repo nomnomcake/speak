@@ -890,5 +890,175 @@
       "preference falsification tipping point"
     ],
     "references": []
+  },
+  {
+    "id": "dunbar-number-status",
+    "title": "What the Dunbar number actually rests on",
+    "category": "society",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the neocortex-group-size correlation and the criticisms of extrapolating it to humans.",
+    "suggestedAngles": [
+      "Present the primate regression before the human claim",
+      "Report the wide confidence interval honestly"
+    ],
+    "tags": ["networks", "anthropology", "evidence", "dunbar"],
+    "searchTerms": [
+      "Dunbar number neocortex ratio",
+      "social brain hypothesis criticism"
+    ],
+    "references": []
+  },
+  {
+    "id": "cargo-cult-framing",
+    "title": "Why the phrase cargo cult misdescribes what happened",
+    "category": "society",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain Melanesian cargo movements and why the popular framing is condescending and inaccurate.",
+    "suggestedAngles": [
+      "Give the actual historical and political context",
+      "Frame them as rational responses to sudden material asymmetry"
+    ],
+    "tags": ["anthropology", "melanesia", "framing", "colonialism"],
+    "searchTerms": [
+      "Melanesian cargo movements context",
+      "cargo cult framing critique"
+    ],
+    "references": []
+  },
+  {
+    "id": "shibboleth-mechanisms",
+    "title": "How a single sound identifies an outsider",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain shibboleths and their recurring use in identifying group membership under threat.",
+    "suggestedAngles": [
+      "Give a historical case and the phonetic feature involved",
+      "Frame it as a test that cannot be studied for"
+    ],
+    "tags": ["language", "identity", "conflict", "phonetics"],
+    "searchTerms": [
+      "shibboleth phonetic identification",
+      "language test group membership"
+    ],
+    "references": []
+  },
+  {
+    "id": "commons-of-quiet",
+    "title": "Why noise is an economic problem",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain noise as an externality and why quiet behaves like a commons.",
+    "suggestedAngles": [
+      "Frame silence as a rivalrous shared resource",
+      "Use aircraft noise pricing as an attempted solution"
+    ],
+    "tags": ["externalities", "noise", "urban", "commons"],
+    "searchTerms": [
+      "noise externality pricing",
+      "aircraft noise property values"
+    ],
+    "references": []
+  },
+  {
+    "id": "seeing-like-a-market",
+    "title": "What price signals cannot carry",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the limits of price as an information mechanism.",
+    "suggestedAngles": [
+      "Use a case where the price is right and the outcome is bad",
+      "Frame distributional and quality information as unpriced"
+    ],
+    "tags": ["markets", "information", "hayek", "limits"],
+    "searchTerms": [
+      "price signal information limits",
+      "Hayek knowledge problem critique"
+    ],
+    "references": []
+  },
+  {
+    "id": "taboo-tradeoffs",
+    "title": "Why some comparisons are offensive",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain taboo trade-offs and the social function of refusing to price certain things.",
+    "suggestedAngles": [
+      "Use a case where naming a price causes outrage",
+      "Frame the refusal as identity maintenance"
+    ],
+    "tags": ["values", "tradeoffs", "sacred", "decision-making"],
+    "searchTerms": [
+      "taboo tradeoffs sacred values",
+      "protected values pricing outrage"
+    ],
+    "references": []
+  },
+  {
+    "id": "queue-fairness",
+    "title": "Why people accept queues but not auctions",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain perceived fairness in allocation and why price rationing offends where time rationing does not.",
+    "suggestedAngles": [
+      "Contrast two allocation systems with identical efficiency",
+      "Frame effort as a legitimacy signal"
+    ],
+    "tags": ["fairness", "allocation", "rationing", "behaviour"],
+    "searchTerms": [
+      "queue fairness price rationing",
+      "allocation legitimacy willingness to wait"
+    ],
+    "references": []
+  },
+  {
+    "id": "institutional-memory-loss",
+    "title": "How organisations forget how to do things",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the loss of tacit knowledge when practice stops, using manufacturing and space cases.",
+    "suggestedAngles": [
+      "Frame the knowledge as residing in practice not documents",
+      "Use a production line restart failure as the case"
+    ],
+    "tags": ["knowledge", "organisations", "tacit", "manufacturing"],
+    "searchTerms": [
+      "tacit knowledge loss organisation",
+      "production restart capability loss"
+    ],
+    "references": []
+  },
+  {
+    "id": "visibility-and-behaviour",
+    "title": "Why being watched changes what people do",
+    "category": "society",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain observer effects on behaviour and the state of the evidence on watching-eyes studies.",
+    "suggestedAngles": [
+      "Present the effect and then the replication record",
+      "Frame the mechanism question as unsettled"
+    ],
+    "tags": ["behaviour", "observation", "replication", "norms"],
+    "searchTerms": [
+      "watching eyes effect replication",
+      "observer effect prosocial behaviour"
+    ],
+    "references": []
+  },
+  {
+    "id": "informal-credit-rotating",
+    "title": "How savings clubs work without banks",
+    "category": "society",
+    "difficulty": "technical",
+    "researchPrompt": "Explain rotating savings and credit associations and the enforcement that keeps them solvent.",
+    "suggestedAngles": [
+      "Follow one cycle of contribution and payout",
+      "Frame social collateral as the enforcement mechanism"
+    ],
+    "tags": ["finance", "informal", "trust", "development"],
+    "searchTerms": [
+      "rotating savings credit association",
+      "ROSCA social collateral enforcement"
+    ],
+    "references": []
   }
 ]

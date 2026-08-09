@@ -873,5 +873,175 @@
       "QUIC UDP encryption evolvability"
     ],
     "references": []
+  },
+  {
+    "id": "therac-25",
+    "title": "How a software race condition killed people",
+    "category": "technology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the Therac-25 accidents and why removing hardware interlocks made them possible.",
+    "suggestedAngles": [
+      "Follow the operator input sequence that triggered it",
+      "Frame the removal of mechanical interlocks as the root decision"
+    ],
+    "tags": ["safety", "software", "medical", "failure"],
+    "searchTerms": [
+      "Therac-25 radiation overdose",
+      "hardware interlock software safety"
+    ],
+    "references": []
+  },
+  {
+    "id": "ken-thompson-hack",
+    "title": "How a compiler can hide a backdoor from its own source",
+    "category": "technology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain Thompson's trusting trust attack and why source review cannot detect it.",
+    "suggestedAngles": [
+      "Build the self-reproducing step slowly",
+      "Frame the conclusion about trusting tools you did not build"
+    ],
+    "tags": ["security", "compilers", "trust", "backdoor"],
+    "searchTerms": [
+      "reflections on trusting trust",
+      "compiler backdoor self-replication"
+    ],
+    "references": []
+  },
+  {
+    "id": "leap-second-outages",
+    "title": "Why one extra second breaks the internet",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain leap seconds and why they cause simultaneous failures.",
+    "suggestedAngles": [
+      "Frame the mismatch between atomic and rotational time",
+      "Use smearing as the industry's workaround"
+    ],
+    "tags": ["time", "infrastructure", "outages", "standards"],
+    "searchTerms": [
+      "leap second outage smearing",
+      "UTC atomic rotational time"
+    ],
+    "references": []
+  },
+  {
+    "id": "ghost-in-the-cell",
+    "title": "Why phone memory chips wear out unevenly",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain flash memory cell wear and the firmware tricks that hide it.",
+    "suggestedAngles": [
+      "Follow one cell through erase cycles",
+      "Frame over-provisioning as invisible spare capacity"
+    ],
+    "tags": ["storage", "flash", "firmware", "wear"],
+    "searchTerms": [
+      "flash memory cell wear over-provisioning",
+      "NAND endurance firmware"
+    ],
+    "references": []
+  },
+  {
+    "id": "gps-relativity",
+    "title": "Why satellite navigation needs Einstein",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the relativistic corrections in GPS and the magnitude of the error without them.",
+    "suggestedAngles": [
+      "Separate the special and general relativistic terms",
+      "Use the daily drift figure to make it concrete"
+    ],
+    "tags": ["gps", "relativity", "timing", "navigation"],
+    "searchTerms": [
+      "GPS relativistic correction",
+      "special general relativity satellite clock"
+    ],
+    "references": []
+  },
+  {
+    "id": "heartbleed-bounds",
+    "title": "How a missing length check exposed the internet",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the Heartbleed bug and why it was invisible to normal testing.",
+    "suggestedAngles": [
+      "Follow the request that asks for more than it sent",
+      "Frame the absence of a crash as why it hid"
+    ],
+    "tags": ["security", "memory-safety", "openssl", "vulnerability"],
+    "searchTerms": [
+      "Heartbleed buffer over-read",
+      "OpenSSL heartbeat bounds check"
+    ],
+    "references": []
+  },
+  {
+    "id": "the-mother-of-all-demos",
+    "title": "The 1968 demo that predicted computing",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain what Engelbart demonstrated and why most of it took decades to arrive.",
+    "suggestedAngles": [
+      "List what was shown and when each became common",
+      "Frame augmentation rather than automation as his thesis"
+    ],
+    "tags": ["history-of-computing", "interfaces", "engelbart", "hci"],
+    "searchTerms": [
+      "Mother of All Demos Engelbart",
+      "augmenting human intellect NLS"
+    ],
+    "references": []
+  },
+  {
+    "id": "dns-cache-poisoning",
+    "title": "How to hijack a name without touching the server",
+    "category": "technology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain Kaminsky's DNS cache poisoning attack and the source-port randomisation fix.",
+    "suggestedAngles": [
+      "Frame the race against the legitimate reply",
+      "Use entropy as the defensive quantity"
+    ],
+    "tags": ["security", "dns", "networking", "attacks"],
+    "searchTerms": [
+      "Kaminsky DNS cache poisoning",
+      "source port randomization entropy"
+    ],
+    "references": []
+  },
+  {
+    "id": "bufferbloat",
+    "title": "Why bigger buffers made the internet slower",
+    "category": "technology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain bufferbloat and why oversized queues destroy latency.",
+    "suggestedAngles": [
+      "Frame the buffer as delay dressed as capacity",
+      "Use interactive traffic behind a bulk transfer"
+    ],
+    "tags": ["networking", "latency", "queues", "congestion"],
+    "searchTerms": [
+      "bufferbloat queue latency",
+      "active queue management CoDel"
+    ],
+    "references": []
+  },
+  {
+    "id": "undefined-behaviour-optimisation",
+    "title": "Why a compiler can delete your safety check",
+    "category": "technology",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain how undefined behaviour lets optimisers remove code programmers relied on.",
+    "suggestedAngles": [
+      "Use a null check deleted after a dereference",
+      "Frame it as the language permitting the assumption"
+    ],
+    "tags": ["compilers", "c", "safety", "optimisation"],
+    "searchTerms": [
+      "undefined behaviour null check removal",
+      "compiler optimization UB assumptions"
+    ],
+    "references": []
   }
 ]

@@ -884,5 +884,172 @@
       "Renaissance banking papal accounts"
     ],
     "references": []
+  },
+  {
+    "id": "antikythera-mechanism",
+    "title": "A geared computer from the ancient world",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain what the Antikythera mechanism computed and why it reset assumptions about ancient engineering.",
+    "suggestedAngles": [
+      "Describe the gear train and what it predicted",
+      "Frame the absence of comparable survivals as the puzzle"
+    ],
+    "tags": ["antiquity", "engineering", "astronomy", "archaeology"],
+    "searchTerms": [
+      "Antikythera mechanism gear train",
+      "ancient astronomical calculator"
+    ],
+    "references": []
+  },
+  {
+    "id": "tanzimat-reforms",
+    "title": "An empire trying to reinvent itself",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the Tanzimat reforms and why modernisation strained the Ottoman state.",
+    "suggestedAngles": [
+      "Frame legal equality as destabilising the millet settlement",
+      "Use conscription and taxation as the concrete changes"
+    ],
+    "tags": ["ottoman", "reform", "modernisation", "law"],
+    "searchTerms": [
+      "Tanzimat reforms Ottoman",
+      "Ottoman legal equality modernization"
+    ],
+    "references": []
+  },
+  {
+    "id": "year-without-summer",
+    "title": "How a volcano caused a famine on the other side of the world",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the 1816 climate anomaly following Tambora and its social consequences.",
+    "suggestedAngles": [
+      "Follow aerosols from eruption to harvest failure",
+      "Use migration and grain prices as the human record"
+    ],
+    "tags": ["volcanism", "climate", "famine", "1816"],
+    "searchTerms": [
+      "Tambora 1816 year without summer",
+      "volcanic aerosol harvest failure"
+    ],
+    "references": []
+  },
+  {
+    "id": "baghdad-house-of-wisdom",
+    "title": "How translation preserved and transformed knowledge",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the Abbasid translation movement and what it changed rather than merely preserved.",
+    "suggestedAngles": [
+      "Frame translation as active reworking, not copying",
+      "Use algebra and optics as things advanced rather than stored"
+    ],
+    "tags": ["abbasid", "translation", "knowledge", "science"],
+    "searchTerms": [
+      "Abbasid translation movement",
+      "House of Wisdom Baghdad scholarship"
+    ],
+    "references": []
+  },
+  {
+    "id": "dancing-plague",
+    "title": "The dancing plague of 1518",
+    "category": "history",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the documented episode and the competing explanations for it.",
+    "suggestedAngles": [
+      "Establish what the records actually say",
+      "Weigh ergotism against mass psychogenic illness"
+    ],
+    "tags": ["medieval", "mass-psychogenic", "strasbourg", "evidence"],
+    "searchTerms": [
+      "dancing plague 1518 Strasbourg",
+      "mass psychogenic illness ergotism"
+    ],
+    "references": []
+  },
+  {
+    "id": "swedish-empire-collapse",
+    "title": "How a small country ran northern Europe and then stopped",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the rise and collapse of the Swedish empire and the fiscal logic behind both.",
+    "suggestedAngles": [
+      "Frame conquest as paying for itself until it did not",
+      "Use Poltava as the point the model broke"
+    ],
+    "tags": ["sweden", "empire", "fiscal", "warfare"],
+    "searchTerms": [
+      "Swedish empire fiscal military",
+      "Battle of Poltava collapse"
+    ],
+    "references": []
+  },
+  {
+    "id": "zanj-rebellion",
+    "title": "The slave revolt that took a decade to suppress",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the Zanj rebellion and what it reveals about labour in the Abbasid south.",
+    "suggestedAngles": [
+      "Frame the salt marsh reclamation labour system",
+      "Use the duration as evidence of the state's limits"
+    ],
+    "tags": ["abbasid", "slavery", "revolt", "iraq"],
+    "searchTerms": ["Zanj rebellion Abbasid", "salt marsh labour Basra revolt"],
+    "references": []
+  },
+  {
+    "id": "cod-and-empire",
+    "title": "How a fish financed Atlantic expansion",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the role of preserved cod in enabling long voyages and Atlantic economies.",
+    "suggestedAngles": [
+      "Follow the salt-and-dry preservation chain",
+      "Frame protein logistics as a precondition for empire"
+    ],
+    "tags": ["fisheries", "atlantic", "provisioning", "trade"],
+    "searchTerms": [
+      "salt cod Atlantic trade",
+      "fish preservation provisioning voyages"
+    ],
+    "references": []
+  },
+  {
+    "id": "nubian-antibiotic-bone",
+    "title": "Antibiotics in ancient bones",
+    "category": "history",
+    "difficulty": "technical",
+    "researchPrompt": "Explain the discovery of tetracycline in Nubian skeletal remains and how it got there.",
+    "suggestedAngles": [
+      "Frame the fermentation route through stored grain",
+      "Use it to complicate the idea that antibiotics are modern"
+    ],
+    "tags": ["archaeology", "antibiotics", "nubia", "diet"],
+    "searchTerms": [
+      "tetracycline Nubian bones",
+      "ancient antibiotic fermentation grain"
+    ],
+    "references": []
+  },
+  {
+    "id": "dutch-tulip-revision",
+    "title": "What actually happened in the tulip mania",
+    "category": "history",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain the revisionist account of tulip mania against the popular narrative.",
+    "suggestedAngles": [
+      "Present the standard story then the contract-market evidence",
+      "Frame the myth's persistence as the interesting question"
+    ],
+    "tags": ["bubbles", "netherlands", "historiography", "myth"],
+    "searchTerms": [
+      "tulip mania revisionist Goldgar",
+      "futures contract tulip market"
+    ],
+    "references": []
   }
 ]
