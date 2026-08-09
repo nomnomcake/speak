@@ -27,6 +27,19 @@ function mmss(total: number) {
 const LEVEL_BARS = 12;
 
 /**
+ * Silence that ends the take.
+ *
+ * Ten seconds, per user-flow.md. Long enough to survive someone losing their
+ * thread and finding it again — the pause before the good sentence is not the
+ * end of the talk, and cutting it off would punish exactly the thinking the
+ * product is trying to provoke.
+ */
+const SILENCE_MS = 10_000;
+
+/** Above room tone, below speech. Same scale as the meter. */
+const SILENCE_LEVEL = 0.06;
+
+/**
  * Grace seconds after the minute is up, still recording.
  *
  * Cutting at exactly 60 guillotines whoever is mid-sentence, and the last
@@ -55,8 +68,25 @@ const BUFFER_SECONDS = 5;
  * indicator, and 60fps of React renders to move twelve blocks is a cost with
  * nothing to show for it.
  */
-function MicLevel({ stream }: { stream: MediaStream }) {
+function MicLevel({
+  stream,
+  onSilence,
+}: {
+  stream: MediaStream;
+  /** Fired once, after SILENCE_MS of continuous quiet. */
+  onSilence?: () => void;
+}) {
   const [level, setLevel] = React.useState(0);
+  const silentSinceRef = React.useRef<number | null>(null);
+  const firedRef = React.useRef(false);
+  // Kept in a ref so the analyser effect does not restart every time the
+  // parent re-renders and hands down a new callback — tearing down and
+  // rebuilding an AudioContext mid-talk would drop the silence timer.
+  // Assigned in an effect rather than during render, which React forbids.
+  const onSilenceRef = React.useRef(onSilence);
+  React.useEffect(() => {
+    onSilenceRef.current = onSilence;
+  }, [onSilence]);
 
   React.useEffect(() => {
     if (stream.getAudioTracks().length === 0) return;
@@ -85,7 +115,29 @@ function MicLevel({ stream }: { stream: MediaStream }) {
         sum += d * d;
       }
       const rms = Math.sqrt(sum / buf.length);
-      setLevel(Math.min(1, Math.pow(rms * 3.2, 0.7)));
+      const shaped = Math.min(1, Math.pow(rms * 3.2, 0.7));
+      setLevel(shaped);
+
+      /**
+       * Auto-stop on a long silence, as user-flow.md specifies.
+       *
+       * Measured from the same analyser that draws the meter, so the thing
+       * deciding you have stopped talking is the thing showing you it can hear
+       * you. The threshold sits above room tone but below speech; ten seconds
+       * is long enough to survive a thinking pause, which is why the spec says
+       * ten and not three.
+       */
+      const speaking = shaped > SILENCE_LEVEL;
+      if (speaking) {
+        silentSinceRef.current = null;
+        return;
+      }
+      const now = Date.now();
+      silentSinceRef.current ??= now;
+      if (!firedRef.current && now - silentSinceRef.current >= SILENCE_MS) {
+        firedRef.current = true;
+        onSilenceRef.current?.();
+      }
     }, 66);
 
     return () => {
@@ -246,7 +298,10 @@ export function CameraStage({
           {/* The meter sits with the badge, not in the toolbar: "recording" and
               "hearing you" are one claim, and splitting them lets the user
               believe the first without checking the second. */}
-          <MicLevel stream={stream} />
+          {/* Silence only ends the take once the buffer has begun. Ten quiet
+              seconds at the start is someone gathering themselves, not
+              someone who has finished. */}
+          <MicLevel stream={stream} onSilence={inBuffer ? finish : undefined} />
         </div>
 
         {/* The label changes, the badge does not: it is still recording during

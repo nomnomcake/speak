@@ -96,6 +96,12 @@ export type TranscriptDoc = {
 /** Everything measured locally, without a model. */
 export type LocalMetrics = {
   speakingMs: number;
+  /**
+   * Time actually spent on the research timer, recovered from its own saved
+   * state. Null when the timer was never started — which is different from
+   * fifteen minutes and different from zero.
+   */
+  researchMs: number | null;
   wordsSpoken: number | null;
   wordsPerMinute: number | null;
   /** Requires audio-level analysis, which does not exist yet. */
@@ -152,5 +158,7 @@ export type AnalysisInput = {
   };
   transcript: TranscriptDoc | null;
   speakingMs: number;
+  /** Null when the research timer was never started. */
+  researchMs: number | null;
   recordingComplete: boolean;
 };

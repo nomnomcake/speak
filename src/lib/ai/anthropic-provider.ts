@@ -56,26 +56,28 @@ function claim(v: unknown): GroundedClaim | null {
 
 function notes(v: unknown): CoachingNote[] {
   if (!Array.isArray(v)) return [];
-  return v
-    .map((raw) => {
-      if (typeof raw !== "object" || raw === null) return null;
-      const o = raw as Record<string, unknown>;
-      const headline = str(o.headline);
-      const whatHappened = str(o.whatHappened);
-      const whatToDoNext = str(o.whatToDoNext);
-      if (!headline || !whatHappened || !whatToDoNext) return null;
-      return {
-        headline,
-        whatHappened,
-        whyItMatters: str(o.whyItMatters) ?? "",
-        whatToDoNext,
-        quote: str(o.quote),
-      };
-    })
-    .filter((n): n is CoachingNote => n !== null)
-    // The prompt asks for three. Trimming rather than trusting keeps the
-    // "one thing to act on" discipline from eroding into a checklist.
-    .slice(0, 3);
+  return (
+    v
+      .map((raw) => {
+        if (typeof raw !== "object" || raw === null) return null;
+        const o = raw as Record<string, unknown>;
+        const headline = str(o.headline);
+        const whatHappened = str(o.whatHappened);
+        const whatToDoNext = str(o.whatToDoNext);
+        if (!headline || !whatHappened || !whatToDoNext) return null;
+        return {
+          headline,
+          whatHappened,
+          whyItMatters: str(o.whyItMatters) ?? "",
+          whatToDoNext,
+          quote: str(o.quote),
+        };
+      })
+      .filter((n): n is CoachingNote => n !== null)
+      // The prompt asks for three. Trimming rather than trusting keeps the
+      // "one thing to act on" discipline from eroding into a checklist.
+      .slice(0, 3)
+  );
 }
 
 function scoreSet(v: unknown): Partial<ScoreSet> | null {
@@ -151,6 +153,7 @@ export async function anthropicAnalyze(
       transcript: input.transcript,
       metrics: {
         speakingMs: input.speakingMs,
+        researchMs: input.researchMs,
         wordsSpoken: null,
         wordsPerMinute: null,
         pauseCount: null,
@@ -193,6 +196,7 @@ export async function anthropicAnalyze(
     transcript: input.transcript,
     metrics: {
       speakingMs: input.speakingMs,
+      researchMs: input.researchMs,
       wordsSpoken: pace.wordsSpoken,
       wordsPerMinute: pace.wordsPerMinute,
       pauseCount: null,

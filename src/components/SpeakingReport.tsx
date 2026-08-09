@@ -211,6 +211,15 @@ export function SpeakingReport({
       <Panel chrome="window" title="Session metrics" notch={6} sprig={false}>
         <div className="grid gap-3 sm:grid-cols-2">
           <Stat
+            label="Research time"
+            value={
+              metrics.researchMs === null
+                ? null
+                : `${Math.round(metrics.researchMs / 60000)}m ${Math.round((metrics.researchMs % 60000) / 1000)}s`
+            }
+            note="Timer never started"
+          />
+          <Stat
             label="Speaking time"
             value={`${Math.round(metrics.speakingMs / 1000)}s`}
           />

@@ -65,6 +65,10 @@ export async function POST(request: Request) {
     },
     transcript: parseTranscript(b.transcript),
     speakingMs,
+    researchMs:
+      typeof b.researchMs === "number" && Number.isFinite(b.researchMs)
+        ? Math.max(0, Math.min(b.researchMs, 24 * 60 * 60 * 1000))
+        : null,
     recordingComplete: b.recordingComplete === true,
   };
 

@@ -121,6 +121,14 @@ export function updateAttempt(
   return next;
 }
 
+/** Remove one session. The archive's per-row delete. */
+export function deleteAttempt(id: string): StoredAttempt[] {
+  const next = loadAttempts().filter((a) => a.id !== id);
+  write(next);
+  emit();
+  return next;
+}
+
 export function clearAttempts() {
   if (typeof window === "undefined") return;
   try {

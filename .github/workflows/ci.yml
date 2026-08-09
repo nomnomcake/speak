@@ -1,0 +1,39 @@
+name: CI
+
+# Runs the checks that were previously only run when someone remembered to.
+# A test suite nobody executes is documentation, not a safety net.
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # The git root is `speak/` itself — the parent folder is not in the repo
+      # — so everything runs from the checkout root with no working-directory.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Lint
+        run: npx eslint .
+
+      - name: Test
+        run: npm test
+
+      # Last, because it is the slowest and the other two localise failures
+      # better. `next build` is also the real typecheck for this project.
+      - name: Build
+        run: npm run build
+        env:
+          # Never a real key in CI. The build must not depend on one, and if it
+          # ever starts to, this job is where that should surface.
+          SPEAK_AI_PROVIDER: mock

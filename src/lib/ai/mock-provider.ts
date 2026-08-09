@@ -81,6 +81,7 @@ export function mockAnalyze(input: AnalysisInput): AiFeedback {
       transcript: input.transcript,
       metrics: {
         speakingMs: input.speakingMs,
+        researchMs: input.researchMs,
         wordsSpoken: null,
         wordsPerMinute: null,
         pauseCount: null,
@@ -139,6 +140,7 @@ export function mockAnalyze(input: AnalysisInput): AiFeedback {
     transcript: input.transcript,
     metrics: {
       speakingMs: input.speakingMs,
+      researchMs: input.researchMs,
       wordsSpoken: pace.wordsSpoken,
       wordsPerMinute: pace.wordsPerMinute,
       pauseCount: null,

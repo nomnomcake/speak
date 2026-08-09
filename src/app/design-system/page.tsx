@@ -13,8 +13,9 @@ import {
   Stagger,
   StaggerItem,
 } from "@/components/ui";
+import { notFound } from "next/navigation";
 import { palette, space } from "@/lib/tokens";
-import { tabsFor } from "@/lib/nav";
+import { designSystemVisible, tabsFor } from "@/lib/nav";
 import { ArrowRight, Mic, RotateCcw, Play } from "lucide-react";
 
 /**
@@ -25,6 +26,17 @@ import { ArrowRight, Mic, RotateCcw, Play } from "lucide-react";
  *
  * Static by design — this phase ships the visual language only. Every value
  * shown here is illustrative; no timers, state, or business logic.
+ *
+ * ## Private
+ *
+ * This is a workbench, not a product screen: it shows unfinished states, every
+ * component out of context, and design decisions that have not been made yet.
+ * It is served only when `designSystemVisible()` allows it — development, or a
+ * deployment where `SPEAK_SHOW_DESIGN_SYSTEM=1` is set server-side. Anywhere
+ * else it 404s and its tab does not render.
+ *
+ * The gate is a real 404 rather than a hidden link. An unlisted page is not a
+ * private page; anyone who has ever seen the URL still has it.
  */
 
 /** A note rendered on white so it stays readable over clouds. */
@@ -86,7 +98,19 @@ const SWATCHES: Array<{ name: string; token: string; hex: string }> = [
 
 const SPACING = Object.entries(space).filter(([k]) => k !== "px");
 
+/**
+ * Evaluated per request, not baked at build.
+ *
+ * Without this the page is statically prerendered, the gate runs once during
+ * `next build`, and its answer is frozen into HTML — which meant the real page
+ * shipped to production and `SPEAK_SHOW_DESIGN_SYSTEM` could never change
+ * anything. A gate that reads runtime configuration has to run at runtime.
+ */
+export const dynamic = "force-dynamic";
+
 export default function DesignSystemPage() {
+  if (!designSystemVisible()) notFound();
+
   return (
     <Layout tabs={tabsFor("design-system")}>
       <PageTransition>

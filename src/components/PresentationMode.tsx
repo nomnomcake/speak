@@ -9,6 +9,7 @@ import { SpeakingReport } from "./SpeakingReport";
 import { newAttemptId, saveAttempt, updateAttempt } from "@/lib/attempts";
 import { useTranscriber } from "@/lib/useTranscriber";
 import { useOneWay } from "@/lib/useOneWay";
+import { readResearchMs } from "@/lib/researchTime";
 import type { AiFeedback, TranscriptDoc } from "@/lib/ai/types";
 import type { Topic } from "@/lib/topics";
 
@@ -42,6 +43,7 @@ function emptyFeedback(
     transcript,
     metrics: {
       speakingMs,
+      researchMs: null,
       wordsSpoken: null,
       wordsPerMinute: null,
       pauseCount: null,
@@ -292,6 +294,9 @@ export function PresentationMode({ topic }: { topic: Topic }) {
             topicId: topic.id,
             transcript: transcript.result,
             speakingMs,
+            // Recovered from the research timer's own saved state rather than
+            // measured again. Null if they never started it.
+            researchMs: readResearchMs(topic.id),
             recordingComplete: recording !== null,
           }),
         });
