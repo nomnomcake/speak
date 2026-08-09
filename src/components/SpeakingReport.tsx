@@ -34,6 +34,7 @@ function Meter({ label, value }: { label: string; value: number }) {
         segments={10}
         size="sm"
         className="min-w-0 flex-1"
+        ariaLabel={label}
       />
       <span className="w-8 shrink-0 text-right font-mono text-xs tabular-nums text-slate">
         {value}

@@ -81,6 +81,7 @@ function CategoryRow({
         segments={total || 1}
         size="sm"
         className="min-w-0 flex-1"
+        ariaLabel={`${category} progress`}
       />
       <span className="w-12 shrink-0 text-right font-mono text-xs tabular-nums text-slate">
         {done}/{total}
@@ -156,6 +157,10 @@ export function Dashboard() {
      * lift permanently overridden by the entrance it just finished.
      */
     <Stagger className="space-y-5">
+      {/* The dashboard is a grid of tiles with no one panel that names it, so
+          the heading is hidden rather than invented as a visible header the
+          design does not want. */}
+      <h1 className="sr-only">Dashboard</h1>
       <StaggerItem>
         <div className="grid gap-5 md:grid-cols-3">
           <Desk>
@@ -198,6 +203,7 @@ export function Dashboard() {
               <ProgressBar
                 value={ready ? milestone.ratio : 0}
                 variant="pill"
+                ariaLabel={`Progress to ${milestone.target} topics`}
               />
             </StatTile>
           </Desk>
@@ -218,6 +224,11 @@ export function Dashboard() {
                 variant="segmented"
                 segments={favourite ? favourite.total : 3}
                 size="sm"
+                ariaLabel={
+                  favourite
+                    ? `${favourite.category} progress`
+                    : "Favourite category progress"
+                }
               />
             </StatTile>
           </Desk>
@@ -355,6 +366,7 @@ export function Dashboard() {
                         segments={10}
                         size="sm"
                         className="min-w-0 flex-1"
+                        ariaLabel={`${d.label}, average score`}
                       />
                       <span className="w-8 shrink-0 text-right font-mono text-xs tabular-nums text-slate">
                         {d.value}

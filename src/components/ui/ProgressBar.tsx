@@ -24,6 +24,16 @@ export type ProgressBarProps = {
   value: number;
   variant?: Variant;
   label?: React.ReactNode;
+  /**
+   * Accessible name, for the many meters that carry no visible label.
+   *
+   * `label` only supplies one when it happens to be a string, so a bare meter
+   * — the lockout clock, the collection bar, every category row — announced as
+   * an unnamed progressbar with a bare percentage and nothing saying what was
+   * at that percentage. Set this wherever the surrounding text is what names
+   * the bar.
+   */
+  ariaLabel?: string;
   /** Show the numeric percentage on the right of the label row. */
   showValue?: boolean;
   /** Block count for `segmented`. */
@@ -42,6 +52,7 @@ export function ProgressBar({
   value,
   variant = "pill",
   label,
+  ariaLabel,
   showValue = false,
   segments = 12,
   hatch = false,
@@ -74,7 +85,7 @@ export function ProgressBar({
       aria-valuenow={pct}
       aria-valuemin={0}
       aria-valuemax={100}
-      aria-label={typeof label === "string" ? label : undefined}
+      aria-label={ariaLabel ?? (typeof label === "string" ? label : undefined)}
       className="w-full"
     >
       {variant === "segmented" ? (

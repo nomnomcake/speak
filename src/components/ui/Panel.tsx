@@ -38,6 +38,16 @@ function WindowDots({ tone = "ink" }: { tone?: "ink" | "paper" }) {
 
 export type PanelProps = {
   title?: React.ReactNode;
+  /**
+   * Element to render the title as. Defaults to a `span`, because most panels
+   * are windows on a screen rather than sections of a document and marking
+   * every one as a heading would produce an outline that is mostly furniture.
+   *
+   * Set `"h1"` on the one panel that names the page. Several routes shipped
+   * with no `h1` at all, which is the first thing a screen reader user asks a
+   * page for.
+   */
+  titleAs?: "span" | "h1" | "h2";
   /** Right side of the title bar — status text, counters, small controls. */
   actions?: React.ReactNode;
   chrome?: "window" | "inline" | "none";
@@ -67,6 +77,7 @@ export type PanelProps = {
 
 export function Panel({
   title,
+  titleAs: TitleTag = "span",
   actions,
   chrome = "inline",
   tone = "paper",
@@ -104,7 +115,7 @@ export function Panel({
           border={2}
           innerClassName="flex items-center justify-between gap-4 px-3 py-2"
         >
-          <span className="type-caps truncate">{title}</span>
+          <TitleTag className="type-caps truncate">{title}</TitleTag>
           <span className="flex items-center gap-3">
             {actions}
             <WindowDots tone={dotTone} />
@@ -125,7 +136,7 @@ export function Panel({
       {title !== undefined && chrome === "inline" && (
         <>
           <div className="flex items-center justify-between gap-4 px-4 pt-3 pb-2.5">
-            <span className="type-caps truncate">{title}</span>
+            <TitleTag className="type-caps truncate">{title}</TitleTag>
             <span className="flex items-center gap-3">
               {actions}
               <WindowDots tone={dotTone} />

@@ -39,6 +39,7 @@ export default function HomePage() {
               <Panel
                 chrome="window"
                 title="Learn it fast. Say it clearly."
+                titleAs="h1"
                 notch={6}
                 sky={{ density: "dense", sun: true }}
               >

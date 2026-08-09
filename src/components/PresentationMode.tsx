@@ -330,11 +330,24 @@ export function PresentationMode({ topic }: { topic: Topic }) {
     if (stage !== "analyzing" || speakingMs === null) return;
     let cancelled = false;
 
+    /**
+     * A model call has no natural end. Without a deadline the spinner is the
+     * final state of the product for anyone whose request stalls — they have
+     * just spoken for a minute and the screen never resolves, which is worse
+     * than a report that says it could not score them.
+     *
+     * Ninety seconds is well past a slow-but-working call and well short of
+     * waiting for something that is not coming.
+     */
+    const abort = new AbortController();
+    const deadline = setTimeout(() => abort.abort(), 90_000);
+
     void (async () => {
       let result: AiFeedback;
       try {
         const res = await fetch("/api/analyze", {
           method: "POST",
+          signal: abort.signal,
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             topicId: topic.id,
@@ -348,10 +361,17 @@ export function PresentationMode({ topic }: { topic: Topic }) {
         });
         if (!res.ok) throw new Error(`analyze failed: ${res.status}`);
         result = (await res.json()) as AiFeedback;
-      } catch {
+      } catch (err) {
+        // Distinguished because they call for different things from the user:
+        // a timeout is worth retrying, an unreachable service usually is not.
+        const timedOut = err instanceof Error && err.name === "AbortError";
         result = emptyFeedback(speakingMs, transcript.result, [
-          "The analysis service could not be reached, so nothing was scored.",
+          timedOut
+            ? "Scoring took longer than 90 seconds and was given up on, so nothing was scored. Your take is still here."
+            : "The analysis service could not be reached, so nothing was scored.",
         ]);
+      } finally {
+        clearTimeout(deadline);
       }
 
       if (cancelled) return;
@@ -377,6 +397,8 @@ export function PresentationMode({ topic }: { topic: Topic }) {
 
     return () => {
       cancelled = true;
+      clearTimeout(deadline);
+      abort.abort();
     };
   }, [stage, speakingMs, topic.id, transcript.result, recording, saveFailed]);
 
@@ -448,6 +470,7 @@ export function PresentationMode({ topic }: { topic: Topic }) {
                 variant="segmented"
                 segments={16}
                 size="sm"
+                ariaLabel="Presentation setup progress"
               />
 
               <p className="type-hud text-slate">{stepLabel}</p>
@@ -459,7 +482,13 @@ export function PresentationMode({ topic }: { topic: Topic }) {
               <p className="font-mono text-sm text-graphite">
                 Preparing presentation
               </p>
-              <ProgressBar value={1} variant="segmented" segments={16} size="sm" />
+              <ProgressBar
+                value={1}
+                variant="segmented"
+                segments={16}
+                size="sm"
+                ariaLabel="Presentation setup progress"
+              />
               <p className="type-hud text-ink">Camera ready</p>
             </div>
           )}
@@ -481,6 +510,7 @@ export function PresentationMode({ topic }: { topic: Topic }) {
                 value={lockoutSeconds ? left / lockoutSeconds : 0}
                 variant="bar"
                 size="sm"
+                ariaLabel="Time left before you speak"
               />
 
               <div className="flex items-baseline justify-between gap-3">

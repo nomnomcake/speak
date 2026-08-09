@@ -126,6 +126,7 @@ function Row({ attempt }: { attempt: StoredAttempt }) {
                             segments={10}
                             size="sm"
                             className="min-w-0 flex-1"
+                            ariaLabel={SCORE_LABELS[k]}
                           />
                           <span className="w-8 shrink-0 text-right font-mono text-xs tabular-nums text-slate">
                             {fb.scores[k]}
@@ -227,6 +228,7 @@ export function Archive() {
     <Panel
       chrome="window"
       title="Archive"
+      titleAs="h1"
       notch={6}
       flush
       actions={

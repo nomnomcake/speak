@@ -73,6 +73,7 @@ export function AnalyzingWindow({
             variant="segmented"
             segments={16}
             size="sm"
+            ariaLabel="Analysis progress"
           />
 
           <p className="type-hud text-slate">{steps[i]}</p>

@@ -117,7 +117,12 @@ export function CountdownTimer({
       {/* Split-flap board */}
       <FlipClock value={format(remaining)} expired={expired} className="py-1" />
 
-      <ProgressBar value={progress} variant="segmented" segments={15} />
+      <ProgressBar
+        value={progress}
+        variant="segmented"
+        segments={15}
+        ariaLabel="Research time remaining"
+      />
 
       {/* Physical keys */}
       <div className="flex items-center gap-2">

@@ -122,7 +122,13 @@ export function CategoryDesktop({ folders }: { folders: DesktopFolder[] }) {
     >
       {/* No title bar: the tab and the address bar already say Play, so a
           PLAY.EXE header was the third label for the same thing. The status
-          bar at the foot still carries the window's state. */}
+          bar at the foot still carries the window's state.
+
+          Which leaves nothing to mark as the page heading, so it is hidden
+          rather than absent. The tab strip and address bar are chrome we drew;
+          a screen reader has no reason to read them as the page's name, and
+          asking for the heading is the first thing it does. */}
+      <h1 className="sr-only">Choose a category</h1>
       <Panel
         chrome="window"
         notch={6}
