@@ -140,7 +140,7 @@ export function ResearchToolbox({
           not content: a padded direct child keeps `p-3` alive at 0fr and leaves
           a 24px strip of the toolbox permanently open. The wrapper takes the
           clipping with nothing to leak, and the padding lives one level in. */}
-      <div id={bodyId} className="window-shade" data-open={open}>
+      <div id={bodyId} className="window-shade" data-open={open} inert={!open}>
         <div>
           <div className="flex flex-wrap gap-2 p-3">
             {TOOLS.map((tool) => (

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Panel, ProgressBar } from "@/components/ui";
+import { Button, Panel, ProgressBar } from "@/components/ui";
 import { CameraStage } from "./CameraStage";
 import { ReviewEmpty, ReviewWindow } from "./ReviewWindow";
 import { AnalyzingWindow } from "./AnalyzingWindow";
@@ -117,6 +117,27 @@ export function PresentationMode({ topic }: { topic: Topic }) {
   const lockoutSeconds = TIMINGS[topic.difficulty].lockoutSeconds;
   const [left, setLeft] = React.useState(lockoutSeconds);
 
+  /**
+   * Bumped by "Try again" on the blocked screen to re-run acquisition.
+   *
+   * The usual cause of a block is a permission the user can grant from the
+   * address bar without leaving the page, so the fix is normally already done
+   * by the time they press the button — but the effect below only ran once,
+   * which is what made that screen terminal.
+   */
+  const [tries, setTries] = React.useState(0);
+  // Declared here rather than beside its own effect below, so `retry` can
+  // clear it — the lint rule that catches use-before-declaration is right that
+  // reading it from above would not track changes.
+  const [slow, setSlow] = React.useState(false);
+  const retry = React.useCallback(() => {
+    setDenied(null);
+    setSlow(false);
+    setStep(0);
+    setStage("preparing");
+    setTries((n) => n + 1);
+  }, []);
+
   // Acquire the camera immediately, in parallel with the first two steps, so
   // the gate is usually already satisfied by the time the bar reaches it.
   React.useEffect(() => {
@@ -143,7 +164,7 @@ export function PresentationMode({ topic }: { topic: Topic }) {
       cancelled = true;
       acquired?.getTracks().forEach((t) => t.stop());
     };
-  }, []);
+  }, [tries]);
 
   // Release the camera when this leaves the screen. A preview that keeps the
   // indicator light on after the session ends is the kind of thing people
@@ -156,7 +177,6 @@ export function PresentationMode({ topic }: { topic: Topic }) {
   // stopped at 70% with no explanation is indistinguishable from a hang. After
   // a beat the step says what it is waiting for; after a long one it gives up
   // rather than sitting there looking broken.
-  const [slow, setSlow] = React.useState(false);
   React.useEffect(() => {
     if (stream || denied) return;
     const hint = setTimeout(() => setSlow(true), 2500);
@@ -552,9 +572,29 @@ export function PresentationMode({ topic }: { topic: Topic }) {
                   score, so there is no useful video-only fallback to offer. */}
               <p className="font-mono text-xs leading-relaxed text-slate">
                 Speak needs both. Allow camera and microphone for this site,
-                then reload. Your research time is already spent, so nothing
+                then try again. Your research time is already spent, so nothing
                 here is waiting on you.
               </p>
+
+              {/* Was a dead end: the only exit was the browser Back button,
+                  which useOneWay holds shut, so the honest reading of this
+                  screen was that the session had trapped the user. Retrying is
+                  the useful action — the fix is usually a permission granted in
+                  another window — and leaving has to be possible too. */}
+              <div className="flex flex-wrap gap-2 pt-1">
+                <Button size="sm" onClick={retry}>
+                  Try again
+                </Button>
+                {/* No confirm: `blocked` is deliberately outside the one-way
+                    guard, because there is no take here to lose. */}
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  onClick={() => router.push("/play")}
+                >
+                  Abandon session
+                </Button>
+              </div>
             </div>
           )}
 

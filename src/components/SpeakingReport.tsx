@@ -200,9 +200,17 @@ export function SpeakingReport({
               )}
             </div>
           ) : (
+            /* Two different failures, and saying the wrong one is worse than
+               saying nothing. Unscored with a transcript present means the
+               analysis did not come back — the panel below is showing the very
+               words this line claimed were never captured. */
             <ComingSoon
               title="Category scores"
-              reason="Nothing was transcribed, so there was nothing to score."
+              reason={
+                transcript
+                  ? "Your talk was transcribed, but the analysis did not come back, so nothing was scored."
+                  : "Nothing was transcribed, so there was nothing to score."
+              }
             />
           )}
         </div>
@@ -355,7 +363,11 @@ export function SpeakingReport({
             {transcript ? "Read what you said" : "No transcript"}
           </button>
 
-          <div className="window-shade" data-open={showTranscript}>
+          <div
+            className="window-shade"
+            data-open={showTranscript}
+            inert={!showTranscript}
+          >
             <div>
               <div className="border-t-2 border-ink px-4 py-3">
                 {transcript ? (

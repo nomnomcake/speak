@@ -82,7 +82,11 @@ function Row({ attempt }: { attempt: StoredAttempt }) {
         </span>
       </div>
 
-      <div className="window-shade" data-open={open}>
+      {/* `inert` when shut, because the shade only clips — every control in a
+          collapsed row stayed in the tab order and readable by assistive tech.
+          With twelve sessions that is twelve invisible Delete buttons to tab
+          through before reaching anything, and the first Enter lands on one. */}
+      <div className="window-shade" data-open={open} inert={!open}>
         <div>
           <div className="space-y-4 bg-mint-mist px-4 py-4">
             {fb ? (
