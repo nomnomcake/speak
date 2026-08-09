@@ -75,10 +75,27 @@ export type ProviderName = "mock" | "anthropic";
  * deliberate default rather than a fallback: silently degrading a real
  * provider to mock output would be the worst possible failure here, so a
  * configured provider that fails throws instead.
+ *
+ * An explicit `SPEAK_AI_PROVIDER` always wins. With it unset, the presence of
+ * a key decides — which removes the only two ways to get this wrong, and they
+ * were both easy:
+ *
+ *  - `anthropic` with no key: every analysis 502s. That is the correct
+ *    behaviour for a misconfiguration and it is a miserable thing to walk
+ *    into, and it is exactly what happened here once already.
+ *  - a key pasted in while the provider is still `mock`: everything works, and
+ *    quietly keeps serving sample scores. The report does say they are a
+ *    sample, but nobody reads a label on a screen that appears to be working.
+ *
+ * So adding a key is now the whole procedure. Setting the variable explicitly
+ * is still honoured, including setting it to `mock` with a key present, which
+ * is how you keep a key on file without spending it.
  */
 export function activeProvider(): ProviderName {
   const name = process.env.SPEAK_AI_PROVIDER?.trim().toLowerCase();
-  return name === "anthropic" ? "anthropic" : "mock";
+  if (name === "anthropic") return "anthropic";
+  if (name === "mock") return "mock";
+  return process.env.ANTHROPIC_API_KEY?.trim() ? "anthropic" : "mock";
 }
 
 export async function analyzePresentation(
