@@ -54,11 +54,21 @@ The notes are gone here because the **route** changed, not because a panel
 closed over them. There is nothing on this screen to dismiss.
 
 It is dressed as **presentation mode**: a modal dialog, a segmented bar filling
-through named steps, then a 3·2·1 count-in. Written as software changing mode
-rather than as a cinematic — the dialog never moves or resizes between stages,
-it just keeps changing its mind, which is what an installer does and what a
-title sequence never does. Anxiety makes people worse at this; a dramatic
-transition would be working against the product.
+through named steps, then the pause itself, then a 3·2·1 count-in. Written as
+software changing mode rather than as a cinematic — the dialog never moves or
+resizes between stages, it just keeps changing its mind, which is what an
+installer does and what a title sequence never does. Anxiety makes people worse
+at this; a dramatic transition would be working against the product.
+
+The pause is its own stage and is the only one whose length varies. The bar
+above it takes about two seconds and is the same for every topic, so for a
+while it *was* the lockout by default: `lockoutSeconds` was derived from
+difficulty, printed on the landing page as THINK, and read by nothing. The
+approach to every talk was two seconds of progress bar.
+
+It draws a draining meter and the seconds left in Geist Mono, and it has **no
+skip control** — a lockout that can be dismissed is not a lockout, which is the
+same reason `useOneWay` covers this stage.
 
 The bar is gated on real work. "Starting camera" waits for `getUserMedia` to
 actually resolve, because a scripted bar that finishes while the permission

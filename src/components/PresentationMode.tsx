@@ -12,6 +12,7 @@ import { useTranscriber } from "@/lib/useTranscriber";
 import { useOneWay } from "@/lib/useOneWay";
 import { readResearchMs } from "@/lib/researchTime";
 import type { AiFeedback, TranscriptDoc } from "@/lib/ai/types";
+import { TIMINGS } from "@/lib/topics";
 import type { Topic } from "@/lib/topics";
 
 /**
@@ -70,6 +71,7 @@ function emptyFeedback(
 type Stage =
   | "preparing"
   | "ready"
+  | "lockout"
   | "countdown"
   | "live"
   | "blocked"
@@ -109,6 +111,11 @@ export function PresentationMode({ topic }: { topic: Topic }) {
   const [step, setStep] = React.useState(0);
   const [stage, setStage] = React.useState<Stage>("preparing");
   const [count, setCount] = React.useState(3);
+  // Seconds left in the lockout. Derived from difficulty rather than stored on
+  // the topic — the only phase duration that still varies, since research is a
+  // flat 15 minutes and every talk is one minute.
+  const lockoutSeconds = TIMINGS[topic.difficulty].lockoutSeconds;
+  const [left, setLeft] = React.useState(lockoutSeconds);
 
   // Acquire the camera immediately, in parallel with the first two steps, so
   // the gate is usually already satisfied by the time the bar reaches it.
@@ -180,7 +187,28 @@ export function PresentationMode({ topic }: { topic: Topic }) {
 
   React.useEffect(() => {
     if (stage === "ready") {
-      const id = setTimeout(() => setStage("countdown"), READY_HOLD_MS);
+      const id = setTimeout(() => setStage("lockout"), READY_HOLD_MS);
+      return () => clearTimeout(id);
+    }
+    /**
+     * The lockout proper — the phase user-flow.md calls load-bearing.
+     *
+     * It was documented at 10/15/20s by difficulty and displayed on the
+     * landing page as THINK, and then not implemented: the whole approach to
+     * the talk was the ~2s of progress bar above, identical for every topic.
+     * `lockoutSeconds` was derived, rendered on the first screen of the
+     * product, and read by nothing.
+     *
+     * Fifteen minutes of research is allowed *because* this exists. Without a
+     * real pause between closing the notes and starting to speak, the session
+     * runs straight from reading to reciting, which is the one thing the
+     * product is built not to measure.
+     */
+    if (stage === "lockout") {
+      const id = setTimeout(() => {
+        if (left <= 1) setStage("countdown");
+        else setLeft((s) => s - 1);
+      }, 1000);
       return () => clearTimeout(id);
     }
     if (stage === "countdown") {
@@ -190,7 +218,7 @@ export function PresentationMode({ topic }: { topic: Topic }) {
       }, TICK_MS);
       return () => clearTimeout(id);
     }
-  }, [stage, count]);
+  }, [stage, count, left]);
 
   const router = useRouter();
   const [recording, setRecording] = React.useState<Blob | null>(null);
@@ -214,6 +242,7 @@ export function PresentationMode({ topic }: { topic: Topic }) {
   useOneWay(
     stage === "preparing" ||
       stage === "ready" ||
+      stage === "lockout" ||
       stage === "countdown" ||
       stage === "live" ||
       stage === "analyzing",
@@ -432,6 +461,34 @@ export function PresentationMode({ topic }: { topic: Topic }) {
               </p>
               <ProgressBar value={1} variant="segmented" segments={16} size="sm" />
               <p className="type-hud text-ink">Camera ready</p>
+            </div>
+          )}
+
+          {/* Calm on purpose: a draining meter and mono numerals, no red and
+              nothing pulsing. This is the most stressful moment in the session
+              and anxiety makes people worse at the thing being measured.
+
+              There is no skip control. A lockout that can be dismissed is not
+              a lockout, and the useOneWay guard above covers this stage for
+              the same reason. */}
+          {stage === "lockout" && (
+            <div className="space-y-4">
+              <p className="font-mono text-sm text-graphite">
+                Notes closed. Structure your answer.
+              </p>
+
+              <ProgressBar
+                value={lockoutSeconds ? left / lockoutSeconds : 0}
+                variant="bar"
+                size="sm"
+              />
+
+              <div className="flex items-baseline justify-between gap-3">
+                <span className="type-hud text-slate">Speaking in</span>
+                <span className="font-mono text-2xl leading-none tabular-nums text-graphite">
+                  {left}s
+                </span>
+              </div>
             </div>
           )}
 
