@@ -59,8 +59,5 @@ export function tabsFor(active: RouteKey): BrowserTab[] {
   }));
 }
 
-/**
- * Bookmarks bar. These stay inert until the session routes exist — rendering
- * them as links now would dead-end on a 404.
- */
-export const BOOKMARKS = ["Brief", "Session", "Archive", "Settings"];
+// The BOOKMARKS list is gone with the bar that rendered it. The routes it was
+// standing in for now exist as real tabs.

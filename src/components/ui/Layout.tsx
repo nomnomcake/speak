@@ -13,13 +13,14 @@ import { BrowserFrame, type BrowserTab } from "./BrowserFrame";
  * inside it, so the viewport is a plain white document. Clouds still appear
  * inside individual panels via `Panel sky`.
  *
- * Nav items are inert until routing lands in the next phase — they are
- * rendered as bookmark labels rather than links so nothing dead-ends.
+ * The bookmarks bar is gone. Brief, Session, Archive and Settings were inert
+ * labels from before those screens existed, and once Archive became a real tab
+ * the chrome showed the same word twice — once as navigation and once as
+ * decoration that did nothing.
  */
 
 export type LayoutProps = {
   tabs?: BrowserTab[];
-  nav?: string[];
   /** Right side of the tab strip. Empty by default. */
   status?: React.ReactNode;
   /** Status-bar content. Pass `null` to hide it. */
@@ -30,11 +31,8 @@ export type LayoutProps = {
   children: React.ReactNode;
 };
 
-const DEFAULT_NAV = ["Brief", "Session", "Archive", "Settings"];
-
 export function Layout({
   tabs,
-  nav = DEFAULT_NAV,
   status,
   footer,
   quietBackground = false,
@@ -44,7 +42,6 @@ export function Layout({
   return (
     <BrowserFrame
       tabs={tabs}
-      nav={nav}
       status={status}
       footer={footer}
       wallpaper={!quietBackground}

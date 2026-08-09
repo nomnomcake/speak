@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { PixelFrame } from "./PixelFrame";
 import { BackgroundGrid } from "./BackgroundGrid";
 import { Sprig } from "./PixelArt";
+import { AddressBar } from "./AddressBar";
 import { TabMark } from "./TabMark";
 import { ChevronLeft, ChevronRight, RotateCw, Plus, Star } from "lucide-react";
 
@@ -69,8 +70,6 @@ export type BrowserTab = {
 
 export type BrowserFrameProps = {
   tabs?: BrowserTab[];
-  /** Bookmarks-bar entries. Inert labels until routing exists. */
-  nav?: string[];
   /** Right side of the tab strip, before the window controls. */
   status?: React.ReactNode;
   /** Animate clouds and sparkles on the desktop wallpaper. */
@@ -83,7 +82,6 @@ export type BrowserFrameProps = {
 export function BrowserFrame({
   wallpaper = true,
   tabs = [{ label: "Design System", active: true }],
-  nav = [],
   status,
   footer,
   children,
@@ -149,38 +147,32 @@ export function BrowserFrame({
         <div aria-hidden className="h-0.5 shrink-0 bg-ink" />
 
         {/* ---- Toolbar --------------------------------------------------
-            No address bar. The long speak.exe/… URL was the noisiest line in
-            the chrome and told the user nothing the tab did not already say.
-            The navigation keys stay, since they are what makes it a browser. */}
-        {nav.length > 0 && (
-          <>
-            <div className="flex shrink-0 items-center gap-2 px-3 py-2">
-              <ToolButton label="Back" dim>
-                <ChevronLeft size={14} />
-              </ToolButton>
-              <ToolButton label="Forward" dim>
-                <ChevronRight size={14} />
-              </ToolButton>
-              <ToolButton label="Reload">
-                <RotateCw size={13} />
-              </ToolButton>
+            Navigation keys, the location field, then the bookmarks, all on one
+            row. The address bar was dropped once for being the noisiest line in
+            the chrome; it is back because `speak.exe/play` is the joke the whole
+            frame is built on, but it now shows a dressed route rather than a
+            real URL with query strings trailing off the edge. */}
+        {/* No bookmarks. Brief, Session, Archive and Settings were inert
+            placeholders from before those screens existed, and once Archive
+            became a real tab the bar was showing the same word twice, one of
+            which did nothing. The row is no longer conditional on them: it
+            carries the navigation keys and the location field, which are what
+            make this read as a browser. */}
+        <div className="flex shrink-0 items-center gap-2 px-3 py-2">
+          <ToolButton label="Back" dim>
+            <ChevronLeft size={14} />
+          </ToolButton>
+          <ToolButton label="Forward" dim>
+            <ChevronRight size={14} />
+          </ToolButton>
+          <ToolButton label="Reload">
+            <RotateCw size={13} />
+          </ToolButton>
 
-              <span aria-hidden className="mx-1 h-5 w-0.5 bg-ink" />
-
-              <div className="hidden min-w-0 items-center gap-1 sm:flex">
-                {nav.map((item) => (
-                  <span
-                    key={item}
-                    className="type-hud pixel-clip cursor-default px-2.5 py-1.5 text-slate transition-colors duration-150 hover:bg-ink hover:text-mint"
-                    style={{ ["--notch" as string]: "2px" }}
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </>
-        )}
+          <React.Suspense fallback={<div className="min-w-0 flex-1" />}>
+            <AddressBar />
+          </React.Suspense>
+        </div>
         <div aria-hidden className="h-0.5 shrink-0 bg-ink" />
 
         {/* ---- Viewport -------------------------------------------------- */}
