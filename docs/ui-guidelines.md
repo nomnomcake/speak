@@ -27,7 +27,7 @@ Sampled directly from the reference image, not eyeballed.
 | `ink` | `#000000` | Every border and rule. True black, never softened. |
 | `graphite` | `#2a3230` | Body copy. |
 | `slate` | `#5a6764` | Secondary text, HUD labels. |
-| `mute` | `#8b9794` | Disabled, placeholder. |
+| `mute` | `#5f6b68` | Disabled, placeholder. |
 | `paper` | `#ffffff` | Card and panel fills. |
 | `mint-mist` | `#ecf6f5` | The browser viewport (page background). |
 | `mint-soft` | `#d8ecea` | Tab strip, hover fills. |
@@ -41,6 +41,37 @@ Sampled directly from the reference image, not eyeballed.
 `alert` and `affirm` are the only hues outside the mint family and are
 deliberately desaturated. **Do not add a sixth colour** without a reason that
 survives being said out loud — the near-monochrome palette is doing real work.
+
+### Text tones and the backgrounds they survive on
+
+A near-monochrome palette makes it very easy to pick a tone that looks right
+and is unreadable. `mute` shipped at `#8b9794` and failed 4.5:1 on every
+background in the product except black — 2.03:1 for the "60 topics" line under
+every folder, which is 10px Silkscreen on the sky.
+
+Measured, against the four fills text actually sits on:
+
+| Tone | paper | mist | soft | mint |
+| --- | --- | --- | --- | --- |
+| `graphite` `#2a3230` | 13.0 | 11.8 | 10.6 | 8.7 |
+| `slate` `#5a6764` | 5.90 | 5.36 | 4.81 | 3.97 |
+| `mute` `#5f6b68` | 5.54 | 5.03 | 4.51 | 3.73 |
+
+**Nothing lighter than `graphite` clears 4.5:1 on `mint`.** So text on a
+`Panel sky` — the defining move of the reference, and therefore common — has
+exactly one legal tone. `slate` and `mute` are for paper, mist and soft only;
+on the sky they are decoration that happens to contain words.
+
+`mute` and `slate` are 7% apart in contrast, which is the point: `mute` is the
+floor of the readable range, not a lighter idea. If a label needs to recede
+further than `mute`, make it smaller or move it — do not lighten it.
+
+**`mute` and `slate` are light-surface tones only.** They recede by getting
+darker, so on `tone="ink"` they recede towards invisible — `mute` manages
+3.79:1 on black and `slate` 3.56:1. Receding on ink means getting *dimmer
+without getting darker*: use `mint-shade` (7.64:1), which steps down from the
+`mint` that ink surfaces use for their emphasis labels. Darkening `mute` from
+`#8b9794` broke exactly one call site this way, on the landing page.
 
 ## Typography
 

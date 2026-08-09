@@ -121,7 +121,13 @@ export default function HomePage() {
                       ))}
                     </div>
 
-                    <p className="type-hud leading-relaxed text-mute">
+                    {/* mint-shade, not mute. `mute` is a light-surface tone —
+                        it recedes by getting darker, which on this ink frame
+                        means it recedes towards invisible (3.79:1). Receding
+                        on black means getting dimmer without getting darker,
+                        so it steps down from the mint used above rather than
+                        towards it. */}
+                    <p className="type-hud leading-relaxed text-mint-shade">
                       Title hidden until the readout
                     </p>
                   </PixelFrame>
