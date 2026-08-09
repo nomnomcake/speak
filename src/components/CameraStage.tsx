@@ -36,6 +36,15 @@ const LEVEL_BARS = 12;
  */
 const SILENCE_MS = 10_000;
 
+/**
+ * The same rule inside the five-second buffer, where ten seconds cannot fit.
+ *
+ * The buffer asks one question — is another sentence coming? — and two seconds
+ * of quiet answers it. Someone who has finished should not sit watching a Live
+ * badge for the remainder.
+ */
+const BUFFER_SILENCE_MS = 2_000;
+
 /** Above room tone, below speech. Same scale as the meter. */
 const SILENCE_LEVEL = 0.06;
 
@@ -71,10 +80,17 @@ const BUFFER_SECONDS = 5;
 function MicLevel({
   stream,
   onSilence,
+  silenceMs = SILENCE_MS,
 }: {
   stream: MediaStream;
-  /** Fired once, after SILENCE_MS of continuous quiet. */
+  /** Fired once, after `silenceMs` of continuous quiet. */
   onSilence?: () => void;
+  /**
+   * How long the quiet has to last. Differs by phase: ten seconds during the
+   * talk, so a thinking pause survives, and a short one during the buffer,
+   * where the only question is whether a sentence is still coming.
+   */
+  silenceMs?: number;
 }) {
   const [level, setLevel] = React.useState(0);
   const silentSinceRef = React.useRef<number | null>(null);
@@ -87,6 +103,13 @@ function MicLevel({
   React.useEffect(() => {
     onSilenceRef.current = onSilence;
   }, [onSilence]);
+  // Same reason, and it changes mid-talk: the window shortens when the clock
+  // runs out and the buffer starts. Read through a ref so the tick sees the
+  // current value rather than the one captured when the analyser was built.
+  const silenceMsRef = React.useRef(silenceMs);
+  React.useEffect(() => {
+    silenceMsRef.current = silenceMs;
+  }, [silenceMs]);
 
   React.useEffect(() => {
     if (stream.getAudioTracks().length === 0) return;
@@ -134,7 +157,7 @@ function MicLevel({
       }
       const now = Date.now();
       silentSinceRef.current ??= now;
-      if (!firedRef.current && now - silentSinceRef.current >= SILENCE_MS) {
+      if (!firedRef.current && now - silentSinceRef.current >= silenceMsRef.current) {
         firedRef.current = true;
         onSilenceRef.current?.();
       }
@@ -298,10 +321,22 @@ export function CameraStage({
           {/* The meter sits with the badge, not in the toolbar: "recording" and
               "hearing you" are one claim, and splitting them lets the user
               believe the first without checking the second. */}
-          {/* Silence only ends the take once the buffer has begun. Ten quiet
-              seconds at the start is someone gathering themselves, not
-              someone who has finished. */}
-          <MicLevel stream={stream} onSilence={inBuffer ? finish : undefined} />
+          {/* Auto-stop was armed only during the buffer, and the buffer is five
+              seconds against a ten-second silence window — so the rule
+              user-flow.md specifies could not fire, ever. It was a feature that
+              existed everywhere except in the running product.
+
+              Armed for the whole take now, with the window varying by phase:
+              ten seconds during the talk, because a thinking pause is not the
+              end of an answer and cutting someone off mid-thought is the worst
+              thing this screen could do. In the buffer it drops to two, since
+              the buffer's only question is whether another sentence is coming
+              and the answer arrives quickly. */}
+          <MicLevel
+            stream={stream}
+            onSilence={finish}
+            silenceMs={inBuffer ? BUFFER_SILENCE_MS : SILENCE_MS}
+          />
         </div>
 
         {/* The label changes, the badge does not: it is still recording during

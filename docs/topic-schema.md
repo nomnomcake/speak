@@ -23,7 +23,7 @@ type Topic = {
   suggestedAngles: string[];      // >= 2 distinct framings
   tags: string[];                 // lowercase keywords
   searchTerms: string[];          // >= 2. what the toolbox searches for
-  references: TopicReference[];   // >= 1
+  references: TopicReference[];   // optional; may be empty
 };
 
 type TopicReference = {
@@ -109,13 +109,20 @@ Wikipedia, which resolves an article rather than ranking results.
 A bare URL string cannot gain a retrieval date, a paywall flag or an excerpt
 without a migration. `{ label, url, kind }` can.
 
-**Currently authored but not rendered.** They were the dossier's "Places to
-possibly start with", then briefly an "Already filed" list inside the toolbox;
-both are gone. The field is kept, and still validated at `>= 1`, for two
-reasons: these are hand-checked sources — several papers resolved by DOI — and
-regenerating them means inventing citations, which is the one thing
-`studySearchUrl` existed to avoid. And `scores.accuracy` judges whether a talk
-was *true to the sources*, which needs sources.
+**Currently authored but not rendered, and optional.** They were the dossier's
+"Places to possibly start with", then briefly an "Already filed" list inside the
+toolbox; both are gone.
+
+The field is kept, and validated for *shape* when present, but **not required**
+— an empty array is a normal topic. This doc claimed `>= 1` long after
+`validate.ts` stopped enforcing it. Requiring one per topic across 420 topics
+meant either checking several hundred URLs by hand or inventing them, and an
+invented citation is worse than none: it sends someone to a dead page during
+the fifteen minutes the session is measuring.
+
+It is kept rather than deleted because the ones that exist are hand-checked —
+several papers resolved by DOI — and because `scores.accuracy` judges whether a
+talk was *true to the sources*, which needs sources.
 
 If a future change decides the research screen should stay search-only forever,
 delete the field deliberately in its own commit rather than letting it rot as
