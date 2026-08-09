@@ -123,11 +123,31 @@ export function streakFrom(attempts: StoredAttempt[], today: Date): Streak {
    Report scores over time
    ------------------------------------------------------------------------ */
 
-/** Attempts that actually carry a score. Unscored ones are absent, not zero. */
+/**
+ * Attempts carrying a score from a real model. Unscored ones are absent, not
+ * zero — and sample scores are absent too.
+ *
+ * The mock provider's own file says its output "must never be presented as
+ * judgement". The dashboard was averaging it into "Average score", six
+ * dimension bars and a green improvement figure with no sample caveat
+ * anywhere, which is precisely presenting it as judgement — a trend line
+ * telling someone they were improving, computed from noise.
+ */
 export function scoredAttempts(attempts: StoredAttempt[]): StoredAttempt[] {
   return attempts.filter(
-    (a) => typeof a.aiFeedback?.overallScore === "number",
+    (a) =>
+      typeof a.aiFeedback?.overallScore === "number" &&
+      a.aiFeedback.source === "model",
   );
+}
+
+/** Sessions scored by the mock, so the UI can say why they are not counted. */
+export function sampleScoredCount(attempts: StoredAttempt[]): number {
+  return attempts.filter(
+    (a) =>
+      typeof a.aiFeedback?.overallScore === "number" &&
+      a.aiFeedback.source === "mock",
+  ).length;
 }
 
 export type ScoreAverages = {
@@ -214,9 +234,15 @@ export function improvement(
     rows.reduce((s, a) => s + (a.aiFeedback?.overallScore ?? 0), 0) /
     rows.length;
 
-  const earlier = Math.round(mean(scored.slice(0, mid)));
-  const later = Math.round(mean(scored.slice(mid)));
-  return { delta: later - earlier, earlier, later };
+  // Round once, at the end. Rounding each half first turned a true delta of
+  // 1.2 into a reported +2 — and this is the figure the dashboard colours.
+  const earlierRaw = mean(scored.slice(0, mid));
+  const laterRaw = mean(scored.slice(mid));
+  return {
+    delta: Math.round(laterRaw - earlierRaw),
+    earlier: Math.round(earlierRaw),
+    later: Math.round(laterRaw),
+  };
 }
 
 export type Achievement = {
@@ -358,10 +384,57 @@ export function nextMilestone(doneCount: number, total: number) {
   );
   const target = rungs.find((n) => n > doneCount) ?? total;
   const previous = [...rungs].reverse().find((n) => n <= doneCount) ?? 0;
+
+  // Finishing the last rung is a full bar, not an empty one. With
+  // `target === previous === total` the span collapses and the ratio computed
+  // to 0/1 — so completing the final topic snapped the bar from 99% to empty
+  // while the footnote read "0 to reach 420".
+  if (doneCount >= total) {
+    return { target: total, remaining: 0, ratio: 1 };
+  }
+
   const span = Math.max(1, target - previous);
   return {
     target,
     remaining: Math.max(0, target - doneCount),
     ratio: Math.min(1, Math.max(0, (doneCount - previous) / span)),
   };
+}
+
+/**
+ * The local calendar day of a stored timestamp.
+ *
+ * `completedAt` is stored as UTC. Slicing the ISO string gives the UTC date,
+ * which is a different day from the user's evening for everyone west of
+ * Greenwich — the dashboard was dating a session one day later than the
+ * archive and the streak, from the same row.
+ */
+export function localDayOf(iso: string): string {
+  return dayKey(new Date(iso));
+}
+
+const MONTHS = [
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+];
+
+/** Short local date. Includes the year when it is not the current one. */
+export function shortLocalDate(iso: string, now = new Date()): string {
+  const d = new Date(iso);
+  const base = `${d.getDate()} ${MONTHS[d.getMonth()]}`;
+  return d.getFullYear() === now.getFullYear()
+    ? base
+    : `${base} ${d.getFullYear()}`;
+}
+
+/** Weekday initials for the seven-day strip, ending today. */
+export function weekLabels(today: Date): string[] {
+  const letters = ["S", "M", "T", "W", "T", "F", "S"];
+  const out: string[] = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(d.getDate() - i);
+    out.push(letters[d.getDay()]);
+  }
+  return out;
 }

@@ -58,10 +58,14 @@ function isAttempt(v: unknown): v is StoredAttempt {
  * annoyed to lose, and it costs one line to keep.
  */
 function migrate(version: number, attempts: unknown[]): StoredAttempt[] {
-  const rows = attempts.filter(isAttempt);
-  if (version >= 2) return rows;
-  // v1 predates analysis: nothing was ever analysed, so null is accurate.
-  return rows.map((a) => ({ ...a, aiFeedback: a.aiFeedback ?? null }));
+  // The `?? null` fill runs for every version, not just v1. Short-circuiting
+  // on v2 left rows whose `aiFeedback` was `undefined` while the type said
+  // `AiFeedback | null` — the storage boundary was not enforcing the doctrine
+  // that null means "not analysed" rather than "scored zero".
+  void version;
+  return attempts
+    .filter(isAttempt)
+    .map((a) => ({ ...a, aiFeedback: a.aiFeedback ?? null }));
 }
 
 /**
@@ -83,29 +87,66 @@ export function loadAttempts(): StoredAttempt[] {
     if (typeof env.version !== "number" || !Array.isArray(env.attempts)) {
       return [];
     }
-    if (env.version > VERSION) return []; // written by a newer build
+    if (env.version > VERSION) {
+      /**
+       * A file from a newer build. Returning an empty list here was not
+       * enough: `saveAttempt` appends to what it reads and writes the result
+       * back, so the next completed session flattened a v3 file into a v2 file
+       * containing one attempt. Running a preview build once and going back
+       * erased everything, silently, and it looked safe.
+       *
+       * The future file is copied aside before this build is allowed to write
+       * over the key, so the newer build can still find it.
+       */
+      preserveForeign(raw);
+      return [];
+    }
     return migrate(env.version, env.attempts);
   } catch {
     return [];
   }
 }
 
-function write(attempts: StoredAttempt[]) {
-  if (typeof window === "undefined") return;
+/** Where a file from a newer build is parked so this one cannot destroy it. */
+const FOREIGN_KEY = `${KEY}:foreign`;
+
+function preserveForeign(raw: string) {
   try {
-    const env: Envelope = { version: VERSION, attempts };
-    window.localStorage.setItem(KEY, JSON.stringify(env));
+    if (window.localStorage.getItem(FOREIGN_KEY) === null) {
+      window.localStorage.setItem(FOREIGN_KEY, raw);
+    }
   } catch {
-    // Private mode, or the quota is full. Losing the record of a session is
-    // bad; taking down the screen the user is looking at is worse.
+    /* nothing else to try; the read still returns empty */
   }
 }
 
-export function saveAttempt(attempt: StoredAttempt): StoredAttempt[] {
-  const next = [...loadAttempts(), attempt];
-  write(next);
+/**
+ * Returns whether the write actually landed.
+ *
+ * It used to swallow the failure and return nothing, so `saveAttempt` reported
+ * success by handing back its in-memory array while localStorage held the old
+ * value — or none at all. In private mode or at quota the user watched a full
+ * report render for a session that was never saved and could not be recovered,
+ * with nothing on screen saying so. Callers can now tell.
+ */
+function write(attempts: StoredAttempt[]): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    const env: Envelope = { version: VERSION, attempts };
+    window.localStorage.setItem(KEY, JSON.stringify(env));
+    return true;
+  } catch {
+    // Still not thrown at the UI — taking down the screen someone is looking
+    // at is worse than a failed save — but no longer pretended to have worked.
+    return false;
+  }
+}
+
+/** True when the session reached disk. Callers should tell the user if not. */
+export function saveAttempt(attempt: StoredAttempt): boolean {
+  const ok = write([...loadAttempts(), attempt]);
   emit();
-  return next;
+  return ok;
 }
 
 /** Attach the report to an attempt that has already been written. */

@@ -123,9 +123,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         <span
           className={cn(
             "pixel-clip flex items-center justify-center whitespace-nowrap",
-            "font-semibold tracking-wide uppercase text-ink",
+            // Inherits the surrounding colour rather than hardcoding ink.
+            // Ghost has no plate of its own, so on an ink-toned panel a fixed
+            // `text-ink` painted black on black — an invisible button, which
+            // CLAUDE.md lists as a bug this project already shipped once.
+            "font-semibold tracking-wide text-inherit uppercase",
             "transition-colors duration-150",
-            !isOff && "group-hover:bg-mint-soft group-active:bg-mint",
+            !isOff && "group-hover:bg-mint-soft group-hover:text-ink group-active:bg-mint",
             s.pad,
             s.text,
             s.gap,

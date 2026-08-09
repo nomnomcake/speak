@@ -43,12 +43,45 @@ export function useOneWay(active: boolean) {
       e.returnValue = "";
     };
 
+    /**
+     * The tab strip is still on screen during the talk.
+     *
+     * `popstate` and `beforeunload` between them cover Back, reload and close —
+     * but not a client-side `<Link>`, which is what the browser chrome above
+     * the session is made of. One click on "Dashboard" mid-recording abandoned
+     * the session with no warning and no way back to it.
+     *
+     * Captured at the document, before the router's own handler, so the
+     * navigation never starts. Asking first is what user-flow.md requires:
+     * "Leaving mid-session abandons it. Confirm first, then discard."
+     */
+    const onClickCapture = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+      const anchor = (e.target as Element | null)?.closest?.("a[href]");
+      if (!(anchor instanceof HTMLAnchorElement)) return;
+      if (anchor.target && anchor.target !== "_self") return;
+      if (anchor.origin !== window.location.origin) return;
+      if (anchor.hasAttribute("download")) return;
+
+      const confirmed = window.confirm(
+        "Leave now and this session is abandoned — the recording and the report are lost. Leave anyway?",
+      );
+      if (!confirmed) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
+
     window.addEventListener("popstate", onPopState);
     window.addEventListener("beforeunload", onBeforeUnload);
+    document.addEventListener("click", onClickCapture, true);
 
     return () => {
       window.removeEventListener("popstate", onPopState);
       window.removeEventListener("beforeunload", onBeforeUnload);
+      document.removeEventListener("click", onClickCapture, true);
     };
   }, [active]);
 }

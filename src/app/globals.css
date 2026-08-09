@@ -12,7 +12,16 @@
   --color-ink: #000000;
   --color-graphite: #2a3230;
   --color-slate: #5a6764;
-  --color-mute: #8b9794;
+  /* Darkened from #8b9794, which failed contrast on every background in this
+     product except black — as low as 2.03:1, where 4.5:1 is the bar for 10px
+     text. Measured: this clears 4.5 on paper (5.54), mist (5.03) and soft
+     (4.51), which are the three surfaces it actually sits on. It is used for
+     micro-labels in thirty places, so one token beats thirty call sites.
+
+     On `mint` it still only reaches 3.73 — nothing lighter than slate passes
+     there — so the one label that sits on the sky is coloured explicitly
+     rather than pretending this token covers it. */
+  --color-mute: #5f6b68;
 
   --color-paper: #ffffff;
   --color-mint-mist: #ecf6f5;

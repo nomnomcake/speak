@@ -31,6 +31,7 @@ import {
   favouriteCategory,
   improvement,
   nextMilestone,
+  sampleScoredCount,
   scoreAverages,
   streakFrom,
 } from "@/lib/progress";
@@ -135,6 +136,7 @@ export function Dashboard() {
   const catScores = categoryScores(list);
   const trend = improvement(list);
   const milestone = nextMilestone(collection.done, collection.total);
+  const sampleCount = sampleScoredCount(list);
   const earned = achievements.filter((a) => a.earned).length;
 
   const recent = [...list]
@@ -307,8 +309,9 @@ export function Dashboard() {
           >
             {averages.count === 0 ? (
               <p className="font-mono text-sm leading-relaxed text-slate">
-                No scored sessions yet. Finish a talk and the report&rsquo;s
-                scores are kept here so you can watch them move.
+                {sampleCount > 0
+                  ? `${sampleCount} session${sampleCount === 1 ? "" : "s"} carry sample scores, which are not averaged here — they are placeholder numbers, not a judgement of how you spoke. Connect a model and real scores will appear.`
+                  : "No scored sessions yet. Finish a talk and the report’s scores are kept here so you can watch them move."}
               </p>
             ) : (
               <div className="space-y-4">

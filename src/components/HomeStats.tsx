@@ -11,7 +11,10 @@ import {
 import {
   collectionProgress,
   completedIds,
+  nextMilestone,
+  shortLocalDate,
   streakFrom,
+  weekLabels,
 } from "@/lib/progress";
 
 /**
@@ -27,20 +30,16 @@ import {
  * again.
  */
 
-const MONTHS = [
-  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
-];
 
-/** Formatted by hand: `toLocaleDateString` varies by machine locale. */
-function shortDate(iso: string): string {
-  const d = new Date(iso);
-  return `${d.getDate()} ${MONTHS[d.getMonth()]}`;
-}
-
-/** A row of blocks, one per day. Filled = a session was completed. */
-function WeekStrip({ days }: { days: boolean[] }) {
-  const labels = ["M", "T", "W", "T", "F", "S", "S"];
+/**
+ * A row of blocks, one per day. Filled = a session was completed.
+ *
+ * Labels are computed from the actual dates. They were hardcoded as
+ * M-T-W-T-F-S-S, but the strip is the last seven days *ending today*, so the
+ * letters were only correct on a Sunday — and they are read out by screen
+ * readers, which were being told the wrong day six times a week.
+ */
+function WeekStrip({ days, labels }: { days: boolean[]; labels: string[] }) {
   return (
     <div className="flex items-end gap-1.5">
       {days.map((done, i) => (
@@ -77,6 +76,8 @@ export function HomeStats() {
   const when = ready ? new Date() : new Date(0);
   const streak = streakFrom(list, when);
   const collection = collectionProgress(completedIds(list));
+  const milestone = nextMilestone(collection.done, collection.total);
+  const labels = weekLabels(when);
 
   const first = list.reduce<string | null>(
     (earliest, a) =>
@@ -100,7 +101,7 @@ export function HomeStats() {
           ) : undefined
         }
       >
-        <WeekStrip days={streak.week} />
+        <WeekStrip days={streak.week} labels={labels} />
       </StatTile>
 
       <StatTile
@@ -111,16 +112,17 @@ export function HomeStats() {
           !ready
             ? "Reading history"
             : first
-              ? `Since ${shortDate(first)}`
+              ? `Since ${shortLocalDate(first)}`
               : "No sessions yet"
         }
       >
-        {/* Was "average clarity", which had no source — nothing scores a take
-            yet. This is the same collection figure the dashboard shows. */}
+        {/* The same milestone bar the dashboard draws. This tile previously fed
+            the raw collection ratio while the dashboard fed the milestone one,
+            so three sessions read as "1%" here and a 22%-full bar there — the
+            exact two-truths problem this component was written to end. */}
         <ProgressBar
-          value={ready ? collection.ratio : 0}
-          label="Collection"
-          showValue
+          value={ready ? milestone.ratio : 0}
+          label={ready ? `Next: ${milestone.target}` : "Collection"}
         />
       </StatTile>
     </div>

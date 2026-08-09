@@ -101,12 +101,30 @@ export function mockAnalyze(input: AnalysisInput): AiFeedback {
   const tokens = text.toLowerCase().split(/\s+/).filter(Boolean);
   const spread = new Set(tokens).size / Math.max(1, tokens.length);
 
-  const base = 62 + (seed % 9);
-  const paceBonus = wpm >= 120 && wpm <= 175 ? 8 : -6;
-  const fillerPenalty = Math.min(18, fillerRate * 2.5);
-  const spreadBonus = clamp(spread * 40, 0, 14);
+  /**
+   * Substance first, or the ranking inverts.
+   *
+   * The earlier version scored on vocabulary spread and filler rate alone —
+   * both of which are *perfect* when you say almost nothing. Measured against
+   * the running server, the single word "a" scored 76 while a real 119-word
+   * explanation scored 67. The highest score in the product went to freezing,
+   * which is the exact opposite of what it is for.
+   *
+   * Saying enough to fill the minute is now the dominant term. It is still a
+   * crude surface heuristic and still labelled a sample — but a sample that
+   * ranks the right way round.
+   */
+  const words = pace.wordsSpoken ?? 0;
+  const expected = Math.max(1, (input.speakingMs / 60_000) * 130);
+  const substance = clamp((words / expected) * 62, 0, 62);
 
-  const overall = clamp(base + paceBonus + spreadBonus - fillerPenalty);
+  const base = 8 + (seed % 6);
+  const paceBonus = wpm >= 110 && wpm <= 180 ? 10 : 0;
+  const fillerPenalty = Math.min(18, fillerRate * 2.5);
+  // Spread only counts once there is enough said for it to mean anything.
+  const spreadBonus = words >= 40 ? clamp(spread * 30, 0, 12) : 0;
+
+  const overall = clamp(base + substance + paceBonus + spreadBonus - fillerPenalty);
   const jitter = (n: number) => clamp(overall + ((seed >> n) % 13) - 6);
 
   const scores: ScoreSet = {

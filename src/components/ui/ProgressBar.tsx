@@ -50,7 +50,23 @@ export function ProgressBar({
   className,
 }: ProgressBarProps) {
   const pct = Math.round(Math.min(1, Math.max(0, value)) * 100);
-  const filled = Math.round((pct / 100) * segments);
+
+  /**
+   * Segments are capped, and the cap is not cosmetic.
+   *
+   * A caller passing `segments={total}` for a 60-topic category put 60 blocks
+   * in one bar and 430 across the dashboard — four times the ~100 concurrent
+   * transforms that ui-guidelines.md records as having locked a browser tab,
+   * each one a staggered `motion.span`. Sixty blocks also need about 476px of
+   * minimum width, so the meter silently overflowed its column and pushed the
+   * count off the edge.
+   *
+   * Twenty is the most a stepped bar can show before the steps stop being
+   * legible anyway, so nothing is lost by resolving the proportion instead of
+   * the count.
+   */
+  const blocks = Math.max(1, Math.min(segments, 20));
+  const filled = Math.round((pct / 100) * blocks);
 
   const meter = (
     <div
@@ -63,7 +79,7 @@ export function ProgressBar({
     >
       {variant === "segmented" ? (
         <div className={cn("flex w-full gap-1", HEIGHT[size])}>
-          {Array.from({ length: segments }).map((_, i) => (
+          {Array.from({ length: blocks }).map((_, i) => (
             <motion.span
               key={i}
               className={cn(

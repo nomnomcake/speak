@@ -177,9 +177,12 @@ export function FolderIcon({
           {label}
         </span>
 
-        {/* Muted so the label stays the dominant element — Silkscreen reads
-            larger than its 10px suggests, and at slate it outranked the name. */}
-        {meta && <span className="type-hud text-mute">{meta}</span>}
+        {/* Graphite, not mute. This label sits on the pixel sky (`bg-mint`),
+            and nothing lighter than slate reaches 4.5:1 there — mute managed
+            2.03:1, the worst contrast in the product, on the "60 topics" line
+            under every single folder. The name above it is heavier and larger,
+            so it stays dominant even with the two at similar weight. */}
+        {meta && <span className="type-hud text-graphite">{meta}</span>}
       </span>
     </button>
   );

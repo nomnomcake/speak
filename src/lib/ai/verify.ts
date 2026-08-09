@@ -58,15 +58,38 @@ export function verifyQuote(
 
   if (containsSequence(t, q)) return true;
 
-  // Slide a window of the quote's length and measure overlap.
+  /**
+   * The fallback matches in order, and that is the whole point.
+   *
+   * It used to build a Set of the quote's words and count how many appeared
+   * anywhere in a transcript window — ignoring both order and repetition. So
+   * "only can you system" and "of three properties two have only can you"
+   * both validated as things the speaker had said, and the report rendered
+   * them in quotation marks. A scrambled sentence is not a quotation, and this
+   * file exists to stop exactly that.
+   *
+   * Now the quote's words must appear as an ordered subsequence within a
+   * window not much longer than the quote — which still forgives a dropped
+   * article or a recognition slip, and no longer forgives a reordering.
+   */
   const need = Math.ceil(q.length * threshold);
-  const wanted = new Set(q);
-  for (let i = 0; i + q.length <= t.length; i++) {
-    let hits = 0;
-    for (let j = 0; j < q.length; j++) {
-      if (wanted.has(t[i + j])) hits += 1;
+  const window = Math.ceil(q.length * 1.4) + 2;
+
+  for (let start = 0; start + need <= t.length; start++) {
+    let matched = 0;
+    let qi = 0;
+    const end = Math.min(t.length, start + window);
+    for (let i = start; i < end && qi < q.length; i++) {
+      if (t[i] === q[qi]) {
+        matched += 1;
+        qi += 1;
+      } else if (t[i] === q[qi + 1] && qi + 1 < q.length) {
+        // Tolerate one dropped word without abandoning the order.
+        matched += 1;
+        qi += 2;
+      }
     }
-    if (hits >= need) return true;
+    if (matched >= need) return true;
   }
   return false;
 }

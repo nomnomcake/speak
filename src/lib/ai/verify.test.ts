@@ -54,6 +54,35 @@ describe("verifyQuote", () => {
   it("rejects anything when the transcript is empty", () => {
     expect(verifyQuote("anything at all", "")).toBe(false);
   });
+
+  /**
+   * Scrambles built from the transcript's own words.
+   *
+   * The first implementation compared against a Set, so word order and
+   * repetition were both ignored and every one of these validated as a
+   * verbatim quotation. A reordering is not a quote — it is a sentence the
+   * speaker never uttered, assembled from ones they did.
+   */
+  it("rejects the transcript's own words in the wrong order", () => {
+    const t =
+      "consistency means every read gets the most recent write and you can only have two of three properties";
+    expect(verifyQuote("only can you system", t)).toBe(false);
+    expect(verifyQuote("have two only can you", t)).toBe(false);
+    expect(verifyQuote("of three properties two have only can you", t)).toBe(
+      false,
+    );
+    expect(
+      verifyQuote("the most recent write gets read every means consistency the", t),
+    ).toBe(false);
+  });
+
+  it("still accepts a real quote with a dropped word", () => {
+    const t =
+      "consistency means every read gets the most recent write and you can only have two of three properties";
+    expect(verifyQuote("every read gets the most recent write", t)).toBe(true);
+    // "the" dropped — a recognition slip, not a reordering.
+    expect(verifyQuote("gets most recent write", t)).toBe(true);
+  });
 });
 
 describe("stripUngroundedQuotes", () => {

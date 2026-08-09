@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useRouter } from "next/navigation";
 import { Panel, ProgressBar } from "@/components/ui";
 import { CameraStage } from "./CameraStage";
 import { ReviewEmpty, ReviewWindow } from "./ReviewWindow";
@@ -191,9 +192,11 @@ export function PresentationMode({ topic }: { topic: Topic }) {
     }
   }, [stage, count]);
 
+  const router = useRouter();
   const [recording, setRecording] = React.useState<Blob | null>(null);
   const [feedback, setFeedback] = React.useState<AiFeedback | null>(null);
   const [speakingMs, setSpeakingMs] = React.useState<number | null>(null);
+  const [saveFailed, setSaveFailed] = React.useState(false);
   const attemptIdRef = React.useRef<string | null>(null);
 
   // Runs only while the talk is live. Captured silently — user-flow.md is
@@ -250,9 +253,8 @@ export function PresentationMode({ topic }: { topic: Topic }) {
         Date.parse(completedAt) - Date.parse(startedAt),
       );
       const id = newAttemptId();
-      attemptIdRef.current = id;
       setSpeakingMs(speakingMs);
-      saveAttempt({
+      const saved = saveAttempt({
         id,
         topicId: topic.id,
         startedAt,
@@ -260,13 +262,28 @@ export function PresentationMode({ topic }: { topic: Topic }) {
         recordedMs: speakingMs,
         aiFeedback: null,
       });
+
+      // Only remember the id if it actually reached disk. Holding it after a
+      // failed write meant `updateAttempt` later matched nothing and rewrote
+      // an unchanged list, so a full report rendered for a session that was
+      // never saved — with nothing on screen admitting it.
+      attemptIdRef.current = saved ? id : null;
+      setSaveFailed(!saved);
     },
     [stream, topic.id],
   );
 
+  /**
+   * Deleting the video deletes the video. Nothing else.
+   *
+   * It used to drop the whole screen into `discarded`, so someone embarrassed
+   * by their own footage silently lost their scores, filler counts, pace and
+   * transcript too. The recording and the analysis are separate things —
+   * the video never leaves the device, the transcript is what gets read — and
+   * one state was doing both jobs.
+   */
   const handleDelete = React.useCallback(() => {
     setRecording(null);
-    setStage("discarded");
   }, []);
 
   /**
@@ -309,9 +326,22 @@ export function PresentationMode({ topic }: { topic: Topic }) {
       }
 
       if (cancelled) return;
-      setFeedback(result);
+
+      // Say so on the report itself. A user who is about to close the tab
+      // deserves to know the session is not in their history.
+      const withSaveState = saveFailed
+        ? {
+            ...result,
+            unavailable: [
+              ...result.unavailable,
+              "This session could not be saved to your browser storage, so it will not appear in your history. Private browsing or a full disk quota are the usual causes.",
+            ],
+          }
+        : result;
+
+      setFeedback(withSaveState);
       if (attemptIdRef.current) {
-        updateAttempt(attemptIdRef.current, { aiFeedback: result });
+        updateAttempt(attemptIdRef.current, { aiFeedback: withSaveState });
       }
       setStage("report");
     })();
@@ -319,7 +349,7 @@ export function PresentationMode({ topic }: { topic: Topic }) {
     return () => {
       cancelled = true;
     };
-  }, [stage, speakingMs, topic.id, transcript.result, recording]);
+  }, [stage, speakingMs, topic.id, transcript.result, recording, saveFailed]);
 
   const waiting = Boolean(STEPS[step].gated) && stream === null && denied === null;
   const stepLabel =
@@ -335,7 +365,18 @@ export function PresentationMode({ topic }: { topic: Topic }) {
 
   if (stage === "report" && feedback) {
     return (
-      <SpeakingReport feedback={feedback} onFinish={() => setStage("discarded")}>
+      <SpeakingReport
+        feedback={feedback}
+        /**
+         * Goes to the dashboard. It used to drop the whole screen into
+         * `discarded`, which wiped the scores, metrics, transcript and player
+         * and replaced them with "Take deleted. It is gone from this device."
+         * — a destructor wearing the label of the affirmative action, and a
+         * false message besides, since the session had already been saved at
+         * the moment the talk ended.
+         */
+        onFinish={() => router.push("/dashboard")}
+      >
         {recording ? (
           <ReviewWindow
             recording={recording}
@@ -343,14 +384,10 @@ export function PresentationMode({ topic }: { topic: Topic }) {
             onDelete={handleDelete}
           />
         ) : (
-          <ReviewEmpty reason="That take could not be recorded, so there is nothing to play back." />
+          <ReviewEmpty reason="No recording to play back — the report above still stands." />
         )}
       </SpeakingReport>
     );
-  }
-
-  if (stage === "discarded") {
-    return <ReviewEmpty reason="Take deleted. It is gone from this device." />;
   }
 
   return (
