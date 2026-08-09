@@ -21,6 +21,7 @@ import {
   getAttemptsSnapshot,
   subscribeAttempts,
 } from "@/lib/attempts";
+import { revokeConsent, useConsent } from "@/lib/consent";
 import {
   achievementsFrom,
   categoryProgress,
@@ -124,6 +125,7 @@ export function Dashboard() {
   );
 
   const [confirmClear, setConfirmClear] = React.useState(false);
+  const consent = useConsent();
   const when = ready ? new Date() : new Date(0);
 
   const done = completedIds(list);
@@ -487,6 +489,21 @@ export function Dashboard() {
                 Stored in this browser only
               </span>
             </>
+          )}
+
+          {/* Withdrawing consent, which is the half of the storage notice that
+              is easy to leave unbuilt. A Decline you can only give once, on the
+              first screen, before you have seen what the product does, is not a
+              choice anyone is in a position to make. This erases what exists
+              and stops history being written from here on. */}
+          {ready && consent === "granted" && (
+            <Button
+              size="sm"
+              variant="ghost"
+              onClick={() => revokeConsent(clearAttempts)}
+            >
+              Stop keeping history
+            </Button>
           )}
         </div>
       </StaggerItem>

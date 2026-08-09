@@ -15,6 +15,7 @@
  */
 
 import type { AiFeedback } from "@/lib/ai/types";
+import { readConsent } from "@/lib/consent";
 
 const KEY = "speak:attempts";
 const VERSION = 2;
@@ -131,6 +132,20 @@ function preserveForeign(raw: string) {
  */
 function write(attempts: StoredAttempt[]): boolean {
   if (typeof window === "undefined") return false;
+  /**
+   * Refused outright when history storage has been declined.
+   *
+   * This is the whole point of the notice. A Decline button that only closes a
+   * banner manufactures a record of consent nobody gave, so the check belongs
+   * at the one function that can write history rather than at the call sites,
+   * where the next one added would forget it.
+   *
+   * `unset` still writes. The notice is a notice, not a gate — someone should
+   * be able to take a session before answering it, and losing that first take
+   * to a dialog they had not read yet would be a worse trade than storing it
+   * and honouring a later Decline by deleting it.
+   */
+  if (readConsent() === "denied") return false;
   try {
     const env: Envelope = { version: VERSION, attempts };
     window.localStorage.setItem(KEY, JSON.stringify(env));

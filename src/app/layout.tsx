@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Outfit, Silkscreen, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { MotionProvider } from "@/components/ui/MotionProvider";
+import { CookieNotice } from "@/components/CookieNotice";
 
 /**
  * Typography system.
@@ -44,7 +45,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${outfit.variable} ${silkscreen.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <MotionProvider>{children}</MotionProvider>
+        <MotionProvider>
+          {children}
+          <CookieNotice />
+        </MotionProvider>
       </body>
     </html>
   );

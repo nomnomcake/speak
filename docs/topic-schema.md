@@ -241,6 +241,32 @@ mechanism costs `coverage`; describing it backwards should also cost
 
 Phase 2–4: `localStorage`, keyed `speak:attempts`. No account, no server.
 
+### Consent
+
+One cookie, `speak_consent`, holding `granted` or `denied`. It is the only
+cookie the product sets, and it exists so the storage notice is describing
+something real rather than reciting a sentence from other sites.
+
+Storage splits in two, and the notice names both rather than hiding one behind
+"strictly necessary":
+
+| What | Where | Optional? |
+| --- | --- | --- |
+| The consent answer | cookie | no — it *is* the answer |
+| Research notes, countdown | `localStorage` | no — the 15-minute phase is specified to survive a closed tab |
+| Session history | `localStorage` | **yes** |
+
+`denied` is enforced in `write()` in `lib/attempts.ts` — one function, rather
+than at each call site where the next one added would forget. **A Decline that
+only dismisses the banner is worse than no banner**, because it manufactures a
+record of consent nobody gave.
+
+`unset` still writes. The notice does not block the session, so someone can
+take their first go before answering it; declining afterwards erases what was
+kept. Consent is withdrawable from the dashboard for the same reason — a choice
+offered once, on the first screen, before you have seen what the product does,
+is not one anyone is placed to make.
+
 Add a backend only when there is a reason beyond "apps have backends" — sync
 across devices, or shared topic packs.
 
