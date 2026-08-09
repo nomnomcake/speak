@@ -252,6 +252,30 @@ export function PresentationMode({ topic }: { topic: Topic }) {
   const transcript = useTranscriber(stage === "live");
 
   /**
+   * Whether the tab was hidden at any point during the talk.
+   *
+   * Speech recognition is the part that cannot defend itself. It restarts on
+   * `onend`, which covers Chrome closing a session, but a browser is under no
+   * obligation to keep transcribing a page nobody is looking at — and a
+   * transcript missing the middle of a talk reads as a complete transcript of
+   * a worse talk. The scores would then be marked against words the speaker
+   * did say and this app did not hear.
+   *
+   * Not treated as an error, because it is usually nothing. It is recorded and
+   * declared, which is the same rule the rest of the report follows: a section
+   * that might be incomplete says so rather than looking finished.
+   */
+  const leftTabRef = React.useRef(false);
+  React.useEffect(() => {
+    if (stage !== "live") return;
+    const onVisibility = () => {
+      if (document.hidden) leftTabRef.current = true;
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
+  }, [stage]);
+
+  /**
    * One-way from the moment the notes disappear until the report exists.
    *
    * Held through `analyzing` as well as the talk: backing out mid-analysis
@@ -398,15 +422,23 @@ export function PresentationMode({ topic }: { topic: Topic }) {
 
       // Say so on the report itself. A user who is about to close the tab
       // deserves to know the session is not in their history.
-      const withSaveState = saveFailed
-        ? {
-            ...result,
-            unavailable: [
-              ...result.unavailable,
+      const caveats = [
+        ...result.unavailable,
+        ...(saveFailed
+          ? [
               "This session could not be saved to your browser storage, so it will not appear in your history. Private browsing or a full disk quota are the usual causes.",
-            ],
-          }
-        : result;
+            ]
+          : []),
+        ...(leftTabRef.current
+          ? [
+              "This tab was in the background for part of your talk. Browsers stop transcribing a page nobody is looking at, so the transcript below may be missing words you said — and anything scored from it is judging the words that survived.",
+            ]
+          : []),
+      ];
+      const withSaveState =
+        caveats.length === result.unavailable.length
+          ? result
+          : { ...result, unavailable: caveats };
 
       setFeedback(withSaveState);
       if (attemptIdRef.current) {

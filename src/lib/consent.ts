@@ -32,10 +32,23 @@ const COOKIE = "speak_consent";
 /** A year. Long enough not to nag, short enough that the answer is not forever. */
 const MAX_AGE = 60 * 60 * 24 * 365;
 
-export type Consent = "granted" | "denied" | "unset";
+/**
+ * `unknown` is the server's answer, and it is not the same as `unset`.
+ *
+ * The server has no cookie to read, so it cannot know. Reporting that as
+ * `unset` made the notice part of the server-rendered HTML, which meant every
+ * page load flashed a storage banner at people who had already answered it —
+ * visible until hydration replaced it with nothing. A consent dialog that
+ * reappears on every navigation is the exact thing that trains users to click
+ * it away without reading.
+ *
+ * Distinguishing the two costs one render: the notice draws nothing until the
+ * client has actually looked at the cookie.
+ */
+export type Consent = "granted" | "denied" | "unset" | "unknown";
 
 export function readConsent(): Consent {
-  if (typeof document === "undefined") return "unset";
+  if (typeof document === "undefined") return "unknown";
   // Bounded by the cookie name so `other_speak_consent` cannot match.
   const hit = document.cookie
     .split("; ")
@@ -78,13 +91,13 @@ export function subscribeConsent(onChange: () => void): () => void {
  * Read consent in a component.
  *
  * `useSyncExternalStore` rather than an effect, for the same reason the attempt
- * store uses it: the server has no cookies, so the server snapshot is always
- * "unset" and the client corrects it on hydration without a mismatch.
+ * store uses it: the server snapshot is `unknown`, and the client replaces it
+ * with the real answer on hydration without a mismatch.
  */
 export function useConsent(): Consent {
   return React.useSyncExternalStore(
     subscribeConsent,
     readConsent,
-    () => "unset" as const,
+    () => "unknown" as const,
   );
 }

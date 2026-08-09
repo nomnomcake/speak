@@ -28,6 +28,10 @@ import { clearAttempts } from "@/lib/attempts";
  */
 export function CookieNotice() {
   const consent = useConsent();
+  // `unset` only — never `unknown`. On the server there is no cookie to read,
+  // and rendering the notice for "I have not looked yet" put it in the static
+  // HTML of every page, so anyone who had already answered saw it flash on
+  // each navigation until hydration removed it.
   if (consent !== "unset") return null;
 
   return (

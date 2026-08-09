@@ -127,8 +127,35 @@ function MicLevel({
     analyser.fftSize = 512;
     source.connect(analyser);
 
+    /**
+     * A hidden tab must never be read as a silent speaker.
+     *
+     * Backgrounding this tab throttles the interval below to about once a
+     * second and lets Chrome suspend the AudioContext. A suspended analyser
+     * returns a flat buffer, which is indistinguishable from a quiet room —
+     * so the detector would count the whole time away as silence and stop a
+     * take from someone who was still talking into it. The clock is safe
+     * either way, because it is measured against a `Date.now()` stamp rather
+     * than accumulated from ticks, but the microphone is not.
+     *
+     * So while hidden the detector does not merely pause: it forgets the
+     * silence it had already seen. Otherwise a nine-second pause, a switch
+     * away, and a return would fire the moment the tab came back, which is
+     * the same wrong answer arriving later.
+     */
+    const onVisibility = () => {
+      silentSinceRef.current = null;
+      // Chrome suspends the context on hide and does not always resume it.
+      if (!document.hidden && ctx.state === "suspended") void ctx.resume();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
     const buf = new Uint8Array(analyser.frequencyBinCount);
     const id = setInterval(() => {
+      if (document.hidden) {
+        silentSinceRef.current = null;
+        return;
+      }
       analyser.getByteTimeDomainData(buf);
       // RMS around the 128 midpoint, then a gentle curve — speech sits low in a
       // linear reading and would leave the meter looking broken.
@@ -165,6 +192,7 @@ function MicLevel({
 
     return () => {
       clearInterval(id);
+      document.removeEventListener("visibilitychange", onVisibility);
       source.disconnect();
       void ctx.close();
     };
