@@ -46,10 +46,26 @@ const FOLDER_COUNT = 5;
  */
 const REVEAL_HOLD_MS = 1100;
 
+/**
+ * Ticks spent decelerating onto the answer. Fixed, like the scan.
+ *
+ * The search used to compute how many steps it needed to land on the target by
+ * walking the folder modulo its length, which made the whole animation as long
+ * as the folder was big. That was invisible at three topics per folder and
+ * became twenty-five seconds at sixty — the duration of the flourish was
+ * quietly a function of how much content existed.
+ *
+ * Now the last eight cards are the eight before the target, so the walk still
+ * genuinely arrives somewhere rather than snapping, and the sequence takes the
+ * same time whether the drawer holds three files or four hundred.
+ */
+const SETTLE_TICKS = 8;
+const TOTAL_TICKS = SCAN_TICKS + SETTLE_TICKS;
+
 /** Constant while scanning, then growing quadratically as it settles. */
-function delayFor(tick: number, settleSteps: number): number {
+function delayFor(tick: number): number {
   if (tick < SCAN_TICKS) return 65;
-  const t = (tick - SCAN_TICKS) / Math.max(1, settleSteps);
+  const t = (tick - SCAN_TICKS) / SETTLE_TICKS;
   return 65 + t * t * 320;
 }
 
@@ -91,18 +107,28 @@ export function TopicRandomizer({
       return () => clearTimeout(settle);
     }
 
-    // Steps needed to land exactly on `target`, plus one full extra pass so
-    // the deceleration has somewhere to happen. total % len === target.
-    const settleSteps = (((target - SCAN_TICKS) % len) + len) % len || len;
-    const total = SCAN_TICKS + settleSteps + len;
+    /**
+     * Which file is on screen at a given tick.
+     *
+     * Scanning runs straight through the drawer. Settling walks the eight
+     * files immediately before the target so the final card is arrived at
+     * rather than cut to — the deceleration is still honest, it just no longer
+     * needs the whole folder to get there.
+     */
+    const indexAt = (t: number) => {
+      if (t < SCAN_TICKS) return t % len;
+      const fromEnd = TOTAL_TICKS - t; // 8 down to 0
+      return ((target - fromEnd) % len + len) % len;
+    };
 
+    const total = TOTAL_TICKS;
     let tick = 0;
     let settling = false;
     let timer: ReturnType<typeof setTimeout>;
 
     const step = () => {
       tick += 1;
-      const next = tick % len;
+      const next = indexAt(tick);
 
       setIndex(next);
       setProgress(tick / total);
@@ -113,13 +139,15 @@ export function TopicRandomizer({
       }
 
       if (tick >= total) {
+        // `indexAt(TOTAL_TICKS)` is the target by construction, so the card
+        // that stops is the card that was landed on.
         setPicked(files[next]);
         setProgress(1);
         setPhase("revealed");
         return;
       }
 
-      timer = setTimeout(step, delayFor(tick, settleSteps + len));
+      timer = setTimeout(step, delayFor(tick));
     };
 
     timer = setTimeout(step, 240);
