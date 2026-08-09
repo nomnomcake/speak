@@ -99,10 +99,18 @@ export function BrowserFrame({
         innerClassName="flex h-full flex-col"
       >
         {/* ---- Tab strip + window controls ------------------------------ */}
-        <div className="flex shrink-0 items-end gap-1.5 bg-mint-soft px-3 pt-2">
+        {/* Scrolls sideways instead of overflowing. `flex` does not wrap, so
+            five tabs and the plus button simply ran off the end of the chrome
+            on a phone — and the chrome is the one thing in this layout that is
+            fixed, so what it overflows is the page. Real browsers scroll their
+            tab strip, which is also the nostalgic behaviour. The bar is hidden
+            because a scrollbar inside the chrome would read as content. */}
+        <div className="no-scrollbar flex shrink-0 items-end gap-1.5 overflow-x-auto bg-mint-soft px-3 pt-2">
           {tabs.map((t) => {
             const className = cn(
-              "pixel-clip type-hud flex items-center gap-2 border-2 border-ink border-b-0 px-3 py-2 transition-colors duration-150",
+              // `shrink-0` so tabs keep their width and the strip scrolls,
+              // rather than each tab compressing its label to nothing.
+              "pixel-clip type-hud flex shrink-0 items-center gap-2 border-2 border-ink border-b-0 px-3 py-2 transition-colors duration-150",
               t.active
                 ? "bg-paper text-ink"
                 : t.href
@@ -132,7 +140,7 @@ export function BrowserFrame({
           })}
           <span
             aria-hidden
-            className="pixel-clip mb-0 flex size-7 cursor-default items-center justify-center border-2 border-ink border-b-0 bg-mint text-slate"
+            className="pixel-clip mb-0 flex size-7 shrink-0 cursor-default items-center justify-center border-2 border-ink border-b-0 bg-mint text-slate"
             style={{ ["--notch" as string]: "2px" }}
           >
             <Plus size={12} />

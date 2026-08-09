@@ -154,7 +154,12 @@ export function FolderIcon({
         }
       }}
       className={cn(
-        "group flex w-32 flex-col items-center gap-2.5 p-2 select-none",
+        // `w-full max-w-32`, not `w-32`. A fixed 128px tile could not shrink
+        // below its column, so two of them plus the gap and the panel's own
+        // padding overran a 375px viewport and pushed the desktop sideways.
+        // Fluid up to the same maximum leaves wide layouts identical and lets
+        // narrow ones fit.
+        "group flex w-full max-w-32 flex-col items-center gap-2.5 p-2 select-none",
         "focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-ink",
         disabled && "cursor-not-allowed opacity-40",
         className,

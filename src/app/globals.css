@@ -335,6 +335,25 @@
   }
 }
 
+/* Scroll without a visible bar.
+
+   For the browser chrome's tab strip, which has to scroll sideways on a phone
+   but is not content — a scrollbar drawn across it would read as part of the
+   fake browser's UI rather than as an affordance of the real one.
+
+   Both properties are declared on purpose, and this is the one place where the
+   `scrollbar-color` trap noted in ui-guidelines.md does not bite: there, a
+   standard property silently disabled the ::-webkit- rules that were doing the
+   styling. Here both paths do the same thing, so whichever one the engine
+   picks, the bar is gone. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 /* A panel that looks draggable without being draggable.
 
    Lifts exactly one pixel toward its shadow plate on hover, the same distance
