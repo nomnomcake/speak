@@ -167,6 +167,31 @@ rediscovered.
 - **Never rewrite files with PowerShell `Get-Content -Raw`.** It reads as ANSI
   and turns every em dash into `â€"`. Use the editing tools, or
   `[System.IO.File]::ReadAllText($p, [System.Text.Encoding]::UTF8)`.
+- **`break-words` hides overflow instead of reporting it.** A label that cannot
+  fit its column silently splits mid-word — `ECONOMI/CS` — so every automated
+  check passes while the desktop plainly looks broken. Overflow measurements
+  will not find these; only looking will.
+
+## Checking a narrow viewport
+
+The window here cannot be resized below the display width, so a phone layout
+cannot be seen by shrinking the browser. **Use a same-origin iframe**: it gets
+its own viewport, so `sm:` and friends evaluate against *its* width, not the
+window's.
+
+```js
+const f = document.createElement("iframe");
+f.src = "http://localhost:3000/play";
+f.style.cssText = "position:fixed;top:0;left:0;width:390px;height:790px;z-index:99999";
+document.body.appendChild(f);
+// then read f.contentDocument / f.contentWindow, and screenshot the tab
+```
+
+Two traps: measure well after `onload`, because entrance animations report
+zero width until they finish; and `documentElement.scrollWidth` inside the
+frame is the honest overflow number, whereas narrowing the real page with
+`html.style.width` is not — fixed-position chrome keeps sizing to the actual
+viewport and every figure comes out wrong.
 
 ## Checklist for new UI
 

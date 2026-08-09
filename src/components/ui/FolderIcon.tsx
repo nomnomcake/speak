@@ -159,7 +159,7 @@ export function FolderIcon({
         // padding overran a 375px viewport and pushed the desktop sideways.
         // Fluid up to the same maximum leaves wide layouts identical and lets
         // narrow ones fit.
-        "group flex w-full max-w-32 flex-col items-center gap-2.5 p-2 select-none",
+        "group flex w-full max-w-32 flex-col items-center gap-2.5 p-1 select-none sm:p-2",
         "focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-ink",
         disabled && "cursor-not-allowed opacity-40",
         className,
@@ -172,7 +172,11 @@ export function FolderIcon({
       <span className="flex max-w-full flex-col items-center gap-1">
         <span
           className={cn(
-            "pixel-clip type-caps max-w-full px-2 py-1 text-center text-[11px] leading-tight break-words transition-colors duration-100",
+            // Tighter horizontal padding below `sm`. `break-words` is a last
+            // resort that only looks like one — it split ECONOMICS across two
+            // lines rather than overflowing, so the grid never reported a
+            // problem while the desktop plainly had one.
+            "pixel-clip type-caps max-w-full px-1.5 py-1 text-center text-[11px] leading-tight break-words transition-colors duration-100 sm:px-2",
             selected
               ? "bg-mint-shade text-ink"
               : "text-ink group-hover:bg-mint-soft group-hover:text-ink",

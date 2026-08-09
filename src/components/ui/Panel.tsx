@@ -154,8 +154,11 @@ export function Panel({
           "relative flex-1",
           sky && "pixel-clip overflow-hidden",
           // Sky windows get a generous inset so a band of clouds frames the
-          // white cards, the way the reference does it.
-          !flush && (sky ? "p-6 sm:p-8" : "p-4"),
+          // white cards, the way the reference does it. The inset steps down
+          // on a phone: 24px a side is a tenth of the viewport there, and it
+          // was squeezing the folder grid's columns to 91px — narrow enough
+          // that "Technology" broke across two lines mid-word.
+          !flush && (sky ? "p-3 sm:p-8" : "p-4"),
           bodyClassName,
         )}
         style={
