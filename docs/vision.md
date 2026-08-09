@@ -85,7 +85,7 @@ including this one.**
 | 3. Timers and state | **Done** | Research countdown, presentation mode, phase transitions. |
 | 4. Capture | **Done** | Camera and microphone, live preview, level meter, recording, live transcript. |
 | 5. Scoring | **Partly built** | Rubric, prompt, provider seam and report UI all built. Needs a key in `.env.local` to run against a model; falls back to clearly-labelled sample scores without one. |
-| 6. Archive | **Started** | Dashboard shows streak, collection and score averages. Per-session history and replay not built. |
+| 6. Archive | **Built** | Dashboard shows streak, collection and score averages; `/archive` lists every session and expands to its scores and transcript. Replay of a past take is **not** built and cannot be without a decision — recordings die with the tab deliberately, so replaying an old one means persisting video of someone's face, which [topic-schema.md](./topic-schema.md#storage) says must never be the default. |
 
 Sessions persist to `localStorage` (`speak:attempts`). Recordings do not —
 they live in memory for the report and die with the tab, deliberately.

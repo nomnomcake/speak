@@ -105,7 +105,40 @@ const STEP_MS = 520;
 const READY_HOLD_MS = 750;
 const TICK_MS = 700;
 
+/**
+ * A retake remounts the run rather than resetting it.
+ *
+ * Resetting by hand means clearing a stage, a step, a count, a lockout clock,
+ * a stream, a recording, a report, a duration, two refs and a save flag —
+ * and, worse, the transcriber's `result`, which this component cannot reach.
+ * That one is not hypothetical: the transcript is only recomputed when the
+ * recogniser tears down, so for one render a second take would carry the first
+ * take's words, and the analyze effect reads exactly that value. A silent
+ * retake would have been scored against what you said the time before.
+ *
+ * A key makes every one of those impossible instead of merely handled, which
+ * is worth more than the remount costs. The camera is re-acquired on the way
+ * back through, which is correct anyway — the old stream's tracks were stopped
+ * when the take ended.
+ */
 export function PresentationMode({ topic }: { topic: Topic }) {
+  const [run, setRun] = React.useState(0);
+  return (
+    <SessionRun
+      key={run}
+      topic={topic}
+      onRetake={() => setRun((n) => n + 1)}
+    />
+  );
+}
+
+function SessionRun({
+  topic,
+  onRetake,
+}: {
+  topic: Topic;
+  onRetake: () => void;
+}) {
   const [stream, setStream] = React.useState<MediaStream | null>(null);
   const [denied, setDenied] = React.useState<string | null>(null);
   const [step, setStep] = React.useState(0);
@@ -479,6 +512,17 @@ export function PresentationMode({ topic }: { topic: Topic }) {
          * the moment the talk ended.
          */
         onFinish={() => router.push("/dashboard")}
+        /**
+         * The same topic again, which "New challenge" cannot give you — it
+         * goes to the folder desktop and draws a different one. The moment
+         * someone most wants another go is the moment they have just been
+         * told how the last one went.
+         *
+         * The previous attempt stays in history rather than being replaced.
+         * Two takes at one topic is a real thing that happened, and the
+         * collection count is over distinct topics, so it does not inflate.
+         */
+        onRetake={onRetake}
       >
         {recording ? (
           <ReviewWindow

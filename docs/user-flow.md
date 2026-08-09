@@ -138,7 +138,14 @@ Scores, transcript, and one concrete thing to fix.
 - **Exactly one** piece of advice. A list of six weaknesses is a list nobody
   acts on
 - Which of the suggested angles they took, or whether they found a better one
-- Actions: **Retake** · **Next** · **Archive**
+- Actions: **Retake** · **New challenge** · **Home**
+
+Retake remounts the run rather than resetting it, so a second take cannot
+inherit anything from the first — including the transcript, which is only
+recomputed when the recogniser tears down and would otherwise be one render
+stale. The earlier attempt stays in history: two takes at one topic is a real
+thing that happened, and the collection count is over distinct topics, so it
+does not inflate.
 
 ## Screens
 
@@ -147,10 +154,10 @@ Scores, transcript, and one concrete thing to fix.
 | `/` | Landing | Today's topic, streak, totals |
 | `/play` | Desktop | **Built** — folders, search, reveal |
 | `/research` | Research window | **Built** — notes, timer, resources |
-| `/session` | Speak | **Partly built** — presentation mode, then live camera and mic. No capture to disk, no auto-stop |
+| `/session` | Speak | **Built** — lockout, count-in, camera and mic, recording, live transcript, auto-stop, analysis, readout |
 | `/session/readout` | Readout | Not a route — the Speaking Report renders in-place at the end of `/session`, since the take only exists in memory and a navigation would lose it |
-| `/dashboard` | Dashboard | **Built on mock data** — streak, collection, categories, recent, achievements |
-| `/archive` | Archive | Not built |
+| `/dashboard` | Dashboard | **Built** — streak, collection, categories, recent, achievements, all from stored sessions |
+| `/archive` | Archive | **Built** — every session, expandable to its scores and transcript |
 
 `/research` accepts `?topic=<id>`. An unknown or missing id falls back to the
 day's topic, so arriving from the tab bar is a valid way in.

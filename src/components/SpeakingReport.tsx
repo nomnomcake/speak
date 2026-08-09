@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ChevronRight, Home, Shuffle, TrendingUp } from "lucide-react";
+import { ChevronRight, Home, RotateCcw, Shuffle, TrendingUp } from "lucide-react";
 import {
   Badge,
   Button,
@@ -123,10 +123,14 @@ function ComingSoon({
 export function SpeakingReport({
   feedback,
   onFinish,
+  onRetake,
   children,
 }: {
   feedback: AiFeedback;
   onFinish: () => void;
+  /** Another go at the same topic. Optional so the report can be shown
+   *  somewhere there is nothing to retake — the archive, later. */
+  onRetake?: () => void;
   /** The recording player, composed in rather than rebuilt. */
   children?: React.ReactNode;
 }) {
@@ -429,6 +433,19 @@ export function SpeakingReport({
         <Button size="sm" onClick={onFinish} iconLeft={<TrendingUp size={13} />}>
           Save and finish
         </Button>
+        {/* Retake before New challenge: user-flow.md lists it first, and it is
+            the one people reach for after being told how it went. Same topic,
+            straight back into the lockout. */}
+        {onRetake && (
+          <Button
+            size="sm"
+            variant="secondary"
+            onClick={onRetake}
+            iconLeft={<RotateCcw size={13} />}
+          >
+            Retake
+          </Button>
+        )}
         <Button size="sm" variant="secondary" href="/play" iconLeft={<Shuffle size={13} />}>
           New challenge
         </Button>
