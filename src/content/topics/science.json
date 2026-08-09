@@ -1019,5 +1019,212 @@
       "sediment long distance electron conduction"
     ],
     "references": []
+  },
+  {
+    "id": "warburg-effect",
+    "title": "Why a tumour burns sugar the wasteful way",
+    "category": "science",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain why many tumours ferment glucose even when oxygen is available, and why the explanation is still argued over.",
+    "suggestedAngles": [
+      "Compare the energy yield of the two pathways and ask what the cell is buying with the loss",
+      "Frame the demand as building material rather than fuel",
+      "Treat the disagreement as the subject: cause of the cancer, consequence of it, or side effect"
+    ],
+    "tags": [
+      "cancer",
+      "metabolism",
+      "biochemistry",
+      "glycolysis"
+    ],
+    "searchTerms": [
+      "Warburg effect tumour metabolism",
+      "aerobic glycolysis cancer cells"
+    ],
+    "references": []
+  },
+  {
+    "id": "chemotherapy-selectivity",
+    "title": "Why chemotherapy takes your hair",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain what classical chemotherapy actually targets, and why its side effects fall where they do.",
+    "suggestedAngles": [
+      "Name the fastest-dividing tissues first and let the side effects follow as a prediction",
+      "Frame the whole problem as a therapeutic index rather than a search for a poison",
+      "Use targeted therapy as the contrast: what changed once the target stopped being 'dividing'"
+    ],
+    "tags": [
+      "cancer",
+      "pharmacology",
+      "cell-division",
+      "treatment"
+    ],
+    "searchTerms": [
+      "cytotoxic chemotherapy mechanism",
+      "therapeutic index cancer drugs"
+    ],
+    "references": []
+  },
+  {
+    "id": "abo-blood-antibodies",
+    "title": "Why you carry antibodies against blood you have never met",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain why someone with type A blood already carries antibodies against type B without ever having encountered it, and what that forces transfusion to check.",
+    "suggestedAngles": [
+      "Start from the sugars on the cell surface and treat the groups as decoration rather than as types",
+      "Follow the antibodies back to gut bacteria and ask what the immune system thought it was answering",
+      "Use a mismatched transfusion to show why the reaction is immediate rather than learned"
+    ],
+    "tags": [
+      "immunology",
+      "blood",
+      "transfusion",
+      "antigens"
+    ],
+    "searchTerms": [
+      "ABO blood group antigens",
+      "isohaemagglutinins natural antibodies"
+    ],
+    "references": []
+  },
+  {
+    "id": "anaphylaxis-sensitisation",
+    "title": "Why the second exposure is the dangerous one",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain why a first contact with an allergen can pass unnoticed while the next one is life-threatening.",
+    "suggestedAngles": [
+      "Separate the visit that sensitises from the visit that reacts, and give each its own cells",
+      "Follow one mast cell: what is loaded onto it first, and what pulls the trigger later",
+      "Explain why the collapse is systemic when the contact was local"
+    ],
+    "tags": [
+      "immunology",
+      "allergy",
+      "mast-cells",
+      "hypersensitivity"
+    ],
+    "searchTerms": [
+      "IgE sensitisation mast cells",
+      "anaphylaxis mechanism"
+    ],
+    "references": []
+  },
+  {
+    "id": "sepsis-host-response",
+    "title": "When the defence does the killing",
+    "category": "science",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain why sepsis can keep killing after the infection itself is controlled, and what that implies about how to treat it.",
+    "suggestedAngles": [
+      "Trace the organ damage to the response rather than to the pathogen",
+      "Use the blood vessels to explain why organs fail a long way from the infection",
+      "Frame the treatment problem as timing rather than strength"
+    ],
+    "tags": [
+      "immunology",
+      "inflammation",
+      "critical-care",
+      "physiology"
+    ],
+    "searchTerms": [
+      "sepsis host response",
+      "cytokine storm organ failure"
+    ],
+    "references": []
+  },
+  {
+    "id": "liver-heart-regeneration",
+    "title": "Why the liver grows back and the heart does not",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain what lets liver tissue restore its own mass after injury, and why heart muscle answers the same injury with a scar.",
+    "suggestedAngles": [
+      "Compare what each cell type does with the cell cycle once it has matured",
+      "Frame scar tissue as the repair a body settles for when regrowth is unavailable",
+      "Ask what regrowth would cost a tissue that is not allowed to stop contracting"
+    ],
+    "tags": [
+      "physiology",
+      "regeneration",
+      "cell-cycle",
+      "organs"
+    ],
+    "searchTerms": [
+      "liver regeneration hepatocytes",
+      "cardiomyocyte cell cycle exit"
+    ],
+    "references": []
+  },
+  {
+    "id": "ageing-antagonistic-pleiotropy",
+    "title": "Why evolution permits ageing at all",
+    "category": "science",
+    "difficulty": "adversarial",
+    "researchPrompt": "Explain why natural selection fails to remove genes that harm us late in life, and why some of them are actively favoured.",
+    "suggestedAngles": [
+      "Show how the force of selection falls with age and what that permits to accumulate",
+      "Take one gene that pays early and costs late, and follow both effects to their ends",
+      "Contrast the idea with wear-and-tear and say what each one predicts differently"
+    ],
+    "tags": [
+      "evolution",
+      "ageing",
+      "genetics",
+      "senescence"
+    ],
+    "searchTerms": [
+      "antagonistic pleiotropy ageing",
+      "evolutionary theory of senescence"
+    ],
+    "references": []
+  },
+  {
+    "id": "referred-pain",
+    "title": "Why a heart attack hurts in the arm",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain why pain arising in an internal organ is felt somewhere else on the body surface.",
+    "suggestedAngles": [
+      "Follow two nerves to the same segment of the cord and ask what the brain is left to guess",
+      "Frame the misplacement as a decoding problem rather than as faulty wiring",
+      "Use the map of referral sites to show the error is predictable rather than random"
+    ],
+    "tags": [
+      "neuroscience",
+      "pain",
+      "anatomy",
+      "physiology"
+    ],
+    "searchTerms": [
+      "referred pain convergence",
+      "viscerosomatic convergence spinal cord"
+    ],
+    "references": []
+  },
+  {
+    "id": "number-needed-to-treat",
+    "title": "What halving your risk actually buys",
+    "category": "science",
+    "difficulty": "technical",
+    "researchPrompt": "Explain how one trial result can be reported as a dramatic reduction and as a negligible one at the same time, and which number a patient should be given.",
+    "suggestedAngles": [
+      "Work a single example through both framings and read the two sentences aloud against each other",
+      "Derive the number needed to treat and say what it means for one person rather than a population",
+      "Use the base rate to show when a large relative effect is worth almost nothing"
+    ],
+    "tags": [
+      "evidence",
+      "statistics",
+      "clinical-trials",
+      "risk"
+    ],
+    "searchTerms": [
+      "number needed to treat",
+      "absolute versus relative risk reduction"
+    ],
+    "references": []
   }
 ]

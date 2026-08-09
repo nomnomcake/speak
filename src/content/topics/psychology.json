@@ -1050,5 +1050,23 @@
       "side effect expectation control group"
     ],
     "references": []
+  },
+  {
+    "id": "phantom-limb-remapping",
+    "title": "Why a missing limb can still hurt",
+    "category": "psychology",
+    "difficulty": "technical",
+    "researchPrompt": "Explain how sensation persists in a limb that is no longer there, and what the cortex does with the territory it used to serve.",
+    "suggestedAngles": [
+      "Start from the body map and ask what happens to a region that loses its input",
+      "Use the face-to-hand referral to make the remapping something you can demonstrate rather than assert",
+      "Explain why a mirror can change the sensation, and what that implies about the cause"
+    ],
+    "tags": ["neuroscience", "perception", "plasticity", "body-image"],
+    "searchTerms": [
+      "phantom limb cortical remapping",
+      "somatosensory plasticity amputation"
+    ],
+    "references": []
   }
 ]
