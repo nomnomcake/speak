@@ -18,10 +18,13 @@ import * as React from "react";
  *
  * The line between the two categories is the ordinary one. Session history is
  * optional: the product works without it, you just lose the archive. The
- * research notes and the countdown are not — the fifteen-minute phase is
- * explicitly allowed to survive a closed tab, and without that storage the
- * feature is not degraded, it is broken. Those are named in the notice rather
- * than hidden behind "strictly necessary".
+ * countdown is not — the fifteen-minute phase is explicitly allowed to survive
+ * a closed tab, and without that storage the feature is not degraded, it is
+ * broken. Both are named in the notice rather than hidden behind "strictly
+ * necessary".
+ *
+ * The countdown and the consent cookie are the whole list. There is no
+ * notepad: the research screen tells you to take notes on paper, by hand.
  */
 
 const COOKIE = "speak_consent";

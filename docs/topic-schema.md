@@ -65,12 +65,20 @@ now — catalogue card, search screen and the landing widget, which was missed
 the first time and left the product's opening screen contradicting the two
 after it. Rendering `topic.difficulty` into the UI is the bug.
 
-### Why `title` is hidden until the readout
+### Why `title` is sealed until selection
 
 A title is a summary. Handing the user "Why Bond Yields Move Inversely to
 Price" gives away the synthesis we are asking them to perform. The landing
 page's Today's Topic widget deliberately shows category, class mark and
 timings — never the title.
+
+**Selection is what unseals it, not the readout** — the heading here said
+"until the readout" for a while, which contradicted `user-flow.md` and the
+product. The title appears on the catalogue card the moment the search lands,
+because from that point on it is the name of the thing you are researching and
+withholding it would just be obstruction. What has to stay sealed is every
+title you did *not* pick: the desktop and the search show filenames, categories
+and durations only.
 
 ### Why `searchTerms` is authored, not derived
 
@@ -253,7 +261,7 @@ Storage splits in two, and the notice names both rather than hiding one behind
 | What | Where | Optional? |
 | --- | --- | --- |
 | The consent answer | cookie | no — it *is* the answer |
-| Research notes, countdown | `localStorage` | no — the 15-minute phase is specified to survive a closed tab |
+| The research countdown | `localStorage` | no — the 15-minute phase is specified to survive a closed tab |
 | Session history | `localStorage` | **yes** |
 
 `denied` is enforced in `write()` in `lib/attempts.ts` — one function, rather

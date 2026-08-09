@@ -54,10 +54,15 @@ export function CookieNotice() {
         className="pointer-events-auto w-full max-w-md"
       >
         <div className="space-y-3">
+          {/* Says "research timer" and not "notes". There is no notepad in
+              this product — the research screen tells you to take notes on
+              paper, by hand — and a privacy notice listing a thing the app
+              does not store is the same failure as one hiding a thing it does.
+              Caught by playing the product rather than by reading it. */}
           <p className="text-sm leading-relaxed text-graphite">
             Speak keeps everything on this device. One cookie remembers your
-            answer to this. Your notes and research timer are stored locally so
-            closing the tab does not cost you the session.
+            answer to this. Your research timer is stored locally so closing the
+            tab does not cost you the session.
           </p>
 
           <p className="text-sm leading-relaxed text-graphite">

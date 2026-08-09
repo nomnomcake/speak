@@ -32,12 +32,20 @@ readout.
 
 ### 3. RESEARCH — 15 min · `/research?topic=<id>`
 
-A desktop application window: the topic and its research prompt, a notepad, a
-countdown timer widget, suggested angles, and links to sources.
+A desktop application window: the catalogue card, four instructions, a search
+toolbox and a countdown timer widget.
 
-The user researches the idea themselves. Notes and timer persist to
-localStorage, so closing the tab does not cost the session, and a timer left
-running is charged the time that passed rather than pausing itself.
+**There is no notepad, and the suggested angles are not shown.** Both were
+listed here long after the screen stopped having them, and the omissions are
+right. Instruction 02 is "take notes on paper, by hand" — a textarea beside the
+sources invites transcription, and transcribed notes are what LOCKOUT exists to
+take away. The angles stay hidden for the reason the title used to: handing
+over the framings is handing over the synthesis. They are authored for
+`scores.coverage` to mark against, not for the speaker to read.
+
+So the only thing persisted here is the countdown, which is what lets a closed
+tab not cost the session. A timer left running is charged the time that passed
+rather than pausing itself.
 
 ### 4. LOCKOUT — 10/15/20s by difficulty · `/session`
 
