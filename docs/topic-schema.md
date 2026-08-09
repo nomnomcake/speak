@@ -56,15 +56,20 @@ thinks it is, which is the one judgement that belongs to the reader, and
 "adversarial" is authoring vocabulary leaking onto the object. An archive
 stamps a filing tier, not an opinion.
 
-The mapping lives in `CLASS_MARK` in `CatalogueCard.tsx` and is keyed off the
+The mapping lives in `CLASS_MARK` in `lib/topics/types.ts` and is keyed off the
 `Difficulty` union, so a new tier is a compile error rather than a blank stamp.
 The enum keeps its names — they are good words for authors, just not for users.
+
+**Every screen that shows the tier goes through `CLASS_MARK`.** All three do
+now — catalogue card, search screen and the landing widget, which was missed
+the first time and left the product's opening screen contradicting the two
+after it. Rendering `topic.difficulty` into the UI is the bug.
 
 ### Why `title` is hidden until the readout
 
 A title is a summary. Handing the user "Why Bond Yields Move Inversely to
 Price" gives away the synthesis we are asking them to perform. The landing
-page's Today's Topic widget deliberately shows category, difficulty and
+page's Today's Topic widget deliberately shows category, class mark and
 timings — never the title.
 
 ### Why `searchTerms` is authored, not derived

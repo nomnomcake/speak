@@ -13,6 +13,7 @@ import {
 } from "@/components/ui";
 import { HomeStats } from "@/components/HomeStats";
 import { tabsFor } from "@/lib/nav";
+import { CLASS_MARK } from "@/lib/topics";
 import { todaysChallenge } from "@/lib/mock";
 import { ArrowRight, Lock } from "lucide-react";
 
@@ -92,9 +93,21 @@ export default function HomePage() {
                         </div>
                       </div>
                       <div>
-                        <div className="type-hud text-mint">Difficulty</div>
-                        <div className="text-lg font-semibold capitalize">
-                          {todaysChallenge.difficulty}
+                        {/* The class mark, not the enum. This widget was the
+                            last place still stamping DIFFICULTY: TECHNICAL —
+                            the card and the search screen were converted and
+                            this one was missed, so the first screen of the
+                            product contradicted the two after it. See
+                            "Difficulty is not shown as a difficulty" in
+                            topic-schema.md. */}
+                        {/* "Filing", not "Class" — the value already says
+                            Class II, and CLASS / Class II stutters. On the
+                            catalogue card the mark is a bare stamp, so it
+                            carries its own noun; here it is a labelled field
+                            next to CATEGORY and needs a different one. */}
+                        <div className="type-hud text-mint">Filing</div>
+                        <div className="text-lg font-semibold">
+                          {CLASS_MARK[todaysChallenge.difficulty]}
                         </div>
                       </div>
                     </div>
