@@ -76,7 +76,16 @@ function CategoryRow({
 
   return (
     <div className="flex items-center gap-3 px-4 py-2.5 transition-colors duration-150 hover:bg-mint-mist">
-      <span className="type-hud w-24 shrink-0 text-graphite">{category}</span>
+      {/* `w-32`, measured rather than guessed. Silkscreen at 10px with 0.14em
+          tracking runs about 11.9px per character, so the four ten-letter
+          categories — PHILOSOPHY, TECHNOLOGY, PSYCHOLOGY, ECONOMICS — need
+          roughly 119px. At `w-24` they overran into the first block of their
+          own meter; at `w-28` they still overflowed the box and were only
+          rescued by the 12px gap. 128px contains them.
+
+          Fixed rather than sized to content, because the meters have to start
+          on one line down the list. */}
+      <span className="type-hud w-32 shrink-0 text-graphite">{category}</span>
       <ProgressBar
         value={ratio}
         variant="segmented"
@@ -360,7 +369,7 @@ export function Dashboard() {
                 <div className="space-y-2">
                   {averages.byDimension.map((d) => (
                     <div key={d.key} className="flex items-center gap-3">
-                      <span className="type-hud w-28 shrink-0 text-graphite">
+                      <span className="type-hud w-44 shrink-0 text-graphite">
                         {d.label}
                       </span>
                       <ProgressBar

@@ -27,7 +27,7 @@ import { SCORE_KEYS, SCORE_LABELS, type AiFeedback } from "@/lib/ai/types";
 function Meter({ label, value }: { label: string; value: number }) {
   return (
     <div className="flex items-center gap-3">
-      <span className="type-hud w-28 shrink-0 text-graphite">{label}</span>
+      <span className="type-hud w-44 shrink-0 text-graphite">{label}</span>
       <ProgressBar
         value={value / 100}
         variant="segmented"

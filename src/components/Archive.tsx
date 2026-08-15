@@ -144,7 +144,7 @@ function Row({
                     {SCORE_KEYS.map((k) =>
                       typeof fb.scores?.[k] === "number" ? (
                         <div key={k} className="flex items-center gap-3">
-                          <span className="type-hud w-28 shrink-0 text-graphite">
+                          <span className="type-hud w-44 shrink-0 text-graphite">
                             {SCORE_LABELS[k]}
                           </span>
                           <ProgressBar
