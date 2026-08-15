@@ -514,7 +514,11 @@ export function Dashboard() {
               neither belongs next to Start a session. */}
           {ready && (
             <div className="ml-auto flex flex-wrap items-center gap-2">
-              <Button size="sm" variant="ghost" onClick={openNotice}>
+              {/* `secondary`, not `ghost`. Ghost has no plates by design, so
+                  this was still a bare line of text on the trailing edge —
+                  which is most of what was wrong with it as a caption. If it
+                  is a button it should look pressable. */}
+              <Button size="sm" variant="secondary" onClick={openNotice}>
                 Stored in this browser
               </Button>
               {consent === "granted" && (

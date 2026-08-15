@@ -90,31 +90,58 @@ export function CookieNotice() {
             you ask for them.
           </p>
 
+          {/* Which way it is currently set, and only shown once there is an
+              answer to report. Reopening the dialog to a pair of buttons with
+              no indication of the current state means the only way to find out
+              is to press one, and one of them erases things. */}
+          {consent !== "unset" && (
+            <p className="type-hud text-slate">
+              Currently:{" "}
+              {consent === "granted"
+                ? "history is being saved"
+                : "history is not being saved"}
+            </p>
+          )}
+
           <div className="flex flex-wrap items-center gap-2 pt-1">
-            <Button
-              size="sm"
-              onClick={() => {
-                writeConsent("granted");
-                closeNotice();
-              }}
-            >
-              Keep my history
-            </Button>
+            {/* "Accept" and "Decline", because those are the words people look
+                for on this dialog — "Keep my history" described the effect
+                accurately and still sent someone hunting for the accept
+                button. The sentences above carry the meaning; the buttons only
+                have to be findable.
+
+                Only the option that would change something is offered. Showing
+                Decline to somebody who has already declined is a control that
+                does nothing, and the one it sits beside erases data. */}
+            {consent !== "granted" && (
+              <Button
+                size="sm"
+                onClick={() => {
+                  writeConsent("granted");
+                  closeNotice();
+                }}
+              >
+                Accept
+              </Button>
+            )}
+
             {/* Clears as well as refuses. Consent that cannot be withdrawn is
                 not consent, and anything saved before this was answered is
                 exactly what a Decline is about. */}
-            <Button
-              size="sm"
-              variant="secondary"
-              onClick={() => {
-                writeConsent("denied");
-                clearAttempts();
-                void clearTakes();
-                closeNotice();
-              }}
-            >
-              Don&rsquo;t keep it
-            </Button>
+            {consent !== "denied" && (
+              <Button
+                size="sm"
+                variant="secondary"
+                onClick={() => {
+                  writeConsent("denied");
+                  clearAttempts();
+                  void clearTakes();
+                  closeNotice();
+                }}
+              >
+                Decline
+              </Button>
+            )}
 
             {/* Only when summoned from the dashboard. Answering is what closes
                 it the first time; there is no dismiss, because a notice you

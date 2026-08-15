@@ -105,24 +105,26 @@ const COOKIE_BODY: Shape = [
   [[3, 5]],
 ];
 
+/**
+ * Five chips, two units wide each.
+ *
+ * Eight single-unit chips read as speckle rather than chocolate — at this size
+ * a one-pixel dot is noise, and enough of them turn a biscuit into a digestive.
+ * Fewer and chunkier is more legible and, being the point of the drawing,
+ * cuter.
+ */
 const COOKIE_CHIPS: Shape = [
   [],
-  [[4, 1]],
+  [[4, 2]],
+  [],
   [
-    [2, 1],
-    [7, 1],
+    [2, 2],
+    [7, 2],
   ],
-  [[5, 1]],
-  [
-    [1, 1],
-    [8, 1],
-  ],
-  [[3, 1]],
-  [
-    [6, 1],
-    [2, 1],
-  ],
-  [[4, 1]],
+  [],
+  [[5, 2]],
+  [],
+  [[3, 2]],
   [],
 ];
 
