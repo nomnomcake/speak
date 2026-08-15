@@ -83,11 +83,19 @@ export function CatalogueCard({
         <div className="pl-8">
           <div className="type-hud text-mute">Catalogue card · {fileName}</div>
 
-          <h1 className="mt-2 font-mono text-xl leading-tight font-bold tracking-tight uppercase sm:text-2xl">
+          {/* `tracking-normal`, not `tracking-tight`. Capitals are uniform
+              vertical strokes with no descenders to break them up, so they
+              need more letter-spacing than lowercase, not less — negative
+              tracking pulled the word gaps in until DOES NOT ATTACK YOU read
+              as one long word. */}
+          <h1 className="mt-3 font-mono text-xl leading-tight font-bold tracking-normal uppercase sm:text-2xl">
             {topic.title}
           </h1>
 
-          <div aria-hidden className="mt-3 h-0.5 w-full bg-ink" />
+          {/* 12 above, 16 below: the eyebrow and the title are one unit, so
+              the gap inside that pair stays smaller than the gap that closes
+              it. Both land on the 4px grid. */}
+          <div aria-hidden className="mt-4 h-0.5 w-full bg-ink" />
 
           <Teletype
             text={topic.researchPrompt}
