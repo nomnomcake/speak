@@ -571,7 +571,7 @@ function SessionRun({
         <div className="min-h-36 px-1 py-2">
           {stage === "preparing" && (
             <div className="space-y-4">
-              <p className="font-mono text-sm text-graphite">
+              <p className="text-sm text-graphite">
                 Preparing presentation
                 <span className="animate-blink">…</span>
               </p>
@@ -590,7 +590,7 @@ function SessionRun({
 
           {stage === "ready" && (
             <div className="space-y-4">
-              <p className="font-mono text-sm text-graphite">
+              <p className="text-sm text-graphite">
                 Preparing presentation
               </p>
               <ProgressBar
@@ -613,7 +613,7 @@ function SessionRun({
               the same reason. */}
           {stage === "lockout" && (
             <div className="space-y-4">
-              <p className="font-mono text-sm text-graphite">
+              <p className="text-sm text-graphite">
                 Notes closed. Structure your answer.
               </p>
 
@@ -648,7 +648,7 @@ function SessionRun({
 
           {stage === "blocked" && (
             <div className="space-y-3">
-              <p className="font-mono text-sm text-graphite">
+              <p className="text-sm text-graphite">
                 Camera and mic unavailable.
               </p>
               <p className="type-hud text-slate">
@@ -661,7 +661,7 @@ function SessionRun({
               {/* Both or neither is worth saying plainly: the browser asks once
                   for the pair, and a session with no audio has nothing to
                   score, so there is no useful video-only fallback to offer. */}
-              <p className="font-mono text-xs leading-relaxed text-slate">
+              <p className="text-xs leading-relaxed text-slate">
                 Speak needs both. Allow camera and microphone for this site,
                 then try again. Your research time is already spent, so nothing
                 here is waiting on you.

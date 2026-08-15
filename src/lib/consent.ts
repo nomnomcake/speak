@@ -76,6 +76,35 @@ export function revokeConsent(onPurge: () => void) {
   onPurge();
 }
 
+/**
+ * Reopening the notice after it has been answered.
+ *
+ * The dialog is normally shown only while the answer is `unset`, which left no
+ * way back to it — you could withdraw consent from the dashboard but not read
+ * what you had agreed to. A privacy notice you cannot go back and re-read is
+ * halfway to not having one.
+ */
+let forced = false;
+
+export function openNotice() {
+  forced = true;
+  emit();
+}
+
+export function closeNotice() {
+  forced = false;
+  emit();
+}
+
+/** True while the notice has been summoned rather than triggered by `unset`. */
+export function useNoticeOpen(): boolean {
+  return React.useSyncExternalStore(
+    subscribeConsent,
+    () => forced,
+    () => false,
+  );
+}
+
 const listeners = new Set<() => void>();
 
 function emit() {

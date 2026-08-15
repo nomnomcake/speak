@@ -15,6 +15,7 @@ export { BackgroundGrid, type BackgroundGridProps } from "./BackgroundGrid";
 export { PixelSky, type PixelSkyProps } from "./PixelSky";
 export {
   PixelCloud,
+  PixelCookie,
   Sparkle,
   Sprig,
   Sun,

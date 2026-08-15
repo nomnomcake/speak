@@ -21,7 +21,7 @@ import {
   getAttemptsSnapshot,
   subscribeAttempts,
 } from "@/lib/attempts";
-import { revokeConsent, useConsent } from "@/lib/consent";
+import { openNotice, revokeConsent, useConsent } from "@/lib/consent";
 import { clearTakes } from "@/lib/recordings";
 import {
   achievementsFrom,
@@ -499,30 +499,39 @@ export function Dashboard() {
                   Clear history
                 </Button>
               )}
-              <span className="type-hud text-mute">
-                Stored in this browser only
-              </span>
             </>
           )}
 
-          {/* Withdrawing consent, which is the half of the storage notice that
-              is easy to leave unbuilt. A Decline you can only give once, on the
-              first screen, before you have seen what the product does, is not a
-              choice anyone is in a position to make. This erases what exists
-              and stops history being written from here on. */}
-          {ready && consent === "granted" && (
-            <Button
-              size="sm"
-              variant="ghost"
-              onClick={() =>
-                revokeConsent(() => {
-                  void clearTakes();
-                  clearAttempts();
-                })
-              }
-            >
-              Stop keeping history
-            </Button>
+          {/* The storage controls, pushed to the trailing edge by `ml-auto`.
+              "Stored in this browser only" used to be a bare line of text
+              floating between the buttons, which read as a caption that had
+              lost its picture — and it was the only thing on the row that
+              looked interactive without being so. It is a button now, and it
+              does the thing that sentence was hinting at: reopens the notice
+              so you can read what you agreed to.
+
+              Withdrawal sits beside it, because the two belong together and
+              neither belongs next to Start a session. */}
+          {ready && (
+            <div className="ml-auto flex flex-wrap items-center gap-2">
+              <Button size="sm" variant="ghost" onClick={openNotice}>
+                Stored in this browser
+              </Button>
+              {consent === "granted" && (
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() =>
+                    revokeConsent(() => {
+                      void clearTakes();
+                      clearAttempts();
+                    })
+                  }
+                >
+                  Stop keeping history
+                </Button>
+              )}
+            </div>
           )}
         </div>
       </StaggerItem>

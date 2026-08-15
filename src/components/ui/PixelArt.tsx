@@ -85,6 +85,88 @@ export function PixelCloud({
   );
 }
 
+/**
+ * A biscuit, for the storage notice.
+ *
+ * Two shapes rather than one, because the chips need their own colour and a
+ * run-length row carries no colour of its own — the body is drawn first and
+ * the chips punched over it. Eleven units across, which is the smallest grid
+ * where a round edge still reads as round rather than as a stop sign.
+ */
+const COOKIE_BODY: Shape = [
+  [[3, 5]],
+  [[2, 7]],
+  [[1, 9]],
+  [[0, 11]],
+  [[0, 11]],
+  [[0, 11]],
+  [[1, 9]],
+  [[2, 7]],
+  [[3, 5]],
+];
+
+const COOKIE_CHIPS: Shape = [
+  [],
+  [[4, 1]],
+  [
+    [2, 1],
+    [7, 1],
+  ],
+  [[5, 1]],
+  [
+    [1, 1],
+    [8, 1],
+  ],
+  [[3, 1]],
+  [
+    [6, 1],
+    [2, 1],
+  ],
+  [[4, 1]],
+  [],
+];
+
+export function PixelCookie({
+  unit = 3,
+  fill = "#8fbfb9",
+  chip = "#2a3230",
+  className,
+  style,
+}: {
+  /** Size of one pixel block, in px. */
+  unit?: number;
+  fill?: string;
+  chip?: string;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
+  const w = shapeWidth(COOKIE_BODY);
+  const h = COOKIE_BODY.length;
+
+  return (
+    <svg
+      viewBox={`0 0 ${w} ${h}`}
+      width={w * unit}
+      height={h * unit}
+      shapeRendering="crispEdges"
+      className={className}
+      style={style}
+      aria-hidden
+    >
+      {COOKIE_BODY.map((runs, y) =>
+        runs.map(([start, len], i) => (
+          <rect key={`b${y}-${i}`} x={start} y={y} width={len} height={1} fill={fill} />
+        )),
+      )}
+      {COOKIE_CHIPS.map((runs, y) =>
+        runs.map(([start, len], i) => (
+          <rect key={`c${y}-${i}`} x={start} y={y} width={len} height={1} fill={chip} />
+        )),
+      )}
+    </svg>
+  );
+}
+
 /** Four-point pixel sparkle, as in the reference's CONNECT panel. */
 export function Sparkle({
   size = 12,

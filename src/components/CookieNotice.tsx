@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { Button, Panel } from "@/components/ui";
-import { useConsent, writeConsent } from "@/lib/consent";
+import { Button, Panel, PixelCookie, Sparkle } from "@/components/ui";
+import { closeNotice, useConsent, useNoticeOpen, writeConsent } from "@/lib/consent";
 import { clearAttempts } from "@/lib/attempts";
 import { clearTakes } from "@/lib/recordings";
 
@@ -14,22 +14,17 @@ import { clearTakes } from "@/lib/recordings";
  * fake operating system, and the one moment it has to interrupt you is exactly
  * where a real one would open a window.
  *
- * The copy is specific on purpose. "We use cookies to improve your experience"
- * is the sentence that made these banners meaningless; it says nothing, so it
- * cannot be wrong. This one names what is stored, where it goes, and what
- * declining costs, because all three are short enough to say:
+ * Two sentences, and they are the two that change what somebody would decide:
+ * where the data goes, and what declining costs. "We use cookies to improve
+ * your experience" is the sentence that made these banners meaningless — it
+ * says nothing, so it cannot be wrong. Short is a different thing from vague,
+ * and the test for a cut is whether it would change an answer.
  *
- *  - one cookie, holding the answer to this question
- *  - session history in local storage, which Decline turns off
- *  - the research timer, which is what lets that phase survive a closed tab
- *    and is not optional to the feature
- *  - a recording, but only one you explicitly chose to keep
- *
- * That last line arrived with replay and had to. Recordings used to die with
- * the tab, so a notice that never mentioned them was complete; now they can be
- * kept, and a privacy notice which omits the heaviest thing the product can
- * store would be the worst omission available to it. It still never leaves the
- * device, which is the sentence people actually care about.
+ * Deliberately not said here, because each is said where it actually matters:
+ * that the research timer is what lets that phase survive a closed tab, and
+ * that a recording dies with the tab unless Keep is pressed. The first belongs
+ * on the research screen, the second is written on the Keep button itself.
+ * Neither changes whether someone wants history stored.
  *
  * There is no third button and no preferences panel. Keeping a take is already
  * a per-take decision made at the take, which is a better place to ask than a
@@ -37,11 +32,12 @@ import { clearTakes } from "@/lib/recordings";
  */
 export function CookieNotice() {
   const consent = useConsent();
+  const summoned = useNoticeOpen();
   // `unset` only — never `unknown`. On the server there is no cookie to read,
   // and rendering the notice for "I have not looked yet" put it in the static
   // HTML of every page, so anyone who had already answered saw it flash on
   // each navigation until hydration removed it.
-  if (consent !== "unset") return null;
+  if (consent !== "unset" && !summoned) return null;
 
   return (
     /**
@@ -65,34 +61,43 @@ export function CookieNotice() {
         shadow={6}
         sprig={false}
         className="pointer-events-auto w-full max-w-md"
+        actions={<Sparkle size={9} fill="currentColor" className="text-mint-deep" />}
       >
         <div className="space-y-3">
-          {/* Says "research timer" and not "notes". There is no notepad in
-              this product — the research screen tells you to take notes on
-              paper, by hand — and a privacy notice listing a thing the app
-              does not store is the same failure as one hiding a thing it does.
-              Caught by playing the product rather than by reading it. */}
+          {/* A biscuit, because this is the cookie dialog and the product is a
+              toy operating system. It is the one place a literal joke is
+              cheaper than a paragraph — it says what the window is about
+              before the first sentence is read. */}
+          <div className="flex items-center gap-3">
+            <PixelCookie unit={4} />
+            <p className="type-caps text-graphite">One cookie, and it is yours</p>
+          </div>
+
+          {/* Two lines, and they are the two that change what a person would
+              decide: where their data goes, and what saying no costs them.
+              Short is not the same as vague — nothing here is softened, the
+              detail is just gone. What went: that the research timer is what
+              survives a closed tab, and that recordings die with the tab
+              unless kept. Both are still true and both are said at the moment
+              they matter, on the research screen and on the Keep button. */}
           <p className="text-sm leading-relaxed text-graphite">
-            Speak keeps everything on this device. One cookie remembers your
-            answer to this. Your research timer is stored locally so closing the
-            tab does not cost you the session.
+            Everything stays on this device. No analytics, no tracking, nothing
+            sent anywhere.
           </p>
 
           <p className="text-sm leading-relaxed text-graphite">
-            Session history — which topics you have done, and your scores — is
-            also stored locally, and that part is optional. Recordings are
-            deleted when you close the tab unless you press Keep on one.
+            Your session history is optional, and recordings are only kept if
+            you ask for them.
           </p>
 
-          {/* The one claim worth making loudly, and the only one users of this
-              product are likely to actually care about. */}
-          <p className="type-hud leading-relaxed text-slate">
-            No analytics, no tracking, no third parties. Your recording never
-            leaves this device.
-          </p>
-
-          <div className="flex flex-wrap gap-2 pt-1">
-            <Button size="sm" onClick={() => writeConsent("granted")}>
+          <div className="flex flex-wrap items-center gap-2 pt-1">
+            <Button
+              size="sm"
+              onClick={() => {
+                writeConsent("granted");
+                closeNotice();
+              }}
+            >
               Keep my history
             </Button>
             {/* Clears as well as refuses. Consent that cannot be withdrawn is
@@ -105,10 +110,25 @@ export function CookieNotice() {
                 writeConsent("denied");
                 clearAttempts();
                 void clearTakes();
+                closeNotice();
               }}
             >
               Don&rsquo;t keep it
             </Button>
+
+            {/* Only when summoned from the dashboard. Answering is what closes
+                it the first time; there is no dismiss, because a notice you
+                can wave away without answering is one nobody answers. */}
+            {summoned && (
+              <Button
+                size="sm"
+                variant="ghost"
+                className="ml-auto"
+                onClick={closeNotice}
+              >
+                Close
+              </Button>
+            )}
           </div>
         </div>
       </Panel>

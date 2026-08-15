@@ -175,11 +175,19 @@ export function SpeakingReport({
           <div className="flex flex-col items-center gap-2 py-2">
             <span className="type-hud text-slate">Your speaking score</span>
             {feedback.overallScore !== null ? (
-              <div className="flex items-baseline gap-2">
+              /* The numeral is the thing being centred, not the numeral plus
+                 its suffix. Laid out as a row, "/ 100" took width on the right
+                 and pushed the score left of the label above it — the group
+                 was centred and the number, which is what the eye lands on,
+                 was not. The suffix is taken out of flow and hung off the
+                 right edge so the score sits on the axis. */
+              <div className="relative flex items-baseline">
                 <span className="font-mono text-6xl leading-none tabular-nums">
                   {feedback.overallScore}
                 </span>
-                <span className="type-caps text-slate">/ 100</span>
+                <span className="type-caps absolute top-full left-full ml-2 -translate-y-full whitespace-nowrap text-slate">
+                  / 100
+                </span>
               </div>
             ) : (
               <span className="font-mono text-2xl text-mute">Not scored</span>
