@@ -59,7 +59,11 @@ export function AddressBar() {
   return (
     <div className="flex min-w-0 flex-1 items-center gap-2">
       <div
-        className="pixel-clip flex min-w-0 flex-1 items-center gap-2 border-2 border-ink bg-paper px-2.5 py-1"
+        // px-3, not px-2.5: the inner padding was 10px against an 8px gap
+        // after the padlock, so the icon had less room against the border than
+        // it had against the text and read as pushed into the corner. The
+        // field's own padding should be the larger of the two.
+        className="pixel-clip flex min-w-0 flex-1 items-center gap-2 border-2 border-ink bg-paper px-3 py-1"
         style={{ ["--notch" as string]: "2px" }}
       >
         <PixelLock />
@@ -67,8 +71,25 @@ export function AddressBar() {
           <span className="text-mute">speak.exe/</span>
           {name}
           {/* The topic id, not the whole query string. Enough to tell two
-              research pages apart without printing a URL nobody reads. */}
-          {topic && <span className="text-mute"> · {topic}</span>}
+              research pages apart without printing a URL nobody reads.
+
+              The separator is spaced with margins rather than the literal
+              spaces this used to carry. In a monospace face every space is a
+              full character cell and the dot sits centred in one of its own,
+              so " · " bought roughly a cell and a half either side — loose,
+              and unevenly so, because the gap you see on each side depends on
+              where the neighbouring glyph sits inside its own cell. Margins
+              are symmetric by construction. */}
+          {topic && (
+            <span className="text-mute">
+              {/* Nudged down as well as pulled in. A middle dot is drawn to sit
+                  around the x-height midpoint, which places it above the
+                  optical centre of a line of lowercase — so it reads as
+                  floating rather than separating. */}
+              <span className="mx-0.5 inline-block translate-y-[2px]">·</span>
+              {topic}
+            </span>
+          )}
         </span>
         <Sparkle size={8} fill="currentColor" className="shrink-0 text-mint-deep" />
       </div>
