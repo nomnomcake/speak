@@ -3,10 +3,10 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { PixelFrame } from "./PixelFrame";
 import { BackgroundGrid } from "./BackgroundGrid";
-import { Sprig } from "./PixelArt";
+import { Sprig, TabGlyph, type TabGlyphName } from "./PixelArt";
 import { AddressBar } from "./AddressBar";
 import { TabMark } from "./TabMark";
-import { ChevronLeft, ChevronRight, RotateCw, Plus, Star } from "lucide-react";
+import { ChevronLeft, ChevronRight, RotateCw, Plus } from "lucide-react";
 
 /**
  * BrowserFrame — the fake browser the entire product lives inside.
@@ -66,6 +66,11 @@ export type BrowserTab = {
   active?: boolean;
   /** Renders the tab as a link. Omit for a tab that isn't navigable yet. */
   href?: string;
+  /**
+   * The 9x9 sprite for this destination. Optional so a one-off tab can still
+   * be declared without inventing a glyph for it.
+   */
+  icon?: TabGlyphName;
 };
 
 export type BrowserFrameProps = {
@@ -125,15 +130,18 @@ export function BrowserFrame({
             // like a tab that simply does not work.
             return t.href && !t.active ? (
               <Link key={t.label} href={t.href} className={className} style={style}>
-                <TabMark active={false} />
+                <TabMark active={false} icon={t.icon} />
                 {t.label}
               </Link>
             ) : (
               <span key={t.label} className={className} style={style}>
-                <Star
-                  size={9}
-                  className={cn("shrink-0", t.active ? "text-ink" : "text-mute")}
-                />
+                {t.icon && (
+                  <TabGlyph
+                    name={t.icon}
+                    unit={1}
+                    className={cn("shrink-0", t.active ? "text-ink" : "text-mute")}
+                  />
+                )}
                 {t.label}
               </span>
             );

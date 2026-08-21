@@ -1,4 +1,4 @@
-import type { BrowserTab } from "@/components/ui";
+import type { BrowserTab, TabGlyphName } from "@/components/ui";
 
 /**
  * Only top-level destinations get a tab. `/research` and `/session`
@@ -13,15 +13,15 @@ export type RouteKey =
   | "archive"
   | "design-system";
 
-const TABS: Record<RouteKey, { label: string; href: string }> = {
+const TABS: Record<RouteKey, { label: string; href: string; icon: TabGlyphName }> = {
   // "Home", not "Speak". The tab strip is navigation, and every other tab is
   // where you are going rather than what the product is called — the product
   // name belongs on the page, not in a wayfinding label.
-  home: { label: "Home", href: "/" },
-  play: { label: "Play", href: "/play" },
-  dashboard: { label: "Dashboard", href: "/dashboard" },
-  archive: { label: "Archive", href: "/archive" },
-  "design-system": { label: "Design System", href: "/design-system" },
+  home: { label: "Home", href: "/", icon: "home" },
+  play: { label: "Play", href: "/play", icon: "play" },
+  dashboard: { label: "Dashboard", href: "/dashboard", icon: "dashboard" },
+  archive: { label: "Archive", href: "/archive", icon: "archive" },
+  "design-system": { label: "Design System", href: "/design-system", icon: "design-system" },
 };
 
 /**

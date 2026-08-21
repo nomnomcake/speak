@@ -447,6 +447,179 @@ export const TOOL_GLYPHS = {
   ],
 } satisfies Record<string, Shape>;
 
+/**
+ * Tab glyphs — one per destination in the browser chrome.
+ *
+ * Every tab wore the same star, which is decoration rather than wayfinding:
+ * an icon repeated across five tabs carries no information, and the row reads
+ * as five identical things with different words on them.
+ *
+ * Drawn rather than imported for the reason the tool glyphs are. These render
+ * at 9px in the chrome, and a lucide icon at 9px is a smudge — its curves and
+ * 2px strokes fall between pixels. A 9x9 sprite is authored *for* that size,
+ * which is why the existing set exists and why this joins it rather than
+ * reaching for an icon font.
+ *
+ * Kept separate from TOOL_GLYPHS because they are a different vocabulary:
+ * those name kinds of source, these name places in the product.
+ */
+export const TAB_GLYPHS = {
+  /** A house. Roof, walls, and a door punched out of the bottom courses. */
+  home: [
+    [[4, 1]],
+    [[3, 3]],
+    [[2, 5]],
+    [[1, 7]],
+    [[0, 9]],
+    [[1, 7]],
+    [
+      [1, 2],
+      [6, 2],
+    ],
+    [
+      [1, 2],
+      [6, 2],
+    ],
+    [],
+  ],
+
+  /** A folder, matching the desktop the Play route actually opens on. */
+  play: [
+    [],
+    [[1, 3]],
+    [[0, 9]],
+    [[0, 9]],
+    [[0, 9]],
+    [[0, 9]],
+    [[0, 9]],
+    [],
+    [],
+  ],
+
+  /** Four tiles — the desk of small windows the dashboard is. */
+  dashboard: [
+    [],
+    [
+      [1, 3],
+      [5, 3],
+    ],
+    [
+      [1, 3],
+      [5, 3],
+    ],
+    [
+      [1, 3],
+      [5, 3],
+    ],
+    [],
+    [
+      [1, 3],
+      [5, 3],
+    ],
+    [
+      [1, 3],
+      [5, 3],
+    ],
+    [
+      [1, 3],
+      [5, 3],
+    ],
+    [],
+  ],
+
+  /** A filing cabinet: two drawers, each with a handle notched out. */
+  archive: [
+    [],
+    [[0, 9]],
+    [
+      [0, 3],
+      [6, 3],
+    ],
+    [[0, 9]],
+    [],
+    [[0, 9]],
+    [
+      [0, 3],
+      [6, 3],
+    ],
+    [[0, 9]],
+    [],
+  ],
+
+  /** Three swatches at descending heights — a set of samples. */
+  "design-system": [
+    [],
+    [[1, 2]],
+    [
+      [1, 2],
+      [4, 2],
+    ],
+    [
+      [1, 2],
+      [4, 2],
+      [7, 2],
+    ],
+    [
+      [1, 2],
+      [4, 2],
+      [7, 2],
+    ],
+    [
+      [1, 2],
+      [4, 2],
+      [7, 2],
+    ],
+    [
+      [1, 2],
+      [4, 2],
+      [7, 2],
+    ],
+    [
+      [1, 2],
+      [4, 2],
+      [7, 2],
+    ],
+    [],
+  ],
+} satisfies Record<string, Shape>;
+
+export type TabGlyphName = keyof typeof TAB_GLYPHS;
+
+/** TabGlyph — one sprite from TAB_GLYPHS. Inherits colour, like ToolGlyph. */
+export function TabGlyph({
+  name,
+  unit = 1,
+  fill = "currentColor",
+  className,
+}: {
+  name: TabGlyphName;
+  /** Size of one pixel block, in px. */
+  unit?: number;
+  fill?: string;
+  className?: string;
+}) {
+  const rows = TAB_GLYPHS[name];
+  const w = shapeWidth(rows);
+  const h = rows.length;
+
+  return (
+    <svg
+      viewBox={`0 0 ${w} ${h}`}
+      width={w * unit}
+      height={h * unit}
+      shapeRendering="crispEdges"
+      className={className}
+      aria-hidden
+    >
+      {rows.map((runs, y) =>
+        runs.map(([start, len], i) => (
+          <rect key={`${y}-${i}`} x={start} y={y} width={len} height={1} fill={fill} />
+        )),
+      )}
+    </svg>
+  );
+}
+
 export type ToolGlyphName = keyof typeof TOOL_GLYPHS;
 
 /**

@@ -19,11 +19,13 @@ export {
   Sparkle,
   Sprig,
   Sun,
+  TabGlyph,
   Paperclip,
   ToolGlyph,
   CLOUDS,
   TOOL_GLYPHS,
   type CloudShape,
+  type TabGlyphName,
   type ToolGlyphName,
 } from "./PixelArt";
 export { Stamp, type StampProps } from "./Stamp";
