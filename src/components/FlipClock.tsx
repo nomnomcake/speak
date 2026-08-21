@@ -32,15 +32,26 @@ function FlipDigit({ char, expired }: { char: string; expired: boolean }) {
           // heaviest thing on screen and pulled the eye off the card, but
           // mint-mist at light weight went too far the other way and the
           // digits stopped reading as a display.
-          "pixel-clip block border-2 border-ink px-2 py-1 text-center font-mono text-4xl leading-none tabular-nums sm:text-5xl",
-          expired ? "bg-alert text-ink" : "bg-mint-shade text-ink",
+          // Flex-centred rather than `text-center` on a block. Horizontal
+          // centring was already right — `tabular-nums` gives every digit the
+          // same advance — but vertically the glyph sat high: `leading-none`
+          // makes the line box exactly 1em, and a font's ascent and descent do
+          // not divide that evenly, so the digit floated above the hinge
+          // instead of sitting across it. A fixed height with `items-center`
+          // centres the box itself and stops depending on font metrics.
+          "pixel-clip flex h-14 w-11 items-center justify-center border-2 border-ink font-mono text-3xl leading-none tabular-nums sm:h-16 sm:w-14 sm:text-4xl",
+          expired ? "bg-alert text-paper" : "bg-mint-shade text-paper",
         )}
         style={{
           ["--notch" as string]: "2px",
           transformOrigin: "50% 50%",
         }}
       >
-        {char}
+        {/* Nudged down off geometric centre. Digits have no descenders, so a
+            mathematically centred numeral reads as sitting slightly high — the
+            eye judges the mass, not the box. The tile stays flex-centred and
+            this moves only the glyph, so the two concerns do not fight. */}
+        <span className="block translate-y-[6px]">{char}</span>
       </motion.span>
 
       {/* The hinge. Darker than the card face now that the face is mid-tone,
@@ -75,7 +86,11 @@ export function FlipClock({
             key={`sep-${i}`}
             aria-hidden
             className={cn(
-              "px-0.5 font-mono text-3xl leading-none sm:text-4xl",
+              // Stays dark while the digits go white: the colon sits on the
+              // card, not on a tile, so white here would simply delete it.
+              // Kept a step below the digits — at the same size it stops
+              // reading as punctuation and starts reading as a fifth glyph.
+              "px-0.5 font-mono text-2xl leading-none sm:text-3xl",
               expired ? "text-alert" : "text-ink",
             )}
           >
